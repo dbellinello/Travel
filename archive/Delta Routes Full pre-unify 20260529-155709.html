@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Delta Full Network — All Hubs</title>
+<style>
+  :root {
+    --bg: #f5f4f0; --surface: #ffffff; --surface2: #f0eeea;
+    --border: #d8d5ce; --text: #1a1917; --muted: #6b6860;
+    --delta: #b01028; --accent: #8a2010; --gold: #8a6c1a;
+    --c0: #1a5a1a; --c0bg: #e8f5e8; --c0bd: #a0d8a0;
+    --c1: #1a3a8b; --c1bg: #e8eef8; --c1bd: #a0b8e8;
+    --c2: #7a4a00; --c2bg: #fdf5e0; --c2bd: #e8c870;
+    --warn: #a06010;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; font-size: 15px; font-weight: 400; padding: 0 0 80px; }
+  
+  .nav { background: var(--surface2); border-bottom: 1px solid var(--border); padding: 0; position: sticky; top: 54px; z-index: 99; }
+  .nav-inner { max-width: 940px; margin: 0 auto; padding: 10px 24px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .nav-logo { font-size: 13px; color: var(--accent); flex-shrink: 0; text-transform: uppercase; letter-spacing: 0.06em; }
+  .nav-links { display: flex; gap: 4px; flex-wrap: wrap; }
+  .nav-link { font-family: monospace; font-size: 10px; color: var(--muted); padding: 3px 9px; border: 1px solid var(--border); border-radius: 2px; cursor: pointer; background: none; }
+  .wrap { max-width: 940px; margin: 0 auto; padding: 0 24px; }
+  .header { padding: 20px 0 20px; border-bottom: 1px solid var(--border); margin-bottom: 0; }
+  .header-label { font-family: monospace; font-size: 10px; letter-spacing: 0.22em; color: var(--muted); text-transform: uppercase; margin-bottom: 8px; }
+  .header h1 { font-size: clamp(20px, 3vw, 28px); font-weight: 600; letter-spacing: -0.01em; color: var(--gold); line-height: 1.2; margin-bottom: 10px; }
+  .header p { font-size: 13px; color: var(--muted); line-height: 1.7; max-width: 600px; margin-top: 0; }
+  .tier-legend { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+  .tier-pill { padding: 5px 12px; border-radius: 20px; font-family: monospace; font-size: 11px; font-weight: 500; }
+  .tier-pill.t0 { background: var(--c0bg); color: var(--c0); border: 1px solid var(--c0bd); }
+  .tier-pill.t1 { background: var(--c1bg); color: var(--c1); border: 1px solid var(--c1bd); }
+  .tier-pill.t2 { background: var(--c2bg); color: var(--c2); border: 1px solid var(--c2bd); }
+  .hub-section { margin-bottom: 40px; scroll-margin-top: 100px; }
+  .hub-header { display: flex; align-items: center; gap: 14px; margin-bottom: 4px; padding-bottom: 10px; border-bottom: 1px solid var(--delta); }
+  .hub-code { font-size: 24px; font-weight: 700; color: var(--accent); line-height: 1; }
+  .hub-info { flex: 1; }
+  .hub-city { font-size: 15px; font-weight: 400; }
+  .hub-name { font-family: monospace; font-size: 10px; color: var(--muted); margin-top: 2px; }
+  .hub-stats { font-family: monospace; font-size: 10px; color: var(--muted); text-align: right; line-height: 1.6; }
+  .hub-strength { font-size: 12px; color: var(--muted); margin-bottom: 18px; padding: 8px 14px; background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--gold); border-radius: 3px; line-height: 1.6; }
+  .region-block { margin-bottom: 20px; }
+  .region-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .region-title { font-family: monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+  .region-line { flex: 1; height: 1px; background: #e8e5de; }
+  .dest-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(195px, 1fr)); gap: 7px; }
+  .dest-card { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid; border-radius: 4px; padding: 9px 11px; }
+  .dest-card.t0 { border-left-color: var(--c0); }
+  .dest-card.t1 { border-left-color: var(--c1); }
+  .dest-card.t2 { border-left-color: var(--c2); }
+  .dest-city { font-size: 13px; font-weight: 500; }
+  .dest-code { font-family: monospace; font-size: 10px; color: var(--muted); margin: 2px 0; }
+  .dest-meta { font-size: 11px; color: var(--muted); }
+  .tags { display: flex; flex-wrap: wrap; gap: 3px; margin-top: 4px; }
+  .tag { font-family: monospace; font-size: 9px; padding: 1px 6px; border-radius: 2px; }
+  .tag.new { background: var(--c0bg); color: var(--c0); }
+  .tag.seasonal { background: #fff8e8; color: var(--warn); }
+  .tag.d1 { background: #f8e8e8; color: #7a1010; }
+  .tag.partner { background: var(--c1bg); color: var(--c1); }
+  .tag.yr { background: #f0f0ee; color: var(--muted); }
+  .tier-badge { display: inline-block; font-family: monospace; font-size: 9px; font-weight: 500; letter-spacing: 0.1em; padding: 2px 10px; border-radius: 2px; margin-bottom: 8px; }
+  .tier-badge.t0 { background: var(--c0bg); color: var(--c0); border: 1px solid var(--c0bd); }
+  .tier-badge.t1 { background: var(--c1bg); color: var(--c1); border: 1px solid var(--c1bd); }
+  .tier-badge.t2 { background: var(--c2bg); color: var(--c2); border: 1px solid var(--c2bd); }
+  .note { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--gold); border-radius: 3px; padding: 9px 13px; margin: 0 0 14px; font-size: 12px; color: var(--muted); line-height: 1.6; }
+  .cross-hub { margin: 36px 0 52px; }
+  .cross-hub h2 { font-size: 16px; font-weight: 400; color: var(--accent); margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+  .cross-table { width: 100%; border-collapse: collapse; font-size: 12px; background: var(--surface); border: 1px solid var(--border); }
+  .cross-table th { font-family: monospace; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); padding: 7px 11px; text-align: left; background: var(--surface2); border-bottom: 1px solid var(--border); font-weight: 400; }
+  .cross-table td { padding: 8px 11px; border-bottom: 1px solid #e8e5de; vertical-align: top; }
+  .cross-table tr:last-child td { border-bottom: none; }
+  .hub-pill { display: inline-block; font-family: monospace; font-size: 10px; font-weight: 500; color: var(--accent); background: #f8ece8; border: 1px solid #e8c0b0; border-radius: 3px; padding: 1px 7px; margin-right: 3px; }
+  .filter-bar { margin-bottom: 24px; }
+</style>
+</head>
+<body>
+<div id="toolbar-mount" data-depth="1" data-maxwidth="940"></div>
+<script src="../toolbar.js"></script>
+<nav class="nav">
+<div class="nav-inner">
+  <span class="nav-logo">✈️ Delta Network</span>
+  <div class="nav-links">
+    <a class="nav-link" onclick="document.getElementById('atl').scrollIntoView({behavior:'smooth'})">ATL</a>
+    <a class="nav-link" onclick="document.getElementById('bos').scrollIntoView({behavior:'smooth'})">BOS</a>
+    <a class="nav-link" onclick="document.getElementById('dtw').scrollIntoView({behavior:'smooth'})">DTW</a>
+    <a class="nav-link" onclick="document.getElementById('jfk').scrollIntoView({behavior:'smooth'})">JFK</a>
+    <a class="nav-link" onclick="document.getElementById('lax').scrollIntoView({behavior:'smooth'})">LAX</a>
+    <a class="nav-link" onclick="document.getElementById('msp').scrollIntoView({behavior:'smooth'})">MSP</a>
+    <a class="nav-link" onclick="document.getElementById('sea').scrollIntoView({behavior:'smooth'})">SEA</a>
+    <a class="nav-link" onclick="document.getElementById('slc').scrollIntoView({behavior:'smooth'})">SLC</a>
+    <a class="nav-link" onclick="document.getElementById('cross').scrollIntoView({behavior:'smooth'})">Which Hub?</a>
+  </div>
+</div>
+</nav>
+<div class="wrap">
+  <div class="header">
+    <h1>Delta Full Network — All Hubs</h1>
+  
+  <p class="header-desc">Every international destination from every Delta hub, by connections needed. 🟢 Nonstop · 🔵 1 connection · 🟡 2 connections. Seasonal routes noted — verify at delta.com before booking.</p>
+</div>
+  <div class="tier-legend">
+    <div class="tier-pill t0">🟢 Nonstop</div>
+    <div class="tier-pill t1">🔵 1 connection via Delta hub</div>
+    <div class="tier-pill t2">🟡 2 connections hub + SkyTeam partner</div>
+  </div>
+  <div class="filter-bar">
+    <input class="filter-input" id="destFilter" type="text" placeholder="Filter destinations — city or code…" autocomplete="off">
+    <button class="filter-clear" id="filterClear" onclick="clearFilter()">✕ Clear</button>
+    <span class="filter-count" id="filterCount"></span>
+  </div>
+  <div class="no-results" id="noResults">No destinations match your search.</div>
+
+  <!-- ATL -->
+  <div class="hub-section" id="atl">
+    <div class="hub-header">
+      <div><div class="hub-code">ATL</div></div>
+      <div class="hub-info"><div class="hub-city">Atlanta</div><div class="hub-name">Hartsfield-Jackson · Delta's largest hub · World's busiest airport</div></div>
+      <div class="hub-stats">230 nonstop destinations<br>6,600+ weekly departures<br>8 Sky Clubs</div>
+    </div>
+    <div class="hub-strength">🌎 <strong>Strengths:</strong> Latin America fortress (BOG, LIM, SCL, GRU, GIG, CTG, GUA, PTY, SJO, SAL) · Africa gateway (JNB, LOS, ACC, RAK, CPT, TLV, RUH Oct 2026) · Europe (LHR, AMS, CDG, FRA, FCO, MXP, ATH, DUB, MAD, LIS) · Asia (HND, ICN nonstop)</div>
+    <div class="region-block">
+      <div class="region-header"><span class="region-title">🇪🇺 Europe — Nonstop</span><div class="region-line"></div></div>
+      <div class="tier-badge t0">🟢 Nonstop</div>
+      <div class="dest-grid" style="margin-bottom:10px;">
+        <div class="dest-card t0"><div class="dest-city">Amsterdam</div><div class="dest-code">AMS</div><div class="dest-meta">Year-round · Daily</div><div class="tags"><span class="tag yr">Year-round</span><span class="tag d1">Delta One</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Athens</div><div class="dest-code">ATH</div><div class="dest-meta">Seasonal · A330</div><div class="tags"><span class="tag seasonal">Seasonal</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Dublin</div><div class="dest-code">DUB</div><div class="dest-meta">Seasonal · A330</div><div class="tags"><span class="tag seasonal">Seasonal</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Frankfurt</div><div class="dest-code">FRA</div><div class="dest-meta">Year-round · Daily</div><div class="tags"><span class="tag yr">Year-round</span><span class="tag d1">Delta One</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">London Heathrow</div><div class="dest-code">LHR</div><div class="dest-meta">Year-round · Up to 5x daily</div><div class="tags"><span class="tag yr">Year-round</span><span class="tag d1">Delta One</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Lisbon</div><div class="dest-code">LIS</div><div class="dest-meta">Seasonal · A330</div><div class="tags"><span class="tag seasonal">Seasonal</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Madrid</div><div class="dest-code">MAD</div><div class="dest-meta">Seasonal · A330</div><div class="tags"><span class="tag seasonal">Seasonal</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Milan Malpensa</div><div class="dest-code">MXP</div><div class="dest-meta">Seasonal · A330</div><div class="tags"><span class="tag seasonal">Seasonal</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Paris CDG</div><div class="dest-code">CDG</div><div class="dest-meta">Year-round · Daily</div><div class="tags"><span class="tag yr">Year-round</span><span class="tag d1">Delta One</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Reykjavik</div><div class="dest-code">KEF</div><div class="dest-meta">Seasonal</div><div class="tags"><span class="tag seasonal">Seasonal</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Rome Fiumicino</div><div class="dest-code">FCO</div><div class="dest-meta">Year-round · Daily</div><div class="tags"><span class="tag yr">Year-round</span></div></div>
+      </div>
+      <div class="tier-badge t1">🔵 1 connection via JFK or DTW</div>
+      <div class="dest-grid">
+        <div class="dest-card t1"><div class="dest-city">Barcelona</div><div class="dest-code">BCN</div><div class="dest-meta">Via JFK or SEA seasonal</div></div>
+        <div class="dest-card t1"><div class="dest-city">Copenhagen</div><div class="dest-code">CPH</div><div class="dest-meta">Via JFK or MSP · Seasonal</div></div>
+        <div class="dest-card t1"><div class="dest-city">Malta</div><div class="dest-code">MLA</div><div class="dest-meta">Via JFK · Seasonal</div><div class="tags"><span class="tag new">New 2026</span></div></div>
+        <div class="dest-card t1"><div class="dest-city">Munich</div><div class="dest-code">MUC</div><div class="dest-meta">Via DTW–MUC daily</div></div>
+        <div class="dest-card t1"><div class="dest-city">Naples</div><div class="dest-code">NAP</div><div class="dest-meta">Via JFK · Seasonal</div></div>
+        <div class="dest-card t1"><div class="dest-city">Nice</div><div class="dest-code">NCE</div><div class="dest-meta">Via BOS–NCE · Seasonal</div><div class="tags"><span class="tag new">New 2026</span></div></div>
+        <div class="dest-card t1"><div class="dest-city">Olbia (Sardinia)</div><div class="dest-code">OLB</div><div class="dest-meta">Via JFK · Seasonal</div><div class="tags"><span class="tag new">New 2026</span></div></div>
+        <div class="dest-card t1"><div class="dest-city">Porto</div><div class="dest-code">OPO</div><div class="dest-meta">Via JFK–OPO daily</div><div class="tags"><span class="tag new">New 2026</span></div></div>
+        <div class="dest-card t1"><div class="dest-city">Stockholm</div><div class="dest-code">ARN</div><div class="dest-meta">Via JFK or MSP · Seasonal</div></div>
+        <div class="dest-card t1"><div class="dest-city">Venice</div><div class="dest-code">VCE</div><div class="dest-meta">Via JFK · Seasonal</div></div>
+        <div class="dest-card t1"><div class="dest-city">Zurich</div><div class="dest-code">ZRH</div><div class="dest-meta">Via JFK · Seasonal</div></div>
+      </div>
+    </div>
+    <div class="region-block">
+      <div class="region-header"><span class="region-title">🌏 Asia-Pacific — Nonstop</span><div class="region-line"></div></div>
+      <div class="tier-badge t0">🟢 Nonstop</div>
+      <div class="dest-grid" style="margin-bottom:10px;">
+        <div class="dest-card t0"><div class="dest-city">Seoul Incheon</div><div class="dest-code">ICN</div><div class="dest-meta">Year-round · Daily · A350</div><div class="tags"><span class="tag yr">Year-round</span><span class="tag d1">Delta One</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Tokyo Haneda</div><div class="dest-code">HND</div><div class="dest-meta">Year-round · Daily · A350</div><div class="tags"><span class="tag yr">Year-round</span><span class="tag d1">Delta One</span></div></div>
+      </div>
+      <div class="tier-badge t1">🔵 1 connection via SEA or LAX</div>
+      <div class="dest-grid">
+        <div class="dest-card t1"><div class="dest-city">Auckland</div><div class="dest-code">AKL</div><div class="dest-meta">Via LAX–AKL daily</div></div>
+        <div class="dest-card t1"><div class="dest-city">Hong Kong</div><div class="dest-code">HKG</div><div class="dest-meta">Via LAX–HKG daily</div><div class="tags"><span class="tag new">New Jun 2026</span></div></div>
+        <div class="dest-card t1"><div class="dest-city">Melbourne</div><div class="dest-code">MEL</div><div class="dest-meta">Via LAX–MEL daily</div></div>
+        <div class="dest-card t1"><div class="dest-city">Shanghai Pudong</div><div class="dest-code">PVG</div><div class="dest-meta">Via SEA–PVG daily</div></div>
+        <div class="dest-card t1"><div class="dest-city">Sydney</div><div class="dest-code">SYD</div><div class="dest-meta">Via LAX–SYD daily</div></div>
+        <div class="dest-card t1"><div class="dest-city">Taipei Taoyuan</div><div class="dest-code">TPE</div><div class="dest-meta">Via SEA–TPE daily</div></div>
+      </div>
+    </div>
+    <div class="region-block">
+      <div class="region-header"><span class="region-title">🌍 Africa & Middle East — ATL is the US gateway</span><div class="region-line"></div></div>
+      <div class="tier-badge t0">🟢 Nonstop</div>
+      <div class="dest-grid">
+        <div class="dest-card t0"><div class="dest-city">Accra</div><div class="dest-code">ACC · Ghana</div><div class="dest-meta">Year-round · Daily</div><div class="tags"><span class="tag yr">Year-round</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Cape Town</div><div class="dest-code">CPT</div><div class="dest-meta">Seasonal</div><div class="tags"><span class="tag seasonal">Seasonal</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Johannesburg</div><div class="dest-code">JNB</div><div class="dest-meta">Year-round · Daily · A350</div><div class="tags"><span class="tag yr">Year-round</span><span class="tag d1">Delta One</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Lagos</div><div class="dest-code">LOS</div><div class="dest-meta">Year-round · Daily · A350</div><div class="tags"><span class="tag yr">Year-round</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Marrakech</div><div class="dest-code">RAK</div><div class="dest-meta">Year-round · Daily · A350</div><div class="tags"><span class="tag new">New Oct 2025</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Riyadh</div><div class="dest-code">RUH</div><div class="dest-meta">3x weekly · A350 (from Oct 2026)</div><div class="tags"><span class="tag new">New Oct 2026</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Tel Aviv</div><div class="dest-code">TLV</div><div class="dest-meta">3x weekly · A350</div><div class="tags"><span class="tag new">Resumed 2026</span></div></div>
+      </div>
+    </div>
+    <div class="region-block">
+      <div class="region-header"><span class="region-title">🌎 Latin America & Caribbean — ATL fortress</span><div class="region-line"></div></div>
+      <div class="tier-badge t0">🟢 Nonstop</div>
+      <div class="dest-grid">
+        <div class="dest-card t0"><div class="dest-city">Aruba</div><div class="dest-code">AUA</div></div>
+        <div class="dest-card t0"><div class="dest-city">Bogotá</div><div class="dest-code">BOG</div><div class="dest-meta">Year-round · Daily</div><div class="tags"><span class="tag yr">Year-round</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Buenos Aires</div><div class="dest-code">EZE</div><div class="dest-meta">Seasonal winter</div><div class="tags"><span class="tag seasonal">Seasonal</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Cancún</div><div class="dest-code">CUN</div><div class="dest-meta">Year-round · Daily</div></div>
+        <div class="dest-card t0"><div class="dest-city">Cartagena</div><div class="dest-code">CTG</div><div class="dest-meta">Year-round · Daily</div><div class="tags"><span class="tag yr">Year-round</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Grand Cayman</div><div class="dest-code">GCM</div><div class="dest-meta">Seasonal</div><div class="tags"><span class="tag seasonal">Seasonal</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Grenada</div><div class="dest-code">GND</div><div class="tags"><span class="tag new">New 2026</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Guatemala City</div><div class="dest-code">GUA</div><div class="dest-meta">Year-round · Daily</div><div class="tags"><span class="tag yr">Year-round</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Lima</div><div class="dest-code">LIM</div><div class="dest-meta">Year-round · Daily · A350</div><div class="tags"><span class="tag yr">Year-round</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Montego Bay</div><div class="dest-code">MBJ</div></div>
+        <div class="dest-card t0"><div class="dest-city">Nassau</div><div class="dest-code">NAS</div></div>
+        <div class="dest-card t0"><div class="dest-city">Panama City</div><div class="dest-code">PTY</div><div class="dest-meta">Year-round · Daily</div><div class="tags"><span class="tag yr">Year-round</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Punta Cana</div><div class="dest-code">PUJ</div></div>
+        <div class="dest-card t0"><div class="dest-city">Rio de Janeiro</div><div class="dest-code">GIG</div><div class="dest-meta">Year-round · Daily · A350</div><div class="tags"><span class="tag yr">Year-round</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">San José CR</div><div class="dest-code">SJO</div><div class="dest-meta">Year-round · Daily</div><div class="tags"><span class="tag yr">Year-round</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">San Juan</div><div class="dest-code">SJU</div></div>
+        <div class="dest-card t0"><div class="dest-city">San Salvador</div><div class="dest-code">SAL</div><div class="dest-meta">Year-round</div><div class="tags"><span class="tag yr">Year-round</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Santiago</div><div class="dest-code">SCL</div><div class="dest-meta">Year-round · Daily · A350</div><div class="tags"><span class="tag yr">Year-round</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">São Paulo</div><div class="dest-code">GRU</div><div class="dest-meta">Year-round · Daily · A350</div><div class="tags"><span class="tag yr">Year-round</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">St. Vincent</div><div class="dest-code">SVD</div><div class="tags"><span class="tag new">New 2026</span></div></div>
+      </div>
+    </div>
+    <div class="region-block">
+      <div class="region-header"><span class="region-title">🇨🇦 Canada · 🇲🇽 Mexico</span><div class="region-line"></div></div>
+      <div class="dest-grid">
+        <div class="dest-card t0"><div class="dest-city">Montreal</div><div class="dest-code">YUL</div></div>
+        <div class="dest-card t0"><div class="dest-city">Toronto</div><div class="dest-code">YYZ</div></div>
+        <div class="dest-card t0"><div class="dest-city">Vancouver</div><div class="dest-code">YVR</div><div class="dest-meta">Seasonal Sat May 2026</div><div class="tags"><span class="tag new">New 2026</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Guadalajara</div><div class="dest-code">GDL</div></div>
+        <div class="dest-card t0"><div class="dest-city">Mexico City</div><div class="dest-code">MEX</div><div class="dest-meta">Year-round · Daily</div></div>
+        <div class="dest-card t0"><div class="dest-city">Monterrey</div><div class="dest-code">MTY</div></div>
+        <div class="dest-card t0"><div class="dest-city">Los Cabos</div><div class="dest-code">SJD</div></div>
+        <div class="dest-card t0"><div class="dest-city">Puerto Vallarta</div><div class="dest-code">PVR</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOS -->
+  <div class="hub-section" id="bos">
+    <div class="hub-header">
+      <div><div class="hub-code">BOS</div></div>
+      <div class="hub-info"><div class="hub-city">Boston</div><div class="hub-name">Logan International · Growing transatlantic hub</div></div>
+      <div class="hub-stats">3 Sky Clubs · Delta One Lounge<br>Best D1 food in the system</div>
+    </div>
+    <div class="hub-strength">🇪🇺 <strong>Strengths:</strong> Europe — LHR, CDG, AMS, DUB, MAD (new May 2026), NCE (new May 2026), TLV (new Oct 2026). Delta One Lounge = best food of any D1 location. T-E Sky Club Express opens 5 PM for evening departures.</div>
+    <div class="region-block">
+      <div class="region-header"><span class="region-title">🇪🇺 Europe</span><div class="region-line"></div></div>
+      <div class="tier-badge t0">🟢 Nonstop</div>
+      <div class="dest-grid">
+        <div class="dest-card t0"><div class="dest-city">Amsterdam</div><div class="dest-code">AMS</div><div class="dest-meta">Year-round · Daily</div><div class="tags"><span class="tag yr">Year-round</span><span class="tag d1">Delta One</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Dublin</div><div class="dest-code">DUB</div><div class="dest-meta">Seasonal · A330</div><div class="tags"><span class="tag seasonal">Seasonal</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">London Heathrow</div><div class="dest-code">LHR</div><div class="dest-meta">Year-round · Daily</div><div class="tags"><span class="tag yr">Year-round</span><span class="tag d1">Delta One</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Madrid</div><div class="dest-code">MAD</div><div class="dest-meta">Daily · A330-900neo</div><div class="tags"><span class="tag new">New May 2026</span><span class="tag d1">Delta One</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Nice</div><div class="dest-code">NCE</div><div class="dest-meta">3x weekly · A330</div><div class="tags"><span class="tag new">New May 2026</span><span class="tag seasonal">Seasonal</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Paris CDG</div><div class="dest-code">CDG</div><div class="dest-meta">Year-round · Daily</div><div class="tags"><span class="tag yr">Year-round</span><span class="tag d1">Delta One</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Reykjavik</div><div class="dest-code">KEF</div><div class="dest-meta">Seasonal</div><div class="tags"><span class="tag seasonal">Seasonal</span></div></div>
+      </div>
+    </div>
+    <div class="region-block">
+      <div class="region-header"><span class="region-title">🌍 Middle East · 🇨🇦 Canada</span><div class="region-line"></div></div>
+      <div class="dest-grid">
+        <div class="dest-card t0"><div class="dest-city">Tel Aviv</div><div class="dest-code">TLV</div><div class="dest-meta">Daily · A330 from Oct 2026</div><div class="tags"><span class="tag new">New Oct 2026</span><span class="tag d1">Delta One</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Halifax</div><div class="dest-code">YHZ</div><div class="dest-meta">Delta Connection · Jun 2026</div><div class="tags"><span class="tag new">New 2026</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Montreal</div><div class="dest-code">YUL</div></div>
+        <div class="dest-card t0"><div class="dest-city">Toronto</div><div class="dest-code">YYZ</div></div>
+        <div class="dest-card t0"><div class="dest-city">Honolulu</div><div class="dest-code">HNL</div><div class="dest-meta">Seasonal winter</div><div class="tags"><span class="tag seasonal">Seasonal</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DTW -->
+  <div class="hub-section" id="dtw">
+    <div class="hub-header">
+      <div><div class="hub-code">DTW</div></div>
+      <div class="hub-info"><div class="hub-city">Detroit</div><div class="hub-name">Metropolitan Wayne County · Dual Asia + Europe hub</div></div>
+      <div class="hub-stats">91 domestic + 15 intl nonstop<br>3 Sky Clubs · McNamara Terminal</div>
+    </div>
+    <div class="hub-strength">🌏 <strong>Strengths:</strong> Only US hub with both Asia (HND, ICN) AND deep Europe (AMS, CDG, FRA, LHR, FCO, MUC, DUB) nonstop. Sole carrier from DTW to Asia. McNamara Terminal rarely crowded.</div>
+    <div class="region-block">
+      <div class="region-header"><span class="region-title">🇪🇺 Europe</span><div class="region-line"></div></div>
+      <div class="tier-badge t0">🟢 Nonstop</div>
+      <div class="dest-grid">
+        <div class="dest-card t0"><div class="dest-city">Amsterdam</div><div class="dest-code">AMS</div><div class="dest-meta">Year-round · Daily</div><div class="tags"><span class="tag yr">Year-round</span><span class="tag d1">Delta One</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Dublin</div><div class="dest-code">DUB</div><div class="dest-meta">Seasonal · 4x weekly</div><div class="tags"><span class="tag seasonal">Seasonal</span><span class="tag new">Added 2025</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Frankfurt</div><div class="dest-code">FRA</div><div class="dest-meta">Year-round · Daily</div><div class="tags"><span class="tag yr">Year-round</span><span class="tag d1">Delta One</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">London Heathrow</div><div class="dest-code">LHR</div><div class="dest-meta">Year-round · Daily</div><div class="tags"><span class="tag yr">Year-round</span><span class="tag d1">Delta One</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Munich</div><div class="dest-code">MUC</div><div class="dest-meta">Year-round · Daily</div><div class="tags"><span class="tag yr">Year-round</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Paris CDG</div><div class="dest-code">CDG</div><div class="dest-meta">Year-round · Daily</div><div class="tags"><span class="tag yr">Year-round</span><span class="tag d1">Delta One</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Reykjavik</div><div class="dest-code">KEF</div><div class="dest-meta">Seasonal</div><div class="tags"><span class="tag seasonal">Seasonal</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Rome Fiumicino</div><div class="dest-code">FCO</div><div class="dest-meta">Year-round · Daily</div><div class="tags"><span class="tag yr">Year-round</span></div></div>
+      </div>
+    </div>
+    <div class="region-block">
+      <div class="region-header"><span class="region-title">🌏 Asia — only carrier from DTW to Asia</span><div class="region-line"></div></div>
+      <div class="tier-badge t0">🟢 Nonstop</div>
+      <div class="dest-grid">
+        <div class="dest-card t0"><div class="dest-city">Seoul Incheon</div><div class="dest-code">ICN</div><div class="dest-meta">Year-round · Daily · A350</div><div class="tags"><span class="tag yr">Year-round</span><span class="tag d1">Delta One</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Shanghai Pudong</div><div class="dest-code">PVG</div><div class="dest-meta">Seasonal</div><div class="tags"><span class="tag seasonal">Seasonal</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Tokyo Haneda</div><div class="dest-code">HND</div><div class="dest-meta">Year-round · Daily · A350</div><div class="tags"><span class="tag yr">Year-round</span><span class="tag d1">Delta One</span></div></div>
+      </div>
+    </div>
+    <div class="region-block">
+      <div class="region-header"><span class="region-title">🇨🇦 Canada · 🌎 Caribbean</span><div class="region-line"></div></div>
+      <div class="dest-grid">
+        <div class="dest-card t0"><div class="dest-city">Montreal</div><div class="dest-code">YUL</div></div>
+        <div class="dest-card t0"><div class="dest-city">Toronto</div><div class="dest-code">YYZ</div></div>
+        <div class="dest-card t0"><div class="dest-city">Grand Cayman</div><div class="dest-code">GCM</div><div class="dest-meta">Seasonal winter</div><div class="tags"><span class="tag seasonal">Seasonal</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Montego Bay</div><div class="dest-code">MBJ</div><div class="dest-meta">Seasonal winter</div><div class="tags"><span class="tag seasonal">Seasonal</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Nassau</div><div class="dest-code">NAS</div><div class="dest-meta">Seasonal winter</div><div class="tags"><span class="tag seasonal">Seasonal</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JFK -->
+  <div class="hub-section" id="jfk">
+    <div class="hub-header">
+      <div><div class="hub-code">JFK</div></div>
+      <div class="hub-info"><div class="hub-city">New York</div><div class="hub-name">John F. Kennedy International · Primary transatlantic hub</div></div>
+      <div class="hub-stats">110 nonstop destinations<br>2 Sky Clubs · Delta One Lounge<br>+ Virgin Clubhouse access</div>
+    </div>
+    <div class="hub-strength">🇪🇺 <strong>Strengths:</strong> Largest European nonstop network of any US hub — 20+ European cities including OPO, OLB, MLA (all new 2026), CTN. Only US hub with EZE nonstop. D1 Lounge + Virgin Clubhouse = best pre-flight combo in the US.</div>
+    <div class="region-block">
+      <div class="region-header"><span class="region-title">🇪🇺 Europe — JFK has the most European nonstops</span><div class="region-line"></div></div>
+      <div class="tier-badge t0">🟢 Nonstop</div>
+      <div class="dest-grid">
+        <div class="dest-card t0"><div class="dest-city">Amsterdam</div><div class="dest-code">AMS</div><div class="dest-meta">Year-round · Up to 4x daily</div><div class="tags"><span class="tag yr">Year-round</span><span class="tag d1">Delta One</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Athens</div><div class="dest-code">ATH</div><div class="dest-meta">Seasonal</div><div class="tags"><span class="tag seasonal">Seasonal</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Barcelona</div><div class="dest-code">BCN</div><div class="dest-meta">Seasonal · A330</div><div class="tags"><span class="tag seasonal">Seasonal</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Catania (Sicily)</div><div class="dest-code">CTN</div><div class="dest-meta">Seasonal · Launched 2025</div><div class="tags"><span class="tag seasonal">Seasonal</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Copenhagen</div><div class="dest-code">CPH</div><div class="dest-meta">Seasonal · A330</div><div class="tags"><span class="tag seasonal">Seasonal</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Dublin</div><div class="dest-code">DUB</div><div class="dest-meta">Seasonal · A330</div><div class="tags"><span class="tag seasonal">Seasonal</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Edinburgh</div><div class="dest-code">EDI</div><div class="dest-meta">Seasonal</div><div class="tags"><span class="tag seasonal">Seasonal</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Geneva</div><div class="dest-code">GVA</div><div class="dest-meta">Seasonal</div><div class="tags"><span class="tag seasonal">Seasonal</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Lisbon</div><div class="dest-code">LIS</div><div class="dest-meta">Year-round · Daily</div><div class="tags"><span class="tag yr">Year-round</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">London Heathrow</div><div class="dest-code">LHR</div><div class="dest-meta">Year-round · Up to 5x daily</div><div class="tags"><span class="tag yr">Year-round</span><span class="tag d1">Delta One</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Madrid</div><div class="dest-code">MAD</div><div class="dest-meta">Year-round · Daily</div><div class="tags"><span class="tag yr">Year-round</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Malta</div><div class="dest-code">MLA</div><div class="dest-meta">3x weekly · 767-300ER</div><div class="tags"><span class="tag new">New Jun 2026</span><span class="tag seasonal">Seasonal</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Milan Malpensa</div><div class="dest-code">MXP</div><div class="dest-meta">Year-round · Daily</div><div class="tags"><span class="tag yr">Year-round</span><span class="tag d1">Delta One</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Naples</div><div class="dest-code">NAP</div><div class="dest-meta">Seasonal</div><div class="tags"><span class="tag seasonal">Seasonal</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Olbia (Sardinia)</div><div class="dest-code">OLB</div><div class="dest-meta">4x weekly · 767-300ER</div><div class="tags"><span class="tag new">New May 2026</span><span class="tag seasonal">Seasonal</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Paris CDG</div><div class="dest-code">CDG</div><div class="dest-meta">Year-round · Up to 5x daily</div><div class="tags"><span class="tag yr">Year-round</span><span class="tag d1">Delta One</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Porto</div><div class="dest-code">OPO</div><div class="dest-meta">Daily · 767-300ER</div><div class="tags"><span class="tag new">New May 2026</span><span class="tag seasonal">Seasonal</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Rome Fiumicino</div><div class="dest-code">FCO</div><div class="dest-meta">Year-round · Daily</div><div class="tags"><span class="tag yr">Year-round</span><span class="tag d1">Delta One</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Stockholm</div><div class="dest-code">ARN</div><div class="dest-meta">Seasonal</div><div class="tags"><span class="tag seasonal">Seasonal</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Venice</div><div class="dest-code">VCE</div><div class="dest-meta">Seasonal</div><div class="tags"><span class="tag seasonal">Seasonal</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Zurich</div><div class="dest-code">ZRH</div><div class="dest-meta">Seasonal</div><div class="tags"><span class="tag seasonal">Seasonal</span></div></div>
+      </div>
+    </div>
+    <div class="region-block">
+      <div class="region-header"><span class="region-title">🌍 Africa · 🌎 Latin America · 🇨🇦 Canada</span><div class="region-line"></div></div>
+      <div class="dest-grid">
+        <div class="dest-card t0"><div class="dest-city">Lagos</div><div class="dest-code">LOS</div><div class="dest-meta">Seasonal daily (winter)</div></div>
+        <div class="dest-card t0"><div class="dest-city">Tel Aviv</div><div class="dest-code">TLV</div><div class="dest-meta">Seasonal winter</div><div class="tags"><span class="tag seasonal">Seasonal</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Buenos Aires</div><div class="dest-code">EZE</div><div class="dest-meta">Year-round · Only US nonstop</div><div class="tags"><span class="tag yr">Year-round</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Grand Cayman</div><div class="dest-code">GCM</div><div class="dest-meta">Seasonal winter</div><div class="tags"><span class="tag new">New 2026</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Montego Bay</div><div class="dest-code">MBJ</div></div>
+        <div class="dest-card t0"><div class="dest-city">Punta Cana</div><div class="dest-code">PUJ</div></div>
+        <div class="dest-card t0"><div class="dest-city">San Juan</div><div class="dest-code">SJU</div></div>
+        <div class="dest-card t0"><div class="dest-city">Montreal</div><div class="dest-code">YUL</div></div>
+        <div class="dest-card t0"><div class="dest-city">Toronto</div><div class="dest-code">YYZ</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LAX -->
+  <div class="hub-section" id="lax">
+    <div class="hub-header">
+      <div><div class="hub-code">LAX</div></div>
+      <div class="hub-info"><div class="hub-city">Los Angeles</div><div class="hub-name">Los Angeles International · Pacific gateway · Largest global carrier at LAX</div></div>
+      <div class="hub-stats">160+ peak departures · 50+ destinations<br>2 Sky Clubs · Delta One Lounge + Sky Deck</div>
+    </div>
+    <div class="hub-strength">🌏 <strong>Strengths:</strong> Pacific powerhouse — SYD, MEL, BNE, AKL (Australia/NZ), HND, PVG, HKG (new Jun 2026), CDG, LHR. Only hub with Australia/NZ nonstop. T3 has D1 Lounge with outdoor Sky Deck overlooking the airfield.</div>
+    <div class="region-block">
+      <div class="region-header"><span class="region-title">🌏 Asia-Pacific — LAX is the only US gateway to Australia/NZ</span><div class="region-line"></div></div>
+      <div class="tier-badge t0">🟢 Nonstop</div>
+      <div class="dest-grid">
+        <div class="dest-card t0"><div class="dest-city">Auckland</div><div class="dest-code">AKL · NZ</div><div class="dest-meta">Year-round · Daily · A350</div><div class="tags"><span class="tag yr">Year-round</span><span class="tag d1">Delta One</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Brisbane</div><div class="dest-code">BNE · Australia</div><div class="dest-meta">Year-round · Daily</div><div class="tags"><span class="tag yr">Year-round</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Hong Kong</div><div class="dest-code">HKG</div><div class="dest-meta">Daily · A350-900</div><div class="tags"><span class="tag new">New Jun 2026</span><span class="tag d1">Delta One</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Melbourne</div><div class="dest-code">MEL · Australia</div><div class="dest-meta">Year-round · Daily · A350</div><div class="tags"><span class="tag yr">Year-round</span><span class="tag d1">Delta One</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Shanghai Pudong</div><div class="dest-code">PVG · China</div><div class="dest-meta">Daily · A350 (resumed 2025)</div><div class="tags"><span class="tag yr">Year-round</span><span class="tag d1">Delta One</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Sydney</div><div class="dest-code">SYD · Australia</div><div class="dest-meta">Year-round · Daily · A350</div><div class="tags"><span class="tag yr">Year-round</span><span class="tag d1">Delta One</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Tokyo Haneda</div><div class="dest-code">HND · Japan</div><div class="dest-meta">Year-round · Daily · A350</div><div class="tags"><span class="tag yr">Year-round</span><span class="tag d1">Delta One</span></div></div>
+      </div>
+    </div>
+    <div class="region-block">
+      <div class="region-header"><span class="region-title">🇪🇺 Europe · 🌎 Mexico · 🏝 Hawaii</span><div class="region-line"></div></div>
+      <div class="dest-grid">
+        <div class="dest-card t0"><div class="dest-city">London Heathrow</div><div class="dest-code">LHR</div><div class="dest-meta">Daily · A350 (resuming)</div><div class="tags"><span class="tag yr">Year-round</span><span class="tag d1">Delta One</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Paris CDG</div><div class="dest-code">CDG</div><div class="dest-meta">Daily · A350</div><div class="tags"><span class="tag yr">Year-round</span><span class="tag d1">Delta One</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Cancún</div><div class="dest-code">CUN</div></div>
+        <div class="dest-card t0"><div class="dest-city">Los Cabos</div><div class="dest-code">SJD</div></div>
+        <div class="dest-card t0"><div class="dest-city">Mexico City</div><div class="dest-code">MEX</div></div>
+        <div class="dest-card t0"><div class="dest-city">Puerto Vallarta</div><div class="dest-code">PVR</div></div>
+        <div class="dest-card t0"><div class="dest-city">Honolulu</div><div class="dest-code">HNL</div><div class="dest-meta">Year-round · Daily</div></div>
+        <div class="dest-card t0"><div class="dest-city">Maui</div><div class="dest-code">OGG</div></div>
+        <div class="dest-card t0"><div class="dest-city">Kona</div><div class="dest-code">KOA</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MSP -->
+  <div class="hub-section" id="msp">
+    <div class="hub-header">
+      <div><div class="hub-code">MSP</div></div>
+      <div class="hub-info"><div class="hub-city">Minneapolis–St. Paul</div><div class="hub-name">Minneapolis-Saint Paul International · Midwest hub · 70% market share</div></div>
+      <div class="hub-stats">132 nonstop destinations<br>3 Sky Clubs · Flagship Concourse F</div>
+    </div>
+    <div class="hub-strength">🌍 <strong>Strengths:</strong> Sole carrier from MSP to Asia (HND, ICN). 8 European nonstops 2025–2026: AMS, CDG, LHR, DUB, FCO, CPH, ARN, KEF. Largest-ever Latin America/Caribbean winter schedule. Concourse F flagship club is outstanding.</div>
+    <div class="region-block">
+      <div class="region-header"><span class="region-title">🇪🇺 Europe</span><div class="region-line"></div></div>
+      <div class="tier-badge t0">🟢 Nonstop</div>
+      <div class="dest-grid">
+        <div class="dest-card t0"><div class="dest-city">Amsterdam</div><div class="dest-code">AMS</div><div class="dest-meta">Year-round · Daily</div><div class="tags"><span class="tag yr">Year-round</span><span class="tag d1">Delta One</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Copenhagen</div><div class="dest-code">CPH</div><div class="dest-meta">Seasonal · 3x weekly</div><div class="tags"><span class="tag seasonal">Seasonal</span><span class="tag new">Added 2025</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Dublin</div><div class="dest-code">DUB</div><div class="dest-meta">Seasonal · A330</div><div class="tags"><span class="tag seasonal">Seasonal</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">London Heathrow</div><div class="dest-code">LHR</div><div class="dest-meta">Year-round · Daily</div><div class="tags"><span class="tag yr">Year-round</span><span class="tag d1">Delta One</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Paris CDG</div><div class="dest-code">CDG</div><div class="dest-meta">Year-round · Daily</div><div class="tags"><span class="tag yr">Year-round</span><span class="tag d1">Delta One</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Reykjavik</div><div class="dest-code">KEF</div><div class="dest-meta">Seasonal</div><div class="tags"><span class="tag seasonal">Seasonal</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Rome Fiumicino</div><div class="dest-code">FCO</div><div class="dest-meta">Seasonal · 4x weekly</div><div class="tags"><span class="tag seasonal">Seasonal</span><span class="tag new">Added 2025</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Stockholm</div><div class="dest-code">ARN</div><div class="dest-meta">Seasonal</div><div class="tags"><span class="tag seasonal">Seasonal</span></div></div>
+      </div>
+    </div>
+    <div class="region-block">
+      <div class="region-header"><span class="region-title">🌏 Asia — only carrier from MSP to Asia</span><div class="region-line"></div></div>
+      <div class="tier-badge t0">🟢 Nonstop</div>
+      <div class="dest-grid">
+        <div class="dest-card t0"><div class="dest-city">Seoul Incheon</div><div class="dest-code">ICN</div><div class="dest-meta">Year-round · Daily · A330</div><div class="tags"><span class="tag yr">Year-round</span><span class="tag d1">Delta One</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Tokyo Haneda</div><div class="dest-code">HND</div><div class="dest-meta">Year-round · Daily · A330</div><div class="tags"><span class="tag yr">Year-round</span><span class="tag d1">Delta One</span></div></div>
+      </div>
+    </div>
+    <div class="region-block">
+      <div class="region-header"><span class="region-title">🇨🇦 Canada · 🌎 Caribbean · 🇲🇽 Mexico · 🏝 Hawaii</span><div class="region-line"></div></div>
+      <div class="dest-grid">
+        <div class="dest-card t0"><div class="dest-city">Calgary</div><div class="dest-code">YYC</div></div>
+        <div class="dest-card t0"><div class="dest-city">Montreal</div><div class="dest-code">YUL</div></div>
+        <div class="dest-card t0"><div class="dest-city">Toronto</div><div class="dest-code">YYZ</div></div>
+        <div class="dest-card t0"><div class="dest-city">Vancouver</div><div class="dest-code">YVR</div></div>
+        <div class="dest-card t0"><div class="dest-city">Winnipeg</div><div class="dest-code">YWG</div></div>
+        <div class="dest-card t0"><div class="dest-city">Aruba</div><div class="dest-code">AUA</div><div class="dest-meta">Seasonal winter</div></div>
+        <div class="dest-card t0"><div class="dest-city">Grand Cayman</div><div class="dest-code">GCM</div></div>
+        <div class="dest-card t0"><div class="dest-city">Montego Bay</div><div class="dest-code">MBJ</div></div>
+        <div class="dest-card t0"><div class="dest-city">Nassau</div><div class="dest-code">NAS</div></div>
+        <div class="dest-card t0"><div class="dest-city">Punta Cana</div><div class="dest-code">PUJ</div></div>
+        <div class="dest-card t0"><div class="dest-city">San Juan</div><div class="dest-code">SJU</div></div>
+        <div class="dest-card t0"><div class="dest-city">St. Maarten</div><div class="dest-code">SXM</div><div class="dest-meta">Seasonal winter</div><div class="tags"><span class="tag new">New 2026</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Cancún</div><div class="dest-code">CUN</div></div>
+        <div class="dest-card t0"><div class="dest-city">Los Cabos</div><div class="dest-code">SJD</div></div>
+        <div class="dest-card t0"><div class="dest-city">Mexico City</div><div class="dest-code">MEX</div></div>
+        <div class="dest-card t0"><div class="dest-city">Puerto Vallarta</div><div class="dest-code">PVR</div></div>
+        <div class="dest-card t0"><div class="dest-city">Honolulu</div><div class="dest-code">HNL</div></div>
+        <div class="dest-card t0"><div class="dest-city">Maui</div><div class="dest-code">OGG</div><div class="dest-meta">New 2026</div><div class="tags"><span class="tag new">New 2026</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEA -->
+  <div class="hub-section" id="sea">
+    <div class="hub-header">
+      <div><div class="hub-code">SEA</div></div>
+      <div class="hub-info"><div class="hub-city">Seattle</div><div class="hub-name">Seattle-Tacoma International · Home hub · Largest intl carrier at SEA</div></div>
+      <div class="hub-stats">63 nonstop destinations<br>2 Sky Clubs · Delta One Lounge (Jun 2025)</div>
+    </div>
+    <div class="hub-strength">🌏 <strong>Strengths:</strong> Asia (HND, ICN, PVG, TPE — all year-round nonstop) + growing Europe (AMS, CDG, LHR year-round; BCN & FCO summer 2026). Delta One Lounge opened Jun 2025 with Mt. Rainier views. See the separate Delta_Routes_SEA.html for full detail.</div>
+    <div class="note">Full detail in <strong>Delta_Routes_SEA.html</strong>. Summary here.</div>
+    <div class="region-block">
+      <div class="region-header"><span class="region-title">🌏 Asia Nonstop</span><div class="region-line"></div></div>
+      <div class="dest-grid">
+        <div class="dest-card t0"><div class="dest-city">Seoul Incheon</div><div class="dest-code">ICN</div><div class="dest-meta">Year-round · Daily · A350</div><div class="tags"><span class="tag yr">Year-round</span><span class="tag d1">Delta One</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Shanghai Pudong</div><div class="dest-code">PVG</div><div class="dest-meta">Year-round · Daily · A350</div><div class="tags"><span class="tag yr">Year-round</span><span class="tag d1">Delta One</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Taipei Taoyuan</div><div class="dest-code">TPE</div><div class="dest-meta">Year-round · Daily · A350</div><div class="tags"><span class="tag yr">Year-round</span><span class="tag d1">Delta One</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Tokyo Haneda</div><div class="dest-code">HND</div><div class="dest-meta">Year-round · Daily · A350</div><div class="tags"><span class="tag yr">Year-round</span><span class="tag d1">Delta One</span></div></div>
+      </div>
+    </div>
+    <div class="region-block">
+      <div class="region-header"><span class="region-title">🇪🇺 Europe Nonstop</span><div class="region-line"></div></div>
+      <div class="dest-grid">
+        <div class="dest-card t0"><div class="dest-city">Amsterdam</div><div class="dest-code">AMS</div><div class="dest-meta">Year-round · Daily</div><div class="tags"><span class="tag yr">Year-round</span><span class="tag d1">Delta One</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Barcelona</div><div class="dest-code">BCN</div><div class="dest-meta">3x weekly · A330-900neo</div><div class="tags"><span class="tag new">New May 2026</span><span class="tag seasonal">Seasonal</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">London Heathrow</div><div class="dest-code">LHR</div><div class="dest-meta">Year-round · Daily</div><div class="tags"><span class="tag yr">Year-round</span><span class="tag d1">Delta One</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Paris CDG</div><div class="dest-code">CDG</div><div class="dest-meta">Year-round · Daily</div><div class="tags"><span class="tag yr">Year-round</span><span class="tag d1">Delta One</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Rome Fiumicino</div><div class="dest-code">FCO</div><div class="dest-meta">4x weekly · A330-900neo</div><div class="tags"><span class="tag new">New May 2026</span><span class="tag seasonal">Seasonal</span></div></div>
+      </div>
+    </div>
+    <div class="region-block">
+      <div class="region-header"><span class="region-title">🇨🇦 Canada Nonstop</span><div class="region-line"></div></div>
+      <div class="dest-grid">
+        <div class="dest-card t0"><div class="dest-city">Vancouver</div><div class="dest-code">YVR</div><div class="dest-meta">Seasonal Saturdays May 2026</div><div class="tags"><span class="tag new">New 2026</span><span class="tag seasonal">Seasonal</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLC -->
+  <div class="hub-section" id="slc">
+    <div class="hub-header">
+      <div><div class="hub-code">SLC</div></div>
+      <div class="hub-info"><div class="hub-city">Salt Lake City</div><div class="hub-name">Salt Lake City International · Mountain West hub</div></div>
+      <div class="hub-stats">2 Sky Clubs (30,000+ sq ft combined)<br>Mountain West fortress</div>
+    </div>
+    <div class="hub-strength">🏔️ <strong>Strengths:</strong> Surprising international reach — LHR, AMS, CDG (seasonal), ICN (new seasonal 2025), LIM (new 2025). Ski destination connectivity unmatched. New 30,000 sq ft Concourse B club is one of the best in the system.</div>
+    <div class="region-block">
+      <div class="region-header"><span class="region-title">🇪🇺 Europe · 🌏 Asia</span><div class="region-line"></div></div>
+      <div class="tier-badge t0">🟢 Nonstop</div>
+      <div class="dest-grid">
+        <div class="dest-card t0"><div class="dest-city">Amsterdam</div><div class="dest-code">AMS</div><div class="dest-meta">Year-round · Daily</div><div class="tags"><span class="tag yr">Year-round</span><span class="tag d1">Delta One</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">London Heathrow</div><div class="dest-code">LHR</div><div class="dest-meta">Year-round · Daily</div><div class="tags"><span class="tag yr">Year-round</span><span class="tag d1">Delta One</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Paris CDG</div><div class="dest-code">CDG</div><div class="dest-meta">Seasonal</div><div class="tags"><span class="tag seasonal">Seasonal</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Seoul Incheon</div><div class="dest-code">ICN</div><div class="dest-meta">Seasonal summer · A330</div><div class="tags"><span class="tag new">New Jun 2025</span><span class="tag seasonal">Seasonal</span></div></div>
+      </div>
+    </div>
+    <div class="region-block">
+      <div class="region-header"><span class="region-title">🌎 Latin America · 🇲🇽 Mexico · 🏝 Hawaii</span><div class="region-line"></div></div>
+      <div class="dest-grid">
+        <div class="dest-card t0"><div class="dest-city">Lima</div><div class="dest-code">LIM · Peru</div><div class="dest-meta">Daily from Dec 2025</div><div class="tags"><span class="tag new">New 2025</span></div></div>
+        <div class="dest-card t0"><div class="dest-city">Cancún</div><div class="dest-code">CUN</div></div>
+        <div class="dest-card t0"><div class="dest-city">Los Cabos</div><div class="dest-code">SJD</div></div>
+        <div class="dest-card t0"><div class="dest-city">Puerto Vallarta</div><div class="dest-code">PVR</div></div>
+        <div class="dest-card t0"><div class="dest-city">Honolulu</div><div class="dest-code">HNL</div></div>
+        <div class="dest-card t0"><div class="dest-city">Kona</div><div class="dest-code">KOA</div></div>
+        <div class="dest-card t0"><div class="dest-city">Maui</div><div class="dest-code">OGG</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CROSS-HUB GUIDE -->
+  <div class="cross-hub" id="cross">
+    <h2>Which Hub to Connect Through?</h2>
+    <div class="note" style="margin-bottom:18px;">Recommended routing for key destinations from SEA or anywhere on the Delta network. First hub listed = best option.</div>
+    <table class="cross-table">
+      <thead><tr><th>Destination Region</th><th>Best Hub(s)</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Europe — UK, France, Netherlands</strong></td><td><span class="hub-pill">SEA</span><span class="hub-pill">JFK</span><span class="hub-pill">ATL</span></td><td>SEA has year-round nonstop to LHR, CDG, AMS. JFK has most frequency. ATL has LHR, CDG, AMS, FRA year-round.</td></tr>
+        <tr><td><strong>Europe — Southern (Italy, Spain, Portugal, Greece)</strong></td><td><span class="hub-pill">JFK</span><span class="hub-pill">BOS</span><span class="hub-pill">SEA</span></td><td>JFK has most southern European routes. BOS new: MAD, NCE 2026. SEA: BCN, FCO summer. ATL: FCO, MXP, MAD, ATH.</td></tr>
+        <tr><td><strong>Europe — Germany, Central Europe</strong></td><td><span class="hub-pill">DTW</span><span class="hub-pill">ATL</span></td><td>DTW has FRA and MUC daily year-round — fastest path to Germany from anywhere.</td></tr>
+        <tr><td><strong>Europe — Scandinavia</strong></td><td><span class="hub-pill">JFK</span><span class="hub-pill">MSP</span></td><td>CPH and ARN nonstop from JFK and MSP (seasonal). Connect via AMS (KLM) or CPH (SAS) for further Scandinavia.</td></tr>
+        <tr><td><strong>Japan (Tokyo Haneda)</strong></td><td><span class="hub-pill">SEA</span><span class="hub-pill">LAX</span><span class="hub-pill">DTW</span></td><td>SEA, LAX, DTW, MSP, ATL all have HND nonstop. SEA = best timing from Pacific NW. LAX = most frequency.</td></tr>
+        <tr><td><strong>South Korea (Seoul Incheon)</strong></td><td><span class="hub-pill">SEA</span><span class="hub-pill">DTW</span><span class="hub-pill">MSP</span></td><td>SEA, DTW, MSP, ATL, SLC all have ICN nonstop. ICN = best hub for connecting across all of East/Southeast Asia via Korean Air.</td></tr>
+        <tr><td><strong>China (Shanghai)</strong></td><td><span class="hub-pill">SEA</span><span class="hub-pill">LAX</span></td><td>SEA–PVG and LAX–PVG both year-round daily. DTW seasonal. Beijing: connect PVG→domestic.</td></tr>
+        <tr><td><strong>Hong Kong</strong></td><td><span class="hub-pill">LAX</span></td><td>LAX–HKG only, daily from Jun 2026. From SEA: SEA→LAX→HKG = 2 flights, fastest routing.</td></tr>
+        <tr><td><strong>Australia &amp; New Zealand</strong></td><td><span class="hub-pill">LAX</span></td><td>LAX–SYD, LAX–MEL, LAX–AKL, LAX–BNE all nonstop. From SEA = 1 connection. Only US hub with Oceania nonstop.</td></tr>
+        <tr><td><strong>Latin America — South America</strong></td><td><span class="hub-pill">ATL</span></td><td>ATL has GRU, GIG, SCL, LIM, BOG, CTG, GUA, PTY all nonstop. JFK for EZE only.</td></tr>
+        <tr><td><strong>Africa</strong></td><td><span class="hub-pill">ATL</span></td><td>ATL is the only US Delta hub with Africa nonstop: JNB, LOS, ACC, RAK, CPT. No other hub serves Africa.</td></tr>
+        <tr><td><strong>Middle East (Tel Aviv, Riyadh)</strong></td><td><span class="hub-pill">ATL</span><span class="hub-pill">BOS</span></td><td>ATL–TLV (3x weekly), BOS–TLV (daily Oct 2026), ATL–RUH (3x weekly Oct 2026).</td></tr>
+        <tr><td><strong>Portugal (LIS, OPO)</strong></td><td><span class="hub-pill">JFK</span><span class="hub-pill">ATL</span></td><td>JFK–OPO daily (new 2026), JFK–LIS year-round. ATL–LIS seasonal. Best 1-connection from SEA.</td></tr>
+        <tr><td><strong>Morocco (Marrakech)</strong></td><td><span class="hub-pill">ATL</span></td><td>ATL–RAK daily year-round (launched Oct 2025). Then connect to Fez, Casablanca via Royal Air Maroc.</td></tr>
+        <tr><td><strong>Caribbean &amp; Mexico</strong></td><td><span class="hub-pill">ATL</span><span class="hub-pill">JFK</span><span class="hub-pill">MSP</span></td><td>ATL and JFK have most Caribbean nonstops. MSP best for Midwest travelers. Mexico primarily via ATL, SLC, or LAX.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+<script>
+const filterInput=document.getElementById('destFilter');
+const filterClear=document.getElementById('filterClear');
+const filterCount=document.getElementById('filterCount');
+const noResults=document.getElementById('noResults');
+
+function runFilter(){
+  const q=filterInput.value.trim().toLowerCase();
+  const cards=document.querySelectorAll('.dest-card');
+  let shown=0;
+  cards.forEach(c=>{
+    const city=(c.querySelector('.dest-city')||{}).textContent||'';
+    const code=(c.querySelector('.dest-code')||{}).textContent||'';
+    const match=!q||city.toLowerCase().includes(q)||code.toLowerCase().includes(q);
+    c.style.display=match?'':'none';
+    if(match)shown++;
+  });
+  filterClear.style.display=q?'inline':'none';
+  filterCount.textContent=q?shown+' shown':'';
+  noResults.style.display=(q&&shown===0)?'block':'none';
+  // Show/hide hub sections that have no visible cards
+  document.querySelectorAll('.hub-section').forEach(sec=>{
+    const anyVisible=[...sec.querySelectorAll('.dest-card')].some(c=>c.style.display!=='none');
+    sec.style.display=(!q||anyVisible)?'':'none';
+  });
+}
+function clearFilter(){
+  filterInput.value='';
+  runFilter();
+  filterInput.focus();
+}
+filterInput.addEventListener('input',runFilter);
+</script>
+
+<div style="text-align:center;padding:8px 0 24px;font-size:11px"><a href="https://dbellinello.github.io/travel_guides/Delta%20Routes%20Full.html" target="_blank" style="color:#9a9890;text-decoration:none;font-weight:normal">dbellinello.github.io/travel_guides/Delta Routes Full.html</a></div>
+</body>
+</html>

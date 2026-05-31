@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Navigation</title>
+<link rel="stylesheet" href="Core Rules Style.css">
+</head>
+<body>
+
+<h1>🧭 Navigation</h1>
+<p class="subtitle">Reference — <code>Brain/Reference/Navigation.html</code></p>
+<div class="meta">
+  <p><strong>Status:</strong> Reference. Describes the navigation aids the shared script renders at runtime, plus the search behaviour on pages that carry a search box.</p>
+  <p><strong>Source file:</strong> <code>Travel/toolbar.js</code> — one file renders the toolbar, the side arrows, the scroll aids, and the shared footnote on every page that loads it.</p>
+  <p><strong>Related files:</strong> <code>Toolbar.html</code> — toolbar mount markup, depth, maxwidth, and menu management. Guide-page footer links are governed by <code>Toolbar.html § 5</code>.</p>
+  <p><strong>Summary:</strong> The shared footnote is the navigation element that carries across to the guides — every Trip Essentials page and the guides index renders one identical sharing link, generated from the page path. Prev/next arrows chain the guide sequence. The scroll bar and scroll button are passive aids. On a search page, a query with no matches collapses the page to its title, the search box, and the no-match message.</p>
+</div>
+
+<h2>§ 1. Shared footnote (the link shared with the guides)</h2>
+<p>The shared footnote is a single centred sharing link rendered as the last element on the page. It displays the page's own public address so the reader can copy or share it. The script generates it automatically from the page path — there is nothing to write into each file and nothing to keep in sync. The link opens in a new tab; the display text matches the address with no scheme prefix.</p>
+<p>The footnote renders on every page that loads <code>toolbar.js</code> — every Trip Essentials page, the guides index, and every guide. No page carries an inline footer of its own; <code>toolbar.js</code> injects the single shared link, so there is never a duplicate. On a page served over the web the link is the page's own live address; only an offline <code>file://</code> preview falls back to the <code>SITE_BASE</code> constant. Full rule: <code>Toolbar.html § 5</code>.</p>
+
+<h2>§ 2. Prev / next arrows</h2>
+<p>Guide pages that belong to a sequence carry <code>data-prev</code> and <code>data-next</code> attributes on the toolbar mount div. When present, the script renders fixed left and right side arrows pointing to the neighbouring guide. Both are optional — a guide with no predecessor omits <code>data-prev</code>; a guide with no successor omits <code>data-next</code>.</p>
+<div class="template">&lt;div id="toolbar-mount" data-depth="2" data-maxwidth="940"
+     data-prev="../CityA/guide_vN.html"
+     data-next="../CityC/guide_vN.html"&gt;&lt;/div&gt;</div>
+<p>Paths are relative to the guide file's own directory. Each value points to the neighbouring guide's HTML file — not to a folder or an index page. Trip Essentials pages do not use these attributes.</p>
+
+<h2>§ 3. Chain integrity</h2>
+<p>The guide sequence is a doubly-linked chain: every guide's <code>data-next</code> matches the following guide's <code>data-prev</code>, and vice versa. A mismatched path, a stale filename after a version bump, or a guide added without updating its neighbours leaves one or both arrows dead. When a guide is added or renamed, the two adjacent guides in the chain are updated in the same change.</p>
+
+<h2>§ 4. Canonical order and guides_index</h2>
+<p>The canonical guide order is defined in <code>Guides/guides_index.html</code>. Every guide card in the index carries matching <code>data-guide-prev</code> and <code>data-guide-next</code> attributes. When the chain changes, both the guide file's mount div and the index card are updated together.</p>
+
+<h2>§ 5. Adding a new guide to the chain</h2>
+<p>Insert the new guide between its two neighbours. All four steps happen in a single pass — partial updates break the chain:</p>
+<ol>
+<li>Add the new guide's card to <code>guides_index.html</code> in the correct region section, with the right <code>data-guide-num</code>, <code>data-guide-prev</code>, and <code>data-guide-next</code>.</li>
+<li>Update the predecessor card's <code>data-guide-next</code> and the successor card's <code>data-guide-prev</code> to point to the new guide.</li>
+<li>Update the banner destination count and the region guide count in <code>guides_index.html</code>.</li>
+<li>Set the new guide file's own toolbar-mount <code>data-prev</code> and <code>data-next</code> to match its neighbours.</li>
+</ol>
+
+<h2>§ 6. Scroll progress bar</h2>
+<p>The script renders a thin progress bar fixed along the top of the viewport. Its width tracks how far the reader has scrolled through the page. It is passive — no markup or configuration per page.</p>
+
+<h2>§ 7. Scroll button</h2>
+<p>The script renders one persistent circular button at the right edge of the viewport. It points down while the reader is above the foot of the page and scrolls to the bottom on click; once near the bottom it flips to point up and scrolls back to the top. One button, both directions, on every page.</p>
+
+<div class="callout">
+  <p>Search behaviour on the Trip Essentials pages — including how a no-match query collapses the page and hides the shared footnote — lives in <code>Trip Essentials/Essentials Pages - Rules.md</code>.</p>
+</div>
+
+</body>
+</html>

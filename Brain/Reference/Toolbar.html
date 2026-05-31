@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Toolbar</title>
+<link rel="stylesheet" href="../Reference/Core Rules Style.css">
+</head>
+<body>
+<h1>🔗 Toolbar</h1>
+<p class="subtitle">Source of truth — <code>Brain/Reference/Toolbar.html</code></p>
+<div class="meta">
+  <p><strong>Status:</strong> UNIVERSAL — every HTML page in the Travel workspace includes the toolbar.</p>
+  <p><strong>Source file:</strong> <code>Travel/toolbar.js</code> — one file, one edit updates every page.</p>
+  <p><strong>Summary:</strong> A shared navigation bar rendered at the top of every page. Links all Trip Essentials files and the Guides index so the reader can navigate without returning to a root page. The active page highlights automatically. The toolbar reads the page background color at runtime and adapts its accent — no per-page style override is needed.</p>
+  <p><strong>Related file:</strong> <code>Navigation.html</code> — prev/next arrow rules for guide sequences.</p>
+</div>
+
+<h2>§ 1. Required markup</h2>
+<p>Place the mount div and script tag immediately after the opening <code>&lt;body&gt;</code> tag, before any other content. Both are required on every new page.</p>
+<div class="template">&lt;div id="toolbar-mount" data-depth="N" data-maxwidth="W"&gt;&lt;/div&gt;
+&lt;script src="PATH/toolbar.js"&gt;&lt;/script&gt;</div>
+<p>Omitting the mount div silently skips the toolbar. Omitting either attribute produces a mis-sized or broken navigation bar.</p>
+<p>Optional attribute: <code>data-toolbar-theme="guide"</code> forces the guide accent color on pages that do not have the guide background color — used on the Guides index page, which has a non-guide background but should visually match the guide family. Omit this attribute on all other pages; the toolbar detects the accent automatically from the page background.</p>
+
+<h2>§ 2. <code>data-depth</code></h2>
+<p>Set to the number of directory levels the page sits below <code>Travel/</code>. The toolbar uses this value to build relative hrefs to every other page and to locate <code>toolbar.js</code>.</p>
+<ul>
+  <li><strong>1</strong> — page lives directly inside <code>Trip Essentials/</code> (e.g. <code>Trip Essentials/Travel Packing.html</code>). Script path: <code>../toolbar.js</code></li>
+  <li><strong>2</strong> — page lives one subfolder deeper (e.g. <code>Trip Essentials/Plug Adapter/Plug Adapter Guide.html</code>). Script path: <code>../../toolbar.js</code></li>
+  <li><strong>2</strong> — guide pages inside <code>Guides/{City}/</code> also use depth 2. Script path: <code>../../toolbar.js</code></li>
+</ul>
+<div class="callout">
+  <p>The <code>src</code> attribute on the <code>&lt;script&gt;</code> tag must match the depth — one <code>../</code> per level.</p>
+</div>
+
+<h2>§ 3. <code>data-maxwidth</code></h2>
+<p>Set to match the page's own content width so the toolbar aligns with the body text.</p>
+<ul>
+  <li><strong>760</strong> — Trip Essentials pages</li>
+  <li><strong>940</strong> — Guide pages</li>
+</ul>
+
+<h2>§ 4. Adding a page to the menu</h2>
+<p>The menu is defined in the <code>ITEMS</code> array inside <code>Travel/toolbar.js</code>. To add a new page, add one entry to that array. One edit propagates to every page that loads the script — do not add link markup to individual HTML files.</p>
+<p>Each entry takes two keys: <code>href</code> (path relative to <code>Travel/</code>, URL-encoded) and <code>text</code> (the label shown in the bar). Two additional entry forms are supported: a <code>null</code> entry inserts a visual separator between groups of links; an entry with <code>guides: true</code> marks the Guides link so the script can apply distinct styling to it. Do not add link markup to individual HTML files — one edit to the array propagates to every page.</p>
+
+<h2>§ 5. Footer sharing link (injected by toolbar.js — every page)</h2>
+<p>The footer sharing link is <strong>injected by <code>toolbar.js</code></strong>, not written into each file. One definition lives in <code>toolbar.js</code> and applies to every page that loads it — Trip Essentials, the Guides index, and every guide. The link is cosmetic — it displays the page's public URL so the reader can copy or share it.</p>
+<p>The injected link points to the page's <strong>own live URL</strong>, derived at runtime from <code>location</code>. Because it reads the real address, it is correct no matter what the GitHub repo is named or how folders are arranged, and it survives repo renames with no per-file edits. (The current published base is <code>https://dbellinello.github.io/Travel/</code>; only the <code>SITE_BASE</code> constant in <code>toolbar.js</code> — used solely for offline <code>file://</code> previews — names the repo.)</p>
+<p>Because the footer is injected, a shipped guide must <strong>not</strong> contain an inline footer <code>&lt;div&gt;</code> with a hardcoded public URL. A guide only needs to load <code>toolbar.js</code> (see §1–§4); the footer then appears automatically. A leftover inline footer would duplicate the injected one and pin a stale repo name. The same applies to Trip Essentials pages.</p>
+
+</body>
+</html>

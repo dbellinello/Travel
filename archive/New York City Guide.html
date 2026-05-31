@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>🗽 New York City — 5-Day Guide</title>
+<style>
+:root {
+  --bg:       #f5f4f0;
+  --surface:  #ffffff;
+  --surface2: #f0eeea;
+  --border:   #d8d5ce;
+  --border2:  #e8e5de;
+  --text:     #1a1917;
+  --muted:    #6b6860;
+  --accent:   #8a6c1a;
+  --accent2:  rgba(138,108,26,0.10);
+  --morning:  #1a5276;
+  --afternoon:#7d4200;
+  --evening:  #4a235a;
+  --food:     #1e8449;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  padding-bottom: 80px;
+}
+
+.wrap { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+
+/* Header */
+.header {
+  padding: 28px 0 20px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 0;
+}
+.header-label {
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.header h1 {
+  font-size: clamp(22px, 4vw, 32px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--accent);
+  line-height: 1.1;
+}
+.header-sub {
+  font-size: 14px;
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+/* Quick nav */
+.nav-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border2);
+  margin-bottom: 32px;
+}
+.nav-pill {
+  font-size: 12px;
+  padding: 4px 12px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  color: var(--muted);
+  text-decoration: none;
+  background: none;
+  cursor: pointer;
+  transition: all .15s;
+}
+.nav-pill:hover { border-color: var(--accent); color: var(--accent); background: var(--accent2); }
+
+/* Day block */
+.day-block {
+  margin-bottom: 36px;
+}
+.day-header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--accent);
+}
+.day-num {
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+}
+.day-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+.day-vibe {
+  font-size: 13px;
+  color: var(--muted);
+  margin-left: auto;
+  font-style: italic;
+}
+
+/* Section within a day */
+.section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.tag-morning  { color: var(--morning); }
+.tag-afternoon{ color: var(--afternoon); }
+.tag-evening  { color: var(--evening); }
+.tag-food     { color: var(--food); }
+
+.section-body {
+  padding: 14px 16px 16px;
+}
+
+/* Item */
+.item {
+  margin-bottom: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border2);
+}
+.item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+
+.item-name {
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+.item-meta {
+  font-size: 12.5px;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.item-desc {
+  font-size: 14px;
+  color: var(--text);
+  opacity: 0.85;
+  line-height: 1.55;
+}
+
+/* Tip box */
+.tip {
+  margin-top: 14px;
+  background: var(--accent2);
+  border-left: 3px solid var(--accent);
+  padding: 10px 14px;
+  border-radius: 0 6px 6px 0;
+  font-size: 13.5px;
+  color: var(--text);
+}
+.tip strong { color: var(--accent); }
+
+/* Food card */
+.food-card {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border2);
+  align-items: start;
+}
+.food-card:last-child { border-bottom: none; padding-bottom: 0; }
+.food-name { font-weight: 600; font-size: 14.5px; }
+.food-type { font-size: 12px; color: var(--muted); }
+.food-desc { font-size: 13.5px; opacity: 0.85; grid-column: 1 / -1; }
+.food-must {
+  background: var(--accent);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 2px 7px;
+  border-radius: 3px;
+  white-space: nowrap;
+  align-self: center;
+}
+
+/* Overview box */
+.overview {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 18px 20px;
+  margin-bottom: 32px;
+}
+.overview-title {
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.overview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 8px 20px;
+}
+.ov-item {
+  font-size: 13.5px;
+  color: var(--muted);
+}
+.ov-item strong { color: var(--text); display: block; }
+
+/* Map link */
+.map-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12.5px;
+  color: var(--accent);
+  text-decoration: none;
+  margin-top: 4px;
+}
+.map-link:hover { text-decoration: underline; }
+
+/* Practical section */
+.practical {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 18px 20px;
+  margin-top: 36px;
+}
+.practical h2 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+.practical-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 32px;
+}
+.prac-item { font-size: 13.5px; }
+.prac-item strong { display: block; color: var(--accent); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 2px; }
+
+@media (max-width: 540px) {
+  .practical-grid { grid-template-columns: 1fr; }
+  .day-vibe { display: none; }
+  .overview-grid { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="header">
+  <div class="header-label">Travel Guide</div>
+  <h1>🗽 New York City</h1>
+  <div class="header-sub">5-day itinerary · Manhattan, Brooklyn & beyond</div>
+</div>
+
+<div class="nav-bar">
+  <a class="nav-pill" href="#day1">Day 1 · Lower Manhattan</a>
+  <a class="nav-pill" href="#day2">Day 2 · Midtown</a>
+  <a class="nav-pill" href="#day3">Day 3 · Upper East Side</a>
+  <a class="nav-pill" href="#day4">Day 4 · Brooklyn</a>
+  <a class="nav-pill" href="#day5">Day 5 · West Village & High Line</a>
+  <a class="nav-pill" href="#eat">Where to Eat</a>
+  <a class="nav-pill" href="#practical">Practical Info</a>
+</div>
+
+<!-- Overview -->
+<div class="overview">
+  <div class="overview-title">At a Glance</div>
+  <div class="overview-grid">
+    <div class="ov-item"><strong>Best season</strong>Apr–Jun · Sep–Nov</div>
+    <div class="ov-item"><strong>Getting around</strong>Subway (MetroCard or OMNY tap)</div>
+    <div class="ov-item"><strong>Currency</strong>USD · cards everywhere</div>
+    <div class="ov-item"><strong>Tipping</strong>18–20% restaurants, $2–5 cabs</div>
+    <div class="ov-item"><strong>Airport</strong>JFK, LGA, or EWR (NJ)</div>
+    <div class="ov-item"><strong>To Midtown from JFK</strong>~45 min by AirTrain + E/J train</div>
+  </div>
+</div>
+
+
+<!-- ══ DAY 1 ══ -->
+<div class="day-block" id="day1">
+  <div class="day-header">
+    <div class="day-num">Day 1</div>
+    <div class="day-title">Lower Manhattan & Brooklyn Bridge</div>
+    <div class="day-vibe">History · Icons · Views</div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><span class="tag-morning">☀️ Morning</span></div>
+    <div class="section-body">
+      <div class="item">
+        <div class="item-name">9/11 Memorial & Museum</div>
+        <div class="item-meta">⏱ 1.5–2 h · 🏛 9AM–8PM · 📍 Fulton St or WTC Cortlandt</div>
+        <div class="item-desc">Start here — the reflecting pools and memorial are most peaceful in the morning before crowds arrive. The museum (separate ticket) is deeply moving; allow 90 min if you go inside.</div>
+        <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=9/11+Memorial+New+York">📍 Open in Maps</a>
+      </div>
+      <div class="item">
+        <div class="item-name">Oculus / Westfield World Trade Center</div>
+        <div class="item-meta">⏱ 15 min · free</div>
+        <div class="item-desc">Step inside Santiago Calatrava's stunning white wing structure — one of NYC's most dramatic modern spaces. Worth a quick wander.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><span class="tag-afternoon">🌤 Afternoon</span></div>
+    <div class="section-body">
+      <div class="item">
+        <div class="item-name">Walk the Brooklyn Bridge</div>
+        <div class="item-meta">⏱ 45 min walk · free · 📍 City Hall Park</div>
+        <div class="item-desc">The classic NYC experience. Walk from Manhattan to Brooklyn for spectacular skyline views — wear comfortable shoes. Cross early afternoon to avoid the evening crowd and catch the Manhattan skyline facing west on your return.</div>
+        <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Brooklyn+Bridge+New+York">📍 Open in Maps</a>
+      </div>
+      <div class="item">
+        <div class="item-name">DUMBO & Brooklyn Heights Promenade</div>
+        <div class="item-meta">⏱ 1.5 h · free</div>
+        <div class="item-desc">After crossing, stroll through DUMBO (the cobblestone streets framing the bridge are iconic for photos), then head up to the Brooklyn Heights Promenade for arguably the best skyline view in the city.</div>
+        <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Brooklyn+Heights+Promenade+New+York">📍 Open in Maps</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><span class="tag-evening">🌆 Evening</span></div>
+    <div class="section-body">
+      <div class="item">
+        <div class="item-name">Financial District & Stone Street</div>
+        <div class="item-meta">📍 Stone St, Manhattan</div>
+        <div class="item-desc">Head back to Manhattan and wander Wall Street, the New York Stock Exchange, and the old Charging Bull. Stone Street is a cobblestone pedestrian lane lined with bars — great for a first-night drink.</div>
+        <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Stone+Street+Financial+District+New+York">📍 Open in Maps</a>
+      </div>
+      <div class="item">
+        <div class="item-name">Dinner at Katz's Delicatessen</div>
+        <div class="item-meta">🍽 205 E Houston St · cash preferred</div>
+        <div class="item-desc">Open since 1888, this is the most iconic deli in NYC. Order the pastrami on rye — there's nothing else like it. The "I'll have what she's having" table from When Harry Met Sally is marked.</div>
+        <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Katz's+Delicatessen+205+E+Houston+St+New+York">📍 Open in Maps</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══ DAY 2 ══ -->
+<div class="day-block" id="day2">
+  <div class="day-header">
+    <div class="day-num">Day 2</div>
+    <div class="day-title">Midtown & Central Park</div>
+    <div class="day-vibe">Skylines · Culture · Energy</div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><span class="tag-morning">☀️ Morning</span></div>
+    <div class="section-body">
+      <div class="item">
+        <div class="item-name">Central Park</div>
+        <div class="item-meta">⏱ 1.5–2 h · free · best entered at 59th St</div>
+        <div class="item-desc">Start with a walk through the southern end of the park. Hit Bethesda Fountain, the iconic Bow Bridge, Strawberry Fields (John Lennon memorial), and the Reservoir path. Rent a bike if you want to cover more ground.</div>
+        <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Central+Park+New+York+Bethesda+Fountain">📍 Open in Maps</a>
+      </div>
+      <div class="item">
+        <div class="item-name">Bagel breakfast</div>
+        <div class="item-meta">🥯 Absolute Bagels · 2788 Broadway (Upper West Side)</div>
+        <div class="item-desc">Grab a bagel before or after your park walk. Absolute Bagels is a neighborhood institution — get it toasted with lox cream cheese. Alternatively, Russ & Daughters (179 E Houston) is the gold standard since 1914.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><span class="tag-afternoon">🌤 Afternoon</span></div>
+    <div class="section-body">
+      <div class="item">
+        <div class="item-name">MoMA — Museum of Modern Art</div>
+        <div class="item-meta">⏱ 2 h · 🏛 10:30AM–5:30PM (Fri until 9PM) · 11 W 53rd St</div>
+        <div class="item-desc">One of the world's great modern art collections. Highlights include Starry Night (Van Gogh), Water Lilies (Monet), and the design collection. The sculpture garden is beautiful on a clear day.</div>
+        <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=MoMA+Museum+of+Modern+Art+New+York">📍 Open in Maps</a>
+      </div>
+      <div class="item">
+        <div class="item-name">Top of the Rock</div>
+        <div class="item-meta">⏱ 1 h · 30 Rockefeller Plaza · book in advance</div>
+        <div class="item-desc">Rockefeller Center's observation deck with unobstructed views of the Empire State Building and Central Park — better for photography than the Empire State Building itself. The sunset slot is the best time to visit.</div>
+        <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Top+of+the+Rock+30+Rockefeller+Plaza+New+York">📍 Open in Maps</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><span class="tag-evening">🌆 Evening</span></div>
+    <div class="section-body">
+      <div class="item">
+        <div class="item-name">Times Square (briefly) & Theater District</div>
+        <div class="item-meta">📍 Broadway & 7th Ave · best at dusk</div>
+        <div class="item-desc">At least once: experience Times Square at dusk when the screens come alive. It's overwhelming but unmissably NYC. Then grab dinner in the Theater District or Hell's Kitchen (9th Ave has excellent, affordable restaurants).</div>
+        <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Times+Square+New+York">📍 Open in Maps</a>
+      </div>
+      <div class="item">
+        <div class="item-name">Optional: Broadway show</div>
+        <div class="item-meta">🎭 Book in advance · TKTS booth in Times Square for same-day discount tickets</div>
+        <div class="item-desc">If there's a show you want to see, tonight's the natural night for it. The TKTS booth (red steps in Times Square) sells same-day tickets for 20–50% off.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══ DAY 3 ══ -->
+<div class="day-block" id="day3">
+  <div class="day-header">
+    <div class="day-num">Day 3</div>
+    <div class="day-title">Upper East Side & Museum Mile</div>
+    <div class="day-vibe">Art · Elegance · Old Money</div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><span class="tag-morning">☀️ Morning</span></div>
+    <div class="section-body">
+      <div class="item">
+        <div class="item-name">The Metropolitan Museum of Art</div>
+        <div class="item-meta">⏱ 2.5–3 h · 🏛 10AM–5PM (Fri–Sat until 9PM) · 1000 5th Ave · suggested donation</div>
+        <div class="item-desc">One of the greatest museums in the world — arrive when it opens. Don't try to see everything; pick a few wings. The Egyptian wing with the Temple of Dendur, the European Paintings, and the Roof Garden (seasonal) are standouts.</div>
+        <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Metropolitan+Museum+of+Art+1000+5th+Ave+New+York">📍 Open in Maps</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><span class="tag-afternoon">🌤 Afternoon</span></div>
+    <div class="section-body">
+      <div class="item">
+        <div class="item-name">The Frick Collection</div>
+        <div class="item-meta">⏱ 1 h · 🏛 10AM–6PM · 1 E 70th St · $30</div>
+        <div class="item-desc">An intimate collection of Old Masters in a gilded-age mansion — Vermeer, Rembrandt, Velázquez. One of NYC's most underrated museum experiences. The indoor courtyard is stunning.</div>
+        <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Frick+Collection+1+E+70th+St+New+York">📍 Open in Maps</a>
+      </div>
+      <div class="item">
+        <div class="item-name">Madison Avenue & Lexington Ave stroll</div>
+        <div class="item-meta">📍 UES, 60s–80s streets</div>
+        <div class="item-desc">Walk down Madison Ave past designer boutiques, then cut to Lexington Ave for the neighborhood feel — great cafes and bakeries. Stop at Sant Ambroeus (982 Madison) for a proper Italian coffee.</div>
+        <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Sant+Ambroeus+982+Madison+Avenue+New+York">📍 Open in Maps</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><span class="tag-evening">🌆 Evening</span></div>
+    <div class="section-body">
+      <div class="item">
+        <div class="item-name">Harlem exploration</div>
+        <div class="item-meta">📍 125th St · take the 4/5/6 uptown</div>
+        <div class="item-desc">Head uptown to Harlem. Walk 125th Street (the main commercial strip), see the Apollo Theater marquee, and explore the brownstone blocks. Harlem has some of the best soul food and brunch in the city.</div>
+        <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Apollo+Theater+253+W+125th+St+New+York">📍 Apollo Theater Maps</a>
+      </div>
+      <div class="item">
+        <div class="item-name">Dinner: Sylvia's Restaurant</div>
+        <div class="item-meta">🍽 328 Lenox Ave · Harlem · since 1962</div>
+        <div class="item-desc">The queen of soul food in NYC. Fried chicken, BBQ ribs, candied yams, cornbread. Sunday gospel brunch is legendary if your visit aligns. No reservations needed on weekdays.</div>
+        <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Sylvia's+Restaurant+328+Lenox+Ave+New+York">📍 Open in Maps</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══ DAY 4 ══ -->
+<div class="day-block" id="day4">
+  <div class="day-header">
+    <div class="day-num">Day 4</div>
+    <div class="day-title">Brooklyn — Full Day</div>
+    <div class="day-vibe">Cool · Local · Foodie</div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><span class="tag-morning">☀️ Morning</span></div>
+    <div class="section-body">
+      <div class="item">
+        <div class="item-name">Smorgasburg (weekends only)</div>
+        <div class="item-meta">⏱ 11AM–6PM Sat · Prospect Park; Sun · Williamsburg Waterfront · free entry</div>
+        <div class="item-desc">If you're visiting on a weekend, start here. Over 100 food vendors — the best outdoor food market in NYC. The Ramen Burger and mango sticky rice are iconic. Amazing waterfront views in Williamsburg.</div>
+        <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Smorgasburg+Williamsburg+Brooklyn+New+York">📍 Open in Maps</a>
+      </div>
+      <div class="item">
+        <div class="item-name">Williamsburg</div>
+        <div class="item-meta">📍 Bedford Ave · L train from 14th St</div>
+        <div class="item-desc">Brooklyn's hippest neighborhood. Bedford Ave is the main strip with vintage shops, independent bookstores, and great coffee. Grab a coffee at Toby's Estate (125 N 6th St) or Blue Bottle.</div>
+        <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Bedford+Avenue+Williamsburg+Brooklyn+New+York">📍 Open in Maps</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><span class="tag-afternoon">🌤 Afternoon</span></div>
+    <div class="section-body">
+      <div class="item">
+        <div class="item-name">Brooklyn Museum</div>
+        <div class="item-meta">⏱ 1.5 h · 🏛 Wed–Sun 11AM–6PM · 200 Eastern Pkwy · $25 suggested</div>
+        <div class="item-desc">The second-largest art museum in the US — far less crowded than the Met. The Egyptian collection, American art, and feminist art wing (Elizabeth A. Sackler Center) are highlights.</div>
+        <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Brooklyn+Museum+200+Eastern+Pkwy+Brooklyn+New+York">📍 Open in Maps</a>
+      </div>
+      <div class="item">
+        <div class="item-name">Prospect Park & Brooklyn Botanic Garden</div>
+        <div class="item-meta">⏱ 1 h · free · 990 Washington Ave</div>
+        <div class="item-desc">Frederick Law Olmsted's other great park (he co-designed Central Park). The Botanic Garden next door is one of NYC's hidden gems — the Japanese Hill-and-Pond Garden is beautiful.</div>
+        <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Brooklyn+Botanic+Garden+New+York">📍 Open in Maps</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><span class="tag-evening">🌆 Evening</span></div>
+    <div class="section-body">
+      <div class="item">
+        <div class="item-name">DUMBO at golden hour</div>
+        <div class="item-meta">📍 Washington St & Water St · most photographed street in NYC</div>
+        <div class="item-desc">Head to the corner of Washington St and Water St at golden hour — the Brooklyn Bridge framed between the brick buildings is the most iconic NYC photo. Then grab a drink at Time Out Market (55 Water St) with waterfront views.</div>
+        <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Washington+St+Water+St+DUMBO+Brooklyn+New+York">📍 Open in Maps</a>
+      </div>
+      <div class="item">
+        <div class="item-name">Dinner in Williamsburg or DUMBO</div>
+        <div class="item-meta">🍽 Lilia (Williamsburg) · Celestine (DUMBO)</div>
+        <div class="item-desc">Lilia (567 Union Ave) is one of the best Italian restaurants in NYC — book well in advance. If you can't get in, Celestine at the DUMBO waterfront is a beautiful backup with Mediterranean fare and bridge views.</div>
+        <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Lilia+567+Union+Ave+Williamsburg+Brooklyn">📍 Lilia Maps</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══ DAY 5 ══ -->
+<div class="day-block" id="day5">
+  <div class="day-header">
+    <div class="day-num">Day 5</div>
+    <div class="day-title">West Village, High Line & Chelsea</div>
+    <div class="day-vibe">Leafy streets · Art · Perfect pace</div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><span class="tag-morning">☀️ Morning</span></div>
+    <div class="section-body">
+      <div class="item">
+        <div class="item-name">West Village morning wander</div>
+        <div class="item-meta">📍 Christopher St · A/C/E/1/2/3 to 14th St</div>
+        <div class="item-desc">The West Village is NYC's most charming neighborhood — narrow cobblestone streets, brownstones draped in ivy, no grid. Get lost here. Bleecker St, Christopher St, and the streets around Carmine St are the best for strolling.</div>
+        <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=West+Village+New+York+Christopher+Street">📍 Open in Maps</a>
+      </div>
+      <div class="item">
+        <div class="item-name">Breakfast at Buvette</div>
+        <div class="item-meta">🍳 42 Grove St · West Village · 7AM–12AM daily</div>
+        <div class="item-desc">A tiny, perfect Parisian-style gastrotheque. The best breakfast in the West Village — avocado toast, eggs, and exceptional coffee. It's small so arrive right when it opens or be prepared to wait a bit.</div>
+        <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Buvette+42+Grove+St+West+Village+New+York">📍 Open in Maps</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><span class="tag-afternoon">🌤 Afternoon</span></div>
+    <div class="section-body">
+      <div class="item">
+        <div class="item-name">The High Line</div>
+        <div class="item-meta">⏱ 1.5 h · free · runs from Gansevoort St to 34th St</div>
+        <div class="item-desc">A repurposed elevated freight railway turned linear park with rotating art installations, landscaping, and great views over the Hudson and the city. Walk it south to north — it ends near Hudson Yards. Best mid-afternoon when the light is good.</div>
+        <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=High+Line+New+York+Gansevoort+Street">📍 Open in Maps</a>
+      </div>
+      <div class="item">
+        <div class="item-name">Chelsea Market & Chelsea Galleries</div>
+        <div class="item-meta">📍 75 9th Ave · Mon–Sat 7AM–9PM</div>
+        <div class="item-desc">Chelsea Market is a former Nabisco factory turned gourmet food hall — pick up snacks, browse the vendors. Then walk the surrounding blocks of Chelsea for free world-class contemporary art galleries (W 22nd–26th St between 10th–11th Ave).</div>
+        <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Chelsea+Market+75+9th+Ave+New+York">📍 Open in Maps</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><span class="tag-evening">🌆 Evening</span></div>
+    <div class="section-body">
+      <div class="item">
+        <div class="item-name">The Edge Observation Deck (sunset)</div>
+        <div class="item-meta">⏱ 1 h · 30 Hudson Yards · book in advance · $40+</div>
+        <div class="item-desc">The highest outdoor observation deck in the Western Hemisphere, with a glass-floored suspended platform. Book the sunset slot — views of the Manhattan skyline, Hudson River, and New Jersey at dusk are breathtaking. A fitting end to the trip.</div>
+        <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Edge+Observation+Deck+30+Hudson+Yards+New+York">📍 Open in Maps</a>
+      </div>
+      <div class="item">
+        <div class="item-name">Final dinner: SoHo or West Village</div>
+        <div class="item-meta">🍽 L'Artusi · Via Carota · Don Angie</div>
+        <div class="item-desc">L'Artusi (228 W 10th St) and Via Carota (51 Grove St) are perennial West Village favorites — Italian, excellent pasta, no reservations at Via Carota so arrive by 6PM or expect a wait. Don Angie (103 Greenwich Ave) is more upscale Italian and takes reservations.</div>
+        <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Via+Carota+51+Grove+St+West+Village+New+York">📍 Via Carota Maps</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="tip">
+    <strong>Last-night tip:</strong> After dinner, walk along the Hudson River Greenway near Pier 45 in the West Village. On a clear night the New Jersey lights reflected on the water, with the city humming behind you, is quintessential New York.
+  </div>
+</div>
+
+
+<!-- ══ WHERE TO EAT ══ -->
+<div class="day-block" id="eat">
+  <div class="day-header">
+    <div class="day-num">Food Guide</div>
+    <div class="day-title">Where to Eat — NYC Essentials</div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><span class="tag-food">🥯 NYC Classics — eat at least once</span></div>
+    <div class="section-body">
+      <div class="food-card">
+        <div><div class="food-name">Katz's Delicatessen</div><div class="food-type">Deli · LES · since 1888</div></div>
+        <div class="food-must">MUST</div>
+        <div class="food-desc">Pastrami on rye. The best in the world. Cash preferred. 205 E Houston St.</div>
+      </div>
+      <div class="food-card">
+        <div><div class="food-name">Russ & Daughters</div><div class="food-type">Bagels & Lox · LES · since 1914</div></div>
+        <div class="food-must">MUST</div>
+        <div class="food-desc">The definitive bagel-and-lox experience. Order the Classic with Gaspe Nova. 179 E Houston St.</div>
+      </div>
+      <div class="food-card">
+        <div><div class="food-name">Joe's Pizza</div><div class="food-type">Pizza · West Village · since 1975</div></div>
+        <div class="food-must">MUST</div>
+        <div class="food-desc">NYC's most iconic slice. Thin, crispy, perfect. $3 a slice, eat standing. 7 Carmine St.</div>
+      </div>
+      <div class="food-card">
+        <div><div class="food-name">Shake Shack (Madison Square Park)</div><div class="food-type">Burgers · Flatiron</div></div>
+        <div class="food-desc">The original location in Madison Square Park. Always a line but worth it. Best Shack Burger in the city.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><span class="tag-food">⭐ Top-Rated 2026</span></div>
+    <div class="section-body">
+      <div class="food-card">
+        <div><div class="food-name">Kabawa</div><div class="food-type">Caribbean · NYT #1 restaurant 2026</div></div>
+        <div class="food-must">HOT</div>
+        <div class="food-desc">Crowned the best restaurant in New York by the New York Times in 2026. Book well in advance.</div>
+      </div>
+      <div class="food-card">
+        <div><div class="food-name">Lilia</div><div class="food-type">Italian · Williamsburg · Brooklyn</div></div>
+        <div class="food-must">HOT</div>
+        <div class="food-desc">Missy Robbins's pasta mecca. The mafaldini with pink peppercorns and the sheep's milk cheese agnolotti are legendary. Book 4–6 weeks ahead. 567 Union Ave.</div>
+      </div>
+      <div class="food-card">
+        <div><div class="food-name">Torrisi</div><div class="food-type">Italian-American · Midtown</div></div>
+        <div class="food-desc">NYT top-3, in the New York Palace. Reservations required. Classic Italian-American elevated to high dining.</div>
+      </div>
+      <div class="food-card">
+        <div><div class="food-name">Via Carota</div><div class="food-type">Italian · West Village</div></div>
+        <div class="food-desc">No reservations, neighborhood trattoria energy with exceptional rustic Italian food. Arrive early (6PM) to avoid a long wait. 51 Grove St.</div>
+      </div>
+      <div class="food-card">
+        <div><div class="food-name">Semma</div><div class="food-type">South Indian · Greenwich Village</div></div>
+        <div class="food-desc">NYT top-10, one of the most exciting Indian restaurants in the US. South Indian regional cuisine done beautifully. Book ahead.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><span class="tag-food">☕ Coffee & Cafes</span></div>
+    <div class="section-body">
+      <div class="food-card">
+        <div><div class="food-name">Buvette</div><div class="food-type">Gastrotheque · West Village</div></div>
+        <div class="food-desc">Paris in NYC. Best breakfast spot in the city. 42 Grove St.</div>
+      </div>
+      <div class="food-card">
+        <div><div class="food-name">Sant Ambroeus</div><div class="food-type">Italian café · Upper East Side</div></div>
+        <div class="food-desc">The most elegant coffee stop in Manhattan. Great for a mid-morning espresso and pastry. 982 Madison Ave.</div>
+      </div>
+      <div class="food-card">
+        <div><div class="food-name">Blue Bottle Coffee</div><div class="food-type">Specialty coffee · multiple locations</div></div>
+        <div class="food-desc">Reliable, excellent specialty coffee throughout the city. The Williamsburg and West Village locations have nice spaces to sit.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><span class="tag-food">🛒 Food Markets</span></div>
+    <div class="section-body">
+      <div class="food-card">
+        <div><div class="food-name">Smorgasburg</div><div class="food-type">Outdoor food market · Sat (Prospect Park) · Sun (Williamsburg)</div></div>
+        <div class="food-must">MUST</div>
+        <div class="food-desc">100+ vendors, the best street food event in NYC. Apr–Nov. Free entry. 11AM–6PM.</div>
+      </div>
+      <div class="food-card">
+        <div><div class="food-name">Chelsea Market</div><div class="food-type">Indoor market · 75 9th Ave</div></div>
+        <div class="food-desc">Lobster rolls, artisan cheeses, tacos, coffee, baked goods — all in a beautiful converted factory building.</div>
+      </div>
+      <div class="food-card">
+        <div><div class="food-name">Essex Street Market</div><div class="food-type">Food hall · Lower East Side</div></div>
+        <div class="food-desc">NYC's oldest public market, now in a beautiful new space. Great for groceries, cheese, and prepared foods.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══ PRACTICAL ══ -->
+<div class="practical" id="practical">
+  <h2>Practical Info</h2>
+  <div class="practical-grid">
+    <div class="prac-item">
+      <strong>Subway</strong>
+      Get an OMNY card (tap to pay) or a 7-day MetroCard ($34). The subway runs 24/7. Most attractions are within a few blocks of a station.
+    </div>
+    <div class="prac-item">
+      <strong>Taxi & Rideshare</strong>
+      Yellow cabs are metered; hail them on the street. Uber/Lyft work well. Avoid during rush hour — it's often faster to walk or take the subway.
+    </div>
+    <div class="prac-item">
+      <strong>Neighborhoods map</strong>
+      Lower Manhattan → Midtown → Upper East Side → Brooklyn → West Village. Each day roughly stays in one area to minimize transit.
+    </div>
+    <div class="prac-item">
+      <strong>Booking tips</strong>
+      Reserve Top of the Rock, The Edge, 9/11 Museum, and any popular restaurant at least 2–4 weeks in advance. Broadway shows: book via Telecharge or TKTS for day-of discounts.
+    </div>
+    <div class="prac-item">
+      <strong>Walking</strong>
+      NYC is extremely walkable. Many of the best moments happen while walking between places — build in extra time to wander.
+    </div>
+    <div class="prac-item">
+      <strong>Weather</strong>
+      Spring (Apr–Jun) and fall (Sep–Nov) are ideal. Summers are hot and humid (30°C+). Winters can be cold but the city is magical in the snow.
+    </div>
+    <div class="prac-item">
+      <strong>Safety</strong>
+      NYC is very safe for tourists in the main neighborhoods. Standard city precautions: be aware of your surroundings on the subway, keep your phone in your pocket.
+    </div>
+    <div class="prac-item">
+      <strong>Tipping</strong>
+      18–20% at restaurants (the iPad will suggest 22/25/30% — 18–20% is completely fine). $1–2/drink at bars, $2–5 for taxis.
+    </div>
+  </div>
+</div>
+
+</div><!-- /wrap -->
+</body>
+</html>

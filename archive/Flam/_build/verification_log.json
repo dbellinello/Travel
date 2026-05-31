@@ -1,0 +1,13 @@
+{
+  "guide": "flam_v1.html",
+  "built": "2026-05-28",
+  "urls": [
+    {"url": "https://www.norwaysbest.com/en/flam/things-to-do/fjord-cruise-naeroyfjord", "status": 200, "words": "ok"},
+    {"url": "https://en.flamsbana.no/", "status": 200, "words": "ok"},
+    {"url": "https://www.vatnahalsen.no/en/flam-zipline", "status": 200, "words": "ok"},
+    {"url": "https://www.stavechurch.com/borgund-stave-church/?lang=en", "status": 200, "words": "ok"},
+    {"url": "https://www.floyen.no/en/floibanen", "status": 200, "words": "ok"},
+    {"url": "https://www.viator.com/tours/Aurlandsvangen/The-wonders-of-Flam-visit-Stegastein-Stave-church-and-more/d50964-411529P2", "status": 200, "words": "ok", "bot-blocked": true, "verified-via": "site-search"},
+    {"url": "https://www.getyourguide.com/flam-l108502/flam-shore-excursion-the-wonders-of-flam-full-day-trip-t445894/", "status": 200, "words": "ok", "bot-blocked": true, "verified-via": "site-search"}
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "_meta": {
+    "guide": "barcelona_v1.html",
+    "created": "2026-05-31",
+    "updated": "2026-05-31"
+  },
+  "entries": {
+    "https://www.viator.com/tours/Barcelona/Barcelona-in-One-Day-Sagrada-Familia-Park-Guell-and-Old-Town-with-Hotel-Pick-up/d562-9866P21": {
+      "platform": "viator",
+      "method": "viator_mcp",
+      "query": "Barcelona day tour Viator MCP search_experiences 2026-05-31",
+      "verified_on": "2026-05-31",
+      "verified_by": "claude",
+      "expected_attraction": "Barcelona tour — Tours Extra Section (non-private)",
+      "result": "PASS",
+      "notes": "Live Viator MCP search_experiences result: 4.87 / 15264 reviews. clickOffToLander URL confirmed."
+    },
+    "https://www.viator.com/tours/Barcelona/Barcelona-Gaudis-Sagrada-Familia-Fast-Track-Guided-Tour/d562-15932P95": {
+      "platform": "viator",
+      "method": "viator_mcp",
+      "query": "Barcelona Sagrada Familia tour Viator MCP 2026-05-31",
+      "verified_on": "2026-05-31",
+      "verified_by": "claude",
+      "expected_attraction": "Barcelona tour — Tours Extra Section (non-private)",
+      "result": "PASS",
+      "notes": "Live Viator MCP: 4.91 / 1497 reviews. clickOffToLander URL confirmed."
+    },
+    "https://www.viator.com/tours/Barcelona/Sagrada-Familia-Skip-The-Line-Tour/d562-340934P4": {
+      "platform": "viator",
+      "method": "viator_mcp",
+      "query": "Barcelona Sagrada Familia skip the line Viator MCP 2026-05-31",
+      "verified_on": "2026-05-31",
+      "verified_by": "claude",
+      "expected_attraction": "Sagrada Família stop ticket + Tours Extra Section (non-private)",
+      "result": "PASS",
+      "notes": "Live Viator MCP: 4.74 / 3536 reviews. clickOffToLander URL confirmed."
+    },
+    "https://www.viator.com/tours/Barcelona/Best-of-Barcelona-Sagrada-Familia-Park-Guell-Montjuic-and-Gothic/d562-16168P24": {
+      "platform": "viator",
+      "method": "viator_mcp",
+      "query": "Barcelona all included city tour Viator MCP 2026-05-31",
+      "verified_on": "2026-05-31",
+      "verified_by": "claude",
+      "expected_attraction": "Barcelona tour — Tours Extra Section (non-private)",
+      "result": "PASS",
+      "notes": "Live Viator MCP: 4.87 / 2471 reviews. clickOffToLander URL confirmed."
+    },
+    "https://www.viator.com/tours/Barcelona/Old-Town-and-Gothic-Quarter-Guided-Walking-Tour-in-Barcelona/d562-9866P16": {
+      "platform": "viator",
+      "method": "viator_mcp",
+      "query": "Barcelona Gothic Quarter walking tour Viator MCP 2026-05-31",
+      "verified_on": "2026-05-31",
+      "verified_by": "claude",
+      "expected_attraction": "Barcelona tour — Tours Extra Section (non-private)",
+      "result": "PASS",
+      "notes": "Live Viator MCP: 4.86 / 1646 reviews. clickOffToLander URL confirmed."
+    },
+    "https://www.getyourguide.com/barcelona-l45/barcelona-montjuic-sagrada-familia-gothic-quarter-tour-t868273/": {
+      "platform": "getyourguide",
+      "method": "site_search",
+      "query": "site:getyourguide.com Barcelona Montjuic Sagrada Familia Gothic Quarter t868273 2026-05-31",
+      "verified_on": "2026-05-31",
+      "verified_by": "claude",
+      "expected_attraction": "Barcelona tour — Tours Extra Section (non-private)",
+      "result": "PASS",
+      "notes": "site: search confirmed URL. Rating 4.7 / 1815 reviews confirmed in search result snippet."
+    },
+    "https://www.tripadvisor.com/AttractionProductReview-g187497-d11988199-Barcelona_in_1_Day_Sagrada_Familia_Park_Guell_Old_Town_Pickup-Barcelona_Catalonia.html": {
+      "platform": "tripadvisor",
+      "method": "site_search",
+      "query": "site:tripadvisor.com Barcelona in 1 day d11988199 2026-05-31",
+      "verified_on": "2026-05-31",
+      "verified_by": "claude",
+      "expected_attraction": "Barcelona tour — Tours Extra Section (non-private)",
+      "result": "PASS",
+      "notes": "site: search confirmed URL. Rating 4.9 / 11889 reviews confirmed in search snippet."
+    },
+    "https://www.tripadvisor.com/AttractionProductReview-g187497-d11988200-Barcelona_Highlights_Small_Group_Tour_with_Hotel_Pick_Up-Barcelona_Catalonia.html": {
+      "platform": "tripadvisor",
+      "method": "site_search",
+      "query": "site:tripadvisor.com Barcelona highlights d11988200 2026-05-31",
+      "verified_on": "2026-05-31",
+      "verified_by": "claude",
+      "expected_attraction": "Barcelona tour — Tours Extra Section (non-private)",
+      "result": "PASS",
+      "notes": "site: search confirmed URL. Rating 5.0 / 634 reviews confirmed in search snippet."
+    }
+  }
+}

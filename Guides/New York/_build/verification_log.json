@@ -1,0 +1,84 @@
+{
+  "_meta": {
+    "guide": "New York City",
+    "version": "v1",
+    "last_updated": "2026-05-31"
+  },
+  "entries": {
+    "https://www.viator.com/tours/New-York-City/9-11-Memorial-Museum-Admission/d687-7195SEPT11": {
+      "result": "PASS",
+      "verified_on": "2026-05-31",
+      "method": "direct fetch — confirmed 4.7⭐ / 6,511 reviews"
+    },
+    "https://www.viator.com/tours/New-York-City/The-Soul-of-Harlem-Walking-Tour/d687-239046P2": {
+      "result": "PASS",
+      "verified_on": "2026-05-31",
+      "method": "Viator MCP get_experience_details — confirmed 4.98⭐ / 215 reviews"
+    },
+    "https://www.viator.com/tours/New-York-City/Garbage-and-Rats-in-New-York-City-Walking-Tour/d687-5559573P2": {
+      "result": "PASS",
+      "verified_on": "2026-05-31",
+      "method": "Viator MCP get_experience_details — confirmed 4.99⭐ / 107 reviews"
+    },
+    "https://www.viator.com/tours/New-York-City/New-York-Food-Tour/d687-7812P17": {
+      "result": "PASS",
+      "verified_on": "2026-05-31",
+      "method": "Viator MCP get_experience_details — confirmed 4.96⭐ / 1,865 reviews"
+    },
+    "https://www.viator.com/tours/New-York-City/Manhattan-to-Brooklyn-NYC-Walking-Tour-Brooklyn-Bridge-and-Dumbo/d687-5637BB": {
+      "result": "PASS",
+      "verified_on": "2026-05-31",
+      "method": "Viator MCP get_experience_details — confirmed 4.85⭐ / 868 reviews"
+    },
+    "https://www.viator.com/tours/New-York-City/Statue-of-Liberty-and-Skyline-Sightseeing-Cruise/d687-6288P9": {
+      "result": "PASS",
+      "verified_on": "2026-05-31",
+      "method": "direct fetch — confirmed 4.8⭐ / 754 reviews, meeting point 62 Chelsea Piers Pier 62"
+    },
+    "https://www.viator.com/tours/New-York-City/Brooklyn-Museum-General-Admission/d687-40448P1": {
+      "result": "PASS",
+      "verified_on": "2026-05-31",
+      "method": "direct fetch — confirmed 4.4⭐ / 64 reviews"
+    },
+    "https://www.viator.com/tours/New-York-City/Brooklyn-Botanic-Garden-Admission-Ticket/d687-64317P1": {
+      "result": "PASS",
+      "verified_on": "2026-05-31",
+      "method": "direct fetch — confirmed 4.5⭐ / 34 reviews"
+    },
+    "https://www.getyourguide.com/new-york-city-l59/highline-chelsea-meatpacking-tour-t46045/": {
+      "result": "PASS",
+      "verified_on": "2026-05-31",
+      "method": "site: search snippet inspection — confirmed 4.9⭐ / 201 reviews"
+    },
+    "https://www.getyourguide.com/new-york-city-l59/greenwich-village-tour-t46058/": {
+      "result": "PASS",
+      "verified_on": "2026-05-31",
+      "method": "site: search snippet inspection — confirmed 4.9⭐"
+    },
+    "https://www.getyourguide.com/new-york-city-l59/soho-little-italy-and-chinatown-guided-tour-t514924/": {
+      "result": "PASS",
+      "verified_on": "2026-05-31",
+      "method": "site: search snippet inspection — confirmed 4.8⭐ / 132 reviews"
+    },
+    "https://www.getyourguide.com/new-york-city-l59/nyc-guggenheim-museum-entry-ticket-t438085/": {
+      "result": "PASS",
+      "verified_on": "2026-05-31",
+      "method": "site: search snippet inspection — confirmed 4.4⭐ / 2,281 reviews"
+    },
+    "https://www.tripadvisor.com/AttractionProductReview-g60763-d33035058-Garbage_and_Rats_in_New_York_City_Walking_Tour-New_York_City_New_York.html": {
+      "result": "PASS",
+      "verified_on": "2026-05-31",
+      "method": "site: search snippet inspection — confirmed 4.9⭐ / 120 reviews"
+    },
+    "https://www.tripadvisor.com/AttractionProductReview-g60763-d12649119-NYC_Underground_Subway_Walking_Tour-New_York_City_New_York.html": {
+      "result": "PASS",
+      "verified_on": "2026-05-31",
+      "method": "site: search snippet inspection — confirmed 5.0⭐ / 6,128 reviews"
+    },
+    "https://www.tripadvisor.com/AttractionProductReview-g60763-d32999576-Unexpected_Wall_Street_Walking_Tour-New_York_City_New_York.html": {
+      "result": "PASS",
+      "verified_on": "2026-05-31",
+      "method": "site: search snippet inspection — confirmed 4.9⭐ / 191 reviews"
+    }
+  }
+}

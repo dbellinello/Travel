@@ -1,0 +1,87 @@
+{
+  "_meta": {
+    "guide": "san_diego_v1.html",
+    "built": "2026-05-30",
+    "updated": "2026-05-30"
+  },
+  "entries": {
+    "https://www.viator.com/tours/San-Diego/San-Diego-Bay-Sunset-Sail/d736-10935P3": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "method": "Viator MCP search_experiences — live rating 4.9, 625 reviews confirmed",
+      "platform": "viator"
+    },
+    "https://www.viator.com/tours/San-Diego/San-Diego-Harbor-Cruise/d736-5144_C0001": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "method": "Viator MCP search_experiences — live rating 4.5, 3145 reviews confirmed",
+      "platform": "viator"
+    },
+    "https://www.viator.com/tours/San-Diego/San-Diego-Coronado-History-and-Highlights/d736-298734P3": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "method": "Viator MCP search_experiences — live rating 5.0, 80 reviews confirmed",
+      "platform": "viator"
+    },
+    "https://www.viator.com/tours/San-Diego/San-Diego-Bay-Sightseeing-Cruise-on-the-Largest-Catamaran-in-San-Diego/d736-360701P2": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "method": "Viator MCP search_experiences — live rating 4.9, 42 reviews confirmed",
+      "platform": "viator"
+    },
+    "https://www.viator.com/tours/San-Diego/Clear-Illuminated-Sunset-Kayak-Tours-in-San-Diego/d736-5625652P1": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "method": "Viator MCP search_experiences — live rating 5.0, 12 reviews confirmed",
+      "platform": "viator"
+    },
+    "https://www.getyourguide.com/san-diego-l263/90-minute-san-diego-seal-tour-t14286/": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "method": "site:getyourguide.com search + third-party aggregator — rating 4.7, 690 reviews confirmed",
+      "platform": "getyourguide"
+    },
+    "https://www.getyourguide.com/la-jolla-l1489/la-jolla-2-hour-kayak-tour-of-the-7-caves-t217185/": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "method": "site:getyourguide.com search — rating 4.5, 81 reviews confirmed",
+      "platform": "getyourguide"
+    },
+    "https://www.getyourguide.com/san-diego-l263/san-diego-harbor-cruise-25-hour-catamaran-cruise-t512024/": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "method": "site:getyourguide.com search — rating 4.8, 6 reviews confirmed",
+      "platform": "getyourguide"
+    },
+    "https://www.tripadvisor.com/AttractionProductReview-g60750-d11450493-San_Diego_Seal_Tour-San_Diego_California.html": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "method": "TripAdvisor direct page fetch — rating 4.7, 384 reviews confirmed",
+      "platform": "tripadvisor"
+    },
+    "https://www.tripadvisor.com/AttractionProductReview-g60750-d17847217-San_Diego_Whale_Watching_Dolphin_Cruise-San_Diego_California.html": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "method": "TripAdvisor direct page fetch — rating 4.6, 809 reviews confirmed",
+      "platform": "tripadvisor"
+    },
+    "https://www.tripadvisor.com/AttractionProductReview-g60750-d12329933-America_s_Cup_Sailing_in_San_Diego-San_Diego_California.html": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "method": "TripAdvisor direct page fetch — rating 5.0, 77 reviews confirmed",
+      "platform": "tripadvisor"
+    },
+    "https://www.tripadvisor.com/AttractionProductReview-g60750-d11451158-San_Diego_Harbor_Speed_Boat_Adventure-San_Diego_California.html": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "method": "TripAdvisor direct page fetch — rating 4.8, 587 reviews confirmed",
+      "platform": "tripadvisor"
+    },
+    "https://www.tripadvisor.com/AttractionProductReview-g60750-d23567407-Taste_of_Little_Italy_in_San_Diego-San_Diego_California.html": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "method": "TripAdvisor direct page fetch — rating 5.0, 530 reviews confirmed",
+      "platform": "tripadvisor"
+    }
+  }
+}

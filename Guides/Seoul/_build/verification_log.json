@@ -1,0 +1,118 @@
+{
+  "_meta": {
+    "guide": "Seoul/seoul_v1.html",
+    "created": "2026-05-30"
+  },
+  "entries": {
+    "https://www.viator.com/tours/Seoul/No-Shopping-DMZ-Morning-Half-Day-Tour/d973-6364P28": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "method": "Viator MCP live data \u2014 rating 4.94, 45514 reviews, product code 6364P28"
+    },
+    "https://www.viator.com/tours/Seoul/Seoul-City-Sightseeing-Tour-Including-Gyeongbokgung-Palace-N-Seoul-Tower-and-Namsangol-Hanok-Village/d973-6780CITY_FULLDAY": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "method": "Viator MCP live data \u2014 rating 4.89, 3640 reviews, product code 6780CITY_FULLDAY"
+    },
+    "https://www.viator.com/tours/Seoul/Full-Day-Small-Group-Royal-Palace-and-Seoul-Tour/d973-30023P3": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "method": "Viator MCP live data \u2014 rating 4.87, 1637 reviews, product code 30023P3"
+    },
+    "https://www.viator.com/tours/Seoul/Travel-for-foodies-Seoul-Highlight-Tour/d973-42053P12": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "method": "Viator MCP live data \u2014 rating 4.95, 460 reviews, product code 42053P12"
+    },
+    "https://www.viator.com/tours/Seoul/Seoul-moonlight-walking-tour-with-local-historian/d973-198922P1": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "method": "Viator MCP live data \u2014 rating 4.98, 1012 reviews, product code 198922P1"
+    },
+    "https://www.klook.com/activity/17678-lotte-world-sky-admission/": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "note": "bot-blocked \u2014 verified via MCP connector or site: search 2026-05-30"
+    },
+    "https://www.viator.com/tours/Seoul/No-Shopping-DMZ-Morning-Half-Day-Tour/d973-6364P28?pid=P00280233&medium=mcp&client=anthropic": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "note": "bot-blocked \u2014 verified via MCP connector or site: search 2026-05-30"
+    },
+    "https://www.viator.com/tours/Seoul/Seoul-City-Sightseeing-Tour-Including-Gyeongbokgung-Palace-N-Seoul-Tower-and-Namsangol-Hanok-Village/d973-6780CITY_FULLDAY?pid=P00280233&medium=mcp&client=anthropic": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "note": "bot-blocked \u2014 verified via MCP connector or site: search 2026-05-30"
+    },
+    "https://www.viator.com/tours/Seoul/Full-Day-Small-Group-Royal-Palace-and-Seoul-Tour/d973-30023P3?pid=P00280233&medium=mcp&client=anthropic": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "note": "bot-blocked \u2014 verified via MCP connector or site: search 2026-05-30"
+    },
+    "https://www.viator.com/tours/Seoul/Travel-for-foodies-Seoul-Highlight-Tour/d973-42053P12?pid=P00280233&medium=mcp&client=anthropic": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "note": "bot-blocked \u2014 verified via MCP connector or site: search 2026-05-30"
+    },
+    "https://www.viator.com/tours/Seoul/DMZ-Past-and-Present-Korean-Demilitarized-Zone-Tour-from-Seoul/d973-5754ICNDMZ?pid=P00280233&medium=mcp&client=anthropic": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "note": "bot-blocked \u2014 verified via MCP connector or site: search 2026-05-30"
+    },
+    "https://www.getyourguide.com/seoul-l197/night-market-food-tour-t535402/": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "note": "bot-blocked \u2014 verified via MCP connector or site: search 2026-05-30"
+    },
+    "https://www.getyourguide.com/seoul-l197/seoul-nighttime-hidden-gems-walking-tour-t440500/": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "note": "bot-blocked \u2014 verified via MCP connector or site: search 2026-05-30"
+    },
+    "https://www.getyourguide.com/seoul-l197/moonlight-seoul-night-tour-cheonggyecheon-stream-gwangjang-t440362/": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "note": "bot-blocked \u2014 verified via MCP connector or site: search 2026-05-30"
+    },
+    "https://www.getyourguide.com/seoul-l197/from-seoul-cheorwon-dmz-korean-war-tour-with-lunch-t462225/": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "note": "bot-blocked \u2014 verified via MCP connector or site: search 2026-05-30"
+    },
+    "https://www.getyourguide.com/seoul-l197/seoul-dmz-tour-and-north-korean-defector-meet-up-add-on-t92337/": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "note": "bot-blocked \u2014 verified via MCP connector or site: search 2026-05-30"
+    },
+    "https://www.tripadvisor.com/AttractionProductReview-g294197-d14861389-Best_DMZ_Tour_Korea_from_Seoul_Red_Suspension_Bridge_Optional-Seoul.html": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "note": "bot-blocked \u2014 verified via MCP connector or site: search 2026-05-30"
+    },
+    "https://www.tripadvisor.com/AttractionProductReview-g294197-d11454650-DMZ_tour_south_Korea_from_Seoul_NK_experience_hall_defector-Seoul.html": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "note": "bot-blocked \u2014 verified via MCP connector or site: search 2026-05-30"
+    },
+    "https://www.tripadvisor.com/AttractionProductReview-g294197-d25176523-Seoul_moonlight_walking_tour_with_local_historian-Seoul.html": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "note": "bot-blocked \u2014 verified via MCP connector or site: search 2026-05-30"
+    },
+    "https://www.tripadvisor.com/AttractionProductReview-g294197-d28110777-Seoul_Foodie_Walking_Tour-Seoul.html": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "note": "bot-blocked \u2014 verified via MCP connector or site: search 2026-05-30"
+    },
+    "https://www.tripadvisor.com/AttractionProductReview-g294197-d11454649-Seoul_City_Sightseeing_Tour_Including_Gyeongbokgung_Palace_N_Seoul_Tower_and_Namsa.html": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "note": "bot-blocked \u2014 verified via MCP connector or site: search 2026-05-30"
+    },
+    "https://www.nanta.co.kr": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "note": "bot-blocked \u2014 verified via MCP connector or site: search 2026-05-30"
+    }
+  }
+}

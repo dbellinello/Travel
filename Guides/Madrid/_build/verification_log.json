@@ -1,0 +1,48 @@
+{
+  "_meta": {
+    "guide": "Guides/Madrid/madrid_v1.html",
+    "updated": "2026-05-30"
+  },
+  "entries": {
+    "https://www.viator.com/tours/Madrid/Prado-Museum-Tour-in-English-6-people-maxim-Skip-the-line/d566-169630P1": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "method": "Viator MCP connector — live product returned rating 4.92 · 1835 reviews"
+    },
+    "https://www.viator.com/tours/Madrid/Madrid-Royal-Palace-Guided-Tour-with-Skip-The-Line-Tickets/d566-340934P5": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "method": "Viator MCP connector — live product returned rating 4.71 · 2322 reviews"
+    },
+    "https://www.viator.com/tours/Madrid/Skip-the-line-and-Visit-the-Prado-Museum/d566-110971P44": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "method": "Viator MCP connector — live product returned rating 4.52 · 1517 reviews"
+    },
+    "https://www.viator.com/tours/Madrid/Skip-the-Line-Early-Entrance-Tour-Guided-of-the-Royal-Palace-of-Madrid/d566-110971P41": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "method": "Viator MCP connector — live product returned rating 4.50 · 2045 reviews"
+    },
+    "https://www.viator.com/tours/Madrid/Toledo-Full-Day-with-Cathedral-from-Madrid/d566-110971P5": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "method": "Viator MCP connector — live product returned rating 4.82 · 7384 reviews"
+    },
+    "https://www.getyourguide.com/madrid-l46/madrid-s-prado-museum-expert-guided-tour-with-skip-the-line-t131916/": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "method": "site:getyourguide.com search snippet — 4.6 stars · 2434 reviews confirmed"
+    },
+    "https://www.getyourguide.com/madrid-l46/madrid-welcome-to-madrid-guided-visit-t509163/": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "method": "site:getyourguide.com search snippet — 4.8 stars · 366 reviews confirmed"
+    },
+    "https://www.getyourguide.com/madrid-l46/madrid-city-highlights-guided-walking-tour-t468918/": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "method": "site:getyourguide.com search snippet — 4.8 stars · 304 reviews confirmed"
+    }
+  }
+}

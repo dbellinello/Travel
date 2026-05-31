@@ -1,0 +1,73 @@
+{
+  "entries": {
+    "https://www.viator.com/tours/Vienna/2-hour-Vienna-City-Classic-Walk/d454-39794P2": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "method": "site: search snippet inspection"
+    },
+    "https://www.viator.com/tours/Vienna/Hofburg-and-Jewels-of-Ringstrasse-Half-Day-Walking-Tour/d454-46089P2": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "method": "site: search snippet inspection"
+    },
+    "https://www.viator.com/tours/Vienna/Small-Group-History-Walking-Tour-in-Vienna-The-City-of-Many-Pasts/d454-10847P25": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "method": "site: search snippet inspection"
+    },
+    "https://www.viator.com/tours/Vienna/Schonbrunn-Palace-Half-Day-Small-Group-History-Tour/d454-10847P65": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "method": "site: search snippet inspection"
+    },
+    "https://www.viator.com/tours/Vienna/Small-Group-Day-Trip-from-Vienna-to-Hallstatt/d454-71196P1": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "method": "site: search snippet inspection"
+    },
+    "https://www.getyourguide.com/vienna-l7/best-of-vienna-city-small-group-2-hour-walking-tour-t74489/": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "method": "site: search snippet inspection"
+    },
+    "https://www.getyourguide.com/vienna-l7/vienna-mozart-concert-at-the-golden-hall-t613/": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "method": "site: search snippet inspection"
+    },
+    "https://www.getyourguide.com/vienna-l7/vienna-schonbrunn-palace-gardens-skip-the-line-tour-t397843/": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "method": "site: search snippet inspection"
+    },
+    "https://www.getyourguide.com/vienna-l7/day-trips-from-vienna-hallstatt-salzburg-guided-tour-t823893/": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "method": "site: search snippet inspection"
+    },
+    "https://www.getyourguide.com/vienna-l7/small-group-premium-winery-tour-wachau-valley-t18371/": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "method": "site: search snippet inspection"
+    },
+    "https://www.tripadvisor.com/AttractionProductReview-g190454-d12350214-Vienna_Skip_the_Line_Schonbrunn_Palace_and_Gardens_Guided_Tour-Vienna_Vienna_Regio.html": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "method": "site: search snippet inspection"
+    },
+    "https://www.tripadvisor.com/AttractionProductReview-g190454-d11450251-Wachau_Valley_Small_Group_Tour_and_Wine_Tasting_from_Vienna-Vienna.html": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "method": "site: search snippet inspection"
+    },
+    "https://www.tripadvisor.com/AttractionProductReview-g190454-d11453782-Sound_of_Vienna_Johann_Strauss_and_Mozart_Concert-Vienna.html": {
+      "result": "PASS",
+      "verified_on": "2026-05-30",
+      "method": "site: search snippet inspection"
+    }
+  },
+  "_meta": {
+    "generated": "2026-05-30",
+    "method": "site: search snippet inspection"
+  }
+}

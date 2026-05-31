@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Pre-Ship Checklist</title>
+<link rel="stylesheet" href="../Reference/Core Rules Style.css">
+<style>
+code { font-size: inherit; }
+.entry { background: #fef9e0; }
+li { margin-bottom: 12px; }
+</style>
+</head>
+<body>
+<p class="banner"><strong>ATTENTION: THIS DOCUMENT IS READ-ONLY AND CAN ONLY BE EDITED BY REQUEST</strong><br>
+Read the formatting rules first — Brain/Reference/.<br>
+CSS, HTML, and validator code are not permitted in rule text.<br>
+Rules are written like a legal document — active voice, generic phrasing, no specific examples. The rules state what is; the validator catches what isn't.</p>
+<hr style="margin: 16px 0 48px 0; border: none; border-top: 1px solid #ddd;">
+
+<h1>✅ Pre-Ship Checklist</h1>
+<div class="meta">
+ <p><strong>Phase:</strong> 5 — Ship gate</p>
+ <p><strong>Summary:</strong> The final self-audit Claude runs before marking any guide build done. Answer each question honestly. Any "no" means the guide is not ready to ship — fix the gap and re-run the checklist.</p>
+</div>
+
+<h2>§ 1. When to run</h2>
+<p>Before marking a guide build "done" — every time. Not optional. § 10 includes running the validator as part of this checklist — answer every section before reaching it.</p>
+<p><strong>This includes patch sessions.</strong> Any session that modifies guide HTML runs this checklist and the validator before saying done. The scope of the change is not an exemption.</p>
+<p><strong>Resuming an incomplete build:</strong> read <code>_build/build_state.md</code> before doing anything. An unchecked Phase 5 means the guide is not done. Complete Phase 5 before any done claim.</p>
+
+<h2>§ 2. Build-state tracker</h2>
+<p>The tracker at <code>Guides/{City}/_build/build_state.md</code> exists and every <code>[ ]</code> for Phases 1-4 is flipped to <code>[x]</code>? Any unchecked phase reads means a file was skipped — go read it before continuing.</p>
+
+<h2>§ 3. Research &amp; selection</h2>
+<ul>
+<li>Was the skip list checked first (<code>Brain/mds/Cities Skip List.md</code> at the <code>## [City]</code> heading)?</li>
+<li>Every candidate came from a trusted source — Fodor's, Culture Trip, Rough Guides, Atlas Obscura, Rick Steves, National Geographic, or the official tourism board?</li>
+<li>No blogs, no AI SEO content, no affiliate listicles, no user-generated lists?</li>
+<li>No top-10 thinking — fame alone wasn't a reason to include?</li>
+<li>Meaningful over full — no padded days with filler picks?</li>
+
+</ul>
+
+<h2>§ 4. Day shape</h2>
+<ul>
+<li>Each day opens with the <code>🏨 FROM HOTEL:</code> banner?</li>
+<li>Each day closes with the hotel return?</li>
+<li>Stop count meets the rule: ≥4 for full self-guided days, with down to 1 permitted when a single distant or all-day stop sets the day's pace (per <code>Day Structure.html</code> § 5)?</li>
+<li>Train Day quota satisfied: ≥5-day guide includes at least one Train Day; ≤4-day guide includes none (per <code>Day Structure.html</code> §§ 6–7)?</li>
+<li>Geographic clustering — one loop or one path, no backtracking?</li>
+</ul>
+
+<h2>§ 5. Format</h2>
+<ul>
+<li>Title page: three lines (CITY uppercase / Hotel or Rental name / Address)?</li>
+<li>Every stop block follows the icon order in <code>Icon Order and Format.html</code>?</li>
+<li>Every motion banner follows <code>Motion Rule.html</code> (opener, between-stop banners, and day closer all present and correct)?</li>
+<li>Every 📍 address row follows <code>Links.html</code> § 6 format: <code>{Street} · {Neighborhood}</code> — no postal code or country; the address text itself is the clickable destination anchor (no separate token)?</li>
+<li>Every 🎟 ticket-box follows the format in <code>Tickets.html</code>?</li>
+<li>Toolbar present: the <code>toolbar-mount</code> div + <code>toolbar.js</code> script are the first items inside the container, with <code>data-depth="2"</code> and <code>data-maxwidth="940"</code> (per <code>Brain/Reference/Toolbar.html</code>; enforced by validator TB-1 through TB-8)?</li>
+<li>Footer sharing handled by <code>toolbar.js</code> — guide loads <code>toolbar.js</code> and has no inline footer div of its own (per <code>Brain/Reference/Toolbar.html § 5</code>; enforced by validator TB-9)?</li>
+</ul>
+
+<h2>§ 6. Photos</h2>
+<ul>
+<li>Every stop has a photo harvested in the same pass as the stop research (not deferred)?</li>
+<li>Every photo is from Wikimedia Commons with an acceptable license (Public Domain · CC0 · CC-BY · CC-BY-SA)?</li>
+<li>Every photo file is stored locally in <code>Guides/{City}/_build/assets/</code> — no hotlinking to <code>upload.wikimedia.org</code>?</li>
+<li>Stops without a usable Commons image ship the "No pictures found" line, not silent omission?</li>
+</ul>
+
+<h2>§ 7. URLs</h2>
+<ul>
+<li>Every URL returns HTTP 200?</li>
+<li>Every URL page carries ≥100 words of editorial content?</li>
+<li>Bot-blocked platforms (Viator, GetYourGuide, TheFork, Michelin, TripAdvisor) verified via <code>site:</code> search-result inspection?</li>
+<li>Verification log present at <code>Guides/{City}/_build/verification_log.json</code>?</li>
+<li>Every external anchor carries <code>target="_blank"</code>?</li>
+</ul>
+
+<h2>§ 8. Extra sections</h2>
+<p>Every extra section is present and either populated or carries its negative-finding line. Order must match this canonical sequence:</p>
+<ul>
+<li>🗓️ Weekly Closures</li>
+<li>📅 Tours</li>
+<li>☕ Cappuccino</li>
+<li>🫕 Restaurants Near Hotel</li>
+<li>🍽️ Downtown Restaurants</li>
+<li>🍮 Local Tastes</li>
+<li>🚗 Food Delivery</li>
+<li>🎭 Shows, Performances &amp; Concerts</li>
+<li>🚌 Getting Around</li>
+<li>🚆 Train Stations Near Hotel</li>
+<li>⛲️ Day Trips by Train</li>
+<li>🏓 Pickleball (California, Arizona, and Oregon only — silently omitted elsewhere)</li>
+<li>⭐ Michelin Restaurants</li>
+<li>❗️ Cities Gotchas (conditional — ships only when entries exist)</li>
+<li>🌟 Claude Inspiration (optional — silently omitted when nothing surfaced)</li>
+<li>Skip List footnote (conditional — very last; ships only when the city has a skip list)</li>
+</ul>
+
+<h2>§ 9. Data integrity</h2>
+<ul>
+<li>Every factual row (🏛 hours, 🚶 walk, 🚕 ride, ⏰ duration, 📍 address, 🎟 booking) comes from a confirmed source — venue's own site, Google Places, or a verifiable third-party listing?</li>
+<li>No hedging language ("typically open," "usually," "approximately," "around," etc.) in any factual row?</li>
+<li>No fabricated data — every fact live-verified this build, not pulled from memory or past guides?</li>
+<li>No money symbols ($, €, £, ¥, ISO codes) anywhere in the shipped guide?</li>
+<li>No tilde (~) anywhere in the guide — banned as a hedge/approximation marker outside ⏰ timing rows?</li>
+<li>No placeholders ({TBD}, {TODO}, "fill in later")?</li>
+</ul>
+
+<h2>§ 10. Validator</h2>
+<ul>
+<li><code>python3 Brain/scripts/brain_check.py</code> passes? (Run separately — not in the ship chain)</li>
+<li><code>python3 Brain/scripts/guide_tools.py ship [Guide]</code> passes? (Chains validate_itinerary + verify_urls + verify_booking_links in one command)</li>
+</ul>
+
+<h2>§ 11. Post-ship</h2>
+<p>All four steps below happen in a single edit to <code>Guides/guides_index.html</code>. Partial updates break the chain.</p>
+<ul>
+<li>New card added in the correct region section, in canonical order, with the right <code>data-guide-num</code>?</li>
+<li>Predecessor card's <code>data-guide-next</code> and successor card's <code>data-guide-prev</code> updated to point to the new guide?</li>
+<li>Banner destination count and region guide count both updated?</li>
+<li>The guide file's own toolbar-mount <code>data-prev</code> and <code>data-next</code> set to match its neighbours in the chain?</li>
+</ul>
+
+<hr style="margin: 48px 0 16px 0; border: none; border-top: 1px solid #ddd;">
+</body>
+</html>
