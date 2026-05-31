@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>My Travel Guides</title>
-<link rel="stylesheet" href="guide_v2.css">
+<link rel="stylesheet" href="guide_v3.css?v=3">
 <style>
 #guide-search{width:100%;box-sizing:border-box;padding:12px 16px;margin:0 0 18px;font-size:15px;border:1.5px solid #E0D4B8;border-radius:8px;background:#FFFDF8;color:#3D1F00;outline:none;transition:border-color .15s,box-shadow .15s;}
 #guide-search:focus{border-color:#B8860B;box-shadow:0 0 0 3px rgba(184,134,11,.12);}
@@ -17,7 +17,7 @@
 <div class="container">
 
 <!-- ══ TOOLBAR ══════════════════════════════════════════════════════════════ -->
-<div id="toolbar-mount" data-depth="1" data-maxwidth="940" data-prev="./Barcelona/barcelona_v1.html" data-next="./Bend/bend_v2.html" data-toolbar-theme="guide"></div>
+<div id="toolbar-mount" data-depth="1" data-maxwidth="940" data-toolbar-theme="guide" data-prev="./Sydney/sydney_v2.html" data-next="./Alaska/alaska_v1.html"></div>
 <script src="../toolbar.js"></script>
 
 <div class="index-banner">
@@ -25,133 +25,128 @@
   <div class="index-banner-sub">34 destinations · 4 regions</div>
 </div>
 
-<!-- ── United States ─────────────────────────────────────────────────────── -->
-<input id="guide-search" type="search" placeholder="🔍  Search a destination…" autocomplete="off" spellcheck="false">
-<div id="guide-noresult">No destinations match that search.</div>
 <div class="glance-section">
-  <div class="glance-title">🇺🇸 United States <span class="idx-count">7 guides</span></div>
+  <div class="glance-title">🇺🇸 United States <span class="idx-count">8 guides</span></div>
 
-  <a class="glance-day" href="./Bend/bend_v2.html" data-guide-num="1" data-guide-next="./Palo Alto/palo_alto_v6.html">
-    <div class="glance-day-title"><span class="idx-num">01</span><span class="idx-city">Bend Area, Oregon</span></div>
+  <a class="glance-day" href="./Alaska/alaska_v1.html" data-guide-num="1" data-guide-prev="./Zurich/zurich_v1.html" data-guide-next="./Alesund/alesund_v1.html">
+    <div class="glance-day-title"><span class="idx-num">01</span><span class="idx-city">Alaska, United States</span></div>
   </a>
-  <a class="glance-day" href="./Palo Alto/palo_alto_v6.html" data-guide-num="2" data-guide-prev="./Bend/bend_v2.html" data-guide-next="./Pasadena/pasadena_v5.html">
-    <div class="glance-day-title"><span class="idx-num">02</span><span class="idx-city">Palo Alto, California</span></div>
+  <a class="glance-day" href="./Bend/bend_v2.html" data-guide-num="5" data-guide-prev="./Barcelona/barcelona_v1.html" data-guide-next="./Cascais/cascais_v2.html">
+    <div class="glance-day-title"><span class="idx-num">05</span><span class="idx-city">Bend Area, Oregon</span></div>
   </a>
-  <a class="glance-day" href="./Pasadena/pasadena_v5.html" data-guide-num="3" data-guide-prev="./Palo Alto/palo_alto_v6.html" data-guide-next="./San Francisco/sf_v3.html">
-    <div class="glance-day-title"><span class="idx-num">03</span><span class="idx-city">Pasadena, California</span></div>
+  <a class="glance-day" href="./New York/new_york_v1.html" data-guide-num="15" data-guide-prev="./Munich/munich_v2.html" data-guide-next="./Oslo/oslo_v1.html">
+    <div class="glance-day-title"><span class="idx-num">15</span><span class="idx-city">New York, New York</span></div>
   </a>
-  <a class="glance-day" href="./San Francisco/sf_v3.html" data-guide-num="4" data-guide-prev="./Pasadena/pasadena_v5.html" data-guide-next="./San Diego/san_diego_v1.html">
-    <div class="glance-day-title"><span class="idx-num">04</span><span class="idx-city">San Francisco, California</span></div>
+  <a class="glance-day" href="./Palm Desert/palm_desert_v1.html" data-guide-num="17" data-guide-prev="./Oslo/oslo_v1.html" data-guide-next="./Palo Alto/palo_alto_v6.html">
+    <div class="glance-day-title"><span class="idx-num">17</span><span class="idx-city">Palm Desert, California</span></div>
   </a>
-  <a class="glance-day" href="./San Diego/san_diego_v1.html" data-guide-num="5" data-guide-prev="./San Francisco/sf_v3.html" data-guide-next="./New York/new_york_v1.html">
-    <div class="glance-day-title"><span class="idx-num">05</span><span class="idx-city">San Diego, California</span></div>
+  <a class="glance-day" href="./Palo Alto/palo_alto_v6.html" data-guide-num="18" data-guide-prev="./Palm Desert/palm_desert_v1.html" data-guide-next="./Paris/paris_v7.html">
+    <div class="glance-day-title"><span class="idx-num">18</span><span class="idx-city">Palo Alto, California</span></div>
   </a>
-  <a class="glance-day" href="./New York/new_york_v1.html" data-guide-num="30" data-guide-prev="./San Diego/san_diego_v1.html" data-guide-next="./Alaska/alaska_v1.html">
-    <div class="glance-day-title"><span class="idx-num">30</span><span class="idx-city">New York, New York</span></div>
+  <a class="glance-day" href="./Pasadena/pasadena_v5.html" data-guide-num="20" data-guide-prev="./Paris/paris_v7.html" data-guide-next="./Porto/porto_v2.html">
+    <div class="glance-day-title"><span class="idx-num">20</span><span class="idx-city">Pasadena, California</span></div>
   </a>
-  <a class="glance-day" href="./Alaska/alaska_v1.html" data-guide-num="34" data-guide-prev="./New York/new_york_v1.html" data-guide-next="./Montreal/montreal_v1.html">
-    <div class="glance-day-title"><span class="idx-num">34</span><span class="idx-city">Alaska, United States</span></div>
+  <a class="glance-day" href="./San Diego/san_diego_v1.html" data-guide-num="24" data-guide-prev="./Iceland/reykjavik_v2.html" data-guide-next="./San Francisco/sf_v3.html">
+    <div class="glance-day-title"><span class="idx-num">24</span><span class="idx-city">San Diego, California</span></div>
+  </a>
+  <a class="glance-day" href="./San Francisco/sf_v3.html" data-guide-num="25" data-guide-prev="./San Diego/san_diego_v1.html" data-guide-next="./Seoul/seoul_v1.html">
+    <div class="glance-day-title"><span class="idx-num">25</span><span class="idx-city">San Francisco, California</span></div>
   </a>
 </div>
 
-<!-- ── Canada ────────────────────────────────────────────────────────────── -->
 <div class="glance-section">
   <div class="glance-title">🇨🇦 Canada <span class="idx-count">3 guides</span></div>
 
-  <a class="glance-day" href="./Montreal/montreal_v1.html" data-guide-num="6" data-guide-prev="./Alaska/alaska_v1.html" data-guide-next="./Quebec City/quebec_city_v1.html">
-    <div class="glance-day-title"><span class="idx-num">06</span><span class="idx-city">Montréal, Quebec</span></div>
+  <a class="glance-day" href="./Montreal/montreal_v1.html" data-guide-num="13" data-guide-prev="./Marrakech/marrakech_v1.html" data-guide-next="./Munich/munich_v2.html">
+    <div class="glance-day-title"><span class="idx-num">13</span><span class="idx-city">Montréal, Quebec</span></div>
   </a>
-  <a class="glance-day" href="./Quebec City/quebec_city_v1.html" data-guide-num="7" data-guide-prev="./Montreal/montreal_v1.html" data-guide-next="./Vancouver/vancouver_v1.html">
-    <div class="glance-day-title"><span class="idx-num">07</span><span class="idx-city">Québec City, Quebec</span></div>
+  <a class="glance-day" href="./Quebec City/quebec_city_v1.html" data-guide-num="22" data-guide-prev="./Porto/porto_v2.html" data-guide-next="./Iceland/reykjavik_v2.html">
+    <div class="glance-day-title"><span class="idx-num">22</span><span class="idx-city">Québec City, Quebec</span></div>
   </a>
-  <a class="glance-day" href="./Vancouver/vancouver_v1.html" data-guide-num="31" data-guide-prev="./Quebec City/quebec_city_v1.html" data-guide-next="./Paris/paris_v7.html">
-    <div class="glance-day-title"><span class="idx-num">31</span><span class="idx-city">Vancouver, British Columbia</span></div>
+  <a class="glance-day" href="./Vancouver/vancouver_v1.html" data-guide-num="32" data-guide-prev="./Turin/turin_v14.html" data-guide-next="./Vienna/vienna_v1.html">
+    <div class="glance-day-title"><span class="idx-num">32</span><span class="idx-city">Vancouver, British Columbia</span></div>
   </a>
 </div>
 
-<!-- ── Europe ────────────────────────────────────────────────────────────── -->
 <div class="glance-section">
-  <div class="glance-title">🇪🇺 Europe <span class="idx-count">17 guides</span></div>
+  <div class="glance-title">🇪🇺 Europe <span class="idx-count">18 guides</span></div>
 
-  <a class="glance-day" href="./Paris/paris_v7.html" data-guide-num="8" data-guide-prev="./Vancouver/vancouver_v1.html" data-guide-next="./Turin/turin_v14.html">
-    <div class="glance-day-title"><span class="idx-num">08</span><span class="idx-city">Paris, France</span></div>
+  <a class="glance-day" href="./Alesund/alesund_v1.html" data-guide-num="2" data-guide-prev="./Alaska/alaska_v1.html" data-guide-next="./Amsterdam/amsterdam_v1.html">
+    <div class="glance-day-title"><span class="idx-num">02</span><span class="idx-city">Ålesund, Norway</span></div>
   </a>
-  <a class="glance-day" href="./Turin/turin_v14.html" data-guide-num="9" data-guide-prev="./Paris/paris_v7.html" data-guide-next="./London/london_v5.html">
-    <div class="glance-day-title"><span class="idx-num">09</span><span class="idx-city">Turin, Italy</span></div>
+  <a class="glance-day" href="./Amsterdam/amsterdam_v1.html" data-guide-num="3" data-guide-prev="./Alesund/alesund_v1.html" data-guide-next="./Barcelona/barcelona_v1.html">
+    <div class="glance-day-title"><span class="idx-num">03</span><span class="idx-city">Amsterdam, Netherlands</span></div>
   </a>
-  <a class="glance-day" href="./London/london_v5.html" data-guide-num="10" data-guide-prev="./Turin/turin_v14.html" data-guide-next="./Lisbon/lisbon_v4.html">
-    <div class="glance-day-title"><span class="idx-num">10</span><span class="idx-city">London, UK</span></div>
+  <a class="glance-day" href="./Barcelona/barcelona_v1.html" data-guide-num="4" data-guide-prev="./Amsterdam/amsterdam_v1.html" data-guide-next="./Bend/bend_v2.html">
+    <div class="glance-day-title"><span class="idx-num">04</span><span class="idx-city">Barcelona, Spain</span></div>
   </a>
-  <a class="glance-day" href="./Lisbon/lisbon_v4.html" data-guide-num="11" data-guide-prev="./London/london_v5.html" data-guide-next="./Sintra/sintra_v2.html">
-    <div class="glance-day-title"><span class="idx-num">11</span><span class="idx-city">Lisbon, Portugal</span></div>
+  <a class="glance-day" href="./Cascais/cascais_v2.html" data-guide-num="6" data-guide-prev="./Bend/bend_v2.html" data-guide-next="./Dublin/dublin_v1.html">
+    <div class="glance-day-title"><span class="idx-num">06</span><span class="idx-city">Cascais, Portugal</span></div>
   </a>
-  <a class="glance-day" href="./Sintra/sintra_v2.html" data-guide-num="12" data-guide-prev="./Lisbon/lisbon_v4.html" data-guide-next="./Porto/porto_v2.html">
-    <div class="glance-day-title"><span class="idx-num">12</span><span class="idx-city">Sintra, Portugal</span></div>
+  <a class="glance-day" href="./Dublin/dublin_v1.html" data-guide-num="7" data-guide-prev="./Cascais/cascais_v2.html" data-guide-next="./Lisbon/lisbon_v4.html">
+    <div class="glance-day-title"><span class="idx-num">07</span><span class="idx-city">Dublin, Ireland</span></div>
   </a>
-  <a class="glance-day" href="./Porto/porto_v2.html" data-guide-num="13" data-guide-prev="./Sintra/sintra_v2.html" data-guide-next="./Cascais/cascais_v2.html">
-    <div class="glance-day-title"><span class="idx-num">13</span><span class="idx-city">Porto, Portugal</span></div>
+  <a class="glance-day" href="./Lisbon/lisbon_v4.html" data-guide-num="8" data-guide-prev="./Dublin/dublin_v1.html" data-guide-next="./London/london_v5.html">
+    <div class="glance-day-title"><span class="idx-num">08</span><span class="idx-city">Lisbon, Portugal</span></div>
   </a>
-  <a class="glance-day" href="./Cascais/cascais_v2.html" data-guide-num="14" data-guide-prev="./Porto/porto_v2.html" data-guide-next="./Munich/munich_v2.html">
-    <div class="glance-day-title"><span class="idx-num">14</span><span class="idx-city">Cascais, Portugal</span></div>
+  <a class="glance-day" href="./London/london_v5.html" data-guide-num="9" data-guide-prev="./Lisbon/lisbon_v4.html" data-guide-next="./Madrid/madrid_v1.html">
+    <div class="glance-day-title"><span class="idx-num">09</span><span class="idx-city">London, UK</span></div>
   </a>
-  <a class="glance-day" href="./Munich/munich_v2.html" data-guide-num="15" data-guide-prev="./Cascais/cascais_v2.html" data-guide-next="./Marktoberdorf/marktoberdorf_v1.html">
-    <div class="glance-day-title"><span class="idx-num">15</span><span class="idx-city">Munich, Germany</span></div>
+  <a class="glance-day" href="./Madrid/madrid_v1.html" data-guide-num="10" data-guide-prev="./London/london_v5.html" data-guide-next="./Marktoberdorf/marktoberdorf_v1.html">
+    <div class="glance-day-title"><span class="idx-num">10</span><span class="idx-city">Madrid, Spain</span></div>
   </a>
-  <a class="glance-day" href="./Marktoberdorf/marktoberdorf_v1.html" data-guide-num="16" data-guide-prev="./Munich/munich_v2.html" data-guide-next="./Vienna/vienna_v1.html">
-    <div class="glance-day-title"><span class="idx-num">16</span><span class="idx-city">Marktoberdorf, Germany</span></div>
+  <a class="glance-day" href="./Marktoberdorf/marktoberdorf_v1.html" data-guide-num="11" data-guide-prev="./Madrid/madrid_v1.html" data-guide-next="./Marrakech/marrakech_v1.html">
+    <div class="glance-day-title"><span class="idx-num">11</span><span class="idx-city">Marktoberdorf, Germany</span></div>
   </a>
-  <a class="glance-day" href="./Vienna/vienna_v1.html" data-guide-num="17" data-guide-prev="./Marktoberdorf/marktoberdorf_v1.html" data-guide-next="./Oslo/oslo_v1.html">
-    <div class="glance-day-title"><span class="idx-num">17</span><span class="idx-city">Vienna, Austria</span></div>
+  <a class="glance-day" href="./Munich/munich_v2.html" data-guide-num="14" data-guide-prev="./Montreal/montreal_v1.html" data-guide-next="./New York/new_york_v1.html">
+    <div class="glance-day-title"><span class="idx-num">14</span><span class="idx-city">Munich, Germany</span></div>
   </a>
-  <a class="glance-day" href="./Oslo/oslo_v1.html" data-guide-num="18" data-guide-prev="./Vienna/vienna_v1.html" data-guide-next="./Alesund/alesund_v1.html">
-    <div class="glance-day-title"><span class="idx-num">18</span><span class="idx-city">Oslo, Norway</span></div>
+  <a class="glance-day" href="./Oslo/oslo_v1.html" data-guide-num="16" data-guide-prev="./New York/new_york_v1.html" data-guide-next="./Palm Desert/palm_desert_v1.html">
+    <div class="glance-day-title"><span class="idx-num">16</span><span class="idx-city">Oslo, Norway</span></div>
   </a>
-  <a class="glance-day" href="./Alesund/alesund_v1.html" data-guide-num="19" data-guide-prev="./Oslo/oslo_v1.html" data-guide-next="./Tromso/tromso_v1.html">
-    <div class="glance-day-title"><span class="idx-num">19</span><span class="idx-city">Ålesund, Norway</span></div>
+  <a class="glance-day" href="./Paris/paris_v7.html" data-guide-num="19" data-guide-prev="./Palo Alto/palo_alto_v6.html" data-guide-next="./Pasadena/pasadena_v5.html">
+    <div class="glance-day-title"><span class="idx-num">19</span><span class="idx-city">Paris, France</span></div>
   </a>
-  <a class="glance-day" href="./Tromso/tromso_v1.html" data-guide-num="20" data-guide-prev="./Alesund/alesund_v1.html" data-guide-next="./Iceland/reykjavik_v2.html">
-    <div class="glance-day-title"><span class="idx-num">20</span><span class="idx-city">Tromsø, Norway</span></div>
+  <a class="glance-day" href="./Porto/porto_v2.html" data-guide-num="21" data-guide-prev="./Pasadena/pasadena_v5.html" data-guide-next="./Quebec City/quebec_city_v1.html">
+    <div class="glance-day-title"><span class="idx-num">21</span><span class="idx-city">Porto, Portugal</span></div>
   </a>
-  <a class="glance-day" href="./Zurich/zurich_v1.html" data-guide-num="28" data-guide-prev="./Dublin/dublin_v1.html" data-guide-next="./Madrid/madrid_v1.html">
-    <div class="glance-day-title"><span class="idx-num">28</span><span class="idx-city">Zürich, Switzerland</span></div>
+  <a class="glance-day" href="./Sintra/sintra_v2.html" data-guide-num="28" data-guide-prev="./Singapore/singapore_v3.html" data-guide-next="./Sydney/sydney_v2.html">
+    <div class="glance-day-title"><span class="idx-num">28</span><span class="idx-city">Sintra, Portugal</span></div>
   </a>
-  <a class="glance-day" href="./Madrid/madrid_v1.html" data-guide-num="29" data-guide-prev="./Zurich/zurich_v1.html" data-guide-next="./Amsterdam/amsterdam_v1.html">
-    <div class="glance-day-title"><span class="idx-num">29</span><span class="idx-city">Madrid, Spain</span></div>
+  <a class="glance-day" href="./Tromso/tromso_v1.html" data-guide-num="30" data-guide-prev="./Sydney/sydney_v2.html" data-guide-next="./Turin/turin_v14.html">
+    <div class="glance-day-title"><span class="idx-num">30</span><span class="idx-city">Tromsø, Norway</span></div>
   </a>
-  <a class="glance-day" href="./Amsterdam/amsterdam_v1.html" data-guide-num="32" data-guide-prev="./Madrid/madrid_v1.html" data-guide-next="./Barcelona/barcelona_v1.html">
-    <div class="glance-day-title"><span class="idx-num">32</span><span class="idx-city">Amsterdam, Netherlands</span></div>
+  <a class="glance-day" href="./Turin/turin_v14.html" data-guide-num="31" data-guide-prev="./Tromso/tromso_v1.html" data-guide-next="./Vancouver/vancouver_v1.html">
+    <div class="glance-day-title"><span class="idx-num">31</span><span class="idx-city">Turin, Italy</span></div>
   </a>
-  <a class="glance-day" href="./Barcelona/barcelona_v1.html" data-guide-num="33" data-guide-prev="./Amsterdam/amsterdam_v1.html">
-    <div class="glance-day-title"><span class="idx-num">33</span><span class="idx-city">Barcelona, Spain</span></div>
+  <a class="glance-day" href="./Vienna/vienna_v1.html" data-guide-num="33" data-guide-prev="./Vancouver/vancouver_v1.html" data-guide-next="./Zurich/zurich_v1.html">
+    <div class="glance-day-title"><span class="idx-num">33</span><span class="idx-city">Vienna, Austria</span></div>
+  </a>
+  <a class="glance-day" href="./Zurich/zurich_v1.html" data-guide-num="34" data-guide-prev="./Vienna/vienna_v1.html" data-guide-next="./Alaska/alaska_v1.html">
+    <div class="glance-day-title"><span class="idx-num">34</span><span class="idx-city">Zürich, Switzerland</span></div>
   </a>
 </div>
 
-<!-- ── Rest of World ─────────────────────────────────────────────────────── -->
 <div class="glance-section">
-  <div class="glance-title">🌏 Rest of World <span class="idx-count">7 guides</span></div>
+  <div class="glance-title">🌏 Rest of World <span class="idx-count">5 guides</span></div>
 
-  <a class="glance-day" href="./Iceland/reykjavik_v2.html" data-guide-num="21" data-guide-prev="./Tromso/tromso_v1.html" data-guide-next="./Seoul/seoul_v1.html">
-    <div class="glance-day-title"><span class="idx-num">21</span><span class="idx-city">Reykjavik, Iceland</span></div>
+  <a class="glance-day" href="./Marrakech/marrakech_v1.html" data-guide-num="12" data-guide-prev="./Marktoberdorf/marktoberdorf_v1.html" data-guide-next="./Montreal/montreal_v1.html">
+    <div class="glance-day-title"><span class="idx-num">12</span><span class="idx-city">Marrakech, Morocco</span></div>
   </a>
-  <a class="glance-day" href="./Seoul/seoul_v1.html" data-guide-num="22" data-guide-prev="./Iceland/reykjavik_v2.html" data-guide-next="./Singapore/singapore_v3.html">
-    <div class="glance-day-title"><span class="idx-num">22</span><span class="idx-city">Seoul, South Korea</span></div>
+  <a class="glance-day" href="./Iceland/reykjavik_v2.html" data-guide-num="23" data-guide-prev="./Quebec City/quebec_city_v1.html" data-guide-next="./San Diego/san_diego_v1.html">
+    <div class="glance-day-title"><span class="idx-num">23</span><span class="idx-city">Reykjavik, Iceland</span></div>
   </a>
-  <a class="glance-day" href="./Singapore/singapore_v3.html" data-guide-num="23" data-guide-prev="./Seoul/seoul_v1.html" data-guide-next="./Sydney/sydney_v2.html">
-    <div class="glance-day-title"><span class="idx-num">23</span><span class="idx-city">Singapore</span></div>
+  <a class="glance-day" href="./Seoul/seoul_v1.html" data-guide-num="26" data-guide-prev="./San Francisco/sf_v3.html" data-guide-next="./Singapore/singapore_v3.html">
+    <div class="glance-day-title"><span class="idx-num">26</span><span class="idx-city">Seoul, South Korea</span></div>
   </a>
-  <a class="glance-day" href="./Sydney/sydney_v2.html" data-guide-num="24" data-guide-prev="./Singapore/singapore_v3.html" data-guide-next="./Marrakech/marrakech_v1.html">
-    <div class="glance-day-title"><span class="idx-num">24</span><span class="idx-city">Sydney, Australia</span></div>
+  <a class="glance-day" href="./Singapore/singapore_v3.html" data-guide-num="27" data-guide-prev="./Seoul/seoul_v1.html" data-guide-next="./Sintra/sintra_v2.html">
+    <div class="glance-day-title"><span class="idx-num">27</span><span class="idx-city">Singapore</span></div>
   </a>
-  <a class="glance-day" href="./Marrakech/marrakech_v1.html" data-guide-num="25" data-guide-prev="./Sydney/sydney_v2.html" data-guide-next="./Palm Desert/palm_desert_v1.html">
-    <div class="glance-day-title"><span class="idx-num">25</span><span class="idx-city">Marrakech, Morocco</span></div>
-  </a>
-  <a class="glance-day" href="./Palm Desert/palm_desert_v1.html" data-guide-num="26" data-guide-prev="./Marrakech/marrakech_v1.html" data-guide-next="./Dublin/dublin_v1.html">
-    <div class="glance-day-title"><span class="idx-num">26</span><span class="idx-city">Palm Desert, California</span></div>
-  </a>
-  <a class="glance-day" href="./Dublin/dublin_v1.html" data-guide-num="27" data-guide-prev="./Palm Desert/palm_desert_v1.html" data-guide-next="./Zurich/zurich_v1.html">
-    <div class="glance-day-title"><span class="idx-num">27</span><span class="idx-city">Dublin, Ireland</span></div>
+  <a class="glance-day" href="./Sydney/sydney_v2.html" data-guide-num="29" data-guide-prev="./Sintra/sintra_v2.html" data-guide-next="./Tromso/tromso_v1.html">
+    <div class="glance-day-title"><span class="idx-num">29</span><span class="idx-city">Sydney, Australia</span></div>
   </a>
 </div>
+
 
 </div>
 

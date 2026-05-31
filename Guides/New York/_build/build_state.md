@@ -5,7 +5,13 @@ Last updated: 2026-05-31
 ## Phase 0 — Session start
 - [x] Rules for Claude.html
 
-## Phase 1 — Pre-build orientation
+## Phase 1 — Pre-build orientation (technical prerequisites)
+- [x] Links.html
+- [x] Photos Rules.html
+- [x] Capabilities
+- [x] Platforms.md
+
+## Phase 2 — Guide structure
 - [x] Guide Structure.html
 - [x] Stops Structure.html
 - [x] Hotel Banner.html
@@ -13,17 +19,15 @@ Last updated: 2026-05-31
 - [x] Brain/Reference/Toolbar.html
 - [x] Navigation.html
 
-## Phase 2 — Day shape
+## Phase 3 — Day shape
 - [x] Day Structure.html
 
-## Phase 3 — Per-stop build
+## Phase 4 — Per-stop build
 - [x] Tickets.html
 - [x] Motion Rule.html
 - [x] Icon Order and Format.html
-- [x] Photos Rules.html
-- [x] Links.html
 
-## Phase 4 — Per-section build
+## Phase 5 — Per-section build
 - [x] Weekly Closures - Extra Section.html
 - [x] Tours - Extra Section.html
 - [x] Cappuccino - Extra Section.html
@@ -31,13 +35,13 @@ Last updated: 2026-05-31
 - [x] Downtown Restaurants - Extra Section.html
 - [x] Local Tastes - Extra Section.html
 - [x] Food Delivery - Extra Section.html
-- [x] Shows - Extra Section.html
+- [x] Shows, Performances & Concerts - Extra Section.html
 - [x] Getting Around - Extra Section.html
 - [x] Train Stations Near Hotel - Extra Section.html
 - [x] Day Trips by Train - Extra Section.html
 - [x] Michelin Restaurants - Extra Section.html
 
-## Phase 5 — Ship gate
-- [ ] Brain/Reference/Ship Checklist.html
-- [ ] validate_itinerary.py passes
-- [ ] every extra populated or carries negative-finding line
+## Phase 6 — Ship gate
+- [x] Brain/Reference/Ship Checklist.html
+- [x] validate_itinerary.py passes
+- [x] every extra populated or carries negative-finding line

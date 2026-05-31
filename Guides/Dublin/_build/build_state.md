@@ -6,6 +6,8 @@ Last updated: 2026-05-30
 - [x] Rules for Claude.html
 
 ## Phase 1 — Pre-build orientation
+- [x] Capabilities
+- [x] Platforms.md
 - [x] Guide Structure.html
 - [x] Stops Structure.html
 - [x] Hotel Banner.html

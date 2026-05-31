@@ -75,8 +75,7 @@
   /* Banner family — hotel-first / arrive-first day openers */
   --c-banner-blue:   #edf4ff;
 
-  /* Train block — schedule card on Type 4 Train Day stops. Lighter than
-     --c-blue-pale so the card reads as distinct from the booking-box family. */
+  /* Train block — schedule card on Type 4 Train Day stops */
   --c-train-bg:      #f3f8ff;
 
   /* Tour-meet sub-card — RETIRED 2026-04-26. After multiple iterations
@@ -196,6 +195,7 @@ a, a:visited { color: var(--c-link); text-decoration: none; }
 }
 .title-city    { font-size: 20px; font-weight: bold; text-transform: uppercase; margin-bottom: 6px; }
 .title-hotel   { font-size: 14px; font-weight: bold; margin-bottom: 3px; }
+.title-address { font-size: 13px; color: var(--c-title-address); }
 .title-address { font-size: 13px; color: var(--c-title-address); }
 
 

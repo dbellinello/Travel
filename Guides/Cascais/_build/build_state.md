@@ -8,6 +8,8 @@ Source: split from multi-city `sintra_porto_cascais_v1.html` (archived 2026-05-1
 - [x] Rules for Claude.html
 
 ## Phase 1 — Pre-build orientation
+- [x] Capabilities
+- [x] Platforms.md
 - [x] Guide Structure.html
 - [x] Stops Structure.html
 - [x] Hotel Banner.html

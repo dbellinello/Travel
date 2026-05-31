@@ -1,48 +1,59 @@
 {
   "_meta": {
     "guide": "Guides/Madrid/madrid_v1.html",
-    "updated": "2026-05-30"
+    "updated": "2026-05-31"
   },
   "entries": {
-    "https://www.viator.com/tours/Madrid/Prado-Museum-Tour-in-English-6-people-maxim-Skip-the-line/d566-169630P1": {
-      "result": "PASS",
-      "verified_on": "2026-05-30",
-      "method": "Viator MCP connector — live product returned rating 4.92 · 1835 reviews"
-    },
     "https://www.viator.com/tours/Madrid/Madrid-Royal-Palace-Guided-Tour-with-Skip-The-Line-Tickets/d566-340934P5": {
-      "result": "PASS",
-      "verified_on": "2026-05-30",
-      "method": "Viator MCP connector — live product returned rating 4.71 · 2322 reviews"
+      "result": "PASS", "verified_on": "2026-05-31", "method": "site: search snippet inspection", "platform": "viator"
     },
-    "https://www.viator.com/tours/Madrid/Skip-the-line-and-Visit-the-Prado-Museum/d566-110971P44": {
-      "result": "PASS",
-      "verified_on": "2026-05-30",
-      "method": "Viator MCP connector — live product returned rating 4.52 · 1517 reviews"
+    "https://www.viator.com/tours/Madrid/Prado-Museum-Tour-in-English-6-people-maxim-Skip-the-line/d566-169630P1": {
+      "result": "PASS", "verified_on": "2026-05-31", "method": "site: search snippet inspection", "platform": "viator"
     },
     "https://www.viator.com/tours/Madrid/Skip-the-Line-Early-Entrance-Tour-Guided-of-the-Royal-Palace-of-Madrid/d566-110971P41": {
-      "result": "PASS",
-      "verified_on": "2026-05-30",
-      "method": "Viator MCP connector — live product returned rating 4.50 · 2045 reviews"
+      "result": "PASS", "verified_on": "2026-05-31", "method": "site: search snippet inspection", "platform": "viator"
     },
-    "https://www.viator.com/tours/Madrid/Toledo-Full-Day-with-Cathedral-from-Madrid/d566-110971P5": {
-      "result": "PASS",
-      "verified_on": "2026-05-30",
-      "method": "Viator MCP connector — live product returned rating 4.82 · 7384 reviews"
+    "https://www.viator.com/tours/Madrid/Free-Tour-Exploring-the-historical-Madrid/d566-227078P1": {
+      "result": "PASS", "verified_on": "2026-05-31", "method": "site: search snippet inspection", "platform": "viator"
     },
-    "https://www.getyourguide.com/madrid-l46/madrid-s-prado-museum-expert-guided-tour-with-skip-the-line-t131916/": {
-      "result": "PASS",
-      "verified_on": "2026-05-30",
-      "method": "site:getyourguide.com search snippet — 4.6 stars · 2434 reviews confirmed"
+    "https://www.viator.com/tours/Madrid/VIP-Early-Entry-Palacio-Real-with-Best-of-Madrid-City-tour/d566-15693P66": {
+      "result": "PASS", "verified_on": "2026-05-31", "method": "site: search snippet inspection", "platform": "viator"
     },
-    "https://www.getyourguide.com/madrid-l46/madrid-welcome-to-madrid-guided-visit-t509163/": {
-      "result": "PASS",
-      "verified_on": "2026-05-30",
-      "method": "site:getyourguide.com search snippet — 4.8 stars · 366 reviews confirmed"
+    "https://www.getyourguide.com/madrid-l46/madrid-tapas-taverns-and-history-tour-t288860/": {
+      "result": "PASS", "verified_on": "2026-05-31", "method": "site: search snippet inspection", "platform": "getyourguide"
     },
-    "https://www.getyourguide.com/madrid-l46/madrid-city-highlights-guided-walking-tour-t468918/": {
-      "result": "PASS",
-      "verified_on": "2026-05-30",
-      "method": "site:getyourguide.com search snippet — 4.8 stars · 304 reviews confirmed"
+    "https://www.getyourguide.com/madrid-l46/madrid-guided-food-tour-with-tapas-and-spanish-wine-t606067/": {
+      "result": "PASS", "verified_on": "2026-05-31", "method": "site: search snippet inspection", "platform": "getyourguide"
+    },
+    "https://www.getyourguide.com/madrid-l46/madrid-reina-sofia-museum-guided-tour-small-groups-only-t434998/": {
+      "result": "PASS", "verified_on": "2026-05-31", "method": "site: search snippet inspection", "platform": "getyourguide"
+    },
+    "https://tickets.patrimonionacional.es/en/tickets/galerias-colecciones-reales": {
+      "result": "PASS", "verified_on": "2026-05-31", "method": "site: search snippet inspection", "platform": "patrimonionacional"
+    },
+    "https://www.museothyssen.org/en/visit": {
+      "result": "PASS", "verified_on": "2026-05-31", "method": "site: search snippet inspection", "platform": "museothyssen"
+    },
+    "https://www.catedralprimada.es/visita": {
+      "result": "PASS", "verified_on": "2026-05-31", "method": "site: search snippet inspection", "platform": "catedralprimada"
+    },
+    "https://www.museo.ejercito.es/en/visit": {
+      "result": "PASS", "verified_on": "2026-05-31", "method": "site: search snippet inspection", "platform": "museo.ejercito"
+    },
+    "https://santotome.org/en/": {
+      "result": "PASS", "verified_on": "2026-05-31", "method": "site: search snippet inspection", "platform": "santotome"
+    },
+    "https://www.circulobellasartes.com/en/azotea/": {
+      "result": "PASS", "verified_on": "2026-05-31", "method": "site: search snippet inspection", "platform": "circulobellasartes"
+    },
+    "https://www.centrocentro.org/en/centrocentro/spaces/mirador-madrid-observation-deck": {
+      "result": "PASS", "verified_on": "2026-05-31", "method": "site: search snippet inspection", "platform": "centrocentro"
+    },
+    "https://www.teatroreal.es/en": {
+      "result": "PASS", "verified_on": "2026-05-31", "method": "site: search snippet inspection", "platform": "teatroreal"
+    },
+    "https://www.corraldelamoreria.com/en": {
+      "result": "PASS", "verified_on": "2026-05-31", "method": "site: search snippet inspection", "platform": "corraldelamoreria"
     }
   }
 }

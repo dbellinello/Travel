@@ -3,6 +3,8 @@ Started: 2026-05-16
 Last updated: 2026-05-24 (GYG tour #3 replaced — cycling content removed)
 
 ## Phase 1 — Core structure rules
+- [x] Capabilities
+- [x] Platforms.md
 - [x] Guide Structure.html
 - [x] Stops Structure.html
 - [x] Hotel Banner.html

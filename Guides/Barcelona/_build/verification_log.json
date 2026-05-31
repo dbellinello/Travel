@@ -84,6 +84,16 @@
       "expected_attraction": "Barcelona tour — Tours Extra Section (non-private)",
       "result": "PASS",
       "notes": "site: search confirmed URL. Rating 5.0 / 634 reviews confirmed in search snippet."
+    },
+    "https://www.viator.com/tours/Barcelona/Park-Guell-Tickets-with-Tour-Guide/d562-340934P1": {
+      "platform": "viator",
+      "method": "viator_mcp",
+      "query": "Park Güell guided tour skip the line Barcelona Viator MCP 2026-05-31",
+      "verified_on": "2026-05-31",
+      "verified_by": "claude",
+      "expected_attraction": "Park Güell stop ticket — Day 3 itinerary stop",
+      "result": "PASS",
+      "notes": "Viator MCP search_experiences confirmed product d562-340934P1. Rating 4.6 / 7721+ reviews."
     }
   }
 }
