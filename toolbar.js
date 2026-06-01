@@ -13,6 +13,10 @@
 (function () {
   'use strict';
 
+  /* ── Hide page immediately so the toolbar insertion doesn't cause a visible
+     layout shift (flicker). Revealed below once the bar is in the DOM.      */
+  document.body.style.opacity = '0';
+
   var mount    = document.getElementById('toolbar-mount');
   var depth    = mount ? parseInt(mount.dataset.depth    || '1',   10) : 1;
   var maxWidth = mount ? parseInt(mount.dataset.maxwidth || '760', 10) : 760;
@@ -23,15 +27,18 @@
 
   /* ── Links ─────────────────────────────────────────────────────────────── */
   var ITEMS = [
+    // Row 1 — trip planning
     { href: base + 'Trip%20Essentials/Trips.html',                                  text: '📆 Trips' },
     { href: base + 'Trip%20Essentials/Travel%20Packing.html',                       text: '👕 Packing' },
-    { href: base + 'Trip%20Essentials/Plug%20Adapter/Plug%20Adapter%20Guide.html',  text: '🔌 Plugs' },
     { href: base + 'Trip%20Essentials/Lounges%20US.html',                           text: '💻 Lounges US' },
     { href: base + 'Trip%20Essentials/Lounges%20Europe.html',                       text: '💻 Lounges EU' },
+    // Row 2 — transport & logistics
     { href: base + 'Trip%20Essentials/Delta%20Routes%20Full.html',                  text: '✈️ Routes' },
     { href: base + 'Trip%20Essentials/Delta%20Routes%20SEA.html',                   text: '✈️ SEA Hub' },
     { href: base + 'Trip%20Essentials/European%20Train%20Guide.html',               text: '🚂 EU Trains' },
-    null, // separator before Guides
+    { href: base + 'Trip%20Essentials/Plug%20Adapter/Plug%20Adapter%20Guide.html',  text: '🔌 Plugs' },
+    // Row 3 — destinations
+    null, // separator (desktop only)
     { href: base + 'Guides/guides_index.html',                                      text: '🌎 Guides', guides: true },
   ];
 
@@ -66,10 +73,11 @@
       'background:' + accent + ';z-index:200;pointer-events:none;' +
       'transition:width .08s linear}' +
     /* (side banners removed) */
-    /* Mobile: wrap pills instead of horizontal scroll */
+    /* Mobile: 4-4-1 grid */
     '@media(max-width:600px){' +
-      '.tb-inner{flex-wrap:wrap;overflow-x:visible;justify-content:center;padding:0 12px}' +
+      '.tb-inner{flex-wrap:wrap;overflow-x:visible;justify-content:flex-start;padding:0 12px;gap:4px}' +
       '.tb-sep{display:none}' +
+      '.tb a{flex:0 0 calc(25% - 3px);text-align:center;justify-content:center;box-sizing:border-box;padding:6px 4px}' +
     '}'
     ;
   document.head.appendChild(styleEl);
@@ -132,14 +140,8 @@
   function showFabs() {
     fabsVisible = true;
     allFabs.forEach(function (el) {
+      el.style.opacity = '1';
       el.style.pointerEvents = '';
-      /* scroll-to-top only shows once past threshold */
-      if (el === fab) {
-        el.style.opacity = (window.scrollY > 300) ? '1' : '0';
-        el.style.pointerEvents = (window.scrollY > 300) ? '' : 'none';
-      } else {
-        el.style.opacity = '1';
-      }
     });
   }
   window.addEventListener('scroll', function () {
@@ -148,35 +150,27 @@
     scrollTimer = setTimeout(showFabs, 800);
   }, { passive: true });
 
-  /* ── ↑ scroll-to-top — bottom-right, appears after 300px scroll ─────────── */
-  var fab = document.createElement('button');
-  fab.textContent = '↑';
-  fab.setAttribute('aria-label', 'Back to top');
-  fab.style.cssText = fabBase + 'right:20px;bottom:24px;opacity:0;pointer-events:none;';
-  fab.addEventListener('click', function () {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-  document.body.appendChild(fab);
-  allFabs.push(fab);
-
-  /* ── ← Prev / Next → — bottom corners, thumb-friendly ──────────────────── */
+  /* ── ← Prev / Next → — bottom corners, rounded-rectangle nav buttons ────── */
+  var navBase = 'position:fixed;width:44px;height:40px;border-radius:10px;' +
+    'background:' + pageBg + ';color:#6b6860;border:1.5px solid #d8d5ce;font-size:20px;font-weight:400;' +
+    'cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.12);z-index:999;' +
+    'display:flex;align-items:center;justify-content:center;' +
+    'text-decoration:none;transition:opacity .25s,transform .25s;';
   if (prevHref) {
     var btnPrev = document.createElement('a');
     btnPrev.href = prevHref;
-    btnPrev.textContent = '←';
+    btnPrev.textContent = '‹';
     btnPrev.setAttribute('aria-label', 'Previous');
-    btnPrev.style.cssText = fabBase + 'left:20px;bottom:24px;';
+    btnPrev.style.cssText = navBase + 'left:20px;bottom:24px;';
     document.body.appendChild(btnPrev);
     allFabs.push(btnPrev);
   }
   if (nextHref) {
     var btnNext = document.createElement('a');
     btnNext.href = nextHref;
-    btnNext.textContent = '→';
+    btnNext.textContent = '›';
     btnNext.setAttribute('aria-label', 'Next');
-    /* if scroll-to-top is also present, offset next button left so they don't overlap */
-    var nextRight = (prevHref ? 72 : 20);
-    btnNext.style.cssText = fabBase + 'right:' + nextRight + 'px;bottom:24px;';
+    btnNext.style.cssText = navBase + 'right:20px;bottom:24px;';
     document.body.appendChild(btnNext);
     allFabs.push(btnNext);
   }
@@ -195,6 +189,12 @@
   } else {
     document.body.insertBefore(bar, document.body.firstChild);
   }
+
+  /* ── Reveal page — toolbar is now in the DOM, no layout shift visible ───── */
+  requestAnimationFrame(function () {
+    document.body.style.transition = 'opacity .12s';
+    document.body.style.opacity    = '1';
+  });
 
   /* ── Scroll active item into view so it's never clipped ────────────────── */
   var activeLink = inner.querySelector('.tb-active');
