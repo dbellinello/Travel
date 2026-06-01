@@ -37,8 +37,10 @@
 
   /* ── Styles ─────────────────────────────────────────────────────────────── */
   var pageBg  = window.getComputedStyle(document.body).backgroundColor;
-  var isGuide = (pageBg === 'rgb(236, 237, 240)')    // #ecedf0 = guide pages
-             || (mount && mount.dataset.toolbarTheme === 'guide'); // index page override
+  // isGuide: only fires when data-toolbar-theme="guide" is explicitly set (guides_index).
+  // Guide pages now share the #f5f4f0 warm background with essentials — colour detection
+  // retired 2026-05-31 when the guide palette was reskinned to match essentials.
+  var isGuide = (mount && mount.dataset.toolbarTheme === 'guide');
   var accent  = isGuide ? '#6b6860'               : '#8a6c1a';
   var acLt    = isGuide ? 'rgba(107,104,96,.06)'  : 'rgba(138,108,26,.06)';
   var acMd    = isGuide ? 'rgba(107,104,96,.10)'  : 'rgba(138,108,26,.10)';
@@ -64,7 +66,12 @@
       'background:' + accent + ';z-index:200;pointer-events:none;' +
       'transition:width .08s linear}' +
     /* (side banners removed) */
-    '';
+    /* Mobile: wrap pills instead of horizontal scroll */
+    '@media(max-width:600px){' +
+      '.tb-inner{flex-wrap:wrap;overflow-x:visible;justify-content:center;padding:0 12px}' +
+      '.tb-sep{display:none}' +
+    '}'
+    ;
   document.head.appendChild(styleEl);
 
   /* ── Scroll progress bar ────────────────────────────────────────────────── */
@@ -105,7 +112,8 @@
 
   /* ── Shared button style ────────────────────────────────────────────────── */
   var isRealGuide = /\/Guides\//.test(location.pathname) && location.pathname.indexOf('guides_index') < 0;
-  var btnColor = isRealGuide ? '#2e4057' : '#c4aa7a';
+  var cssTitleBg  = getComputedStyle(document.documentElement).getPropertyValue('--c-title-bg').trim();
+  var btnColor    = isRealGuide && cssTitleBg ? cssTitleBg : '#c4aa7a';   /* reads --c-title-bg from guide CSS; falls back to gold for non-guide pages */
   var fabBase  = 'position:fixed;width:40px;height:40px;border-radius:50%;' +
     'background:' + btnColor + ';color:#fff;border:none;font-size:18px;' +
     'cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.18);z-index:999;' +
@@ -154,9 +162,16 @@
     document.body.appendChild(btnNext);
   }
 
-  /* ── Insert ─────────────────────────────────────────────────────────────── */
+  /* ── Insert — hoist to direct child of <body> so sticky spans full width ──
+     Guide pages place the mount inside .container (760 px). Inserting there
+     constrains the toolbar to container width and clips the Guides link.
+     Walk up to the first child of <body> and insert before it instead.      */
   if (mount) {
-    mount.parentNode.insertBefore(bar, mount);
+    var hoistTarget = mount;
+    while (hoistTarget.parentNode && hoistTarget.parentNode !== document.body) {
+      hoistTarget = hoistTarget.parentNode;
+    }
+    document.body.insertBefore(bar, hoistTarget);
     mount.parentNode.removeChild(mount);
   } else {
     document.body.insertBefore(bar, document.body.firstChild);
