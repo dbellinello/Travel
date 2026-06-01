@@ -113,53 +113,72 @@
   /* ── Shared button style ────────────────────────────────────────────────── */
   var isRealGuide = /\/Guides\//.test(location.pathname) && location.pathname.indexOf('guides_index') < 0;
   var cssTitleBg  = getComputedStyle(document.documentElement).getPropertyValue('--c-title-bg').trim();
-  var btnColor    = isRealGuide && cssTitleBg ? cssTitleBg : '#c4aa7a';   /* reads --c-title-bg from guide CSS; falls back to gold for non-guide pages */
-  var fabBase  = 'position:fixed;width:40px;height:40px;border-radius:50%;' +
-    'background:' + btnColor + ';color:#fff;border:none;font-size:18px;' +
-    'cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.18);z-index:999;' +
-    'display:flex;align-items:center;justify-content:center;transition:opacity .2s;' +
-    'text-decoration:none;';
-  var midY = 'top:50%;transform:translateY(-50%);';
+  var btnColor    = '#fdf8f0';
+  var fabBase  = 'position:fixed;width:44px;height:44px;border-radius:50%;' +
+    'background:' + btnColor + ';color:#6b4a0a;border:1.5px solid #c4a870;font-size:18px;' +
+    'cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.22);z-index:999;' +
+    'display:flex;align-items:center;justify-content:center;' +
+    'text-decoration:none;transition:opacity .25s,transform .25s;';
 
-  /* ── ↓/↑ single persistent button — bottom-right ────────────────────────── */
-  var fab = document.createElement('button');
-  fab.textContent = '↓';
-  fab.setAttribute('aria-label', 'Scroll');
-  fab.style.cssText = fabBase + 'right:20px;top:50%;transform:translateY(-50%);';
-  fab.addEventListener('click', function () {
-    if (fab.textContent === '↓') {
-      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-    } else {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  });
+  /* ── Auto-hide helpers — fade out while scrolling, reappear when idle ──── */
+  var scrollTimer;
+  var fabsVisible = true;
+  var allFabs = [];
+  function hideFabs() {
+    if (!fabsVisible) return;
+    fabsVisible = false;
+    allFabs.forEach(function (el) { el.style.opacity = '0'; el.style.pointerEvents = 'none'; });
+  }
+  function showFabs() {
+    fabsVisible = true;
+    allFabs.forEach(function (el) {
+      el.style.pointerEvents = '';
+      /* scroll-to-top only shows once past threshold */
+      if (el === fab) {
+        el.style.opacity = (window.scrollY > 300) ? '1' : '0';
+        el.style.pointerEvents = (window.scrollY > 300) ? '' : 'none';
+      } else {
+        el.style.opacity = '1';
+      }
+    });
+  }
   window.addEventListener('scroll', function () {
-    var nearBottom = (window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight - 80);
-    fab.textContent = nearBottom ? '↑' : '↓';
+    hideFabs();
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(showFabs, 800);
   }, { passive: true });
-  document.body.appendChild(fab);
 
-  /* ── ← Prev / Next → — hug the guide content column, just below toolbar ── */
-  /* Positioned relative to the centered content column (maxWidth), not the
-     viewport edges, so the arrows sit at the top corners of the guide itself. */
-  var half   = maxWidth / 2;
-  var edge   = 'max(12px, calc(50% - ' + half + 'px))';
-  var topPos = 'top:165px;';
+  /* ── ↑ scroll-to-top — bottom-right, appears after 300px scroll ─────────── */
+  var fab = document.createElement('button');
+  fab.textContent = '↑';
+  fab.setAttribute('aria-label', 'Back to top');
+  fab.style.cssText = fabBase + 'right:20px;bottom:24px;opacity:0;pointer-events:none;';
+  fab.addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  document.body.appendChild(fab);
+  allFabs.push(fab);
+
+  /* ── ← Prev / Next → — bottom corners, thumb-friendly ──────────────────── */
   if (prevHref) {
     var btnPrev = document.createElement('a');
     btnPrev.href = prevHref;
     btnPrev.textContent = '←';
     btnPrev.setAttribute('aria-label', 'Previous');
-    btnPrev.style.cssText = fabBase + 'left:' + edge + ';' + topPos;
+    btnPrev.style.cssText = fabBase + 'left:20px;bottom:24px;';
     document.body.appendChild(btnPrev);
+    allFabs.push(btnPrev);
   }
   if (nextHref) {
     var btnNext = document.createElement('a');
     btnNext.href = nextHref;
     btnNext.textContent = '→';
     btnNext.setAttribute('aria-label', 'Next');
-    btnNext.style.cssText = fabBase + 'right:' + edge + ';' + topPos;
+    /* if scroll-to-top is also present, offset next button left so they don't overlap */
+    var nextRight = (prevHref ? 72 : 20);
+    btnNext.style.cssText = fabBase + 'right:' + nextRight + 'px;bottom:24px;';
     document.body.appendChild(btnNext);
+    allFabs.push(btnNext);
   }
 
   /* ── Insert — hoist to direct child of <body> so sticky spans full width ──

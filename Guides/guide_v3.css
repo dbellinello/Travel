@@ -108,9 +108,9 @@
   --c-card-shadow:   0 2px 8px rgba(0, 0, 0, 0.07);
 
   /* Title page */
-  --c-title-bg:      #a0785a;
-  --c-title-text:    var(--c-text-primary);
-  --c-title-address: var(--c-text-primary);
+  --c-title-bg:      #4a0f20;
+  --c-title-text:    #ffffff;
+  --c-title-address: #ffffff;
 
   /* Type — primary text colors */
   --c-text-primary:  #1a1a1a;        /* stop names, micro-strong */
@@ -187,7 +187,7 @@ a, a:visited { color: var(--c-link); text-decoration: none; }
    Lineage: .title-links retired 2026-04-22 — see retirement marker in
    §GLOBAL LINK above. */
 .title-page {
-  background: var(--c-title-bg);
+  background: linear-gradient(135deg, #1e0f0a 0%, #42201a 55%, #5e3028 100%);
   color: var(--c-title-text);
   padding: 14px 20px 18px;
   border-radius: 10px;
@@ -234,7 +234,7 @@ a, a:visited { color: var(--c-link); text-decoration: none; }
 .glance-title {
   color: var(--c-purple);
   font-size: 15px;
-  font-weight: bold;
+  font-weight: normal;
   border-bottom: 2px solid var(--c-purple);
   padding-bottom: 6px;
   margin-bottom: 14px;
@@ -251,7 +251,7 @@ a, a:visited { color: var(--c-link); text-decoration: none; }
 }
 .glance-day:last-child { margin-bottom: 0; }
 .glance-day:hover      { background: var(--c-purple-hover); }
-.glance-day-title      { color: var(--c-text-primary); font-weight: bold; font-size: 14px; margin-bottom: 3px; }
+.glance-day-title      { color: var(--c-text-primary); font-weight: normal; font-size: 14px; margin-bottom: 3px; }
 .glance-day-stops      { color: var(--c-text-body); font-size: 13px; line-height: 1.5; }
 /* § 6 extras navigation pills — Trip at a Glance.html § 6 */
 .glance-extras {
@@ -1544,7 +1544,7 @@ div.train .train-time .arr { color: var(--c-blue-deeper); }
 
 .toolbar-nav a:hover,
 .toolbar-essentials a:hover {
-  background-color: rgba(160, 120, 90, 0.1);
+  background-color: rgba(74, 15, 32, 0.1);
   color: var(--c-title-bg);
   border-color: var(--c-title-bg);
 }
