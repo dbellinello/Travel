@@ -191,7 +191,7 @@ a, a:visited { color: var(--c-link); text-decoration: none; }
   color: var(--c-title-text);
   padding: 14px 20px 18px;
   border-radius: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 8px;
 }
 .title-city    { font-size: 20px; font-weight: bold; text-transform: uppercase; margin-bottom: 6px; }
 .title-hotel   { font-size: 14px; font-weight: bold; margin-bottom: 3px; }
@@ -228,8 +228,8 @@ a, a:visited { color: var(--c-link); text-decoration: none; }
   background: var(--c-card-bg);
   box-shadow: var(--c-card-shadow);
   border-radius: 12px;
-  padding: 28px;
-  margin-bottom: 24px;
+  padding: 16px;
+  margin-bottom: 8px;
 }
 .glance-title {
   color: var(--c-purple);
@@ -237,7 +237,7 @@ a, a:visited { color: var(--c-link); text-decoration: none; }
   font-weight: normal;
   border-bottom: 2px solid var(--c-purple);
   padding-bottom: 6px;
-  margin-bottom: 14px;
+  margin-bottom: 8px;
 }
 .glance-day {
   display: block;
@@ -245,7 +245,7 @@ a, a:visited { color: var(--c-link); text-decoration: none; }
   border-left: 3px solid var(--c-purple);
   border-radius: 4px;
   padding: 12px 16px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   text-decoration: none;
   color: inherit;
 }
@@ -273,6 +273,17 @@ a, a:visited { color: var(--c-link); text-decoration: none; }
   text-decoration: none;
   white-space: nowrap;
 }
+/* iPhone — 2-column grid so pills align cleanly */
+@media (max-width: 430px) {
+  .glance-extras {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .glance-extra-link {
+    white-space: normal;
+    text-align: center;
+  }
+}
 .glance-extra-link:visited { color: var(--c-text-primary); border-color: var(--c-purple); }
 .glance-extra-link:active  { color: var(--c-text-primary); border-color: var(--c-purple); }
 .glance-extra-link:focus   { outline: none; border-color: var(--c-purple); }
@@ -290,7 +301,7 @@ a, a:visited { color: var(--c-link); text-decoration: none; }
   box-shadow: var(--c-card-shadow);
   border-radius: 12px;
   padding: 28px 28px 20px;
-  margin-bottom: 24px;
+  margin-bottom: 8px;
   scroll-margin-top: 20px;
 }
 .day-header {
