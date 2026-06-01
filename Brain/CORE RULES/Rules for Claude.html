@@ -497,8 +497,8 @@ These are maintained by Claude. If a session ends with new checks, new counts, o
 <h3>Activity and tour events</h3>
 <p>Activity and tour event content: date, start time, meeting point, and cash required (if any). No other information.</p>
 <h2>§ 12. Format-exception files</h2>
-<p>Three CORE RULES files are Claude reference files, not guide-builder rule documents. They describe technical formats for Claude's own use — JSON structures, URL patterns, file paths, HTML snippets, and illustrative bad patterns. Standard formatting rules do not apply to them in full.</p>
-<p>The three files are: <code>Links.html</code>, <code>Photos Rules.html</code>, <code>Rules for Claude.html</code>.</p>
+<p>Four CORE RULES files are Claude reference files, not guide-builder rule documents. They describe technical formats for Claude's own use — JSON structures, URL patterns, file paths, HTML snippets, illustrative bad patterns, or required-reads lists that use controlled vocabulary. Standard formatting rules do not apply to them in full.</p>
+<p>The four files are: <code>Links.html</code>, <code>Photos Rules.html</code>, <code>Rules for Claude.html</code>, <code>Guide Structure.html</code>.</p>
 <p>What is different in these files: curly-brace notation (<code>{like this}</code>) is intentional technical notation, not a template placeholder. <code>&lt;em&gt;</code> tags mark illustrative phrases. Validator checks that would flag these patterns are skipped for these files. Each file carries a "Format exception" notice below its read-only banner stating what is intentional.</p>
 <p>The validator enforces this via the <code>FORMAT_EXCEPTION_FILES</code> constant in <code>doc_workshop_validator.py</code>. Any future check that does not apply to these files gates itself with <code>if path.name not in FORMAT_EXCEPTION_FILES</code>.</p>
 <hr style="margin: 48px 0 16px 0; border: none; border-top: 1px solid #ddd;">

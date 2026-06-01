@@ -40,6 +40,7 @@ import time as _time
 from datetime import date, datetime
 from pathlib import Path
 from html import unescape as _html_unescape
+from urllib.parse import unquote as _url_unquote
 
 PASS = "✅"
 FAIL = "❌"
@@ -197,8 +198,18 @@ CHANGELOG = [
     ("2026-05-29", "TB-9 added — footer sharing link check: every shipped guide must include a centered div containing dbellinello.github.io/travel_guides/Guides/{City}/{file}.html as the last element before </body>. Cosmetic public URL for sharing. Rule added to Toolbar.html §6; Rules for Claude.html §4 publishing section updated to reference it."),
     ("2026-05-29", "TB-7/TB-8 updated — data-prev/data-next now accept both ../ (guide→guide or guide→index) and ./ (index→guide) relative paths. guides_index.html added to the guide cycle as a full stop between Marrakech and Bend."),
     ("2026-05-30", "Tram template: accept 'Lines' as well as 'Line(s)' — global parentheses ban conflicts with original template literal; both forms now pass."),
+    ("2026-05-31", "TB-10 added — carousel chain check: every depth-2 guide page must have both data-prev and data-next on its toolbar-mount (being in the carousel is mandatory, not optional); chain must also be bidirectionally consistent (prev.data-next and next.data-prev must both resolve back to this guide). Catches the Alaska failure mode: guide listed in guides_index but unreachable via ←/→ because toolbar-mount had no prev/next. urllib.parse.unquote added to imports for %20-encoded paths."),
     ("2026-05-30", "TB-9 rewritten — the footer sharing link is now INJECTED by toolbar.js (one definition for every page) instead of a per-file inline div. Each page links to its own live URL (location-based), so it is repo-rename-proof. TB-9 now passes when a guide loads toolbar.js AND has no stale inline footer div; it fails on a leftover hardcoded github.io footer. Triggered by the GitHub repo rename travel_guides → Travel and footer centralization. Toolbar.html §5 rewritten to match."),
     ("2026-05-30", "CORE RULES integrity guard hardened — the checksum loop now re-reads a file (2 retries, 0.25s apart) before recording a mismatch. The CORE RULES files stream from Google Drive File Stream; a cold read of a not-yet-hydrated file returned partial bytes and produced a spurious hash mismatch, which failed the ship-gate at random on the first run of a session (observed: Oslo 671/2-fail on cold run, 673/0 on every warm run). A real unauthorized edit never self-heals, so the retry only clears hydration flakes. Found in the 2026-05-30 validator audit."),
+    ("2026-05-31", "Train Day destination ≠ guide city check added — hard fail when a 'Day N — Train Day — {City}' header lists the guide's own city as the destination. Stops Structure.html §3c defines Train Day as a round-trip to ANOTHER city; a self-referential Train Day is nonsensical."),
+    ("2026-05-31", "Day Trips destination conflict check added — hard fail when a Day Trips entry lists (A) the guide's own city or (B) a city already covered in the itinerary. Suggesting a city you are already visiting is redundant regardless of how it is structured. City comparison is case-insensitive; travel-time suffix stripped before compare."),
+    ("2026-05-31", "Link-color allowlist updated for 2026-05-31 CSS design token changes: CANONICAL_LINK_BLUE #2867c4 → #8a6c1a (global link color changed to gold in guide_v2.css); toolbar-nav/essentials expected color #3d5f80 → #6b4422 (--c-title-bg warm chestnut); #tours .extras-sub a and .title-page .title-address a added to allowlist."),
+    ("2026-05-31", "Day Trips duplicate-destination check label updated — removed incorrect framing 'Train Day is a full itinerary day, not an optional excursion' (Train Days and Day Trips have the same time requirements; the only reason to exclude is redundancy with the planned itinerary)."),
+    ("2026-05-31", "Getting Around icon allowlist expanded: 🚢 (Ferry) added to _GA_ALLOWED_ICONS alongside 🚕 🚎 🚝. Getting Around - Extra Section.html §4 defines ferry as a valid subsection when a ferry route is relevant to in-city travel. 🚢 is not added to the GA drift check because it is also a legitimate motion banner icon used elsewhere in guides."),
+    ("2026-05-31", "idx-coverage-self + idx-coverage-all: FAIL if this guide or any guide folder is absent from guides_index.html — unlisted guide is invisible to carousel and navigation"),
+    ("2026-05-31", "carousel-alpha: FAIL if carousel chain (data-guide-next in guides_index.html) is not in pure global A\u2192Z order by city name (diacritics normalized). Carousel ignores region grouping used by the index."),
+    ("2026-05-31", "guides_index.html alphabetical order check added — within each .glance-section (region), guides must be in alphabetical order by city name (case-insensitive, diacritics normalized: Ålesund → Alesund, Montréal → Montreal). One violation reported per out-of-order region. Rule added to Navigation.html §4."),
+    ("2026-05-31", "Wikimedia hotlink sentinel exemption removed — the `<!-- hotlink: CDN download blocked in Cowork sandbox -->` comment no longer authorises a hotlink src. commons_photo.py --download fetches the original file and resizes with PIL, bypassing the CDN thumbnail HTTP 400. ALL upload.wikimedia.org img src values now hard-fail regardless of any sentinel comment. Use `python3 Brain/scripts/commons_photo.py --download Guides/{City}/_build/assets/800px-Foo.jpg \"File:Foo.jpg\"` to convert existing hotlinks."),
 ]
 
 # ─── Pre-compiled patterns (used across multiple checks) ──────────────────
@@ -837,6 +848,100 @@ def validate(html: str, filename: str):
         "../toolbar.js and remove any inline footer div with a hardcoded github.io URL",
     )
 
+    # TB-10: guide is in the carousel chain — data-prev AND data-next are both
+    # REQUIRED on every guide page (being carousel-connected is mandatory, not
+    # optional). Additionally, the chain must be bidirectionally consistent:
+    # the file pointed to by data-prev must have a data-next that resolves back
+    # to THIS guide, and the file pointed to by data-next must have a data-prev
+    # that resolves back to THIS guide. This catches the Alaska failure mode:
+    # a guide can appear in guides_index.html yet be unreachable by ←/→ arrows
+    # because its toolbar-mount has no prev/next, or because the adjacent guides
+    # in the chain don't point back to it. Only runs for depth-2 guide pages
+    # (guides_index.html, depth=1, is not a validated guide page).
+    # Source: Navigation.html § 2–§3.
+    _tb10_is_depth2 = bool(_tb_mount_m and re.search(r'data-depth\s*=\s*"2"', _tb_mount_m.group(0)))
+    if _tb10_is_depth2:
+        _tb10_has_prev = bool(_tb_prev_m)
+        _tb10_has_next = bool(_tb_next_m)
+        _tb10_back_ok  = True   # prev.data-next → this guide
+        _tb10_fwd_ok   = True   # next.data-prev → this guide
+        _tb10_detail   = []
+
+        if _tb10_has_prev and _tb10_has_next:
+            _this_path  = Path(filename).resolve()
+            _guide_dir  = _this_path.parent
+
+            def _resolve_href(base_dir: Path, raw_href: str) -> Path:
+                """Decode %20 then resolve relative href to absolute Path."""
+                return (base_dir / _url_unquote(raw_href)).resolve()
+
+            # Back-link: prev file's data-next must point back here
+            _prev_href_raw = _tb_prev_m.group(1)
+            _prev_path     = _resolve_href(_guide_dir, _prev_href_raw)
+            if _prev_path.exists():
+                _prev_html    = _prev_path.read_text(encoding='utf-8')
+                _prev_mount_m = re.search(r'<div\b[^>]*\bid\s*=\s*"toolbar-mount"[^>]*>', _prev_html, re.DOTALL)
+                if _prev_mount_m:
+                    _prev_next_attr = re.search(r'\bdata-next\s*=\s*"([^"]*)"', _prev_mount_m.group(0))
+                    if _prev_next_attr:
+                        _prev_points_to = _resolve_href(_prev_path.parent, _prev_next_attr.group(1))
+                        if _prev_points_to != _this_path:
+                            _tb10_back_ok = False
+                            _tb10_detail.append(
+                                f"prev guide ({_prev_path.name}) data-next={_prev_next_attr.group(1)!r} "
+                                f"→ {_prev_points_to.name}, expected {_this_path.name}"
+                            )
+                    else:
+                        _tb10_back_ok = False
+                        _tb10_detail.append(f"prev guide ({_prev_path.name}) has no data-next")
+                else:
+                    _tb10_back_ok = False
+                    _tb10_detail.append(f"prev guide ({_prev_path.name}) has no toolbar-mount")
+            else:
+                _tb10_back_ok = False
+                _tb10_detail.append(f"prev file not found: {_prev_path.name}")
+
+            # Forward-link: next file's data-prev must point back here
+            _next_href_raw = _tb_next_m.group(1)
+            _next_path     = _resolve_href(_guide_dir, _next_href_raw)
+            if _next_path.exists():
+                _next_html    = _next_path.read_text(encoding='utf-8')
+                _next_mount_m = re.search(r'<div\b[^>]*\bid\s*=\s*"toolbar-mount"[^>]*>', _next_html, re.DOTALL)
+                if _next_mount_m:
+                    _next_prev_attr = re.search(r'\bdata-prev\s*=\s*"([^"]*)"', _next_mount_m.group(0))
+                    if _next_prev_attr:
+                        _next_points_to = _resolve_href(_next_path.parent, _next_prev_attr.group(1))
+                        if _next_points_to != _this_path:
+                            _tb10_fwd_ok = False
+                            _tb10_detail.append(
+                                f"next guide ({_next_path.name}) data-prev={_next_prev_attr.group(1)!r} "
+                                f"→ {_next_points_to.name}, expected {_this_path.name}"
+                            )
+                    else:
+                        _tb10_fwd_ok = False
+                        _tb10_detail.append(f"next guide ({_next_path.name}) has no data-prev")
+                else:
+                    _tb10_fwd_ok = False
+                    _tb10_detail.append(f"next guide ({_next_path.name}) has no toolbar-mount")
+            else:
+                _tb10_fwd_ok = False
+                _tb10_detail.append(f"next file not found: {_next_path.name}")
+
+        _tb10_pass = _tb10_has_prev and _tb10_has_next and _tb10_back_ok and _tb10_fwd_ok
+        _tb10_msg  = []
+        if not _tb10_has_prev:
+            _tb10_msg.append("data-prev missing on toolbar-mount")
+        if not _tb10_has_next:
+            _tb10_msg.append("data-next missing on toolbar-mount")
+        _tb10_msg.extend(_tb10_detail)
+        check(
+            'TB-10 guide is in the carousel — data-prev + data-next required; '
+            'chain bidirectionally consistent (Navigation.html § 2–§3)',
+            _tb10_pass,
+            ('Guide not properly connected to the ←/→ carousel:\n  ' + '\n  '.join(_tb10_msg))
+            if _tb10_msg else '',
+        )
+
     # ─── NOTHING BEFORE .title-page INSIDE .container ───────────────────────
     _container_m = re.search(
         r'<div\b[^>]*\bclass\s*=\s*"[^"]*\bcontainer\b[^"]*"[^>]*>(.*?)'
@@ -875,11 +980,11 @@ def validate(html: str, filename: str):
     _head_stripped = RE_HTML_COMMENT.sub('', _head_html)
     _has_inline_style = bool(re.search(r'<style\b', _head_stripped, re.IGNORECASE))
     check(
-        'No inline <style> block in <head> — load via <link rel="stylesheet" href="../guide_v2.css"> only '
+        'No inline <style> block in <head> — load via <link rel="stylesheet" href="../guide_v3.css"> only '
         '(inline CSS drifts from shared tokens; every guide must reference the external stylesheet)',
         not _has_inline_style,
         'Inline <style> block detected — remove it and replace with '
-        '<link rel="stylesheet" href="../guide_v2.css">',
+        '<link rel="stylesheet" href="../guide_v3.css">',
     )
 
     # Scope the stylesheet-link check to the <head> HTML with BOTH HTML
@@ -892,15 +997,16 @@ def validate(html: str, filename: str):
     _head_no_style = re.sub(r'<style\b[^>]*>.*?</style>', '', _head_stripped,
                             flags=re.IGNORECASE | re.DOTALL)
     # Check rel and href independently so attribute order doesn't matter.
+    # Updated 2026-05-31: canonical stylesheet is now guide_v3.css (gold reskin).
     has_stylesheet = any(
         re.search(r'\brel\s*=\s*"stylesheet"', _tag, re.IGNORECASE)
-        and re.search(r'\bhref\s*=\s*"\.\./guide_v2\.css"', _tag, re.IGNORECASE)
+        and re.search(r'\bhref\s*=\s*"\.\./guide_v3\.css(?:\?[^"]*)?"\s*', _tag, re.IGNORECASE)
         for _tag in re.findall(r'<link\b[^>]*>', _head_no_style, re.IGNORECASE)
     )
     check(
-        'Stylesheet link → canonical ../guide_v2.css',
+        'Stylesheet link → canonical ../guide_v3.css',
         has_stylesheet,
-        'Missing or wrong path — every guide must read from ../guide_v2.css '
+        'Missing or wrong path — every guide must read from ../guide_v3.css '
         '(no inline styles, no per-guide CSS copy). Per Guide Structure.html '
     )
 
@@ -3898,23 +4004,19 @@ def validate(html: str, filename: str):
     )
 
     # ─── WIKIMEDIA HOTLINKS (Rule: photos must ship locally) ────
-    # Exception: when CDN download is blocked in the Cowork sandbox (upload.wikimedia.org
-    # returns HTTP 400), Photos Rules.html §5 step 7 explicitly authorises hotlinks with
-    # the comment `<!-- hotlink: CDN download blocked in Cowork sandbox -->` immediately
-    # above the <img> tag. Only hotlinks WITHOUT that sentinel comment are flagged.
-    _wm_hotlink_pattern = re.compile(
-        r'(<!--[^>]*hotlink[^>]*CDN[^>]*blocked[^>]*-->)?\s*'
+    # Sentinel exemption removed 2026-05-31: commons_photo.py --download fetches
+    # the original file and resizes with PIL, bypassing the CDN thumbnail 400.
+    # The `<!-- hotlink: CDN download blocked in Cowork sandbox -->` comment no
+    # longer authorises a hotlink — ALL upload.wikimedia.org src values fail.
+    wikimedia_hotlinks = re.findall(
         r'<img\b[^>]*\bsrc\s*=\s*"(https?://upload\.wikimedia\.org/[^"]*)"',
-        re.IGNORECASE | re.DOTALL,
+        html, re.IGNORECASE,
     )
-    wikimedia_hotlinks = [
-        url for sentinel, url in _wm_hotlink_pattern.findall(html)
-        if not sentinel  # sentinel present → authorised hotlink; absent → violation
-    ]
     check(
-        "No Wikimedia hotlinks in <img> src (download to Guides/{City}/_build/assets/ and use relative path)",
+        "No Wikimedia hotlinks in <img> src — use commons_photo.py --download to fetch locally (Photos Rules.html §5)",
         len(wikimedia_hotlinks) == 0,
-        f"{len(wikimedia_hotlinks)} hotlink(s) to upload.wikimedia.org — first: {wikimedia_hotlinks[0][:100]}..."
+        f"{len(wikimedia_hotlinks)} hotlink(s) to upload.wikimedia.org — run: "
+        f"python3 Brain/scripts/commons_photo.py --download Guides/{{City}}/_build/assets/800px-Foo.jpg \"File:Foo.jpg\""
         if wikimedia_hotlinks else ""
     )
 
@@ -4282,18 +4384,34 @@ def validate(html: str, filename: str):
 
     # ─── TOTAL TOUR BOXES IN GUIDE — must have at least one ──────────────────
     # Catches guides where the crib skipped tour research entirely.
-    # Hard fail: a guide with zero 📅 tour-boxes means tour-first was ignored.
+    # Accepts EITHER old-format .tour-box divs (stop-block guided tours, retired 2026-05-20)
+    # OR new flat-format extras-sub entries inside the #tours extras-section.
+    # Fixed 2026-05-30: old check only counted .tour-box which always fires 0 on new-format
+    # guides where guided stops were retired and Tours section uses flat extras-sub entries.
     print("\n── TOTAL TOUR BOXES — guide must have at least one ──")
     _total_tour_boxes = len(re.findall(
         r'<div\b[^>]*class\s*=\s*"[^"]*\btour-box\b[^"]*"', html, re.IGNORECASE
     ))
+    # Also count flat-format extras-sub entries in the #tours section
+    _tours_sec_m2 = re.search(
+        r'<div\b(?=[^>]*\bextras-section\b)(?=[^>]*\bid\s*=\s*"tours")[^>]*>',
+        html, re.IGNORECASE,
+    )
+    _flat_tour_entries = 0
+    if _tours_sec_m2:
+        _tours_inner2, _ = _walk_balanced_div(html, _tours_sec_m2.end())
+        _flat_tour_entries = len(re.findall(
+            r'<div\b[^>]*class\s*=\s*"[^"]*\bextras-sub\b[^"]*"[^>]*>',
+            _tours_inner2, re.IGNORECASE,
+        ))
+    _total_tours_evidence = _total_tour_boxes + _flat_tour_entries
     check(
         'Guide must contain at least one 📅 tour-box — zero tour boxes means '
         'tour-first research was skipped entirely (Tours - Extra Section.html)',
-        _total_tour_boxes >= 1,
-        f"Guide has zero tour-boxes — every guided stop needs Viator / GYG / "
-        f"TripAdvisor tour research before shipping"
-        if _total_tour_boxes == 0 else "",
+        _total_tours_evidence >= 1,
+        f"Guide has zero tour-boxes and no flat-format Tours section entries — "
+        f"Viator / GYG / TripAdvisor tour research is required before shipping"
+        if _total_tours_evidence == 0 else "",
     )
 
     # ─── TOTAL TICKET BOXES IN GUIDE — must have at least one ────────────────
@@ -12867,13 +12985,15 @@ def validate(html: str, filename: str):
     )
 
     # ─── GETTING AROUND — EXTRAS-SUB ICON ALLOWLIST ──────────────────────────
-    # Getting Around - Extra Section.html defines exactly three subsections:
-    #   §1 🚕 Ride Apps   §2 🚎 Tram   §3 🚝 Metro (only when planned)
+    # Getting Around - Extra Section.html defines four subsections:
+    #   §1 🚕 Ride Apps   §2 🚎 Tram   §3 🚝 Metro (only when requested)
+    #   §4 🚢 Ferry (only when a ferry route is relevant to in-city travel)
     # Anything else (🚲 🛴 🚇 🚆 🎟 📍 🏛 ⏰ 🗞️ etc.) hard-fails.
     # Replaces the old dead "transit-box rows must be emoji-led" check whose
     # _prose_exempt = re.compile(r'.') always exempted everything (2026-05-17).
+    # 🚢 added 2026-05-31 — ferry is §4 of Getting Around rules.
     print("\n── GETTING AROUND — EXTRAS-SUB ICON ALLOWLIST ──")
-    _GA_ALLOWED_ICONS = {'🚕', '🚎', '🚝'}
+    _GA_ALLOWED_ICONS = {'🚕', '🚎', '🚝', '🚢'}
     _ga_icon_bad: list[str] = []
     _ga_re2 = re.compile(
         r'<div\b(?=[^>]*\bextras-section\b)(?=[^>]*\bid\s*=\s*"getting-around")[^>]*>',
@@ -12896,8 +13016,8 @@ def validate(html: str, filename: str):
                 )
     check(
         'Getting Around — extras-sub headings allow only 🚕 (Ride Apps), 🚎 (Tram), '
-        '🚝 (Metro); anything else is a wrong-section icon '
-        '(Getting Around - Extra Section.html §1–3, locked 2026-05-17)',
+        '🚝 (Metro), 🚢 (Ferry); anything else is a wrong-section icon '
+        '(Getting Around - Extra Section.html §1–4)',
         not _ga_icon_bad,
         f'{len(_ga_icon_bad)} disallowed icon(s): ' + '; '.join(_ga_icon_bad[:3])
         if _ga_icon_bad else '',
@@ -13547,7 +13667,7 @@ def validate(html: str, filename: str):
     # plain-text headings — icons belong inside the box, not on the heading.
     _SECTION_ICON_ALLOWLISTS: dict[str, tuple[set[str], bool]] = {
         'tours':               ({'📅', '⭐', '★'},  True),   # 📅 structural prefix on every tour heading; ⭐ allowed for the rating (the dedicated Tours entry-format check enforces 📅 specifically)
-        'getting-around':      ({'🚕', '🚝', '🚎'},  True),   # icons are structural: 🚕 Ride apps · 🚝 Metro · 🚎 Tram
+        'getting-around':      ({'🚕', '🚝', '🚎', '🚢'},  True),   # icons are structural: 🚕 Ride apps · 🚝 Metro · 🚎 Tram · 🚢 Ferry
         'michelin':            ({'⭐', '★'},  False),  # ⭐⭐⭐ / ⭐⭐ / ⭐ prefix allowed on starred restaurants (Dani exception)
         'day-trips':           (set(),  False),  # "Sintra (40 min)" — plain text
         'shows':               (set(),  False),  # show name — plain text
@@ -15049,6 +15169,35 @@ def validate(html: str, filename: str):
                 'or acknowledge with <!-- warn-ok: train-day-quota WHY -->',
                 tag='train-day-quota',
             )
+
+    # ─── TRAIN DAY DESTINATION ≠ GUIDE CITY ──────────────────────────────────
+    # A Train Day is a full-day round-trip to ANOTHER city (Stops Structure.html
+    # §3c). If the destination in a "Day N — Train Day — {City}" header matches
+    # the guide's own city (from .title-city), the itinerary is self-referential
+    # and nonsensical. Added 2026-05-31.
+    print("\n── TRAIN DAY — destination must differ from guide city ──")
+    _td_same_as_guide: list[str] = []
+    if city_text:
+        _guide_city_lc = city_text.strip().lower()
+        for _tdh2 in re.finditer(
+            r'<div\b[^>]*class\s*=\s*"[^"]*\bday-header\b[^"]*"[^>]*>(.*?)</div>',
+            html, re.DOTALL | re.IGNORECASE,
+        ):
+            _tdh2_text = RE_STRIP_TAGS.sub('', _tdh2.group(1)).strip()
+            _td2_m = re.search(r'Train\s+Day\s*[—\-]+\s*(.+)$', _tdh2_text, re.IGNORECASE)
+            if not _td2_m:
+                continue
+            _td2_dest = re.split(r'[&·,]', _td2_m.group(1))[0].strip().lower()
+            if _td2_dest == _guide_city_lc:
+                _td_same_as_guide.append(f'"{_tdh2_text[:60]}"')
+    check(
+        'Train Day destination must differ from the guide city '
+        '(Stops Structure.html §3c — Train Day is a round-trip to ANOTHER city)',
+        len(_td_same_as_guide) == 0,
+        f'{len(_td_same_as_guide)} Train Day header(s) whose destination matches the guide city: '
+        + '; '.join(_td_same_as_guide[:3])
+        if _td_same_as_guide else '',
+    )
 
     # ─── STATIONS NEAR THE HOTEL — section heading icon ──────────
     # ═══════════════════════════════════════════════════════════
@@ -16791,6 +16940,64 @@ def validate(html: str, filename: str):
         if _dt_dupe_hits else '',
     )
 
+    # ─── DAY TRIPS — destination must not be the guide city or a Train Day city ──
+    # Day Trips are excursions from [City] to OTHER cities. Two cases fail:
+    #   A) Destination matches the guide's own city (from .title-city)
+    #   B) Destination matches a Train Day city already in the itinerary
+    #      (day-header "Day N — Train Day — {City}") — those are dedicated
+    #      itinerary days, not optional side trips.
+    # Rule: Stops Structure.html §3c — Train Day is a full-day round-trip
+    # to another city; it must not also appear in Day Trips.
+    # Added 2026-05-31.
+    print("\n── DAY TRIPS — destination must differ from guide city and Train Day cities ──")
+    _dt_wrong_dest: list[str] = []
+    if _dt_hdr:
+        # A) Guide city (title-city text, title-cased)
+        _guide_city_raw = city_text.strip().lower() if city_text else ''
+        # B) Train Day destination cities from day-header divs
+        _train_day_cities: set[str] = set()
+        for _tdh in re.finditer(
+            r'<div\b[^>]*class\s*=\s*"[^"]*\bday-header\b[^"]*"[^>]*>(.*?)</div>',
+            html, re.DOTALL | re.IGNORECASE,
+        ):
+            _tdh_text = RE_STRIP_TAGS.sub('', _tdh.group(1)).strip()
+            # Match "Day N — Train Day — {City}" or "Day N — Train Day — {City} & {City}"
+            _td_city_m = re.search(
+                r'Train\s+Day\s*[—\-]+\s*(.+)$', _tdh_text, re.IGNORECASE,
+            )
+            if _td_city_m:
+                # Take first city before any '&', '·', or ',' in a compound header
+                _td_city = re.split(r'[&·,]', _td_city_m.group(1))[0].strip().lower()
+                if _td_city:
+                    _train_day_cities.add(_td_city)
+        # Check each Day Trips extras-sub entry
+        for _dtwd_m in re.finditer(
+            r'<div\b[^>]*class\s*=\s*"[^"]*\bextras-sub\b[^"]*"[^>]*>(.*?)</div>',
+            _dt_inner, re.DOTALL | re.IGNORECASE,
+        ):
+            _dtwd_raw = RE_STRIP_TAGS.sub('', _dtwd_m.group(1)).strip()
+            # Strip travel-time suffix: "Utrecht · 30 min by NS Intercity" → "Utrecht"
+            _dest_city = re.sub(r'\s*[·(].*$', '', _dtwd_raw).strip().lower()
+            if not _dest_city:
+                continue
+            if _guide_city_raw and _dest_city == _guide_city_raw:
+                _dt_wrong_dest.append(
+                    f'"{_dtwd_raw[:50]}" — same as guide city "{city_text}"'
+                )
+            elif any(_dest_city == tc for tc in _train_day_cities):
+                _dt_wrong_dest.append(
+                    f'"{_dtwd_raw[:50]}" — already visited in the itinerary, redundant in Day Trips'
+                )
+    check(
+        '⛲️ Day Trips — every destination must be a different city from the guide city '
+        'and must not duplicate a destination already covered in the itinerary — '
+        'suggesting a city you are already visiting is redundant (Stops Structure.html §3c)',
+        len(_dt_wrong_dest) == 0,
+        f'{len(_dt_wrong_dest)} invalid destination(s): '
+        + '; '.join(_dt_wrong_dest[:3])
+        if _dt_wrong_dest else '',
+    )
+
     # ─── DAY TRIPS — no annotation leakage in 🗞️ description ────────────────
     print("\n── DAY TRIPS — annotation leakage in 🗞️ description ──")
     _dt_annot_hits: list[str] = []
@@ -17750,6 +17957,45 @@ def validate(html: str, filename: str):
                     f'"{_title_text}" — content beyond title: '
                     f'"{(_leftover or _leftover_html)[:60]}"'
                 )
+        # 3) Within each .glance-section (region), guides are alphabetical by
+        #    city name — case-insensitive, diacritics normalized (Ålesund sorts
+        #    as Alesund, Montréal as Montreal, etc.).
+        #    Rule: Navigation.html §4 — added 2026-05-31.
+        import unicodedata as _ud
+        def _idx_sort_key(city: str) -> str:
+            """Normalize diacritics and lowercase for alphabetical comparison."""
+            nfd = _ud.normalize('NFD', city)
+            return nfd.encode('ascii', 'ignore').decode('ascii').lower().strip()
+
+        for _sec_open in re.finditer(
+            r'<div\b[^>]*class\s*=\s*"[^"]*\bglance-section\b[^"]*"[^>]*>',
+            _idx_html, re.IGNORECASE,
+        ):
+            _sec_inner, _ = _walk_balanced_div(_idx_html, _sec_open.end())
+            # Region heading for error messages
+            _region_m = re.search(
+                r'<div\b[^>]*class\s*=\s*"[^"]*\bglance-title\b[^"]*"[^>]*>(.*?)</div>',
+                _sec_inner, re.DOTALL | re.IGNORECASE,
+            )
+            _region_label = re.sub(r'<[^>]+>', '', _region_m.group(1)).strip() if _region_m else '(unknown region)'
+            # Extract city names in document order
+            _cities = [
+                re.sub(r'<[^>]+>', '', m.group(1)).strip()
+                for m in re.finditer(
+                    r'<span\b[^>]*class\s*=\s*"[^"]*\bidx-city\b[^"]*"[^>]*>(.*?)</span>',
+                    _sec_inner, re.DOTALL | re.IGNORECASE,
+                )
+            ]
+            if len(_cities) < 2:
+                continue
+            _sorted = sorted(_cities, key=_idx_sort_key)
+            for _pos, (_actual, _expected) in enumerate(zip(_cities, _sorted)):
+                if _idx_sort_key(_actual) != _idx_sort_key(_expected):
+                    _idx_violations.append(
+                        f'{_region_label} — not alphabetical: '
+                        f'"{_actual}" at position {_pos + 1}, expected "{_expected}"'
+                    )
+                    break  # one violation per region is enough to signal the problem
     else:
         _idx_violations.append(f'guides_index.html not found at {_idx_path}')
     check(
@@ -17760,6 +18006,146 @@ def validate(html: str, filename: str):
         f'{len(_idx_violations)} index violation(s): '
         + '; '.join(_idx_violations[:3])
         if _idx_violations else '',
+    )
+
+
+    # ─── GUIDES INDEX — guide present in index ────────────────────────────────
+    # Every guide HTML that exists in Guides/ must be listed in guides_index.html.
+    # Hard-fail: a guide not in the index is invisible to navigation and the
+    # carousel — it effectively does not exist for the reader.
+    # Check A: this guide is in the index.
+    # Check B: scan ALL Guides/ folders — any guide HTML absent from index fails.
+    print("\n── GUIDES INDEX — coverage check ──")
+    _guides_root = Path(filename).resolve().parent.parent  # Guides/
+    _idx_path2 = _guides_root / 'guides_index.html'
+
+    def _idx_hrefs(idx_html):
+        """Return set of normalized href paths from guides_index.html glance-day links."""
+        import unicodedata as _ud2
+        hrefs = set()
+        for _m in re.finditer(
+            r'<a\b[^>]*class\s*=\s*"[^"]*\bglance-day\b[^"]*"[^>]*href\s*=\s*"([^"]+)"',
+            idx_html, re.IGNORECASE,
+        ):
+            # Normalize: strip leading ./ and %20-decode
+            from urllib.parse import unquote as _uq2
+            hrefs.add(_uq2(_m.group(1)).lstrip('./'))
+        return hrefs
+
+    # Check A — this guide is in the index
+    _this_rel = str(Path(filename).resolve().relative_to(_guides_root))
+    _in_index = False
+    _all_guide_missing: list[str] = []
+    if _idx_path2.is_file():
+        _idx_html2 = _idx_path2.read_text(encoding='utf-8', errors='ignore')
+        _indexed = _idx_hrefs(_idx_html2)
+        _in_index = _this_rel in _indexed
+        # Check B — scan all guide folders
+        for _gfolder in sorted(_guides_root.iterdir()):
+            if not _gfolder.is_dir():
+                continue
+            for _gfile in sorted(_gfolder.iterdir()):
+                if _gfile.suffix != '.html' or _gfile.name.startswith('_'):
+                    continue
+                _grel = str(_gfile.relative_to(_guides_root))
+                if _grel not in _indexed:
+                    _all_guide_missing.append(_grel)
+                break  # one HTML per folder
+    else:
+        _in_index = False
+
+    check(
+        'GUIDES INDEX — this guide is listed in guides_index.html '
+        '(unlisted guide = invisible to carousel + navigation)',
+        _in_index,
+        f'Guide not found in guides_index.html: {_this_rel}' if not _in_index else '',
+    )
+    check(
+        'GUIDES INDEX — all guide folders listed in guides_index.html '
+        '(every guide must be reachable via the index and carousel)',
+        not _all_guide_missing,
+        f'{len(_all_guide_missing)} guide(s) missing from index: '
+        + ', '.join(_all_guide_missing[:5])
+        if _all_guide_missing else '',
+    )
+
+    # ─── CAROUSEL — globally alphabetical order ───────────────────────────────
+    # The ←/→ carousel chain must follow pure A→Z order across ALL guides
+    # (city name, diacritics normalized). Within guides_index.html guides are
+    # grouped by region; the carousel ignores regions and is strictly A→Z.
+    # Rule: Navigation.html — added 2026-05-31.
+    print("\n── CAROUSEL — global alphabetical order ──")
+    _carousel_violations: list[str] = []
+    if _idx_path2.is_file():
+        # Build ordered list: walk data-guide-next chain from guides_index.html
+        # Each glance-day has href + data-guide-next; reconstruct the full sequence
+        # by following next pointers. Also extract city name for each.
+        from urllib.parse import unquote as _uq3
+        import unicodedata as _ud3
+        def _norm_city(c: str) -> str:
+            nfd = _ud3.normalize('NFD', c)
+            return nfd.encode('ascii', 'ignore').decode('ascii').lower().strip()
+
+        # Parse all glance-day entries: href → (city_name, next_href)
+        _gd_map: dict[str, tuple[str, str | None]] = {}
+        _first_href: str | None = None
+        for _gm in re.finditer(
+            r'<a\b[^>]*class\s*=\s*"[^"]*\bglance-day\b[^"]*"([^>]*)>',
+            _idx_html2, re.IGNORECASE,
+        ):
+            _attrs = _gm.group(1)
+            _href_m = re.search(r'href\s*=\s*"([^"]+)"', _attrs, re.IGNORECASE)
+            _next_m = re.search(r'data-guide-next\s*=\s*"([^"]+)"', _attrs, re.IGNORECASE)
+            _prev_m = re.search(r'data-guide-prev\s*=\s*"([^"]+)"', _attrs, re.IGNORECASE)
+            if not _href_m:
+                continue
+            _href = _uq3(_href_m.group(1)).lstrip('./')
+            _next = _uq3(_next_m.group(1)).lstrip('./') if _next_m else None
+            # Find city name in the following content
+            _entry_end = _idx_html2.find('</a>', _gm.end())
+            _entry_inner = _idx_html2[_gm.end():_entry_end] if _entry_end != -1 else ''
+            _city_m = re.search(
+                r'<span\b[^>]*class\s*=\s*"[^"]*\bidx-city\b[^"]*"[^>]*>(.*?)</span>',
+                _entry_inner, re.DOTALL | re.IGNORECASE,
+            )
+            _city = re.sub(r'<[^>]+>', '', _city_m.group(1)).strip() if _city_m else _href
+            _gd_map[_href] = (_city, _next)
+            if not _prev_m:
+                _first_href = _href  # no prev → start of chain
+
+        # Walk the chain and collect city names in carousel order
+        _carousel_cities: list[str] = []
+        _seen: set[str] = set()
+        _cur = _first_href
+        _walk_limit = len(_gd_map) + 5
+        while _cur and _cur not in _seen and _walk_limit > 0:
+            _walk_limit -= 1
+            _seen.add(_cur)
+            _city_name, _nxt = _gd_map.get(_cur, (None, None))
+            if _city_name:
+                _carousel_cities.append(_city_name)
+            _cur = _nxt
+
+        # Check A→Z order
+        if len(_carousel_cities) >= 2:
+            _sorted_cities = sorted(_carousel_cities, key=_norm_city)
+            for _ci, (_actual_c, _expected_c) in enumerate(
+                zip(_carousel_cities, _sorted_cities)
+            ):
+                if _norm_city(_actual_c) != _norm_city(_expected_c):
+                    _carousel_violations.append(
+                        f'position {_ci + 1}: got "{_actual_c}", '
+                        f'expected "{_expected_c}" in global A→Z order'
+                    )
+                    break  # report first violation only
+
+    check(
+        'CAROUSEL — globally alphabetical A→Z order across all guides '
+        '(carousel ignores regions; pure city-name sort, diacritics normalized)',
+        not _carousel_violations,
+        f'{len(_carousel_violations)} carousel order violation(s): '
+        + '; '.join(_carousel_violations)
+        if _carousel_violations else '',
     )
 
     # ─── GLOBAL — BARE-DOMAIN LINK TEXT TITLE-CASED ──────────────────────────
@@ -21365,18 +21751,20 @@ def validate(html: str, filename: str):
     # ─── CSS: LINK COLOR SINGLE SOURCE OF TRUTH ───────────────
     print("\n── CSS (link-color invariants) ──")
 
-    CANONICAL_LINK_BLUE = "#2867c4"
+    CANONICAL_LINK_BLUE = "#8a6c1a"   # updated 2026-05-31: global link color changed from #2867c4 to gold (#8a6c1a); extras-sections restore #2867c4 via .extras-section { --c-link } override
     LINK_COLOR_ALLOWLIST = {
         # selector                          expected color   purpose
         # .title-links a retired 2026-04-22 — no links block on title card
         "#michelin .extras-sub a":         ("#1a1a1a", "restaurant name — dark list item, not a nav link"),
         ".warn a":                         ("#a36009", "amber warning callout"),
         ".extras-sub a":                   ("inherit",  "extras-sub link inherits parent purple — styled as plain heading, not a nav link"),
+        "#tours .extras-sub a":            ("#8a6c1a", "tours extras-sub links use gold (--c-link) — tours section is outside .extras-section blue-restore scope"),
         "#cities-gotchas .transit-box a":  ("#a36009", "cities-gotchas tip links use warn-amber (--c-warn-link) per guide_v2.css §cities-gotchas palette"),
-        ".index-banner-sub a":             ("#7030a0", "guides-index banner sub-links use purple accent (--c-purple) — index page only, not guide content"),
-        # Guide-toolbar base colour — default toolbar accent before any theme override (added 2026-05-30)
-        ".toolbar-nav a":                                     ("#3d5f80", "toolbar accent — default (--c-title-bg)"),
-        ".toolbar-essentials a":                              ("#3d5f80", "toolbar accent — default (--c-title-bg)"),
+        ".index-banner-sub a":             ("#8a6c1a", "guides-index banner sub-links use gold accent (--c-purple recoloured 2026-05-31) — index page only, not guide content"),
+        ".title-page .title-address a":    ("#ffffff", "white address link on dark title-card background — title card uses inverted palette"),
+        # Guide-toolbar base colour — default toolbar accent before any theme override (updated 2026-05-31: #3d5f80 → #6b4422 warm chestnut via --c-title-bg)
+        ".toolbar-nav a":                                     ("#6b4422", "toolbar accent — default (--c-title-bg)"),
+        ".toolbar-essentials a":                              ("#6b4422", "toolbar accent — default (--c-title-bg)"),
         # Guide-toolbar theme variants — nav + essentials links inherit the toolbar accent colour (added 2026-05-29)
         ".guide-toolbar.theme-purple .toolbar-nav a":         ("#7030a0", "toolbar accent — purple theme"),
         ".guide-toolbar.theme-purple .toolbar-essentials a":  ("#7030a0", "toolbar accent — purple theme"),

@@ -58,7 +58,7 @@ LEGACY_CLASSES = ("titlebar", "title", "locked", "read-only-notice")
 # files gate themselves with: if path.name not in FORMAT_EXCEPTION_FILES
 # Documented in Rules for Claude.html § 12.
 # ──────────────────────────────────────────────────────────────────────────
-FORMAT_EXCEPTION_FILES = {"Links.html", "Photos Rules.html", "Rules for Claude.html", "Toolbar.html"}
+FORMAT_EXCEPTION_FILES = {"Links.html", "Photos Rules.html", "Rules for Claude.html", "Toolbar.html", "Guide Structure.html"}
 
 
 # ──────────────────────────────────────────────────────────────────────────

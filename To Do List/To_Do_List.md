@@ -8,22 +8,9 @@
 
 *Private tasks — bookings, flights, hotels, research, logistics.*
 
-- **🗺 Vienna — run `verify_urls.py` and `verify_booking_links.py` before the trip.** Ship gate only ran `validate_itinerary.py` (737 passed / 0 failed). *(moved from parking 2026-05-30)*
-
 ---
 
 ## 🗺 Guides to Build
-
-- **🦅 Alaska — 1 guide, 7 days, summer (dates TBD).** *(logged 2026-05-26)*
-
-- **🇳🇱 Amsterdam** — dates TBD. *(logged 2026-05-26)*
-
-- **🇨🇦 Vancouver, BC** — dates TBD. *(logged 2026-05-26)*
-
-- **🇪🇸 Barcelona** — dates TBD. *(logged 2026-05-26)*
-
-- **🇺🇸 New York** — dates TBD. *(logged 2026-05-26)*
-
 
 ---
 
@@ -38,4 +25,3 @@
 ## ❓ Open Questions
 
 *Mid-build questions that surface DURING a guide build and would otherwise block ship. Park here and keep building.*
-

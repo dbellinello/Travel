@@ -1,4 +1,30 @@
 
+2026-05-31 — Vienna verify + NYC open questions resolved · Vienna: ran verify_urls + verify_booking; fixed 8 dead ticket URLs (KHM, Sisi Museum, SRS, Belvedere×2, Schönbrunn×2, Musikverein, bahn.de×2, SNM Bratislava) and 2 h1-mismatches (Kaisergruft/Stephansdom via wiki-alias comments); validated + ship gate passed (103/0). NYC: fixed 2 pre-existing structural failures (orphaned Day Trips 🎫 row + stray </div> floating Michelin outside container); added GYG entries 3–5 (helicopter · harbor speedboat · Circle Line Beast) + TripAdvisor entries 2–5 (jazz cruise · sunset sightseeing · Starship · City Cruises dinner); added WatchHouse + Devoción to Cappuccino; added Estiatorio Milos + Polo Bar to Restaurants Near Hotel; fixed 8 validator failures during edits; validated 679/0 + ship gate passed (99/0 + 33/0). To-do list cleared of Vienna task, all 5 Guides to Build, and NYC open questions.
+
+## 2026-05-31 — Full Brain/ audit
+
+**Trigger.** "audit all the files under the folder brain." Scope: Brain/CORE RULES/ (27 files) · Brain/Reference/ (16 files) · Brain/mds/ (5 files) · Brain/scripts/.
+
+**Method.** Session ritual → `guide_tools.py start` (51/51 ok) → `brain_check.py` full run (51/51 ok · 0 warn · 0 fail) → `doc_workshop_validator.py` → file-tree inspection → CHANGELOG diff (validate_itinerary.py) vs Validator Index → decisions.md gap check.
+
+**doc_workshop_validator pre-fix:** 26 clean · 0 warn · 1 error — `Guide Structure.html` E15 (banned word "link" in visible text; two hits in Phase 1 description — false positive).
+
+**Findings and fixes.**
+
+1. **Guide Structure.html E15 — FIXED.** E15 ("Map/Maps/Link/Links banned in visible text") was firing on legitimate prose: "constraints, link/photo formats" and "Links.html — link verification gates and format conventions" — both describe CORE RULES file names and hyperlink subject matter, not guide content drift. Fix: added format exception banner to `Guide Structure.html` (matching `Links.html` / `Rules for Claude.html` pattern); added `"Guide Structure.html"` to `FORMAT_EXCEPTION_FILES` in `doc_workshop_validator.py`; updated `Rules for Claude.html § 12` to list four exception files (was three); regenerated `core_rules_checksums.json` (2 changed files). **Result: doc_workshop_validator 27 clean · 0 warn · 0 errors.**
+
+2. **Validator Index.html stale — FIXED.** `Last updated: 2026-05-26` but validate_itinerary.py CHANGELOG had 20+ entries since then (2026-05-27 through 2026-05-31). Updated: date bumped to 2026-05-31; added/corrected 13 entries across sections: Wikimedia hotlink sentinel exemption removed (Photos §); "time from hotel" scope expanded to guide-wide (Tours §); low-count missing comment: warn → hard fail ✅ (Cappuccino, RNH, Downtown — 3 items each split into hard-fail + separate warn); TB-10 carousel chain check (Global §); Train Day destination ≠ guide city (Day Structure §); Day Trips destination conflict (Day Trips §); Getting Around 🚢 ferry added to extras-sub icon allowlist; global "Map"/"Maps" bare visible text ban (Global §); editorial drift words ban (vibe, contactless, etc.) (Global §); guides_index alphabetical order check (brain_check §).
+
+3. **decisions.md — FIXED.** Two entries missing from prior sessions: (a) "Guide Structure.html added to FORMAT_EXCEPTION_FILES" (this session); (b) "Wikimedia hotlink sentinel exemption removed" (2026-05-31 CHANGELOG entry). Both appended at top.
+
+4. **File tree — clean.** CORE RULES: 27 HTML + .DS_Store. Reference: 16 files (15 documented + Toolbar.html added 2026-05-30 — travel_map.md notes it). mds: 5 .md files. scripts: all expected scripts present; __pycache__ entries normal. No strays.
+
+5. **brain_check post-fix:** 51/51 ok · 0 warn · 0 fail ✅
+
+**No issues found in:** all 27 CORE RULES HTML files (structurally clean post-fix) · Reference pointer integrity · mds file set · script inventory · decisions.md now current.
+
+---
+
 2026-05-30 — Seoul guide pickup: completed Tours (5V+5GYG+4TA), Cappuccino (4/5), Downtown Restaurants (5), Michelin (3). Validator: 688 passed · 0 failed · 6 warnings. CORE RULES checksum re-hashed (3 hydration flakes cleared).
 ## 2026-05-30 — Validator audit (`validate_itinerary.py`)
 
@@ -860,3 +886,19 @@ New guide. Ship-gate summary:
 ## 2026-05-30 — Marktoberdorf v1 build
 
 Marktoberdorf v1 · validated 2026-05-30 08:52 · ✅ 663 passed / 0 failed. 7-day Allgäu base guide (Hotel Greinwald). Fixed validator bug: TOURS platform-grouping check now guarded by `not _tours_empty` so a legitimately-empty Tours section (extras-empty negative line per Tours - Extra Section.html §5) no longer hard-fails for lacking platform sub-headings.
+
+## 2026-05-31 12:39 — New York City v1 guide ship
+
+**Scope:** Full guide build (5 days — Lower Manhattan · Upper East Side · Midtown West · Brooklyn · Philadelphia Train Day)
+
+**Validation:** New York v1 · validated 2026-05-31 12:39 · ✅ 674 passed / 0 failed
+
+**Ship gate:** ✅ validate (0 failed) → ✅ verify_urls (0 failed) → ✅ verify_booking_links (0 failed)
+
+**Hotel:** The Peninsula New York · 700 Fifth Ave · Midtown
+
+**Extra sections shipped:** Weekly Closures · Tours (Viator 5 · GYG 2 · TripAdvisor 1) · Cappuccino (3) · Restaurants Near Hotel (3) · Downtown Restaurants (5) · Local Tastes (4) · Food Delivery (2) · Shows (3) · Getting Around · Stations Near Hotel · Day Trips by Train (3) · Michelin (3 × ⭐⭐⭐)
+
+**Known gaps / Open Questions:** Tour platform counts below minimum (GYG 2, TripAdvisor 1 — walking tour cap applied); Cappuccino 3 entries (Midtown density constraint); Restaurants Near Hotel 3 entries (pending hours verification for additional spots). All documented with low-count sentinels.
+
+**Warnings (5, all documented):** 3 days with <4 stops (museum-day justification sentinels present); Cappuccino count; Restaurants Near Hotel count; Tours platform count; Day 5 stop count (train day)

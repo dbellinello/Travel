@@ -77,7 +77,7 @@
     '@media(max-width:600px){' +
       '.tb-inner{flex-wrap:wrap;overflow-x:visible;justify-content:flex-start;padding:0 12px;gap:4px}' +
       '.tb-sep{display:none}' +
-      '.tb a{flex:0 0 calc(25% - 3px);text-align:center;justify-content:center;box-sizing:border-box;padding:6px 4px}' +
+      '.tb a{flex:0 0 calc(25% - 3px);min-width:0;overflow:hidden;text-overflow:ellipsis;text-align:center;justify-content:center;box-sizing:border-box;padding:6px 2px;font-size:10.5px}' +
     '}'
     ;
   document.head.appendChild(styleEl);

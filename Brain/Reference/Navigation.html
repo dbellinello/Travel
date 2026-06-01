@@ -32,11 +32,12 @@
 
 <h2>§ 4. Canonical order and guides_index</h2>
 <p>The canonical guide order is defined in <code>Guides/guides_index.html</code>. Every guide card in the index carries matching <code>data-guide-prev</code> and <code>data-guide-next</code> attributes. When the chain changes, both the guide file's mount div and the index card are updated together.</p>
+<p>Within each region section, guides are ordered alphabetically by city name — case-insensitive, diacritics normalized (Ålesund sorts as Alesund, Montréal as Montreal). The validator enforces this order and reports the first out-of-order city per region.</p>
 
 <h2>§ 5. Adding a new guide to the chain</h2>
 <p>Insert the new guide between its two neighbours. All four steps happen in a single pass — partial updates break the chain:</p>
 <ol>
-<li>Add the new guide's card to <code>guides_index.html</code> in the correct region section, with the right <code>data-guide-num</code>, <code>data-guide-prev</code>, and <code>data-guide-next</code>.</li>
+<li>Add the new guide's card to <code>guides_index.html</code> in the correct region section, placed in alphabetical order by city name within that region.</li>
 <li>Update the predecessor card's <code>data-guide-next</code> and the successor card's <code>data-guide-prev</code> to point to the new guide.</li>
 <li>Update the banner destination count and the region guide count in <code>guides_index.html</code>.</li>
 <li>Set the new guide file's own toolbar-mount <code>data-prev</code> and <code>data-next</code> to match its neighbours.</li>

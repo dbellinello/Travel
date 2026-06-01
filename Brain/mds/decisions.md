@@ -6,6 +6,26 @@
 
 ---
 
+## 2026-05-31 — Guide Structure.html added to FORMAT_EXCEPTION_FILES
+
+`Guide Structure.html` added to `FORMAT_EXCEPTION_FILES` in `doc_workshop_validator.py` and listed in `Rules for Claude.html § 12`. The Phase 1 required-reads list uses the word "link" to describe hyperlink/URL format conventions and references "Links.html" by name — both triggered E15 ("Map/Maps/Link/Links banned in visible text") as false positives. The E15 rule targets guide content drift; Guide Structure.html is a Claude reference file describing CORE RULES file names and subject matter. Fix: added format exception banner to Guide Structure.html (matching the pattern in Links.html / Rules for Claude.html) and added the file to the validator exception set.
+
+**Why:** E15 was firing on legitimate prose ("constraints, link/photo formats" and "Links.html — link verification gates") — these are file descriptions, not guide text drift. Blocking on these masked real E15 violations.
+
+**How to apply:** Any future check that should not apply to Guide Structure.html must gate with `if path.name not in FORMAT_EXCEPTION_FILES`.
+
+---
+
+## 2026-05-31 — Wikimedia hotlink sentinel exemption removed
+
+`<!-- hotlink: CDN download blocked in Cowork sandbox -->` comment no longer authorises a hotlink `src` in any guide. All `upload.wikimedia.org` img src values now hard-fail regardless of any sentinel comment. Previously the sentinel allowed hotlinks when the Cowork sandbox blocked CDN downloads; `commons_photo.py --download` now fetches the original file and resizes with PIL, bypassing the CDN HTTP 400. Sentinel exemption removed from `validate_itinerary.py` (2026-05-31).
+
+**Why:** The workaround (CDN blocking) no longer applies. `commons_photo.py --download` is the correct tool. Keeping the sentinel created a loophole that let hotlinks slip into shipped guides.
+
+**How to apply:** Use `python3 Brain/scripts/commons_photo.py --download Guides/{City}/_build/assets/800px-Foo.jpg "File:Foo.jpg"` to convert any existing hotlinks.
+
+---
+
 ## 2026-05-30 — W9 check exempted for FORMAT_EXCEPTION_FILES in doc_workshop_validator.py
 
 W9 ("redundant prose restating entry template") was firing as a false positive on `Rules for Claude.html` — patterns like `without\s+exception` matched legitimate behavioral rule prose. The W9 check was not gated on `FORMAT_EXCEPTION_FILES` (unlike E14 and other content checks). Fixed by adding `if path.name in FORMAT_EXCEPTION_FILES: return findings` before the W9 patterns block. FORMAT_EXCEPTION_FILES = {Links.html, Photos Rules.html, Rules for Claude.html} — these are Claude-reference docs where such constructions are structural vocabulary, not template narration.

@@ -75,6 +75,68 @@ Use this file to inform future guide generation: when a city/venue listed here a
 
 ---
 
+## Vancouver
+
+### Capilano Suspension Bridge — Timed Entry Sells Out
+- **Gotcha:** Walk-up admission is not available on summer weekends — timed entry slots sell out days in advance online.
+- **Workaround:** Book timed entry at capbridge.com at least 48 hours ahead of your visit.
+- **Source:** 2026-05-30 — guide build research.
+
+### Grouse Mountain — Grouse Grind Is One-Way Up Only
+- **Gotcha:** The Grouse Grind trail runs uphill only. Once at the top, the only way down is the paid gondola — there is no free descent.
+- **Workaround:** Buy the gondola descent ticket online before starting the hike.
+- **Source:** 2026-05-30 — guide build research.
+
+---
+
+## Madrid
+
+### Palacio Real — State Ceremony Closures
+- **Gotcha:** The palace closes without notice for state ceremonies (royal audiences, official functions), even if you have a timed ticket. No refund is offered for same-day closures.
+- **Workaround:** Check patrimonionacional.es the morning of your visit. Build in a backup activity nearby (Galería de las Colecciones Reales is right next door).
+- **Source:** 2026-05-31 — guide build research (patrimonionacional.es FAQ, confirmed by Rick Steves and Fodors).
+
+### Galería de las Colecciones Reales — Timed Entry Required
+- **Gotcha:** Timed entry slots sell out days in advance during peak season. Walk-up entry is not available when all slots are taken.
+- **Workaround:** Book via galeriadelascoleccionesreales.es before your trip. Free Mon–Thu 6–8pm slots fill first.
+- **Source:** 2026-05-31 — guide build research (official website).
+
+### Temple of Debod — 30-Person Cap
+- **Gotcha:** Only 30 visitors are allowed inside the temple at any one time. During summer and weekends the queue for interior entry is long and unpredictable.
+- **Workaround:** Book in advance via madrid.es/debodreservas. The exterior and reflecting pools are always accessible without a reservation and are the main photographic draw anyway.
+- **Source:** 2026-05-31 — guide build research (esmadrid.com, Temple of Debod official).
+
+### Reina Sofía — Closed Tuesday
+- **Gotcha:** The Reina Sofía closes every Tuesday — unusual for a world-class museum. Many visitors arrive on Tuesday expecting it to be open.
+- **Workaround:** Plan the Reina Sofía for any day Monday or Wednesday–Sunday. Wednesday–Saturday morning is least crowded for the Guernica room.
+- **Source:** 2026-05-31 — guide build research (museoreinasofia.es).
+
+---
+
+## Madrid
+
+### Palacio Real — State Ceremony Closures
+- **Gotcha:** Closes without notice for state ceremonies — royal audiences, presidential visits, diplomatic events. Timed tickets are not refunded.
+- **Workaround:** Check patrimonionacional.es the morning of the visit. Book with free cancellation so you can shift if it closes.
+- **Source:** 2026-05-30 — guide build research.
+
+### Reina Sofía — Closed Tuesday
+- **Gotcha:** The museum is closed every Tuesday — unusual for a world-class museum. Many first-time visitors arrive on Tuesday expecting it to be open.
+- **Workaround:** Plan the Reina Sofía visit for Monday or Wednesday–Sunday. Wednesday–Saturday morning is least crowded for the Guernica room.
+- **Source:** 2026-05-30 — guide build research.
+
+### Temple of Debod — 30-Person Interior Cap
+- **Gotcha:** Only 30 visitors inside at once. Walk-up queues fill quickly on summer weekends. Entry to the exterior and reflecting pools is always free and unrestricted.
+- **Workaround:** Book the timed slot at madrid.es/debodreservas in advance — it is free and takes 90 seconds.
+- **Source:** 2026-05-30 — guide build research.
+
+### Toledo Train — Renfe Avant, Not AVE
+- **Gotcha:** There is no high-speed AVE to Toledo. The service is Renfe Avant (regional express). Searching renfe.com with the wrong train class is a common booking error.
+- **Workaround:** Search specifically for "Madrid Atocha → Toledo" and look for the Avant or MD operator label. Omio gives a cleaner search interface.
+- **Source:** 2026-05-30 — guide build research.
+
+---
+
 ## Template for new entries
 
 ```
