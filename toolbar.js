@@ -54,8 +54,8 @@
 
   var styleEl = document.createElement('style');
   styleEl.textContent =
-    /* Toolbar outer — solid background band so scrolling content doesn't bleed through */
-    '.tb{padding:22px 0 8px;position:sticky;top:0;z-index:100;margin-bottom:16px;background:' + pageBg + '}' +
+    /* Toolbar outer — scrolls with page */
+    '.tb{padding:22px 0 8px;position:relative;margin-bottom:0;background:' + pageBg + '}' +
     /* Inner row — no background; pills carry their own */
     '.tb-inner{margin:0 auto;padding:0 24px;display:flex;flex-wrap:nowrap;justify-content:center;' +
       'gap:5px;align-items:center;overflow-x:auto;scrollbar-width:none}' +
@@ -118,67 +118,23 @@
   bar.appendChild(inner);
 
 
-  /* ── Shared button style ────────────────────────────────────────────────── */
+  /* ── Prev / Next sticky nav-bar — sits just below toolbar, sticks to top ── */
   var isRealGuide = /\/Guides\//.test(location.pathname) && location.pathname.indexOf('guides_index') < 0;
-  var cssTitleBg  = getComputedStyle(document.documentElement).getPropertyValue('--c-title-bg').trim();
-  var btnColor    = '#fdf8f0';
-  var fabBase  = 'position:fixed;width:44px;height:44px;border-radius:50%;' +
-    'background:' + btnColor + ';color:#6b4a0a;border:1.5px solid #c4a870;font-size:18px;' +
-    'cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.22);z-index:999;' +
-    'display:flex;align-items:center;justify-content:center;' +
-    'text-decoration:none;transition:opacity .25s,transform .25s;';
 
-  /* ── Auto-hide helpers — fade out while scrolling, reappear when idle ──── */
-  var scrollTimer;
-  var fabsVisible = true;
-  var allFabs = [];
-  function hideFabs() {
-    if (!fabsVisible) return;
-    fabsVisible = false;
-    allFabs.forEach(function (el) { el.style.opacity = '0'; el.style.pointerEvents = 'none'; });
-  }
-  function showFabs() {
-    fabsVisible = true;
-    allFabs.forEach(function (el) {
-      el.style.opacity = '1';
-      el.style.pointerEvents = '';
-    });
-  }
-  window.addEventListener('scroll', function () {
-    hideFabs();
-    clearTimeout(scrollTimer);
-    scrollTimer = setTimeout(showFabs, 800);
-  }, { passive: true });
-
-  /* ── ← Prev / Next → — bottom corners, rounded-rectangle nav buttons ────── */
-  var navBase = 'position:fixed;width:44px;height:40px;border-radius:10px;' +
-    'background:' + pageBg + ';color:#6b6860;border:1.5px solid #d8d5ce;font-size:20px;font-weight:400;' +
-    'cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.12);z-index:999;' +
-    'display:flex;align-items:center;justify-content:center;' +
-    'text-decoration:none;transition:opacity .25s,transform .25s;';
-  if (prevHref) {
-    var btnPrev = document.createElement('a');
-    btnPrev.href = prevHref;
-    btnPrev.textContent = '‹';
-    btnPrev.setAttribute('aria-label', 'Previous');
-    btnPrev.style.cssText = navBase + 'left:20px;bottom:24px;';
-    document.body.appendChild(btnPrev);
-    allFabs.push(btnPrev);
-  }
-  if (nextHref) {
-    var btnNext = document.createElement('a');
-    btnNext.href = nextHref;
-    btnNext.textContent = '›';
-    btnNext.setAttribute('aria-label', 'Next');
-    btnNext.style.cssText = navBase + 'right:20px;bottom:24px;';
-    document.body.appendChild(btnNext);
-    allFabs.push(btnNext);
+  function guideNameFromHref(href) {
+    if (!href) return '';
+    var parts = href.split('/');
+    var folder = parts[parts.length - 2];
+    return (folder && folder !== '..') ? decodeURIComponent(folder) : '';
   }
 
-  /* ── Insert — hoist to direct child of <body> so sticky spans full width ──
-     Guide pages place the mount inside .container (760 px). Inserting there
-     constrains the toolbar to container width and clips the Guides link.
-     Walk up to the first child of <body> and insert before it instead.      */
+  /* ── Prev / Next — arrows flanking the .glance-title ───────────────────── */
+  var btnStyle = 'display:inline-flex;align-items:center;justify-content:center;' +
+    'width:36px;height:30px;border-radius:6px;border:1.5px solid #d8d5ce;' +
+    'background:' + pageBg + ';color:#6b6860;font-size:26px;line-height:1;' +
+    'padding:0;text-decoration:none;flex-shrink:0;';
+
+  /* ── Insert toolbar ──────────────────────────────────────────────────────── */
   if (mount) {
     var hoistTarget = mount;
     while (hoistTarget.parentNode && hoistTarget.parentNode !== document.body) {
@@ -188,6 +144,45 @@
     mount.parentNode.removeChild(mount);
   } else {
     document.body.insertBefore(bar, document.body.firstChild);
+  }
+
+  /* ── Arrows inside .glance-title: [‹] · title · [›] ────────────────────── */
+  if (prevHref || nextHref) {
+    var glanceTitle = document.querySelector('.glance-title');
+    if (glanceTitle) {
+      /* Wrap existing title text in a centred span */
+      var titleSpan = document.createElement('span');
+      titleSpan.style.cssText = 'flex:1;text-align:center;';
+      while (glanceTitle.firstChild) titleSpan.appendChild(glanceTitle.firstChild);
+
+      glanceTitle.style.display      = 'flex';
+      glanceTitle.style.alignItems   = 'center';
+      glanceTitle.style.paddingBottom = '8px';
+
+      if (prevHref) {
+        var btnPrev = document.createElement('a');
+        btnPrev.href = prevHref;
+        btnPrev.textContent = '‹';
+        btnPrev.setAttribute('aria-label', 'Previous');
+        btnPrev.style.cssText = btnStyle;
+        glanceTitle.appendChild(btnPrev);
+      } else {
+        var sL = document.createElement('span'); sL.style.cssText = 'width:36px;flex-shrink:0;'; glanceTitle.appendChild(sL);
+      }
+
+      glanceTitle.appendChild(titleSpan);
+
+      if (nextHref) {
+        var btnNext = document.createElement('a');
+        btnNext.href = nextHref;
+        btnNext.textContent = '›';
+        btnNext.setAttribute('aria-label', 'Next');
+        btnNext.style.cssText = btnStyle;
+        glanceTitle.appendChild(btnNext);
+      } else {
+        var sR = document.createElement('span'); sR.style.cssText = 'width:36px;flex-shrink:0;'; glanceTitle.appendChild(sR);
+      }
+    }
   }
 
   /* ── Reveal page — toolbar is now in the DOM, no layout shift visible ───── */
