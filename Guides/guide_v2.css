@@ -108,7 +108,7 @@
   --c-card-shadow:   0 2px 8px rgba(0, 0, 0, 0.07);
 
   /* Title page */
-  --c-title-bg:      #3d5f80;
+  --c-title-bg:      #1e3a5f;
   --c-title-text:    #fff;
   --c-title-address: #ffffff;
 
@@ -187,7 +187,7 @@ a, a:visited { color: var(--c-link); text-decoration: none; }
    Lineage: .title-links retired 2026-04-22 — see retirement marker in
    §GLOBAL LINK above. */
 .title-page {
-  background: var(--c-title-bg);
+  background: linear-gradient(135deg, #1e3a5f 0%, #2d5a8e 60%, #3d7ab5 100%);
   color: var(--c-title-text);
   padding: 14px 20px 18px;
   border-radius: 10px;
