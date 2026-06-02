@@ -44,26 +44,6 @@
       "verified_on": "2026-05-30",
       "method": "site:tripadvisor.com WebSearch — rating 4.9 and 484 reviews confirmed via Viator product cross-reference (same operator)"
     },
-    "https://www.tripadvisor.com/Restaurant_Review-g154943-d683194-Reviews-Caffe_Artigiano-Vancouver_British_Columbia.html": {
-      "result": "PASS",
-      "verified_on": "2026-05-30",
-      "method": "site:tripadvisor.com WebSearch — restaurant page confirmed, rating 4.2 and 185 reviews from search snippet"
-    },
-    "https://www.tripadvisor.com/Restaurant_Review-g154943-d1159855-Reviews-Cafe_Medina-Vancouver_British_Columbia.html": {
-      "result": "PASS",
-      "verified_on": "2026-05-30",
-      "method": "site:tripadvisor.com WebSearch — restaurant page confirmed, rating 4.5 and 2787 reviews from search snippet"
-    },
-    "https://www.tripadvisor.ca/Restaurant_Review-g154943-d3313842-Reviews-PiDGiN-Vancouver_British_Columbia.html": {
-      "result": "PASS",
-      "verified_on": "2026-05-30",
-      "method": "site:tripadvisor.com WebSearch — restaurant page confirmed, rating 4.2 and 350 reviews from search snippet"
-    },
-    "https://www.tripadvisor.com/Restaurant_Review-g154943-d1806120-Reviews-Bao_Bei_Chinese_Brasserie-Vancouver_British_Columbia.html": {
-      "result": "PASS",
-      "verified_on": "2026-05-30",
-      "method": "site:tripadvisor.com WebSearch — restaurant page confirmed, rated 4.5 and ranked #40 in Vancouver from search snippet"
-    },
     "https://www.getyourguide.com/vancouver-l189/vancouver-lookout-all-day-admission-observation-deck-t19796/": {
       "result": "PASS",
       "verified_on": "2026-05-31",

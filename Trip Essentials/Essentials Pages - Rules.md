@@ -1,6 +1,6 @@
 # Essentials Pages — Rules
 
-How the Trip Essentials pages behave. Covers the in-page search and the no-results state. The shared toolbar and the shared footnote are documented in `Brain/Reference/Navigation.html` and `Brain/CORE RULES/Toolbar.html`; this file covers only what is specific to these pages.
+How the Trip Essentials pages behave. Covers the in-page search and the no-results state. The shared toolbar and the shared footnote are documented in `Brain/Reference/Navigation.html` and `Brain/Reference/Toolbar.html`; this file covers only what is specific to these pages.
 
 *Trip data lives in `Trips.html` (rules in `Trips - Rules.md`). This file is about page behaviour, not trip content.*
 

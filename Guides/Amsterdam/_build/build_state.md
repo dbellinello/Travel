@@ -13,6 +13,8 @@ Last updated: 2026-05-31
 - [x] Stops Structure.html
 - [x] Hotel Banner.html
 - [x] Trip at a Glance.html
+- [x] Toolbar.html
+- [x] Navigation.html
 
 ## Phase 3 — Day shape
 - [x] Day Structure.html

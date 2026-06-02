@@ -1,131 +1,142 @@
 {
   "_meta": {
-    "guide": "Amsterdam",
-    "built": "2026-05-30",
+    "guide": "marktoberdorf_v1.html",
+    "created": "2026-06-01",
     "updated": "2026-06-01"
   },
   "entries": {
-    "https://www.viator.com/tours/Amsterdam/Early-Morning-Cruise-Canals-all-to-ourselves/d525-91551P2": {
-      "result": "PASS",
-      "verified_on": "2026-05-30",
-      "method": "site: search snippet inspection"
-    },
-    "https://www.viator.com/tours/Amsterdam/Captain-Jacks-Amazing-Canal-Tour/d525-176051P1": {
-      "result": "PASS",
-      "verified_on": "2026-05-30",
-      "method": "site: search snippet inspection"
-    },
-    "https://www.viator.com/tours/Amsterdam/1-hour-Amsterdam-Canal-Cruise-with-Local-Skipper/d525-463549P1": {
-      "result": "PASS",
-      "verified_on": "2026-05-30",
-      "method": "site: search snippet inspection"
-    },
-    "https://www.viator.com/tours/Amsterdam/Anne-Frank-and-Jewish-Quarter-Guided-Walking-Tour-in-Amsterdam/d525-8718P4": {
-      "result": "PASS",
-      "verified_on": "2026-05-30",
-      "method": "site: search snippet inspection"
-    },
-    "https://www.viator.com/tours/Amsterdam/Absolutely-Amsterdam-Tour/d525-152260P2": {
-      "result": "PASS",
-      "verified_on": "2026-05-30",
-      "method": "site: search snippet inspection"
-    },
-    "https://en.wikipedia.org/wiki/Vondelpark": {
+    "https://en.wikipedia.org/wiki/Neuschwanstein_Castle": {
       "platform": "wikipedia",
       "method": "live_fetch",
       "verified_on": "2026-06-01",
       "verified_by": "claude",
-      "expected_attraction": "Vondelpark",
+      "expected_attraction": "Neuschwanstein Castle",
       "result": "PASS",
       "notes": "h1 matched stop name via verify_booking_links.py"
     },
-    "https://en.wikipedia.org/wiki/Rijksmuseum": {
+    "https://en.wikipedia.org/wiki/Rottenbuch_Abbey": {
       "platform": "wikipedia",
       "method": "live_fetch",
       "verified_on": "2026-06-01",
       "verified_by": "claude",
-      "expected_attraction": "Rijksmuseum",
+      "expected_attraction": "Rottenbuch Abbey",
       "result": "PASS",
       "notes": "h1 matched stop name via verify_booking_links.py"
     },
-    "https://en.wikipedia.org/wiki/Anne_Frank_House": {
+    "https://en.wikipedia.org/wiki/Forggensee": {
       "platform": "wikipedia",
       "method": "live_fetch",
       "verified_on": "2026-06-01",
       "verified_by": "claude",
-      "expected_attraction": "Anne Frank House",
+      "expected_attraction": "Forggensee",
       "result": "PASS",
       "notes": "h1 matched stop name via verify_booking_links.py"
     },
-    "https://en.wikipedia.org/wiki/Van_Gogh_Museum": {
+    "https://en.wikipedia.org/wiki/Wieskirche": {
       "platform": "wikipedia",
       "method": "live_fetch",
       "verified_on": "2026-06-01",
       "verified_by": "claude",
-      "expected_attraction": "Van Gogh Museum",
+      "expected_attraction": "Wieskirche",
       "result": "PASS",
       "notes": "h1 matched stop name via verify_booking_links.py"
     },
-    "https://en.wikipedia.org/wiki/Westerkerk": {
+    "https://en.wikipedia.org/wiki/St._Lorenz_Basilica": {
       "platform": "wikipedia",
       "method": "live_fetch",
       "verified_on": "2026-06-01",
       "verified_by": "claude",
-      "expected_attraction": "Westerkerk",
+      "expected_attraction": "St. Lorenz Basilica",
       "result": "PASS",
       "notes": "h1 matched stop name via verify_booking_links.py"
     },
-    "https://en.wikipedia.org/wiki/Negen_Straatjes": {
+    "https://en.wikipedia.org/wiki/Hohenschwangau_Castle": {
       "platform": "wikipedia",
       "method": "live_fetch",
       "verified_on": "2026-06-01",
       "verified_by": "claude",
-      "expected_attraction": "Negen Straatjes",
+      "expected_attraction": "Hohenschwangau Castle",
       "result": "PASS",
       "notes": "h1 matched stop name via verify_booking_links.py"
     },
-    "https://en.wikipedia.org/wiki/Portuguese_Synagogue,_Amsterdam": {
+    "https://en.wikipedia.org/wiki/Breitachklamm": {
       "platform": "wikipedia",
       "method": "live_fetch",
       "verified_on": "2026-06-01",
       "verified_by": "claude",
-      "expected_attraction": "Portuguese Synagogue",
+      "expected_attraction": "Breitachklamm",
       "result": "PASS",
       "notes": "h1 matched stop name via verify_booking_links.py"
     },
-    "https://en.wikipedia.org/wiki/Begijnhof,_Amsterdam": {
+    "https://en.wikipedia.org/wiki/Kempten": {
       "platform": "wikipedia",
       "method": "live_fetch",
       "verified_on": "2026-06-01",
       "verified_by": "claude",
-      "expected_attraction": "Begijnhof",
+      "expected_attraction": "Kempten Old Town",
       "result": "PASS",
       "notes": "h1 matched stop name via verify_booking_links.py"
     },
-    "https://en.wikipedia.org/wiki/Hortus_Botanicus_Amsterdam": {
+    "https://en.wikipedia.org/wiki/Cambodunum": {
       "platform": "wikipedia",
       "method": "live_fetch",
       "verified_on": "2026-06-01",
       "verified_by": "claude",
-      "expected_attraction": "Hortus Botanicus Amsterdam",
+      "expected_attraction": "Archäologischer Park Cambodunum",
       "result": "PASS",
       "notes": "h1 matched stop name via verify_booking_links.py"
     },
-    "https://en.wikipedia.org/wiki/EYE_Filmmuseum": {
+    "https://en.wikipedia.org/wiki/Marienplatz": {
       "platform": "wikipedia",
       "method": "live_fetch",
       "verified_on": "2026-06-01",
       "verified_by": "claude",
-      "expected_attraction": "EYE Filmmuseum",
+      "expected_attraction": "Marienplatz &amp; New Town Hall",
       "result": "PASS",
       "notes": "h1 matched stop name via verify_booking_links.py"
     },
-    "https://en.wikipedia.org/wiki/Dom_Tower_of_Utrecht": {
+    "https://en.wikipedia.org/wiki/Nebelhorn_(mountain)": {
       "platform": "wikipedia",
       "method": "live_fetch",
       "verified_on": "2026-06-01",
       "verified_by": "claude",
-      "expected_attraction": "Dom Tower",
+      "expected_attraction": "Nebelhorn",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/Frauenkirche,_Munich": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-01",
+      "verified_by": "claude",
+      "expected_attraction": "Frauenkirche",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/Englischer_Garten": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-01",
+      "verified_by": "claude",
+      "expected_attraction": "Englischer Garten",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/Munich_Residenz": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-01",
+      "verified_by": "claude",
+      "expected_attraction": "Munich Residenz",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/Hohenfreyberg_Castle": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-01",
+      "verified_by": "claude",
+      "expected_attraction": "Hohenfreyberg &amp; Eisenberg Castle Ruins",
       "result": "PASS",
       "notes": "h1 matched stop name via verify_booking_links.py"
     }

@@ -12,7 +12,7 @@ Last updated: 2026-05-30
 - [x] Stops Structure.html
 - [x] Hotel Banner.html
 - [x] Trip at a Glance.html
-- [x] Brain/Reference/Toolbar.html
+- [x] Toolbar.html
 - [x] Navigation.html
 
 ## Phase 2 — Day shape
@@ -38,7 +38,7 @@ Last updated: 2026-05-30
 - [x] Train Stations Near Hotel - Extra Section.html
 - [x] Day Trips by Train - Extra Section.html
 - [x] Michelin Restaurants - Extra Section.html
-- [x] Cities Gotchas - Extra Section.html
+- [x] Heads Up - Extra Section.html
 - [x] Claude Inspiration - Extra Section.html
 
 ## Phase 5 — Ship gate

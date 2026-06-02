@@ -91,11 +91,272 @@
       "verified_by": "claude",
       "result": "PASS",
       "notes": "Tours Extra Section entry — live product confirmed via site: search (exact TripAdvisor product URL top result; 4.7⭐ · 333+ reviews; also confirmed via Viator MCP as product 5951P10 with 835 reviews; bot-blocked direct TA fetch)."
+    },
+    "https://en.wikipedia.org/wiki/The_Rocks,_Sydney": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-01",
+      "verified_by": "claude",
+      "expected_attraction": "The Rocks",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/Royal_Botanic_Garden,_Sydney": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-01",
+      "verified_by": "claude",
+      "expected_attraction": "Royal Botanic Garden",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/Mrs_Macquaries_Chair": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-01",
+      "verified_by": "claude",
+      "expected_attraction": "Mrs Macquarie's Chair",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/Sydney_Harbour_Bridge": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-01",
+      "verified_by": "claude",
+      "expected_attraction": "BridgeClimb Sydney",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/Sydney_Opera_House": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-01",
+      "verified_by": "claude",
+      "expected_attraction": "Sydney Opera House",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/Bondi_Beach": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-01",
+      "verified_by": "claude",
+      "expected_attraction": "Bondi Beach",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/Sydney_Observatory": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-01",
+      "verified_by": "claude",
+      "expected_attraction": "Observatory Hill",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/Hyde_Park_Barracks,_Sydney": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-01",
+      "verified_by": "claude",
+      "expected_attraction": "Hyde Park Barracks or Hyde Park Barracks, Sydney",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/Sydney_Tower": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-01",
+      "verified_by": "claude",
+      "expected_attraction": "Sydney Tower Eye",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/Waverley_Cemetery": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-01",
+      "verified_by": "claude",
+      "expected_attraction": "Waverley Cemetery",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/Bronte_Beach": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-01",
+      "verified_by": "claude",
+      "expected_attraction": "Bronte Beach",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/Surry_Hills,_New_South_Wales": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-01",
+      "verified_by": "claude",
+      "expected_attraction": "Surry Hills",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/Coogee,_New_South_Wales": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-01",
+      "verified_by": "claude",
+      "expected_attraction": "Coogee Beach or Coogee, New South Wales",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/Paddington,_New_South_Wales": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-01",
+      "verified_by": "claude",
+      "expected_attraction": "Paddington",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/Newtown,_New_South_Wales": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-01",
+      "verified_by": "claude",
+      "expected_attraction": "Newtown",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/North_Head,_New_South_Wales": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-01",
+      "verified_by": "claude",
+      "expected_attraction": "North Head",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/Shelly_Beach_(Manly)": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-01",
+      "verified_by": "claude",
+      "expected_attraction": "Shelly Beach",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/Manly,_New_South_Wales": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-01",
+      "verified_by": "claude",
+      "expected_attraction": "Manly Beach",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/Glebe,_New_South_Wales": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-01",
+      "verified_by": "claude",
+      "expected_attraction": "Glebe",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/Barangaroo,_New_South_Wales": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-01",
+      "verified_by": "claude",
+      "expected_attraction": "Barangaroo Reserve",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/Balmain,_New_South_Wales": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-01",
+      "verified_by": "claude",
+      "expected_attraction": "Balmain",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/Cockatoo_Island": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-01",
+      "verified_by": "claude",
+      "expected_attraction": "Cockatoo Island",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/Watsons_Bay,_New_South_Wales": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-01",
+      "verified_by": "claude",
+      "expected_attraction": "Watsons Bay",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/Three_Sisters_(Australia)": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-01",
+      "verified_by": "claude",
+      "expected_attraction": "Echo Point &amp; Three Sisters",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/Nielsen_Park": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-01",
+      "verified_by": "claude",
+      "expected_attraction": "Nielsen Park",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/Vaucluse_House": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-01",
+      "verified_by": "claude",
+      "expected_attraction": "Vaucluse House",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/Scenic_World": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-01",
+      "verified_by": "claude",
+      "expected_attraction": "Scenic World",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/Leura,_New_South_Wales": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-01",
+      "verified_by": "claude",
+      "expected_attraction": "Leura",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/Katoomba,_New_South_Wales": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-01",
+      "verified_by": "claude",
+      "expected_attraction": "Katoomba Town Centre",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
     }
   },
   "_meta": {
     "guide": "sydney_v1.html",
-    "updated": "2026-05-26",
+    "updated": "2026-06-01",
     "last_audit": "2026-05-18"
   }
 }

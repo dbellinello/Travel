@@ -14,6 +14,8 @@ Rebuild → pasadena_v5.html (was v4). US travel rules applied: NO trains, Uber/
 - [x] Stops Structure.html
 - [x] Hotel Banner.html
 - [x] Trip at a Glance.html
+- [x] Toolbar.html
+- [x] Navigation.html
 
 ## Phase 2 — Day shape
 - [x] Day Structure.html
@@ -39,7 +41,7 @@ Rebuild → pasadena_v5.html (was v4). US travel rules applied: NO trains, Uber/
 - [x] Day Trips by Train - Extra Section.html
 - [x] Pickleball - Extra Section.html
 - [x] Michelin Restaurants - Extra Section.html
-- [x] Cities Gotchas - Extra Section.html
+- [x] Heads Up - Extra Section.html
 
 ## Phase 5 — Ship gate
 - [ ] Pre-Ship Checklist.html

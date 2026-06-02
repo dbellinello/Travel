@@ -14,6 +14,8 @@ Source: rebuilt as sintra_v2 on 2026-05-21 — Tours Extra Section added (5 Viat
 - [x] Stops Structure.html
 - [x] Hotel Banner.html
 - [x] Trip at a Glance.html
+- [x] Toolbar.html
+- [x] Navigation.html
 
 ## Phase 2 — Day shape
 - [x] Day Structure.html

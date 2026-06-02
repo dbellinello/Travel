@@ -60,7 +60,7 @@
   --c-michelin-border:   #BA7517;
   --c-pickleball-bg:     #fefce8;   /* 🏓 Pickleball — yellow (chosen 2026-05-09) */
   --c-pickleball-border: #9e8020;   /* softened 2026-05-19: was #ca8a04 (too vivid); muted warm gold */
-  --c-gotchas-border:    var(--c-warn-border);  /* ⚠️ Cities Gotchas — reuses warn amber; entries use .transit-box for colored body */
+  --c-headsup-border:    var(--c-warn-border);  /* ⚠️ Heads Up — reuses warn amber; entries use .transit-box for colored body */
   --c-delivery-bg:       #fff8f2;              /* 🚗 Food Delivery — warm terracotta (chosen 2026-05-15) */
   --c-delivery-border:   #c45e1a;
   --c-purple-hover:  #f0ebf8;
@@ -75,11 +75,12 @@
   /* Banner family — hotel-first / arrive-first day openers */
   --c-banner-blue:   #edf4ff;
 
-  /* Train block — schedule card on Type 4 Train Day stops */
+  /* Train block — schedule card on Type 4 Train Day stops. Lighter than
+     --c-blue-pale so the card reads as distinct from the booking-box family. */
   --c-train-bg:      #f3f8ff;
 
   /* Tour-meet sub-card — RETIRED 2026-04-26. After multiple iterations
-     to tune contrast (white-bleed → too-subtle → too-heavy), Dani's
+     to tune contrast (white-bleed → too-subtle → too-heavy), the owner's
      final ruling: ZERO color change from parent .tour-box. The
      `.tour-meet` element ships indent-only, no background tokens
      needed. Tokens preserved as Rule-11 markers in case a future
@@ -108,9 +109,9 @@
   --c-card-shadow:   0 2px 8px rgba(0, 0, 0, 0.07);
 
   /* Title page */
-  --c-title-bg:      #1e3a5f;
+  --c-title-bg:      #2e4057;
   --c-title-text:    #fff;
-  --c-title-address: #ffffff;
+  --c-title-address: #b8ccde;
 
   /* Type — primary text colors */
   --c-text-primary:  #1a1a1a;        /* stop names, micro-strong */
@@ -136,7 +137,7 @@ body {
   color: var(--c-text-default);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI',
                'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif;
-  /* Desktop body 15px — proportional reduction 2026-05-19 per Dani:
+  /* Desktop body 15px — proportional reduction 2026-05-19 per request:
      *"we can actually decrease the entire guide font by a bit"* + *"in
      proportion of course"*. ALL font-size values in this file were scaled
      by ~6% in one pass (script-driven) so the visual hierarchy is preserved.
@@ -161,7 +162,7 @@ body {
 /* ─── GLOBAL LINK ──────────────────────────────────────────────────────────── */
 /* Single link token. Every link inherits this blue unless explicitly overridden.
    Visited-link color pinned to the same value so the browser default purple
-   never bleeds in after Dani clicks a booking link.
+   never bleeds in after clicking a booking link.
    Override allowlist (validator-enforced — anything else fails the ship-gate):
      .warn a              amber — warning callout (intentional contrast)
    Retired overrides (Rule 11 markers, kept for re-invention prevention):
@@ -181,13 +182,16 @@ a, a:visited { color: var(--c-link); text-decoration: none; }
                          entire guide; every other reference is generic
                          `hotel`/`HOTEL`. Validator enforces uniqueness.
      1× .title-address — address as a Google Maps anchor; format
-                         `Street · Postal+City` (no country)
+                         `Street · Neighborhood` (no postal code, no country;
+                         postal codes banned 2026-05-19; city added only when
+                         address is in a different city from the destination,
+                         or US state code: `Street · City ST`)
    Nothing else: no price, no flight info, no separate Maps row, no Hotel
    Website link.
    Lineage: .title-links retired 2026-04-22 — see retirement marker in
    §GLOBAL LINK above. */
 .title-page {
-  background: linear-gradient(135deg, #1e3a5f 0%, #2d5a8e 60%, #3d7ab5 100%);
+  background: var(--c-title-bg);
   color: var(--c-title-text);
   padding: 14px 20px 18px;
   border-radius: 10px;
@@ -195,7 +199,6 @@ a, a:visited { color: var(--c-link); text-decoration: none; }
 }
 .title-city    { font-size: 20px; font-weight: bold; text-transform: uppercase; margin-bottom: 6px; }
 .title-hotel   { font-size: 14px; font-weight: bold; margin-bottom: 3px; }
-.title-address { font-size: 13px; color: var(--c-title-address); }
 .title-address { font-size: 13px; color: var(--c-title-address); }
 
 
@@ -227,7 +230,7 @@ a, a:visited { color: var(--c-link); text-decoration: none; }
 }
 .glance-title {
   color: var(--c-purple);
-  font-size: 15px;
+  font-size: 20px;
   font-weight: bold;
   border-bottom: 2px solid var(--c-purple);
   padding-bottom: 6px;
@@ -301,7 +304,7 @@ a, a:visited { color: var(--c-link); text-decoration: none; }
 /* Per Brain/CORE RULES/Day Structure.html § Transit banners (standardized 2026-04-25).
      .hotel-first  → 🏨 FROM HOTEL day opener (regular day or train-day variant)
      .arrive-first → 🚉 ARRIVE {station} train-day arrival banner
-     .next         → between-stops banner + end-of-day return to hotel
+     .next         → between-stops banner + end-of-day return banner
      .next-tram    → optional tram sub-line under any of the above
    `DEPART HOTEL` wording retired 2026-04-25 — use `🏨 FROM HOTEL:` everywhere.
    Validator's FROM HOTEL banner check hard-fails any retired `DEPART HOTEL`.
@@ -381,7 +384,7 @@ a, a:visited { color: var(--c-link); text-decoration: none; }
 /* .stop-row matches body weight (17px desktop / 21px mobile) — the 📒 prose
    summary and 📖 Wikipedia row are PRIMARY content under each stop name,
    not "support content," so they should read at body size, not at the
-   smaller booking-box-internal size. Bumped 2026-04-26 after Dani flagged
+   smaller booking-box-internal size. Bumped 2026-04-26 after flagged
    the Wikipedia row as feeling small + the desktop body bump (15→17). */
 .stop-row              { margin: 6px 0; font-size: 16px; color: var(--c-text-body); }
 
@@ -423,7 +426,7 @@ a, a:visited { color: var(--c-link); text-decoration: none; }
    Type 3 Alternation auto-flip — re-locked 2026-04-25.
    When a .stop-block carries both a .tour-box AND a .ticket-box, the
    :has() rule below promotes the title icon from "🚩" to "🚩 or 🎒".
-   Dani 2026-04-25: *"yes, this is all right... should not be retired
+   the owner 2026-04-25: *"yes, this is all right... should not be retired
    ... we just created"*. The 2026-04-24 retirement was reversed; the
    validator's mutual-exclusion hard-fail was removed in lockstep. */
 .stop-name.guided::before { content: "🚩 "; }
@@ -431,7 +434,7 @@ a, a:visited { color: var(--c-link); text-decoration: none; }
 
 /* .stop-name.train modifier RETIRED 2026-04-26.
    Rule 11 marker preserved. Earlier interpretation treated Train Day
-   (Type 4) as a stop type with .stop-name.train; Dani re-locked it
+   (Type 4) as a stop type with .stop-name.train; re-locked
    as a day-level pattern: *"yes the day is a train day but when we
    get at the stop is either a self guide etc.. the train just wrapps
    around any other regular da[y]."* The day-block header carries the
@@ -492,7 +495,7 @@ a, a:visited { color: var(--c-link); text-decoration: none; }
    No indent, no color change, no border, no extra spacing. The element
    exists structurally (validator requires it as the meeting-point
    wrapper, last child of .tour-box) but renders as just-another-row.
-   Re-locked 2026-04-26 after Dani's final ruling: *"no indentation,
+   Re-locked 2026-04-26 after final ruling: *"no indentation,
    they are all one block."* The 📍 address line reads exactly like
    the 🕐/⏳/👥 time row above it — same color, same alignment, same
    weight. Structural distinction (the wrapper) survives for validator
@@ -640,7 +643,7 @@ a, a:visited { color: var(--c-link); text-decoration: none; }
    matched the same element (an element can carry multiple classes;
    `<span class="stop-name train">` matched both `.stop-name` AND `.train`),
    and the stop name rendered as a boxed callout instead of plain bold text.
-   Dani 2026-04-26: *"this is a bug... if you open paris or turin this part
+   the owner 2026-04-26: *"this is a bug... if you open paris or turin this part
    is right there"* — confirming the regression by pointing at past guides
    that rendered the stop name correctly because they had no train-day
    stops to expose the collision.
@@ -656,7 +659,6 @@ div.train {
   padding: 10px 14px;
   font-size: 15px;
   border-radius: 4px;
-  margin-top: 8px;
   margin-bottom: 8px;
 }
 div.train .train-header { font-weight: bold; color: var(--c-text-primary); margin-bottom: 6px; }
@@ -668,7 +670,7 @@ div.train .train-time .arr { color: var(--c-blue-deeper); }
 /* ─── END-OF-ITINERARY EXTRAS ──────────────────────────────────────────────── */
 /* Per Brain/CORE RULES/Guide Structure.html § End-of-Itinerary order (updated 2026-05-03 — 12 sections):
      🗓️ Weekly Closures · ☕ Cappuccino · 🫕 Restaurants Near Hotel · 🍽️ Downtown · 🍮 Local Tastes ·
-     🎭 Shows · 🚌 Getting Around · 🚆 Train Stations Near Hotel · ⛲️ Day Trips · 🏓 Pickleball (CA+AZ only) · ⭐ Michelin Restaurants · ❗️ Cities Gotchas (conditional)
+     🎭 Shows · 🚌 Getting Around · 🚆 Train Stations Near Hotel · ⛲️ Day Trips · 🏓 Pickleball (CA+AZ only) · ⭐ Michelin Restaurants · ❗️ Heads Up (conditional)
 
    .extras-section is a top-level card per surface. id="..." attribute is
    REQUIRED and matches the locked surface anchor (validator: section-anchor
@@ -684,7 +686,7 @@ div.train .train-time .arr { color: var(--c-blue-deeper); }
      id="day-trips"           — Brain/CORE RULES/Day Trips - Extra Section.html (renamed from day-trips-by-train 2026-05-02; legacy selector kept below for back-compat)
      id="pickleball"          — Brain/CORE RULES/Pickleball - Extra Section.html (ships CA+AZ only; silently omitted elsewhere)
      id="michelin"            — Brain/CORE RULES/Michelin Restaurants - Extra Section.html
-     id="cities-gotchas"      — Brain/mds/Cities Gotchas.md (ships only when city has a ## heading in that file)
+     id="heads-up"      — Brain/mds/Heads Up.md (ships only when city has a ## heading in that file)
 
    Expected children of .extras-section, in order:
      1× .extras-title           — literal section title with leading glyph,
@@ -801,17 +803,6 @@ div.train .train-time .arr { color: var(--c-blue-deeper); }
   .extras-sub a.review-link { font-size: 19px; }
 }
 
-/* Tours section — booking link blue + normal weight, same visual as .ticket-box a.
-   The tour name is the clickable link; platform · rating · reviews sit after it as
-   plain text. Override the .extras-sub a { color: inherit } rule so the name reads
-   as a normal body link instead of a bold heading fragment. (2026-05-26) */
-#tours .extras-sub a {
-  color: var(--c-link);
-  font-weight: normal;
-  text-decoration: none;
-}
-#tours .extras-sub a:hover { text-decoration: underline; }
-
 
 /* ── extras-title colors — big section headings + underline match the border
    token. Same token drives the left stripe, the underline, and both title
@@ -829,7 +820,7 @@ div.train .train-time .arr { color: var(--c-blue-deeper); }
 #day-trips-by-train .extras-title { color: var(--c-daytrips-border);     border-bottom-color: var(--c-daytrips-border); }
 #michelin           .extras-title { color: var(--c-michelin-border);     border-bottom-color: var(--c-michelin-border); }
 #pickleball         .extras-title { color: var(--c-pickleball-border);   border-bottom-color: var(--c-pickleball-border); }
-#cities-gotchas     .extras-title { color: var(--c-gotchas-border);      border-bottom-color: var(--c-gotchas-border); }
+#heads-up     .extras-title { color: var(--c-headsup-border);      border-bottom-color: var(--c-headsup-border); }
 #food-delivery      .extras-title { color: var(--c-delivery-border);     border-bottom-color: var(--c-delivery-border); }
 
 /* ── extras-sub title color — matches each section's border token.
@@ -868,17 +859,17 @@ div.train .train-time .arr { color: var(--c-blue-deeper); }
 #day-trips-by-train  .extras-sub { color: var(--c-daytrips-border); }
 #michelin            .extras-sub { color: var(--c-michelin-border); }
 #pickleball          .extras-sub { color: var(--c-pickleball-border); }
-#cities-gotchas      .extras-sub { color: var(--c-gotchas-border); }
+#heads-up      .extras-sub { color: var(--c-headsup-border); }
 #food-delivery       .extras-sub { color: var(--c-delivery-border); }
 
-/* ❗ Cities Gotchas — override transit-box to use amber warn palette
+/* ❗ Heads Up — override transit-box to use amber warn palette
    (transit-box defaults to blue; gotchas must match the amber section theme) */
-#cities-gotchas .transit-box {
+#heads-up .transit-box {
   background: var(--c-warn-bg);
   border-left-color: var(--c-warn-border);
   color: var(--c-warn-text);
 }
-#cities-gotchas .transit-box a { color: var(--c-warn-link); }
+#heads-up .transit-box a { color: var(--c-warn-link); }
 
 /* Negative-finding line — italic, muted. Used per the locked rule for
    Michelin / Local Tastes / Weekly Closures when nothing qualifies. */
@@ -905,7 +896,7 @@ div.train .train-time .arr { color: var(--c-blue-deeper); }
 #pickleball          .extras-empty { background: var(--c-pickleball-bg);     border-left: 3px solid var(--c-pickleball-border); }
 #michelin            .extras-empty { background: var(--c-michelin-bg);       border-left: 3px solid var(--c-michelin-border); }
 #food-delivery       .extras-empty { background: var(--c-delivery-bg);       border-left: 3px solid var(--c-delivery-border); }
-#cities-gotchas      .extras-empty { background: var(--c-warn-bg);           border-left: 3px solid var(--c-warn-border); }
+#heads-up      .extras-empty { background: var(--c-warn-bg);           border-left: 3px solid var(--c-warn-border); }
 
 /* Lavender extras-box — Michelin and Shows both use this palette (matches
    .glance-day / Trip at a Glance). One box per entry; sits directly below
@@ -982,7 +973,7 @@ div.train .train-time .arr { color: var(--c-blue-deeper); }
 #michelin .extras-sub,
 #pickleball .extras-sub,
 #food-delivery .extras-sub,
-#cities-gotchas .extras-sub {
+#heads-up .extras-sub {
   border-left-width: 3px;
   border-left-style: solid;
   border-radius: 4px 4px 0 0;
@@ -1003,7 +994,7 @@ div.train .train-time .arr { color: var(--c-blue-deeper); }
 #day-trips-by-train .transit-box,
 #food-delivery .transit-box,
 #stations-near-hotel .station-box,
-#cities-gotchas .transit-box {
+#heads-up .transit-box {
   border-left-width: 3px;
   border-left-style: solid;
   border-radius: 0 0 4px 4px;
@@ -1044,8 +1035,8 @@ div.train .train-time .arr { color: var(--c-blue-deeper); }
 /* pickleball colors live in the Style A block below */
 #food-delivery .extras-sub,
 #food-delivery .transit-box         { background: var(--c-delivery-bg);      border-left-color: var(--c-delivery-border); }
-#cities-gotchas .extras-sub         { background: var(--c-warn-bg);          border-left-color: var(--c-warn-border); }
-/* transit-box color fully handled by the dedicated #cities-gotchas .transit-box block above */
+#heads-up .extras-sub         { background: var(--c-warn-bg);          border-left-color: var(--c-warn-border); }
+/* transit-box color fully handled by the dedicated #heads-up .transit-box block above */
 
 /* Local Tastes — dish name color override (the heading color carries the
    parchment hue, not the section border color, per the existing palette). */
@@ -1098,7 +1089,7 @@ div.train .train-time .arr { color: var(--c-blue-deeper); }
 
 /* 🚆 Train Stations Near Hotel — per-entry continuous block (Local Tastes pattern).
    Station-name heading + station-box body merged into one colored block per station.
-   (Restructured 2026-05-19 per Dani: "color is the entire entry... like local
+   (Restructured 2026-05-19 per request: "color is the entire entry... like local
    tastes have always been".) */
 #stations-near-hotel .extras-sub {
   background: var(--c-stations-bg);
@@ -1205,7 +1196,7 @@ div.train .train-time .arr { color: var(--c-blue-deeper); }
 /* 🚗 Food Delivery — per-platform continuous block (Local Tastes pattern).
    Platform-name heading + transit-box description merged into one colored
    block per platform. Same shape as #getting-around per-subsection blocks.
-   (Restructured 2026-05-19 per Dani: "color is the entire entry... like
+   (Restructured 2026-05-19 per request: "color is the entire entry... like
    local tastes have always been".) */
 #food-delivery .extras-sub {
   background: var(--c-delivery-bg);
@@ -1234,7 +1225,7 @@ div.train .train-time .arr { color: var(--c-blue-deeper); }
    reads as meta-information rather than a venue entry. */
 /* Michelin "Not shown" footnote — same 15px body baseline as the rest of the
    section's text content (body boxes, extras-empty, stop-rows). Locked
-   2026-05-19 per Dani: every in-body row reads at the same size so the
+   2026-05-19 per request: every in-body row reads at the same size so the
    section doesn't look like a patchwork of sizes. */
 .michelin-count {
   font-size: 15px;
@@ -1381,7 +1372,7 @@ div.train .train-time .arr { color: var(--c-blue-deeper); }
                                              as plain body text. */
 
 
-/* ─── RESPONSIVE (mobile — Dani reads on her iPhone) ───────────────────────── */
+/* ─── RESPONSIVE (mobile — read on mobile) ───────────────────────── */
 /* Per Rules for Claude.html § 8: PDF rendered at 500px viewport
    so the mobile @media block fires; fonts hit 21px body / 24px stop names /
    25px section titles.
@@ -1403,13 +1394,13 @@ div.train .train-time .arr { color: var(--c-blue-deeper); }
   .extras-section,
   .claude-inspiration { padding: 20px 18px; margin-bottom: 16px; }
 
-  .glance-title   { font-size: 17px; }
+  .glance-title   { font-size: 22px; }
   .day-header     { font-size: 22px; }
   .extras-title   { font-size: 21px; }
   /* All Extras-section subtitles share the same size on mobile — uniform
      hierarchy across Cappuccino / Restaurants Near Hotel / Downtown / Local Tastes /
      Shows / Getting Around / Stations / Day Trips / Michelin / Pickleball /
-     Food Delivery / Weekly Closures. (Locked 2026-05-19 per Dani.) */
+     Food Delivery / Weekly Closures. (Locked 2026-05-19 per request.) */
   .extras-sub          { font-size: 18px; }
 
   .glance-day        { padding: 10px 14px; }
@@ -1491,338 +1482,3 @@ div.train .train-time .arr { color: var(--c-blue-deeper); }
 /* Skip List — footnote at the very bottom of the guide. Small italic grey, no banner. */
 #skip-list { background: none; border: none; box-shadow: none; padding: 0; margin: 36px 0 0 0; }
 #skip-list .skip-list-note, .skip-list-note { font-size: 13px; font-style: italic; color: #999; line-height: 1.6; }
-
-
-/* ─── GUIDE TOOLBAR (top navigation) ───────────────────────────────────────── */
-/* Top-of-page toolbar with guide navigation (Index/Previous/Next) and Trip
-   Essentials quick links. Two-section layout: navigation links on left,
-   essentials on right. Theme colors inherited from guide's color scheme. */
-.guide-toolbar {
-  background: transparent;
-  border-bottom: 1px solid var(--c-next-border);
-  padding: 12px 0;
-  margin-bottom: 36px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.toolbar-nav,
-.toolbar-essentials {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.toolbar-nav a,
-.toolbar-essentials a {
-  padding: 6px 12px;
-  border-radius: 4px;
-  text-decoration: none;
-  font-size: 13px;
-  font-weight: 500;
-  border: 1px solid var(--c-title-bg);
-  color: var(--c-title-bg);
-  transition: all 0.15s ease;
-  background-color: #ffffff;
-  white-space: nowrap;
-}
-
-.toolbar-nav a:hover,
-.toolbar-essentials a:hover {
-  background-color: rgba(61, 95, 128, 0.08);
-  color: var(--c-title-bg);
-  border-color: var(--c-title-bg);
-}
-
-/* Theme-specific toolbar border + button colors */
-.guide-toolbar.theme-purple   { border-bottom-color: #7030A0; }
-.guide-toolbar.theme-purple .toolbar-nav a,
-.guide-toolbar.theme-purple .toolbar-essentials a { color: #7030A0; border-color: #7030A0; }
-.guide-toolbar.theme-purple .toolbar-nav a:hover,
-.guide-toolbar.theme-purple .toolbar-essentials a:hover { background-color: rgba(112, 48, 160, 0.08); }
-
-.guide-toolbar.theme-teal     { border-bottom-color: #1c8a99; }
-.guide-toolbar.theme-teal .toolbar-nav a,
-.guide-toolbar.theme-teal .toolbar-essentials a { color: #1c8a99; border-color: #1c8a99; }
-.guide-toolbar.theme-teal .toolbar-nav a:hover,
-.guide-toolbar.theme-teal .toolbar-essentials a:hover { background-color: rgba(28, 138, 153, 0.08); }
-
-.guide-toolbar.theme-coral    { border-bottom-color: #c85a54; }
-.guide-toolbar.theme-coral .toolbar-nav a,
-.guide-toolbar.theme-coral .toolbar-essentials a { color: #c85a54; border-color: #c85a54; }
-.guide-toolbar.theme-coral .toolbar-nav a:hover,
-.guide-toolbar.theme-coral .toolbar-essentials a:hover { background-color: rgba(200, 90, 84, 0.08); }
-
-.guide-toolbar.theme-pink     { border-bottom-color: #d4336c; }
-.guide-toolbar.theme-pink .toolbar-nav a,
-.guide-toolbar.theme-pink .toolbar-essentials a { color: #d4336c; border-color: #d4336c; }
-.guide-toolbar.theme-pink .toolbar-nav a:hover,
-.guide-toolbar.theme-pink .toolbar-essentials a:hover { background-color: rgba(212, 51, 108, 0.08); }
-
-.guide-toolbar.theme-sage     { border-bottom-color: #6b9080; }
-.guide-toolbar.theme-sage .toolbar-nav a,
-.guide-toolbar.theme-sage .toolbar-essentials a { color: #6b9080; border-color: #6b9080; }
-.guide-toolbar.theme-sage .toolbar-nav a:hover,
-.guide-toolbar.theme-sage .toolbar-essentials a:hover { background-color: rgba(107, 144, 128, 0.08); }
-
-.guide-toolbar.theme-amber    { border-bottom-color: #d97706; }
-.guide-toolbar.theme-amber .toolbar-nav a,
-.guide-toolbar.theme-amber .toolbar-essentials a { color: #d97706; border-color: #d97706; }
-.guide-toolbar.theme-amber .toolbar-nav a:hover,
-.guide-toolbar.theme-amber .toolbar-essentials a:hover { background-color: rgba(217, 119, 6, 0.08); }
-
-.guide-toolbar.theme-indigo   { border-bottom-color: #4338ca; }
-.guide-toolbar.theme-indigo .toolbar-nav a,
-.guide-toolbar.theme-indigo .toolbar-essentials a { color: #4338ca; border-color: #4338ca; }
-.guide-toolbar.theme-indigo .toolbar-nav a:hover,
-.guide-toolbar.theme-indigo .toolbar-essentials a:hover { background-color: rgba(67, 56, 202, 0.08); }
-
-.guide-toolbar.theme-green    { border-bottom-color: #059669; }
-.guide-toolbar.theme-green .toolbar-nav a,
-.guide-toolbar.theme-green .toolbar-essentials a { color: #059669; border-color: #059669; }
-.guide-toolbar.theme-green .toolbar-nav a:hover,
-.guide-toolbar.theme-green .toolbar-essentials a:hover { background-color: rgba(5, 150, 105, 0.08); }
-
-.guide-toolbar.theme-yellow   { border-bottom-color: #eab308; }
-.guide-toolbar.theme-yellow .toolbar-nav a,
-.guide-toolbar.theme-yellow .toolbar-essentials a { color: #eab308; border-color: #eab308; }
-.guide-toolbar.theme-yellow .toolbar-nav a:hover,
-.guide-toolbar.theme-yellow .toolbar-essentials a:hover { background-color: rgba(234, 179, 8, 0.08); }
-
-/* Mobile toolbar */
-@media (max-width: 600px) {
-  .guide-toolbar {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-    padding: 10px 0;
-  }
-  .toolbar-nav,
-  .toolbar-essentials {
-    gap: 8px;
-  }
-  .toolbar-nav a,
-  .toolbar-essentials a {
-    padding: 3px 6px;
-    font-size: 11px;
-  }
-}
-
-
-/* ─── GUIDE NAVIGATION FOOTER ─────────────────────────────────────────────── */
-/* Sequential navigation footer across all 18 guides. Sits at the bottom before
-   page closing tags, providing previous/index/next links for guide traversal.
-   Design: unified card with top border, flexbox layout, links styled to match
-   the guide's overall link palette. */
-.guide-nav {
-  margin-top: 40px;
-  padding-top: 20px;
-  border-top: 1px solid var(--c-next-border);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 14px;
-}
-.guide-nav a {
-  text-decoration: none;
-  font-weight: 500;
-}
-.guide-nav a:hover {
-  text-decoration: underline;
-}
-
-
-/* ─── TRAVEL ESSENTIALS TOOLBAR ─────────────────────────────────────────────── */
-/* Quick access links to trip essentials: Trips, Lounges, Delta Routes, Packing.
-   Styled with theme-colored border matching guide's inspiration section theme.
-   Appears just before the guide navigation footer. */
-.essentials-toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 40px;
-  padding: 16px 0;
-  border-top: 2px solid var(--c-next-border);
-  border-bottom: none;
-  align-items: center;
-  font-size: 13px;
-}
-.essentials-toolbar a {
-  padding: 6px 12px;
-  background-color: transparent;
-  border: 1px solid var(--c-text-muted);
-  border-radius: 4px;
-  text-decoration: none;
-  font-weight: 500;
-  transition: all 0.2s ease;
-}
-.essentials-toolbar a:hover {
-  background-color: var(--c-text-muted);
-  color: white;
-}
-
-/* Theme-specific toolbar styling — border color matches guide theme */
-.essentials-toolbar.theme-purple   { border-top-color: #7030A0; }
-.essentials-toolbar.theme-teal     { border-top-color: #1c8a99; }
-.essentials-toolbar.theme-coral    { border-top-color: #c85a54; }
-.essentials-toolbar.theme-pink     { border-top-color: #d4336c; }
-.essentials-toolbar.theme-sage     { border-top-color: #6b9080; }
-.essentials-toolbar.theme-amber    { border-top-color: #d97706; }
-.essentials-toolbar.theme-indigo   { border-top-color: #4338ca; }
-.essentials-toolbar.theme-green    { border-top-color: #059669; }
-.essentials-toolbar.theme-yellow   { border-top-color: #eab308; }
-
-/* Back to top button */
-.back-to-top {
-  padding: 6px 12px;
-  background-color: transparent;
-  border: 1px solid var(--c-text-muted);
-  border-radius: 4px;
-  color: var(--c-text-muted);
-  text-decoration: none;
-  font-weight: 500;
-  cursor: pointer;
-  margin-left: auto;
-  transition: all 0.2s ease;
-}
-.back-to-top:hover {
-  background-color: var(--c-text-muted);
-  color: white;
-}
-
-/* Essentials toolbar — shared across all guides */
-.essentials {
-  background: #f0ede8;
-  border-bottom: 1px solid #d8d4cc;
-  padding: 6px 0;
-}
-.essentials-inner {
-  max-width: 940px;
-  margin: 0 auto;
-  padding: 0 24px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  align-items: center;
-}
-.essentials-link {
-  font-size: 12px;
-  color: #6a6660;
-  text-decoration: none;
-  padding: 3px 9px;
-  border: 1px solid #d8d4cc;
-  border-radius: 3px;
-  background: none;
-  white-space: nowrap;
-  transition: color .15s, border-color .15s, background .15s;
-}
-.essentials-link:hover {
-  color: #7a5c0e;
-  border-color: #7a5c0e;
-  background: rgba(138, 108, 26, 0.06);
-}
-
-/* ─── guides_index.html: warm-palette override (matches Trip Essentials) ── */
-/* Apply class="index-page" to <body> in guides_index.html */
-body.index-page {
-  background: #f5f4f0;
-  --c-purple:       #8a6c1a;
-  --c-purple-pale:  rgba(138, 108, 26, 0.05);
-  --c-purple-hover: rgba(138, 108, 26, 0.08);
-  --c-page-bg:      #f5f4f0;
-  --c-card-bg:      #fff;
-}
-body.index-page .container { padding-bottom: 0; }
-
-/* ─── guides_index.html: Banner ─────────────────────────────────────────── */
-.index-banner {
-  color: var(--c-purple);
-  padding: 8px 0 20px;
-  margin-bottom: 28px;
-  border-bottom: 1px solid rgba(138,108,26,0.18);
-}
-.index-banner-title {
-  font-size: 28px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
-  margin-bottom: 6px;
-}
-.index-banner-sub {
-  font-size: 13px;
-  color: #9a9890;
-  font-weight: 400;
-  letter-spacing: 0.01em;
-}
-
-/* ─── guides_index.html: Region sections ────────────────────────────────── */
-body.index-page .glance-section {
-  border-radius: 10px;
-  overflow: hidden;
-  margin-bottom: 16px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-}
-body.index-page .glance-title {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 13px 20px 11px;
-  margin-bottom: 0;
-  border-bottom: 1px solid rgba(138,108,26,0.1);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.idx-count {
-  font-size: 11px;
-  color: #b8ad9e;
-  font-weight: 400;
-  text-transform: none;
-  letter-spacing: 0;
-}
-
-/* ─── guides_index.html: Guide cards ────────────────────────────────────── */
-body.index-page .glance-day {
-  border-radius: 0;
-  padding: 11px 20px;
-  border-bottom: 1px solid rgba(0,0,0,0.04);
-  margin-bottom: 0;
-}
-body.index-page .glance-day:last-child { border-bottom: none; }
-body.index-page .glance-day:hover { background: var(--c-purple-hover); }
-body.index-page .glance-day-title {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  font-weight: normal;
-  font-size: 14px;
-}
-.idx-num {
-  font-size: 11px;
-  font-weight: 600;
-  color: #c4b49a;
-  min-width: 22px;
-  font-variant-numeric: tabular-nums;
-  letter-spacing: 0.02em;
-  flex-shrink: 0;
-}
-.idx-city {
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--c-purple);
-  transition: color .15s;
-}
-body.index-page .glance-day:hover .idx-city { color: var(--c-purple); }
-.index-banner-sub { font-size: 14px; margin-top: 4px; }
-.index-banner-sub a { color: var(--c-purple); text-decoration: none; }
-.index-footer {
-  text-align: center;
-  padding: 8px 0 40px;
-  font-size: 12px;
-  color: #aaa;
-}

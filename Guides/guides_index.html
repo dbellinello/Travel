@@ -4,13 +4,99 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>My Travel Guides</title>
-<link rel="stylesheet" href="guide_v3.css?v=4">
+<link rel="stylesheet" href="guide_v3.css?v=9">
 <style>
-#guide-search{width:100%;box-sizing:border-box;padding:12px 16px;margin:0 0 18px;font-size:15px;border:1.5px solid #E0D4B8;border-radius:8px;background:#FFFDF8;color:#3D1F00;outline:none;transition:border-color .15s,box-shadow .15s;}
-#guide-search:focus{border-color:#B8860B;box-shadow:0 0 0 3px rgba(184,134,11,.12);}
-#guide-search::placeholder{color:#A8895A;}
-#guide-noresult{display:none;padding:12px 4px;font-size:13px;color:#7A5C2E;}
-.index-banner{margin-bottom:14px!important;}
+/* ── Banner ─────────────────────────────────────────────────────────────── */
+.index-banner {
+  background: linear-gradient(135deg, #7a3b1e 0%, #b85c2a 55%, #d4874a 100%);
+  padding: 20px 24px;
+  border-radius: 10px;
+  margin-bottom: 28px !important;
+}
+.index-banner-title {
+  font-size: 22px;
+  font-weight: bold;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.index-banner-sub {
+  font-size: 13px;
+  color: rgba(255,255,255,0.72);
+  margin-top: 5px;
+}
+
+/* ── Region grid ─────────────────────────────────────────────────────────── */
+body.index-page .glance-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin-bottom: 32px;
+}
+body.index-page .glance-title {
+  grid-column: 1 / -1;
+  font-size: 11px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--c-purple);
+  border-left: 3px solid var(--c-purple);
+  border-bottom: none;
+  background: none;
+  padding: 5px 10px;
+  margin: 0 0 2px;
+  border-radius: 0;
+}
+body.index-page .idx-count {
+  font-weight: normal;
+  opacity: 0.65;
+  margin-left: 4px;
+}
+
+/* ── Destination cards ───────────────────────────────────────────────────── */
+body.index-page .glance-day {
+  background: var(--c-warm-bg);
+  border-radius: 8px;
+  border-bottom: none;
+  padding: 12px 14px;
+  display: block;
+  text-decoration: none;
+  transition: background 0.12s;
+}
+body.index-page .glance-day:hover { background: var(--c-purple-hover); }
+body.index-page .glance-day:last-child { border-bottom: none; }
+
+body.index-page .glance-day-title {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+body.index-page .idx-num { display: none; }
+body.index-page .idx-city {
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--c-text-primary);
+  display: block;
+  line-height: 1.3;
+}
+
+/* ── Search ──────────────────────────────────────────────────────────────── */
+#guide-search {
+  width: 100%; box-sizing: border-box; padding: 12px 16px;
+  margin: 0 0 20px; font-size: var(--fs-base);
+  border: 1.5px solid var(--c-index-border); border-radius: 8px;
+  background: var(--c-warm-bg); color: var(--c-text-primary);
+  outline: none; transition: border-color .15s, box-shadow .15s;
+  font-family: var(--font-family);
+}
+#guide-search:focus { border-color: var(--c-purple); box-shadow: 0 0 0 3px rgba(138,108,26,.1); }
+#guide-search::placeholder { color: var(--c-index-muted-2); }
+#guide-noresult { display: none; padding: 12px 4px; font-size: var(--fs-glance-stops); color: var(--c-index-accent); }
+
+/* ── Mobile ──────────────────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  body.index-page .glance-section { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body class="index-page">
@@ -18,12 +104,15 @@
 
 <!-- ══ TOOLBAR ══════════════════════════════════════════════════════════════ -->
 <div id="toolbar-mount" data-depth="1" data-maxwidth="940" data-toolbar-theme="guide" data-prev="./Sydney/sydney_v2.html" data-next="./Alaska/alaska_v1.html"></div>
-<script src="../toolbar.js"></script>
+<script src="../toolbar.js?v=2"></script>
 
 <div class="index-banner">
   <div class="index-banner-title">Travel Guides</div>
   <div class="index-banner-sub">34 destinations · 4 regions</div>
 </div>
+
+<input type="search" id="guide-search" placeholder="Search destinations…" autocomplete="off">
+<div id="guide-noresult">No destinations found.</div>
 
 <div class="glance-section">
   <div class="glance-title">🇺🇸 United States <span class="idx-count">8 guides</span></div>
@@ -146,7 +235,6 @@
     <div class="glance-day-title"><span class="idx-num">29</span><span class="idx-city">Sydney, Australia</span></div>
   </a>
 </div>
-
 
 </div>
 

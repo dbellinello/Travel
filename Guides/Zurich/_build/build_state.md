@@ -38,7 +38,7 @@ Last updated: 2026-05-30
 - [x] Day Trips by Train - Extra Section.html
 - [x] Shows, Performances & Concerts - Extra Section.html
 - [x] Michelin Restaurants - Extra Section.html
-- [x] Cities Gotchas - Extra Section.html
+- [x] Heads Up - Extra Section.html
 
 ## Phase 5 — Ship gate
 - [x] Brain/Reference/Ship Checklist.html

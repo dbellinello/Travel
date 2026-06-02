@@ -947,8 +947,8 @@
 ✅ 🗂 Guide Structure — Extras section order matches canonical 13-element sequence (per Guide Structure.html Section order)
 ✅ 🗂 Guide Structure — every .extras-section uses one of the 13 canonical anchor ids (per Guide Structure.html Cross-links / anchors)
 ✅ 🗂 Guide Structure — every .extras-section sits AFTER the last .day-block (per Guide Structure.html Section order — End-of-Itinerary Extras come after Day blocks)
-✅ 🗂 Guide Structure — all universally-shipping Extras sections ship in every guide (per Guide Structure.html Section order — universally-shipping sections: 10 universal (1–9 plus Michelin at #11); sections with no qualifying content ship a negative-finding line, never silently skipped; Pickleball + Cities Gotchas are conditional)
-✅ ⚠️ Guide Structure — Cities Gotchas section silently omitted when Cities Gotchas.md has no entries for the trip city (per Guide Structure.html Section order — no entries = silently omitted; no header, no negative-finding line)
+✅ 🗂 Guide Structure — all universally-shipping Extras sections ship in every guide (per Guide Structure.html Section order — universally-shipping sections: 10 universal (1–9 plus Michelin at #11); sections with no qualifying content ship a negative-finding line, never silently skipped; Pickleball + Heads Up are conditional)
+✅ ⚠️ Guide Structure — Heads Up section silently omitted when Heads Up.md has no entries for the trip city (per Guide Structure.html Section order — no entries = silently omitted; no header, no negative-finding line)
 ✅ Skip List footnote omitted when the trip city has no skip list (per Skip List.html § 1 — no skip list = no footnote)
 ✅ Skip List — venues named in the skip list must not also appear in the Tours section (skip = intentionally excluded; shipping as a tour contradicts the editorial decision)
 ✅ Day Trips section present — always expected; presence never blocks (per Day Trips by Train - Extra Section.html § 1)
@@ -999,7 +999,7 @@
 ✅ extras-empty sections contain no additional content divs (extras-empty means "nothing here" — no ride-apps, shows-box, extras-sub, etc. alongside it)
 ✅ Extras (extra sections) — all 12 sections present (Weekly Closures · Tours · Cappuccino · Restaurants Near Hotel · Downtown · Local Tastes · Food Delivery · Shows · Getting Around · Train Stations Near Hotel · Day Trips · Michelin Restaurants)
 ✅ Extras sections — present-or-absent-explicit (no silent-empty sections)
-✅ All sections — canonical icon in .extras-title (🗓️ Weekly Closures · 📅 Tours · ☕ Cappuccino · 🫕 Restaurants Near Hotel · 🍽️ Downtown · 🍮 Local Tastes · 🚗 Food Delivery · 🎭 Shows · 🚌 Getting Around · 🚆/🚄 Stations Near Hotel · ⛲️/🚄 Day Trips · 🏓 Pickleball · ⭐ Michelin · ❗ Cities Gotchas)
+✅ All sections — canonical icon in .extras-title (🗓️ Weekly Closures · 📅 Tours · ☕ Cappuccino · 🫕 Restaurants Near Hotel · 🍽️ Downtown · 🍮 Local Tastes · 🚗 Food Delivery · 🎭 Shows · 🚌 Getting Around · 🚆/🚄 Stations Near Hotel · ⛲️/🚄 Day Trips · 🏓 Pickleball · ⭐ Michelin · ❗ Heads Up)
 ✅ Extras (extra sections) — locked order (Weekly Closures · Tours · Cappuccino · Restaurants · Local Tastes · Shows · Getting Around · Day Trips · Michelin)
 ✅ Shows — every .shows-box has a travel-time row (🚶 required when ≤40 min walk; 🚕-only allowed for far venues; both allowed per Motion Rule)
 ✅ No prose inside .shows-box — every row inside the box must lead with a logistics emoji; floating descriptions outside the box are caught by the extras-sub → <p> → box drift check (per Rules for Claude.html Authority)
@@ -1165,8 +1165,8 @@
 ✅ ⭐ Michelin Restaurants — no wrong box class inside section (transit-box / shows-box do not belong; .entry-body is the only correct class)
 ✅ ⭐ Michelin Restaurants — no duplicate restaurant names within the section
 ✅ ⭐ Michelin Restaurants — no <p> tags inside section (entries are .entry-body divs; <p> is structural drift)
-✅ Cities Gotchas - Extra Section.html is readable at expected CORE RULES path
-✅ Cities Gotchas - Extra Section.html — calibration anchors intact (source-file ref + format anchors; missing = spec has drifted)
+✅ Heads Up - Extra Section.html is readable at expected CORE RULES path
+✅ Heads Up - Extra Section.html — calibration anchors intact (source-file ref + format anchors; missing = spec has drifted)
 ✅ Tours — .extras-title must start with 📅 (per Icon Order and Format.html )
 ✅ Tours — .extras-title must not contain another section's icon (per Icon Order and Format.html )
 ✅ Weekly Closures — .extras-title must start with 🗓️ (per Icon Order and Format.html )
@@ -1191,7 +1191,7 @@
 ✅ Pickleball (🏓) — section absent, skipped
 ✅ Michelin Restaurants — .extras-title must start with ⭐ or ★ (per Icon Order and Format.html )
 ✅ Michelin Restaurants — .extras-title must not contain another section's icon (per Icon Order and Format.html )
-✅ Cities Gotchas (❗) — section absent, skipped
+✅ Heads Up (❗) — section absent, skipped
 ✅ Format contract — no Google Maps link inside .ride-apps (logistics belong in .shows-box, not prose div; per Rules for Claude.html Authority)
 ✅ 🌤 Weather — no Weather section in the shipped guide (per On Demand - Don't Ship in Guide/Weather - On Demand.html -- "on-demand research output ... never baked into the shipped guide")
 ✅ 🌤 Weather — no weather-source URLs (weather.com / accuweather.com / ventusky.com / windy.com) in the shipped guide (per On Demand - Don't Ship in Guide/Weather - On Demand.html Sources — these are on-demand research-only references, not in-guide content)

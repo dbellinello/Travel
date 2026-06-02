@@ -38,9 +38,6 @@ body {
  align-items: center;
  gap: 20px;
  flex-wrap: wrap;
- position: sticky;
- top: 68px;
- z-index: 99;
 }
 .nav-inner { max-width: 940px; margin: 0 auto; padding: 10px 24px 16px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: center; }
 .nav-logo { font-size: 14px; font-weight: 700; color: var(--accent); letter-spacing: 0.06em; margin-right: 6px; white-space: nowrap; text-transform: uppercase; padding-top: 3px; }
@@ -111,6 +108,8 @@ body {
  .wrap { padding: 0 14px; }
  .meta { flex-direction: column; }
  .airport-code { font-size: 21px; }
+ .nav-links { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; }
+ .nav-link { text-align: center; }
 }
 
   .essentials {
@@ -208,7 +207,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 <body>
 
 <div id="toolbar-mount" data-depth="1" data-maxwidth="940"></div>
-<script src="../toolbar.js"></script>
+<script src="../toolbar.js?v=2"></script>
 <div class="wrap">
   <div class="page-header">
  <h1>Europe Lounge Guide</h1>

@@ -20,11 +20,6 @@
       "verified_on": "2026-05-30",
       "method": "site: search snippet inspection"
     },
-    "https://www.getyourguide.com/zurich-l55/zurich-2-hour-best-intro-walking-tour-with-a-local-t258577/": {
-      "result": "PASS",
-      "verified_on": "2026-05-30",
-      "method": "site: search snippet inspection"
-    },
     "https://www.getyourguide.com/zurich-l55/must-sees-zurich-in-60-minutes-t177606/": {
       "result": "PASS",
       "verified_on": "2026-05-30",
@@ -34,21 +29,6 @@
       "result": "PASS",
       "verified_on": "2026-05-31",
       "method": "site: search snippet inspection + theabroadguide.com third-party review page"
-    },
-    "https://www.tripadvisor.com/AttractionProductReview-g188113-d28767397-Zurich_Walking_Food_Tour_With_Secret_Food_Tours-Zurich.html": {
-      "result": "PASS",
-      "verified_on": "2026-05-30",
-      "method": "site: search snippet inspection"
-    },
-    "https://www.tripadvisor.com/AttractionProductReview-g188113-d11457824-Zurich_Old_Town_Walking_Tour-Zurich.html": {
-      "result": "PASS",
-      "verified_on": "2026-05-30",
-      "method": "site: search snippet inspection"
-    },
-    "https://www.tripadvisor.com/Attraction_Review-g188113-d17662089-Reviews-INDULGE_curated_food_experiences-Zurich.html": {
-      "result": "PASS",
-      "verified_on": "2026-05-30",
-      "method": "site: search snippet inspection"
     }
   }
 }

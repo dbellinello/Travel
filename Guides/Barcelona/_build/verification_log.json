@@ -2,7 +2,7 @@
   "_meta": {
     "guide": "barcelona_v1.html",
     "created": "2026-05-31",
-    "updated": "2026-05-31"
+    "updated": "2026-06-01"
   },
   "entries": {
     "https://www.viator.com/tours/Barcelona/Barcelona-in-One-Day-Sagrada-Familia-Park-Guell-and-Old-Town-with-Hotel-Pick-up/d562-9866P21": {
@@ -94,6 +94,87 @@
       "expected_attraction": "Park Güell stop ticket — Day 3 itinerary stop",
       "result": "PASS",
       "notes": "Viator MCP search_experiences confirmed product d562-340934P1. Rating 4.6 / 7721+ reviews."
+    },
+    "https://en.wikipedia.org/wiki/Palau_de_la_M%C3%BAsica_Catalana": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-01",
+      "verified_by": "claude",
+      "expected_attraction": "Palau de la Música Catalana",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/Palau_G%C3%BCell": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-01",
+      "verified_by": "claude",
+      "expected_attraction": "Palau Güell",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/Sagrada_Fam%C3%ADlia": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-01",
+      "verified_by": "claude",
+      "expected_attraction": "Sagrada Família",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/Casa_Batll%C3%B3": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-01",
+      "verified_by": "claude",
+      "expected_attraction": "Casa Batlló",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/Casa_Mil%C3%A0": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-01",
+      "verified_by": "claude",
+      "expected_attraction": "Casa Milà",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/Park_G%C3%BCell": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-01",
+      "verified_by": "claude",
+      "expected_attraction": "Park Güell",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/Montju%C3%AFc_Castle": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-01",
+      "verified_by": "claude",
+      "expected_attraction": "Montjuïc Castle",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/Barcelona_Pavilion": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-01",
+      "verified_by": "claude",
+      "expected_attraction": "Barcelona Pavilion",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/Girona_Cathedral": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-01",
+      "verified_by": "claude",
+      "expected_attraction": "Catedral de Girona",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
     }
   }
 }

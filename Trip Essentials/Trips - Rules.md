@@ -64,15 +64,13 @@ Per Dani 2026-05-18 (*"always this order. leo stuff first"*), trips that involve
 1. **Trip title + status badge**
 2. **✈️ Flights** — `.sec` with `🟣 Dani + Leo` pill (or whichever tag fits if they don't fly together). All legs, outbound and return, in chronological order.
 3. **🏨 Leo's hotel / venue** — `.sec` with `🟢 Leo` pill. Leo's offsite hotel, any of his solo transit rows. If hotel and venue are the same place (common for offsites), one block — note "FRO offsite venue" on the dates line.
-4. **🚆 Trains + 🏨 Hotels — Dani solo** — `.sec` with `🔵 Dani` pill. Per Dani 2026-05-18 (*"mine hotel if seprated with all my trains"*): when Dani is separated from Leo, her hotels and her trains live in ONE section, interleaved chronologically (train → hotel → train → hotel → train), so the narrative reads as a single solo arc.
+4. **🏨 Hotels + 🚆 Trains — Dani solo** — two distinct `.sec` blocks, both with `🔵 Dani` pill. Per Dani 2026-05-18: `🏨 Hotels` first (grouped by city using `.city-sub` labels), then `🚆 Trains`. Not interleaved.
 5. **🏨 Hotels — Together** — `.sec` with `🟣 Dani + Leo` pill. Reunion hotels and onward, in chronological order.
 6. **📖 Venue** (if there's a Dani or together venue separate from Leo's offsite) — with the hotel→venue distance line.
 7. **🚗 Car Rental** (if any)
 8. **⏳ Action box** (orange) — only things still to book or confirm
 
 For trips with no separation (Dani solo all the way, e.g. Iceland; or Leo solo, e.g. Seoul; or Together the whole time, e.g. FLoC), skip the empty phases and keep the remaining sections in the same relative order.
-
-**Hotels and trains are separate sections.** Per Dani 2026-05-18 (*"🔵 Dani 🏨 HOTELS" / "🔵 Dani 🚆 TRAINS"*): even though Dani's solo phase contains both hotels and trains, they live in two distinct `.sec` blocks — `🏨 Hotels` first (grouped by city), then `🚆 Trains`. Not interleaved.
 
 ### Who-tag on section labels
 
