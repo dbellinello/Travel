@@ -36,9 +36,9 @@
     { href: base + 'Trip%20Essentials/Delta%20Routes%20Full.html',                  text: '✈️ Routes' },
     { href: base + 'Trip%20Essentials/Delta%20Routes%20SEA.html',                   text: '✈️ SEA Hub' },
     { href: base + 'Trip%20Essentials/European%20Train%20Guide.html',               text: '🚂 EU Trains' },
+    { href: base + 'Trip%20Essentials/Europe%20Map.html',                           text: '🗺️ EU Map' },
     { href: base + 'Trip%20Essentials/Plug%20Adapter/Plug%20Adapter%20Guide.html',  text: '🔌 Plugs' },
     // Row 3 — destinations
-    null, // separator (desktop only)
     { href: base + 'Guides/guides_index.html',                                      text: '🌎 Guides', guides: true },
   ];
 
@@ -130,8 +130,8 @@
 
   /* ── Prev / Next — arrows flanking the .glance-title ───────────────────── */
   var btnStyle = 'display:inline-flex;align-items:center;justify-content:center;' +
-    'width:36px;height:30px;border-radius:6px;border:1.5px solid #d8d5ce;' +
-    'background:' + pageBg + ';color:#6b6860;font-size:26px;line-height:1;' +
+    'width:36px;height:30px;border-radius:6px;border:1.5px solid #c4b896;' +
+    'background:#fdf8f0;color:#6b6860;font-size:26px;line-height:1;' +
     'padding:0;text-decoration:none;flex-shrink:0;';
 
   /* ── Insert toolbar ──────────────────────────────────────────────────────── */
@@ -146,17 +146,22 @@
     document.body.insertBefore(bar, document.body.firstChild);
   }
 
-  /* ── Arrows inside .glance-title: [‹] · title · [›] ────────────────────── */
-  if (prevHref || nextHref) {
-    var glanceTitle = document.querySelector('.glance-title');
-    if (glanceTitle) {
+  /* ── Arrows inside .glance-title: [‹] · title · [›] — real guides only ─── */
+  /* Deferred to DOMContentLoaded: script runs at the top of <body>, before
+     .glance-title exists in the DOM. querySelector would return null if run
+     synchronously here.                                                       */
+  if (isRealGuide && (prevHref || nextHref)) {
+    function injectGlanceArrows() {
+      var glanceTitle = document.querySelector('.glance-title');
+      if (!glanceTitle) return;
+
       /* Wrap existing title text in a centred span */
       var titleSpan = document.createElement('span');
       titleSpan.style.cssText = 'flex:1;text-align:center;';
       while (glanceTitle.firstChild) titleSpan.appendChild(glanceTitle.firstChild);
 
-      glanceTitle.style.display      = 'flex';
-      glanceTitle.style.alignItems   = 'center';
+      glanceTitle.style.display       = 'flex';
+      glanceTitle.style.alignItems    = 'center';
       glanceTitle.style.paddingBottom = '8px';
 
       if (prevHref) {
@@ -182,6 +187,12 @@
       } else {
         var sR = document.createElement('span'); sR.style.cssText = 'width:36px;flex-shrink:0;'; glanceTitle.appendChild(sR);
       }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', injectGlanceArrows);
+    } else {
+      injectGlanceArrows();
     }
   }
 
