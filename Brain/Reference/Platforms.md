@@ -1,5 +1,7 @@
 # PLATFORMS — Platform Access & URL Reference
 
+> **Claude maintains this file — fix immediately, no approval needed.** When this file drifts from Brain/CORE RULES/, fix it in the same pass. CORE RULES is the authority; this file follows. No questions, no permission, no parking for later.
+
 > ⚡ **Pre-authorized:** All platform access during a build — web fetches, `site:` searches, Chrome fetches, connector calls — execute immediately, no asking, no confirming. Full rule: `Rules for Claude.html § 3`.
 
 Merged 2026-04-29 from `url_patterns.md` + `platform_access.md` (both archived to `Travel/archive/`).
@@ -20,8 +22,11 @@ For tour/experience research, **prefer MCP connectors over web fetch**. Connecto
 |-----------|---------|-------------|
 | **Viator MCP** | Tours, activities, skip-the-line tickets | `search_experiences` → `get_experience_details` |
 | **TripAdvisor MCP** | Tours and hotel research (on-demand only, not guide content) | `search_experiences`, `hotel_search`, `hotel_details`, `compare_hotels` |
-| **StubHub MCP** | Events, concerts, shows | `event-search` → `fetch-listings` |
 | **Booking.com MCP** | Accommodation search (on-demand only) | `accommodations_search` |
+| **Trivago MCP** | Hotel price comparison across platforms | `trivago-search-suggestions` → `trivago-accommodation-search` |
+| **Expedia MCP** | Flights + hotels (on-demand) | `search_flights`, `search_hotels` |
+| **StubHub MCP** | Events, concerts, shows | `event-search` → `fetch-listings` |
+| **Resy MCP** | Restaurant reservation availability | web search for Google Places ID → `display_resy_restaurant_availabilities_app` |
 
 **Rules:**
 - Viator MCP returns live ratings, prices, cancellation flag, and direct booking URL — use it instead of `site:viator.com` web search when building tour-boxes.
@@ -123,6 +128,7 @@ At the start of every guide build, open this file and check status. Bot-blocked 
 
 - guide.michelin.com — ⚡ bot-blocked; use `site:` workaround (see §Bot-blocked block)
 - www.thefork.com — ⚡ direct fetch blocked; use `site:thefork.com` workaround (confirmed 2026-05-30). URL shape: `thefork.com/restaurants/{city}-c{CityID}` — city ID live-verified from search result.
+- resy.com — ✅ MCP connector available (`display_resy_restaurant_availabilities_app`). Two steps: (1) web search to confirm restaurant is on Resy + find Google Places ID; (2) call connector with that ID. Not all restaurants are on Resy. Tested live.
 
 **Shows & Performances**
 | Site |
@@ -162,6 +168,9 @@ At the start of every guide build, open this file and check status. Bot-blocked 
 |------|
 | www.doordash.com |
 | www.ubereats.com |
+
+- www.ubereats.com — ✅ MCP connector live (eats-3p-mcp). Tools: `search` (restaurants/dishes by location, cuisine, name), `publish_analytics`. Untested end-to-end for guide use; likely US/major cities only.
+- www.doordash.com — no MCP connector; reference by name only in Food Delivery section.
 
 ---
 

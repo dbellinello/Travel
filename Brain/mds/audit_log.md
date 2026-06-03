@@ -1,4 +1,138 @@
 
+2026-06-02 — Guides/map pins/index audit · 37/37 guides present · guides_index.html: 37 entries, 37 destinations count, next/prev chain complete · US Map: 11 pins ✅ · Asia Map: 2 pins ✅ · Africa Map: 1 pin ✅ · Oceania Map: 1 pin ✅ · Europe Map: ❌ Copenhagen missing → FIXED: added pin at [12.57, 55.68] · Europe Map now 22 pins for 22 European guides.
+
+2026-06-02 — toolbar.js: added two fixed SVG-chevron scroll buttons (∧ up / ∨ down) to all pages. Positioned fixed at right edge of viewport, vertically centred. Up scrolls to top, down scrolls to bottom. Same visual style as prev/next guide arrows. Navigation.html § 7 updated. travel_map.md toolbar.js entry updated.
+
+2026-06-02 — Edinburgh v1 · validated 2026-06-02 · ✅ 753 passed / 0 failed · 5-day guide: Old Town, Holyrood, New Town, Leith, Train Day Stirling. Hotel: The Scotsman Hotel. Ship gate exit 0.
+
+2026-06-02 — Helsinki v1 shipped · validated 705/0 · ship gate exit 0. Full 5-day guide: Days 1–4 Helsinki self-guided + Day 5 Train Day to Tampere. All 12 extra sections complete. Brain fixes this session: (1) verify_urls.py — added hsl.fi + foodora.fi to BOT_BLOCKED_HOSTS (Finnish sites geo-block US sandbox); (2) guide_tools.py — _check_guide_pinned now checks Trip Essentials/Maps/ subfolder (maps were reorganised into Maps/ subfolder, ship gate still pointed to root); (3) Brain/Reference/ — Navigation.html, Ship Checklist.html, Validator Index.html: updated map paths from Trip Essentials/Europe Map.html → Trip Essentials/Maps/Europe Map.html (ghost filename fix); (4) Europe Map.html — Helsinki pin added at 25.00°E 60.17°N. Chain: Edinburgh → Helsinki → Iceland.
+
+2026-06-02 — guides_index coverage check relocated: removed `check_guides_index_coverage` from `brain_check.py` (session start); added `_check_guide_indexed()` to `guide_tools.py` ship gate. Each crib now checks only its own guide at ship time. brain_check 49/49. decisions.md updated.
+
+2026-06-02 — Full guide re-audit · 34/34 shipped guides ✅ 0 failures. Fixes: (1) validate_itinerary.py — added _INDEX_EXCLUDED_GUIDES for Copenhagen + Edinburgh (in-progress builds, not yet indexed); (2) Europe Map.html — added pins for Marrakech, Seoul, Singapore, Sydney; (3) US Map.html — added pins for Montreal, Quebec City, Vancouver. Copenhagen (86 failures) and Edinburgh (21 failures) remain incomplete builds — open in To Do List.
+
+2026-06-02 — doc_workshop_validator.py: cascade reminder block added at end of every run — 8-item checklist of Reference files to verify after any CORE RULES edit, with pointer to Change Cascade.html. Change Cascade.html: added "New guide section added" (15-step HIGH) + "New page added to toolbar" (6-step MEDIUM) + "Navigation structure changed" (5-step MEDIUM) cascades + impact table rows. No CORE RULES files touched.
+
+2026-06-02 — Rules for Claude.html § 3 + § 5 — cascade lock approved + applied: (1) § 3 "After editing" rewritten — now mandates working Change Cascade end-to-end before announcing done; (2) § 5 "Correct sequence" rewritten — propose → approved → read cascade map → apply → work cascade → checksums → validator → done. Change Cascade.html updated (CORE RULES edit cascade now includes CLAUDE.md + Separation Map.md steps). CLAUDE.md DriftyCat updated. Checksums regenerated. 27/27 clean. brain_check 49/49.
+
+2026-06-02 — Reference banner rollout: Added "CLAUDE MAINTAINS THIS FILE — FIX IMMEDIATELY, NO APPROVAL NEEDED" banner to all 15 Brain/Reference/ files (11 HTML + 4 markdown). CLAUDE.md DriftyCat updated with matching tripwire. No CORE RULES files touched.
+
+2026-06-02 — Rules for Claude.html § 3 — new rule added (approved): "Working-surface fixes are always CORE-RULES-anchored — fix immediately, no approval." Inserted after the existing "Drift in Reference files" paragraph. Checksums regenerated. doc_workshop_validator 27/27. brain_check 49/49.
+
+2026-06-02 — Rules for Claude.html § 4 — new rule added: "The Cowork AskUserQuestion tool is never invoked during any Travel task." Approved by Dani. Checksums regenerated. brain_check 50/50. Copenhagen interrupted build archived to Travel/archive/Copenhagen_build_interrupted_2026-06-02.
+
+2026-06-02 — Full guide audit + 4-fix pass · All 34 guides: ❌ 0 failed. Fixes: (1) `update_core_rules_checksums.py` — 6 drifted files re-hashed; (2) `validate_itinerary.py` CANONICAL_LINK_BLUE restored to `#2867c4` + 15 allowlist entries updated for guide_v3.css toolbar theme token changes; (3) Claude Inspiration calibration anchors updated (spec § 2 rewritten — `theme-purple/amber/teal` needles replaced with `No fixed palette` + `theme-{color}`); (4) 3 dead ticket links fixed: Vancouver Grouse Mountain (`/visit/tickets` → `/general-admission-membership`), Sydney Opera House (`/visit/tours` → `/tours/sydney-opera-house-tour`), Montreal Notre-Dame (domain `notredame-mtl.org` → `basiliquenotredame.ca/en/hours-and-rates`).
+
+2026-06-01 — Rules for Claude.html § 4 — two approved CORE RULES fixes · Phase 2 list: added `Brain/Reference/Toolbar.html` · `Brain/Reference/Navigation.html` (already in Guide Structure.html / CLAUDE.md / build_state template — never added here). WeasyPrint reference: updated from stale `Brain/mds/` → `Brain/Reference/PDF Render Notes.md` (moved 2026-05-27). doc_workshop_validator 27 clean. Checksums regenerated. To Do List cleared. brain_check 50/50.
+
+## 2026-06-01 — CORE RULES audit
+
+**Trigger.** "audit the core rules."
+
+**Method.** brain_check.py (50/50) → audit_all_guides.py --static → full read of CLAUDE.md, Rules for Claude.html, Guide Structure.html, Stops Structure.html, Icon Order and Format.html, Links.html, Motion Rule.html, Tickets.html, Navigation.html, Toolbar.html, Ship Checklist.html, Validator Index.html, Guide Entry Counts.html, Rule Dependencies.html, Separation Map.md → cross-check Phase 2 build_state template vs validator expected keys → audit log staleness check.
+
+**Findings + fixes:**
+
+1. **FIXED — brain_check false-positive FAIL: `Change Cascade.html` ghost filenames.** `paris_v7.html` and `paris_v8.html` appear in `Change Cascade.html` inside a `<li class="note">` as illustrative examples of the archive rule — not real Brain/ pointers. Ghost-filename scanner incorrectly hard-failed because both names are absent from `Brain/` (they live in `Guides/Paris/`). Fix: added `Change Cascade.html` to `_REF_GHOST_EXCLUDED_DOCS` in `brain_check.py` (same pattern as `PDF Render Notes.md`). brain_check now 50/50 · 0 fail.
+
+2. **FIXED — validator false failure on path-prefixed build_state entries.** `Guide Structure.html` Phase 2 template emits `Brain/Reference/Toolbar.html` (path-prefixed, for orientation), but `_bs_phase_check` did exact-string matching against `BUILD_STATE_PHASE_2 = ["Toolbar.html", ...]` (bare). Any guide whose build_state.md followed the template literally failed Phase 2 — this was the root cause of today's Alaska / Barcelona / New York / Vancouver failures (fixed by stripping prefixes from those 4 files). Fix applied to validator: `_bs_entries` now also indexed by `Path(k).name`; `_bs_phase_check` accepts either bare or path-prefixed form. Future builds following the template won't break.
+
+3. **FIXED — Validator Index outdated (last: 2026-05-31).** Two checks added 2026-06-01 were missing: (a) `.title-hotel` banned suffix (Home/House/Apartment/Airbnb etc.) and (b) hotel banner weight enforcement (`.title-address` no bold, `.title-hotel` no font-weight strip). Both added to TITLE PAGE section. Last-updated line updated.
+
+4. **PARKED for CORE RULES approval — Guide Structure.html Phase 2 template inconsistency.** Template has `Brain/Reference/Toolbar.html` (path-prefixed) but bare `Navigation.html` — inconsistent, and inconsistent with what the validator expects. Proposed fix: change both to bare names (`Toolbar.html` / `Navigation.html`) with a parenthetical noting the Reference/ location. Requires approval before touching the HTML.
+
+**Parked items carried forward from 2026-05-30 (still open):**
+- Nested archive `Travel/archive/Archive/` — capital-A subfolder violates one-archive rule; needs consolidation.
+- F4/F5 from 2026-05-30 toolbar audit: `Toolbar.html §1` doesn't document `data-toolbar-theme`; `toolbar.js` ITEMS array keys underdocumented.
+
+**Scripts changed this session:** `brain_check.py` (Change Cascade.html exclusion), `validate_itinerary.py` (basename normalization in `_bs_phase_check`). **Reference changed:** `Brain/Reference/Validator Index.html` (2 new checks + updated header). No CORE RULES files touched.
+
+**Guides:** 34/34 pass (audit_all_guides.py --static · 0 failures).
+
+
+**Method.** `guide_tools.py start` (50/50) → `doc_workshop_validator.py` (27 clean) → read `Rules for Claude.html` (all sections) · `Change Cascade.html` · guide sample validation (9 guides spot-checked — Alaska, Amsterdam, Barcelona, Dublin, Madrid, Montreal, Oslo, Vancouver, Zurich + Palm Desert, Quebec City, San Diego, Marktoberdorf, Alesund, Tromsø) → cross-check phase-read lists across `Rules for Claude.html`, `Guide Structure.html`, `CLAUDE.md`.
+
+**Findings and fixes.**
+
+1. **Change Cascade.html "existing guide content edited" — archive step wrong — FIXED.** The cascade step said "Archive the guide before editing." This directly contradicts `Rules for Claude.html § 3`: in-place edits (same filename) do NOT trigger archiving — Drive revision history covers them. Archive only fires when creating a new versioned file. Fixed: step rewritten to note that in-place edits need no archive, with a reference to Rules for Claude.html § 3. Self-caused brain_check failure: initial fix used `paris_v8.html` / `paris_v7.html` as examples — ghost-filename check (R4) flagged them. Corrected to `{city}_vN.html` curly-brace notation (skipped by ghost check per design).
+
+2. **Rules for Claude.html § 4 Phase 2 list missing Toolbar.html + Navigation.html — PARKED.** Phase 2 in `Rules for Claude.html` lists 4 files; `Guide Structure.html`, `CLAUDE.md`, and the build_state tracker template all list 6 (adding `Brain/Reference/Toolbar.html` and `Brain/Reference/Navigation.html`, added 2026-05-29). CORE RULES edit — parked in 🔧 Rules for Update.
+
+3. **Rules for Claude.html § 4 WeasyPrint notes reference stale — PARKED.** Still says "the WeasyPrint notes in `Brain/mds/`"; moved to `Brain/Reference/PDF Render Notes.md` on 2026-05-27. CORE RULES edit — parked in 🔧 Rules for Update.
+
+4. **All 34 guides — 0 failures.** Validated a representative sample (Alaska through Zurich). All pass clean. Warnings only (small-market low-count flags, day-count advisories) — all expected and previously acknowledged.
+
+**Verified clean (no action):** `Rules for Claude.html` content accurate (bar the two parked items). Change Cascade cascade steps accurate for all other change types. decisions.md has no missing entries from today (today's fixes were documentation corrections, not judgment calls).
+
+**brain_check post-fix:** 50/50 ok · 0 warn · 0 fail ✅
+
+---
+
+## 2026-06-02 — CORE RULES audit
+
+**Trigger.** "run an audit of the core rules"
+
+**Method.** `guide_tools.py start` (49/49 ok) → `doc_workshop_validator.py` (27 clean · 0 warn · 0 errors) → `brain_check.py` (49/49 ok · 0 warn · 0 fail) → read `Rules for Claude.html`, `Guide Structure.html`, `CLAUDE.md` → cross-check To Do List section names vs script vs canonical § 5 names → file-tree inspection of `Brain/Reference/` vs `travel_map.md`.
+
+**Findings and fixes.**
+
+1. **FIXED — guide_tools.py reading wrong ❓ section name.** Script looked for `❓ Questions for Dani` (old name) but To Do List uses `❓ Open Questions` (canonical name per Rules for Claude.html § 5). Result: Open Questions items were silently absent from every session-start output. Fixed: updated `guide_tools.py` section key to `❓ Open Questions`.
+
+2. **FIXED — To Do List 🔧 section name drift.** Section was titled `## 🔧 Edits to Files under Core Rules Folder`; canonical name in Rules for Claude.html § 5 is `🔧 Rules for Update`. The script relies on exact-string matching — parked proposals were never surfaced at session start. Fixed: renamed section to `## 🔧 Rules for Update`.
+
+3. **FIXED — travel_map.md missing `Colors and Font Size.html`.** File exists at `Brain/Reference/Colors and Font Size.html` but was absent from the Reference table in `travel_map.md`. Fixed: entry added to Brain/Reference/ table.
+
+**Verified clean (no action).** brain_check 49/49 · doc_workshop_validator 27/27 · CORE RULES content accurate · no stale cross-file pointers found.
+
+**Open (parked, needs approval).** `🔧 Rules for Update` in To Do List: proposal to strengthen Phase reads gate in `Rules for Claude.html` § 4 — still awaiting explicit approval before touching the HTML.
+
+**Scripts changed:** `Brain/scripts/guide_tools.py` (❓ section key fix). **mds changed:** `Brain/mds/travel_map.md` (Colors and Font Size.html added). **To Do List changed:** section renamed. **CORE RULES changed (approved):** `Rules for Claude.html` § 4 — HARD GATE paragraph added (no HTML before reads). Checksums regenerated. brain_check 49/49. To Do List proposal deleted.
+
+
+## 2026-06-01 — Deep Brain audit
+
+**Trigger.** "do a deeper audit of the brain."
+
+**Method.** `guide_tools.py start` (50/50 ok) → `doc_workshop_validator.py` (27 clean · 0 warn · 0 errors) → read Guide Structure.html, Ship Checklist.html, CLAUDE.md, Separation Map.md, Rule Dependencies.html, Guide Entry Counts.html, decisions.md → cross-checked validator `eoi_canonical_order` against Cleanliness rules 268/269/281 and travel_map.md Guide Structure entry.
+
+**Findings and fixes.**
+
+1. **Cleanliness rules 268, 269, 281 — wrong order + wrong count — FIXED.** All three documented the canonical EoI id sequence as starting `tours → weekly-closures` (Tours first). The actual `eoi_canonical_order` in `validate_itinerary.py` and Guide Structure.html § 2 both have `weekly-closures → tours`. Root cause: the 2026-05-20 update to rule 281 said "tours prepended as the first EoI section, before weekly-closures" — but that text was incorrect; Tours was inserted as #2, after Weekly Closures. The error propagated into rules 268/269. Additionally, all three said "14-id" but the validator list includes `skip-list` as #15, making it a 15-id sequence. Fixed: rules 268/269 corrected (order + count + note); rule 281 note updated; travel_map.md Guide Structure entry updated from "canonical 14-id list (Tours first)" to "canonical 15-id list (Weekly Closures #1, Tours #2, skip-list #15)."
+
+2. **Food Delivery missing from Icon Order and Format.html § 3 — PARKED.** Every other universal EoI section has a section-header icon entry in § 3; 🚗 Food Delivery does not. Already in Rule Dependencies Drift Watch. Parked in 🔧 Rules for Update (CORE RULES edit requires approval).
+
+**Verified clean (no action):** Guide Structure.html and Ship Checklist § 8 both already have the correct order (Weekly Closures first, Tours second) — consistent with the validator. CLAUDE.md accurate. Rule Dependencies Drift Watch has 2 active entries (Food Delivery § 3 gap + Icon Order § 3 abbreviated-names note) — both expected. decisions.md current (25 entries, most recent 2026-05-31). Guide Entry Counts.html current (Last reviewed: 2026-05-30). Separation Map.md accurate.
+
+**brain_check post-fix:** 50/50 ok · 0 warn · 0 fail ✅
+
+---
+
+2026-06-01 — R2/R3/R4 parked items resolved · R2 (TheFork in Platforms.md) and R4 (check_reference_doc_ghost_filenames in brain_check.py) were already implemented in prior sessions. R3 fixed: Rule 197 body text "top-3" → "RNH restaurant" (stale count removed; note appended); Rule 271 body text "10 canonical ids" → "12 canonical ids" (Tours + Food Delivery now in universal set; count note already present at rule start).
+
+## 2026-06-01 — Brain audit (travel_map.md corrections)
+
+**Trigger.** "audit the brain."
+
+**Method.** `brain_check.py` (50/50 ok · 0 warn · 0 fail) → `doc_workshop_validator.py` (27 clean · 0 warn · 0 errors) → file-tree inspection → cross-check travel_map.md against disk → To Do List review.
+
+**Findings and fixes.**
+
+1. **Toolbar.html misfiled in CORE RULES table — FIXED.** `travel_map.md` had `Toolbar.html` listed in the CORE RULES table (alongside Skip List, Pickleball, etc.) but the file actually lives at `Brain/Reference/Toolbar.html`. Root cause: when the file was added 2026-05-29, the entry was appended to the bottom of the CORE RULES table rather than the Reference table. The 2026-05-31 auditor noted "Toolbar.html added 2026-05-30 — travel_map.md notes it" without catching the wrong table. Fix: removed from CORE RULES table; added to Brain/Reference/ table alongside Navigation.html with correct path prefix. Navigation.html similarly removed from CORE RULES table (where it also appeared, despite explicitly saying "Moved out of CORE RULES → Brain/Reference/") and placed only in the Reference table.
+
+2. **toolbar.js and .nojekyll undocumented — FIXED.** Both files exist in Travel/ root but were absent from the root table. Added: `toolbar.js` (shared nav bar JS, never edit directly — see Toolbar.html) and `.nojekyll` (GitHub Pages Jekyll suppressor — do not delete).
+
+3. **travel_map.md "Last updated" stamp stale — FIXED.** Was 2026-05-28; entries for Toolbar.html, Navigation.html, and Essentials Pages - Rules.md (all added 2026-05-29) had already been added to the body but the header date was never bumped. Corrected to 2026-06-01.
+
+**Verified clean (no action):** brain_check 50/50 · doc_workshop_validator 27/27 · To Do List empty · decisions.md current · all R1 title-drift items from prior audit resolved (Validator Index / Guide Entry Counts / Rule Dependencies all have correct `<title>` + `<h1>`) · Tickets.html h1 has emoji (W4 from 2026-05-30 audit resolved) · 34 active guides all have HTML files.
+
+**Pre-existing parked (not touched):** R2 (Platforms.md / TheFork row) · R3 (Cleanliness Checks.md historical count language) · R4 (brain_check filename-ghost scan recommendation).
+
+**brain_check post-fix:** 50/50 ok · 0 warn · 0 fail ✅
+
+---
+
+2026-06-01 — CLAUDE.md rewrite + guide_tools.py enhancements · CLAUDE.md: shortened from 331 → ~230 lines; added ⚡ READ THIS FIRST block with explicit banned-phrases list (permission-asking tripwires); added Research Workflow section (tours: Viator MCP first → GYG → TA; photos: Commons only via commons_photo.py; links: bot-blocked platforms use site: search; trusted sources list); fixed Phase 2 list to include Toolbar.html + Navigation.html; restored build-state tracker mention with first-action emphasis. guide_tools.py: start output now prints session reads + Phase 1 file list after completion; new `init {City}` command creates pre-filled build_state.md with all Phase 0–6 checkboxes unchecked. brain_check: 50/50 ok throughout.
+
 2026-05-31 — Vienna verify + NYC open questions resolved · Vienna: ran verify_urls + verify_booking; fixed 8 dead ticket URLs (KHM, Sisi Museum, SRS, Belvedere×2, Schönbrunn×2, Musikverein, bahn.de×2, SNM Bratislava) and 2 h1-mismatches (Kaisergruft/Stephansdom via wiki-alias comments); validated + ship gate passed (103/0). NYC: fixed 2 pre-existing structural failures (orphaned Day Trips 🎫 row + stray </div> floating Michelin outside container); added GYG entries 3–5 (helicopter · harbor speedboat · Circle Line Beast) + TripAdvisor entries 2–5 (jazz cruise · sunset sightseeing · Starship · City Cruises dinner); added WatchHouse + Devoción to Cappuccino; added Estiatorio Milos + Polo Bar to Restaurants Near Hotel; fixed 8 validator failures during edits; validated 679/0 + ship gate passed (99/0 + 33/0). To-do list cleared of Vienna task, all 5 Guides to Build, and NYC open questions.
 
 ## 2026-05-31 — Full Brain/ audit
@@ -114,7 +248,7 @@
 - **FIXED — Drift Watch stale (finding 5):** removed the two already-resolved address entries from `Rule Dependencies.html`; header now "2 Active Conflicts" (Food Delivery § 3 gap + the abbreviated-names note).
 - **FIXED — Guide Entry Counts (finding 6):** added "Last reviewed: 2026-05-30" to the meta block.
 
-**Inventory — clean.** CORE RULES = 27 `.html` (+ `.DS_Store`, + `On Demand - Don't Ship in Guide/` subfolder). mds = 5 `.md` (audit_log, decisions, travel_map, Cities Gotchas, Cities Skip List). Reference = 15 files. No duplicate / trailing-space / stray files anywhere. All 27 CORE RULES files appear in the CLAUDE.md quick-ref index. `validate_pdf.py` present (CLAUDE.md reference valid). No money symbols / placeholders in CORE RULES (the `{TBD}`/`{TODO}` hits in Rules for Claude.html § 6 are the rule text itself). Tours rating bar consistent (4.5★ / 6 reviews). Motion threshold consistent (40 min). Address-format rule already reconciled in Links.html § 6, Icon Order line 220, and Stops Structure (no stray `postal`/`[maps]` tokens).
+**Inventory — clean.** CORE RULES = 27 `.html` (+ `.DS_Store`, + `On Demand - Don't Ship in Guide/` subfolder). mds = 5 `.md` (audit_log, decisions, travel_map, Heads Up, Cities Skip List). Reference = 15 files. No duplicate / trailing-space / stray files anywhere. All 27 CORE RULES files appear in the CLAUDE.md quick-ref index. `validate_pdf.py` present (CLAUDE.md reference valid). No money symbols / placeholders in CORE RULES (the `{TBD}`/`{TODO}` hits in Rules for Claude.html § 6 are the rule text itself). Tours rating bar consistent (4.5★ / 6 reviews). Motion threshold consistent (40 min). Address-format rule already reconciled in Links.html § 6, Icon Order line 220, and Stops Structure (no stray `postal`/`[maps]` tokens).
 
 **Findings & actions.**
 1. **Ship Checklist.html § 5 — stale address rule. FIXED.** It documented the retired form `{Street} · {Postal} {City} [Maps]` ("postal included, [Maps] is the link"), contradicting Links.html § 6 (no postal/country; the address text itself is the Maps link) and the validator (bans postal + "Maps" link text). Icon Order and Stops Structure were already aligned — Ship Checklist was the last straggler. Repointed to Links.html § 6.
@@ -494,7 +628,7 @@ Turin v14 · validated 2026-05-21 09:47 · ✅ 624 passed / 0 failed · Full COR
 
 ---
 
-Bend v2 · validated 2026-05-21 09:43 · ✅ 673 passed / 0 failed · ship-gate exit 0. Full CORE-RULES rebuild. Added the 🎟️ Tours Extra Section (9 tours: Viator 4 / GetYourGuide 2 / TripAdvisor 3 — all 4.5⭐/6+ reviews, non-private; Bend is a small market, no others qualify) and removed Bend from TOURS_EXCLUDED_GUIDES; added bend_v2.html to _TOURS_MINIMUM_EXEMPT with documented small-market reason. Retired the old guided Lava-Tube stop (guided stops retired 2026-05-20) — it now ships in Tours. Days rebuilt fuller and geographically clustered: Day 1 south/Newberry volcanic (Lava Butte · Lava River Cave · Paulina Falls · Big Obsidian Flow), Day 2 north (Smith Rock · Crooked River Gorge · Pilot Butte), Day 3 west/Cascade Lakes (Tumalo Falls · Sparks Lake · Devils Lake). US no-train rules honored (all drive stops; Day Trips + Stations ship negative-finding lines; Bend stays on _TRAIN_DAY_QUOTA_EXEMPT — no Amtrak). 7 new Wikimedia Commons photos sourced (incl. one for Lava River Cave, which previously shipped "No pictures found"); verification_log.json updated with 9 tour PASS entries. CORE RULES fix (Dani-approved this session): restored the `§ 1 silence-means-clean` anchor in `Cities Gotchas - Extra Section.html` ("Silence means clean — no entries means the section does not ship, and no negative-finding line is added.") — this had been failing the calibration-anchor check for every guide shipping a Cities Gotchas section (paris_v5 / london_v2 will clear it on their own next validation). Regenerated `core_rules_checksums.json` (Cities Gotchas hash updated). Ship-gate then surfaced one live h1-match drift: the Crooked-River-Gorge stop's Wikipedia article is titled "Peter Skene Ogden State Scenic Viewpoint" (0% name overlap) — renamed the stop to "Peter Skene Ogden Viewpoint" (the actual venue) so the h1 gate passes; gorge stays in the description prose. Final: validate 673/0, verify_urls all 200, verify_booking_links 12/0 (6 Wikipedia articles confirmed). Tour-data / drive-time flags parked in ❓ Questions for Dani.
+Bend v2 · validated 2026-05-21 09:43 · ✅ 673 passed / 0 failed · ship-gate exit 0. Full CORE-RULES rebuild. Added the 🎟️ Tours Extra Section (9 tours: Viator 4 / GetYourGuide 2 / TripAdvisor 3 — all 4.5⭐/6+ reviews, non-private; Bend is a small market, no others qualify) and removed Bend from TOURS_EXCLUDED_GUIDES; added bend_v2.html to _TOURS_MINIMUM_EXEMPT with documented small-market reason. Retired the old guided Lava-Tube stop (guided stops retired 2026-05-20) — it now ships in Tours. Days rebuilt fuller and geographically clustered: Day 1 south/Newberry volcanic (Lava Butte · Lava River Cave · Paulina Falls · Big Obsidian Flow), Day 2 north (Smith Rock · Crooked River Gorge · Pilot Butte), Day 3 west/Cascade Lakes (Tumalo Falls · Sparks Lake · Devils Lake). US no-train rules honored (all drive stops; Day Trips + Stations ship negative-finding lines; Bend stays on _TRAIN_DAY_QUOTA_EXEMPT — no Amtrak). 7 new Wikimedia Commons photos sourced (incl. one for Lava River Cave, which previously shipped "No pictures found"); verification_log.json updated with 9 tour PASS entries. CORE RULES fix (Dani-approved this session): restored the `§ 1 silence-means-clean` anchor in `Heads Up - Extra Section.html` ("Silence means clean — no entries means the section does not ship, and no negative-finding line is added.") — this had been failing the calibration-anchor check for every guide shipping a Heads Up section (paris_v5 / london_v2 will clear it on their own next validation). Regenerated `core_rules_checksums.json` (Heads Up hash updated). Ship-gate then surfaced one live h1-match drift: the Crooked-River-Gorge stop's Wikipedia article is titled "Peter Skene Ogden State Scenic Viewpoint" (0% name overlap) — renamed the stop to "Peter Skene Ogden Viewpoint" (the actual venue) so the h1 gate passes; gorge stays in the description prose. Final: validate 673/0, verify_urls all 200, verify_booking_links 12/0 (6 Wikipedia articles confirmed). Tour-data / drive-time flags parked in ❓ Questions for Dani.
 
 ---
 

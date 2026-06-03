@@ -110,10 +110,24 @@ GUIDE_RE = re.compile(
     r"oslo|helsinki|reykjavik|sao_paulo|brussels|bruxelles|warsaw|budapest|"
     r"florence|venice|naples|geneva|zurich|munich|hamburg|frankfurt|"
     r"dublin|edinburgh|london|"
+    # Nordic / Northern Europe (added 2026-06-02: alesund, tromso shipped 2026-Q2)
+    r"alesund|tromso|"
+    # Atlantic / Iberian (sintra, marrakech added 2026-06-02)
+    r"sintra|marrakech|"
+    # Canada (montreal, quebec_city, vancouver added 2026-06-02)
+    r"montreal|quebec_city|vancouver|"
+    # Southern Europe / Asia Pacific / misc (added 2026-06-02)
+    r"singapore|sydney|"
+    # Germanic/Alpine misc (marktoberdorf added 2026-06-02)
+    r"marktoberdorf|"
+    # North America — island/wilderness (alaska, iceland added 2026-06-02)
+    r"alaska|iceland|"
     # US cities — Pasadena v1 shipped 2026-05; CA+AZ pickleball gate implies more
     r"pasadena|los_angeles|san_francisco|san_diego|new_york|chicago|"
     r"scottsdale|phoenix|sedona|tucson|palm_springs|santa_barbara|"
-    r"san_jose|portland|seattle|denver|austin|nashville|miami|boston)_v\d+",
+    r"san_jose|portland|seattle|denver|austin|nashville|miami|boston|"
+    # US desert/valley cities (palm_desert, palo_alto, bend added 2026-06-02)
+    r"palm_desert|palo_alto|bend)_v\d+",
     re.IGNORECASE,
 )
 

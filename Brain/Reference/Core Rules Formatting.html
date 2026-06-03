@@ -72,6 +72,8 @@
 </style>
 </head>
 <body>
+<p style="color:#1a5f2a; background:#e6f5ea; padding:10px 14px; border-radius:4px; font-size:15px; line-height:1.5; margin-bottom:28px;"><strong>CLAUDE MAINTAINS THIS FILE — FIX IMMEDIATELY, NO APPROVAL NEEDED</strong><br>
+When this file drifts from Brain/CORE RULES/, fix it in the same pass. CORE RULES is the authority; this file follows. No questions, no permission, no parking for later.</p>
 
 <p class="banner">This document is read-only and can only be edited by request</p>
 
@@ -84,7 +86,7 @@
 </div>
 
 <h2>§ 1. The canonical CSS</h2>
-<p>Copy this <code>&lt;style&gt;</code> block into the <code>&lt;head&gt;</code> of every rule doc. It's also in <code>Core Rules Style.css</code> in this folder.</p>
+<p>Every rule doc links the canonical stylesheet via a <code>&lt;link&gt;</code> tag in <code>&lt;head&gt;</code> — never inline CSS. The CSS source lives in <code>Core Rules Style.css</code> in this folder. The validator (E1) hard-fails any file missing or mis-pointing this link. The block below documents what is inside the stylesheet for reference.</p>
 <div class="template">* { box-sizing: border-box; margin: 0; padding: 0; }
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
@@ -96,19 +98,22 @@ body {
   max-width: 900px;
 }
 .banner {
-  font-size: 14px;
-  font-weight: 700;
   color: #cc0000;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  margin-bottom: 20px;
+  background: #e8f4fd;
+  padding: 10px 14px;
+  border-radius: 4px;
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 28px;
 }
-h1 { font-size: 22px; font-weight: 700; margin-bottom: 4px; } /* rule docs — guide docs use 24px via guide_v2.css */
+h1 { font-size: 22px; font-weight: 700; line-height: 1.3; margin-bottom: 18px; }
 .subtitle { font-size: 13px; color: #888; margin-bottom: 12px; }
-.meta { margin-bottom: 32px; padding-bottom: 16px; border-bottom: 1px solid #e8e8e8; }
-.meta p { margin-top: 4px; }
+.meta { margin-bottom: 36px; padding-bottom: 20px; border-bottom: 1px solid #e8e8e8; color: #444; }
+.meta p { margin-bottom: 8px; line-height: 1.55; }
+.meta p:last-child { margin-bottom: 0; }
+.meta strong { color: #1a1a1a; }
 h2 { font-size: 17px; font-weight: 700; margin-top: 40px; margin-bottom: 12px; }
-h3 { font-size: 15px; font-weight: 700; margin-top: 24px; margin-bottom: 8px; color: #333; }
+h3 { font-size: 17px; font-weight: 700; margin-top: 24px; margin-bottom: 16px; color: #333; }
 p { margin-bottom: 10px; }
 ol, ul { padding-left: 22px; margin-bottom: 10px; }
 li { margin-bottom: 5px; }
@@ -122,22 +127,19 @@ code {
 .template {
   font-family: 'Courier New', monospace;
   font-size: 13px;
-  line-height: 1.8;
-  background: #1e1e2e;
-  color: #cdd6f4;
-  border-left: 4px solid #89b4fa;
-  padding: 14px 18px;
+  line-height: 1.7;
+  background: #f5f5f5;
+  border-left: 4px solid #ccc;
+  padding: 12px 16px;
   margin: 10px 0 14px 0;
   white-space: pre;
-  border-radius: 0 6px 6px 0;
 }
 .callout {
-  background: #fffbeb;
-  border-left: 4px solid #f59e0b;
-  padding: 12px 16px;
+  background: #f9f9f9;
+  border-left: 3px solid #bbb;
+  padding: 10px 16px;
   margin: 12px 0;
-  color: #1a1a1a;
-  border-radius: 0 6px 6px 0;
+  color: #333;
 }
 .callout p { margin-bottom: 3px; }
 .callout p:last-child { margin-bottom: 0; }</div>
@@ -147,22 +149,25 @@ code {
 <div class="template">&lt;!DOCTYPE html&gt;
 &lt;html lang="en"&gt;
 &lt;head&gt;
-&lt;meta charset="utf-8"&gt;
+&lt;meta charset="UTF-8"&gt;
 &lt;title&gt;{Doc Title}&lt;/title&gt;
+&lt;link rel="stylesheet" href="../Reference/Core Rules Style.css"&gt;
 &lt;style&gt;
-  … canonical CSS from § 1 …
+code { font-size: inherit; }
+.entry { background: #fef9e0; }
 &lt;/style&gt;
 &lt;/head&gt;
 &lt;body&gt;
-
-&lt;p class="banner"&gt;This document is read-only and can only be edited by request&lt;/p&gt;
+&lt;p class="banner"&gt;&lt;strong&gt;ATTENTION: THIS DOCUMENT IS READ-ONLY AND CAN ONLY BE EDITED BY REQUEST&lt;/strong&gt;&lt;br&gt;
+Read the formatting rules first — Brain/Reference/.&lt;br&gt;
+CSS, HTML, and validator code are not permitted in rule text.&lt;br&gt;
+Rules are written like a legal document — active voice, generic phrasing, no specific examples. The rules state what is; the validator catches what isn't.&lt;/p&gt;
+&lt;hr style="margin: 16px 0 48px 0; border: none; border-top: 1px solid #ddd;"&gt;
 
 &lt;h1&gt;{emoji} {Doc Title}&lt;/h1&gt;
-&lt;p class="subtitle"&gt;Source of truth — &lt;code&gt;Brain/CORE RULES/{filename}.html&lt;/code&gt;&lt;/p&gt;
-
 &lt;div class="meta"&gt;
-  &lt;p&gt;&lt;strong&gt;Status:&lt;/strong&gt; {UNIVERSAL — always ships / CONDITIONAL / etc.}&lt;/p&gt;
-  &lt;p&gt;&lt;strong&gt;Summary:&lt;/strong&gt; {one or two lines describing the section}&lt;/p&gt;
+ &lt;p&gt;&lt;strong&gt;Phase:&lt;/strong&gt; {N} — {phase name}&lt;/p&gt;
+ &lt;p&gt;&lt;strong&gt;Summary:&lt;/strong&gt; {one line}&lt;/p&gt;
 &lt;/div&gt;
 
 &lt;h2&gt;§ 1. {Section Title}&lt;/h2&gt;
@@ -171,6 +176,11 @@ code {
 &lt;h2&gt;§ 2. {Section Title}&lt;/h2&gt;
 &lt;p&gt;{content}&lt;/p&gt;
 
+&lt;hr style="margin: 48px 0 16px 0; border: none; border-top: 1px solid #ddd;"&gt;
+&lt;p class="banner"&gt;&lt;strong&gt;ATTENTION: THIS DOCUMENT IS READ-ONLY AND CAN ONLY BE EDITED BY REQUEST&lt;/strong&gt;&lt;br&gt;
+Read the formatting rules first — Brain/Reference/.&lt;br&gt;
+CSS, HTML, and validator code are not permitted in rule text.&lt;br&gt;
+Rules are written like a legal document — active voice, generic phrasing, no specific examples. The rules state what is; the validator catches what isn't.&lt;/p&gt;
 &lt;/body&gt;
 &lt;/html&gt;</div>
 
@@ -252,10 +262,10 @@ Rules are written like a legal document — active voice, generic phrasing, no s
 
 <h2>§ 6. Guide HTML typography</h2>
 <p>Guide HTML files reference the shared stylesheet via a <code>&lt;link&gt;</code> tag — system font stack, no Google Fonts, no Inter. The link goes in <code>&lt;head&gt;</code> and uses the canonical relative path:</p>
-<div class="template">&lt;link rel="stylesheet" href="../guide_v2.css"&gt;</div>
-<p>The path is exactly <code>../guide_v2.css</code> (one level up from the guide HTML). The deployed CSS lives at <code>Guides/guide_v2.css</code> for GitHub Pages — that copy is what every guide reads from, both locally and on Pages. The source of truth is <code>Brain/Reference/Guide Style.css</code> — whenever it's updated, copy it to <code>Guides/guide_v2.css</code> too. Per <code>Rules for Claude.html</code> § 4.</p>
-<p><strong>Never use</strong> <code>&lt;link rel="stylesheet" href="../../Brain/guide_v2.css"&gt;</code>. That path works locally but breaks on GitHub Pages because <code>Brain/</code> is not deployed. The validator hard-fails on this exact path.</p>
-<p>The validator hard-fails on a missing or wrong stylesheet link, on the forbidden <code>../../Brain/guide_v2.css</code> path, and on any Google Fonts reference (<code>fonts.googleapis.com</code>) in the guide head.</p>
+<div class="template">&lt;link rel="stylesheet" href="../guide_v3.css"&gt;</div>
+<p>The path is exactly <code>../guide_v3.css</code> (one level up from the guide HTML). The deployed CSS lives at <code>Guides/guide_v3.css</code> for GitHub Pages — that copy is what every guide reads from, both locally and on Pages. The source of truth is <code>Brain/Reference/Guide Style.css</code> — whenever it's updated, copy it to <code>Guides/guide_v3.css</code> too. Per <code>Rules for Claude.html</code> § 4.</p>
+<p><strong>Never use</strong> <code>&lt;link rel="stylesheet" href="../../Brain/guide_v3.css"&gt;</code>. That path works locally but breaks on GitHub Pages because <code>Brain/</code> is not deployed. The validator hard-fails on this exact path.</p>
+<p>The validator hard-fails on a missing or wrong stylesheet link, on the forbidden <code>../../Brain/guide_v3.css</code> path, and on any Google Fonts reference (<code>fonts.googleapis.com</code>) in the guide head.</p>
 
 <h3>No commas in titles or row data</h3>
 <p>In headings, names, and the data on entry rows — ratings, hours, addresses, and the like — do not use a comma. Separate items with the middle dot <code> · </code> instead. Normal commas inside a written description sentence are fine.</p>
@@ -286,7 +296,7 @@ Rules are written like a legal document — active voice, generic phrasing, no s
 <ol>
   <li><strong>Name heading.</strong> Always <code>&lt;div class="extras-sub"&gt;</code>. Plain text inside (no link, no emoji prefix). The name text format is governed by each section's CORE RULES file.</li>
   <li><strong>Description.</strong> Wraps in <code>&lt;p&gt;</code> — <em>never</em> a bare <code>&lt;div&gt;</code> and <em>never</em> a <code>&lt;div&gt;</code> with a class. Reasons: (a) <code>&lt;p&gt;</code> is the semantic element for prose text; (b) it gives the validator a single, unambiguous target to enforce per-section char caps against; (c) it lets CSS style descriptions distinctly from box rows. The description element appears immediately after the <code>.extras-sub</code> heading and immediately before the data box. Optional — omit the entire <code>&lt;p&gt;</code> element when an entry has no description (no empty <code>&lt;p&gt;&lt;/p&gt;</code>).</li>
-  <li><strong>Data box.</strong> Wraps in a section-specific class (<code>.entry-body</code>, <code>.shows-box</code>, <code>.transit-box</code>, <code>.station-box</code>, per <code>guide_v2.css</code>). The box always follows the description (or the heading, when there is no description).</li>
+  <li><strong>Data box.</strong> Wraps in a section-specific class (<code>.entry-body</code>, <code>.shows-box</code>, <code>.transit-box</code>, <code>.station-box</code>, per <code>guide_v3.css</code>). The box always follows the description (or the heading, when there is no description).</li>
 </ol>
 
 <h3>What is not allowed between heading and box</h3>
@@ -378,14 +388,16 @@ Ship the negative-finding line:
 <p>Every CORE RULES file uses identical top and bottom banners, with locked spacing. Day Trips is the reference.</p>
 
 <h3>Top banner (mandatory, goes right after &lt;body&gt;)</h3>
-<div class="template">&lt;p class="footer" style="color:#cc0000; background:#e8f4fd; padding:10px 14px; border-radius:4px;"&gt;&lt;strong&gt;ATTENTION: THIS DOCUMENT IS READ-ONLY AND CAN ONLY BE EDITED BY REQUEST&lt;/strong&gt;&lt;br&gt;
+<div class="template">&lt;p class="banner"&gt;&lt;strong&gt;ATTENTION: THIS DOCUMENT IS READ-ONLY AND CAN ONLY BE EDITED BY REQUEST&lt;/strong&gt;&lt;br&gt;
+Read the formatting rules first — Brain/Reference/.&lt;br&gt;
 CSS, HTML, and validator code are not permitted in rule text.&lt;br&gt;
 Rules are written like a legal document — active voice, generic phrasing, no specific examples. The rules state what is; the validator catches what isn't.&lt;/p&gt;
 &lt;hr style="margin: 16px 0 48px 0; border: none; border-top: 1px solid #ddd;"&gt;</div>
 
 <h3>Bottom banner (mandatory, goes right before &lt;/body&gt;)</h3>
 <div class="template">&lt;hr style="margin: 48px 0 16px 0; border: none; border-top: 1px solid #ddd;"&gt;
-&lt;p class="footer" style="color:#cc0000; background:#e8f4fd; padding:10px 14px; border-radius:4px;"&gt;&lt;strong&gt;ATTENTION: THIS DOCUMENT IS READ-ONLY AND CAN ONLY BE EDITED BY REQUEST&lt;/strong&gt;&lt;br&gt;
+&lt;p class="banner"&gt;&lt;strong&gt;ATTENTION: THIS DOCUMENT IS READ-ONLY AND CAN ONLY BE EDITED BY REQUEST&lt;/strong&gt;&lt;br&gt;
+Read the formatting rules first — Brain/Reference/.&lt;br&gt;
 CSS, HTML, and validator code are not permitted in rule text.&lt;br&gt;
 Rules are written like a legal document — active voice, generic phrasing, no specific examples. The rules state what is; the validator catches what isn't.&lt;/p&gt;</div>
 

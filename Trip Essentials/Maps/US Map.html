@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>US Map</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; background: #f5f4f0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+  body { display: flex; flex-direction: column; }
+  #map-header { padding: 16px 24px 10px; flex-shrink: 0; }
+  #map-header h1 { font-size: 20px; font-weight: 700; color: #6b4422; letter-spacing: -0.01em; }
+  #wrap { position: relative; flex: 1 1 auto; min-height: 0; background: #e8dfd0; overflow: hidden; }
+  svg { width: 100%; height: 100%; display: block; }
+  .state { stroke: #fdf8f0; stroke-width: 1.2; cursor: default; transition: filter 0.12s; }
+  .state:hover { filter: brightness(1.12); }
+  .state-borders { fill: none; stroke: rgba(253,248,240,0.8); stroke-width: 0.6; pointer-events: none; }
+  .nation-border { fill: none; stroke: rgba(253,248,240,0.4); stroke-width: 0.4; pointer-events: none; }
+  .state-label { font-size: 8px; font-weight: 700; fill: #3a1a00; text-anchor: middle; dominant-baseline: central; pointer-events: none; user-select: none; paint-order: stroke; stroke: rgba(253,248,240,0.8); stroke-width: 2.5px; }
+  .state-label.large { font-size: 10px; }
+  .pin-group { cursor: pointer; }
+  .pin-circle { fill: #6b4422; stroke: #fdf8f0; stroke-width: 2; transition: transform 0.15s, fill 0.15s; transform-origin: center; transform-box: fill-box; }
+  .pin-group:hover .pin-circle { fill: #BA7517; transform: scale(1.5); }
+  .pin-label { font-size: 9px; font-weight: 700; fill: #6b4422; text-anchor: middle; dominant-baseline: auto; pointer-events: none; user-select: none; paint-order: stroke; stroke: rgba(253,248,240,0.95); stroke-width: 3.5px; }
+  .pin-group:hover .pin-label { fill: #BA7517; }
+  #tip { position: absolute; pointer-events: none; background: #6b4422; color: #fdf8f0; padding: 7px 15px; border-radius: 8px; font-size: 14px; font-weight: 600; letter-spacing: 0.02em; box-shadow: 0 4px 18px rgba(0,0,0,0.28); white-space: nowrap; opacity: 0; transition: opacity 0.1s; z-index: 99; }
+  .tip-sub { font-size: 11px; color: #e5c99a; margin-top: 2px; }
+#legend { position: absolute; top: 14px; right: 14px; background: rgba(253,248,240,0.90); border-radius: 8px; padding: 7px 12px; font-size: 11px; color: #6b4422; display: flex; align-items: center; gap: 7px; font-weight: 600; box-shadow: 0 1px 6px rgba(0,0,0,0.08); }
+  .ldot { width: 10px; height: 10px; border-radius: 50%; background: #6b4422; border: 2px solid #fdf8f0; box-shadow: 0 0 0 1px #6b4422; flex-shrink: 0; }
+  #region-nav { position:absolute; left:16px; top:50%; transform:translateY(-50%); display:flex; flex-direction:column; gap:7px; z-index:10; padding:0; background:none; border:none; overflow:visible; }
+  .rn { padding:5px 14px; border-radius:20px; border:1.5px solid #d8d4cc; background:#f5f4f0; color:#6b4422; font-size:12px; font-weight:600; text-decoration:none; white-space:nowrap; transition:background .12s,border-color .12s; flex-shrink:0; box-shadow:0 2px 8px rgba(0,0,0,0.22); }
+  .rn:hover { background:#faefd8; border-color:#8a6c1a; }
+  .rn.rn-on { background:linear-gradient(135deg,#7a3b1e 0%,#b85c2a 55%,#d4874a 100%); color:#fdf8f0; border-color:#b85c2a; }
+  /* ── Compact toolbar on map pages ── */
+
+  #map-left-stack { position:absolute; left:14px; top:35%; transform:translateY(-50%); display:flex; flex-direction:column; gap:12px; align-items:flex-start; z-index:10; }
+  #left-panel { display:flex; flex-direction:column; background:rgba(253,248,240,0.82); border-radius:12px; padding:10px 8px; box-shadow:0 2px 12px rgba(0,0,0,0.13); backdrop-filter:blur(4px); }
+  #guide-legend { background:rgba(253,248,240,0.92); border-radius:8px; padding:6px 12px; font-size:11px; color:#6b4422; display:flex; align-items:center; gap:7px; font-weight:600; box-shadow:0 1px 6px rgba(0,0,0,0.10); }
+  #region-nav { position:static !important; left:auto; top:auto; transform:none; display:flex; flex-direction:column; gap:7px; z-index:auto; }
+
+  /* ── Region-coloured nav pills ── */
+  .rn { display:flex; align-items:center; gap:7px; }
+  .rn::before { content:''; width:9px; height:9px; border-radius:50%; flex-shrink:0; }
+  .rn-eu  { background:#fde8e8 !important; border-color:#f0a0a0 !important; color:#a02020 !important; }
+  .rn-eu::before  { background:#dc4444; }
+  .rn-na  { background:#fdf0e4 !important; border-color:#f0b878 !important; color:#8a3a08 !important; }
+  .rn-na::before  { background:#e87830; }
+  .rn-as  { background:#fdf5d8 !important; border-color:#e8d060 !important; color:#7a5000 !important; }
+  .rn-as::before  { background:#c8940a; }
+  .rn-af  { background:#e4f5e8 !important; border-color:#90d0a0 !important; color:#1a6030 !important; }
+  .rn-af::before  { background:#2ea84e; }
+  .rn-sa  { background:#e4eef8 !important; border-color:#90b8e8 !important; color:#1a3a8b !important; }
+  .rn-sa::before  { background:#3a74d4; }
+  .rn-oc  { background:#f0e8f8 !important; border-color:#c090e0 !important; color:#4a1880 !important; }
+  .rn-oc::before  { background:#8050d0; }
+  .rn.rn-on { background:linear-gradient(135deg,#7a3b1e 0%,#b85c2a 55%,#d4874a 100%) !important; color:#fdf8f0 !important; border-color:#b85c2a !important; }
+  .rn.rn-on::before { background:rgba(255,255,255,0.55); }
+</style>
+</head>
+<body>
+<div id="toolbar-mount" data-depth="2" data-maxwidth="1400" data-no-footnote="1"></div>
+<script src="../../toolbar.js?v=2"></script>
+
+
+
+<div id="wrap">
+  <svg id="svg"></svg>
+<div id="map-left-stack">
+<div id="guide-legend"><div class="ldot"></div> Guide available</div>
+<div id="left-panel">
+<div id="region-nav">
+  <a class="rn rn-eu" href="Europe%20Map.html">Europe</a>
+  <a class="rn rn-na rn-on" href="US%20Map.html">N. America</a>
+  <a class="rn rn-as" href="Asia%20Map.html">Asia</a>
+  <a class="rn rn-af" href="Africa%20Map.html">Africa</a>
+  <a class="rn rn-sa" href="South%20America%20Map.html">S. America</a>
+  <a class="rn rn-oc" href="Oceania%20Map.html">Oceania</a>
+</div>
+</div>
+</div>
+  <div id="tip"><div id="tn"></div><div class="tip-sub" id="ts"></div></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+<script>
+// FIPS → state name
+const STATES = {
+  1:'Alabama',2:'Alaska',4:'Arizona',5:'Arkansas',6:'California',
+  8:'Colorado',9:'Connecticut',10:'Delaware',11:'D.C.',12:'Florida',
+  13:'Georgia',15:'Hawaii',16:'Idaho',17:'Illinois',18:'Indiana',
+  19:'Iowa',20:'Kansas',21:'Kentucky',22:'Louisiana',23:'Maine',
+  24:'Maryland',25:'Massachusetts',26:'Michigan',27:'Minnesota',
+  28:'Mississippi',29:'Missouri',30:'Montana',31:'Nebraska',32:'Nevada',
+  33:'New Hampshire',34:'New Jersey',35:'New Mexico',36:'New York',
+  37:'North Carolina',38:'North Dakota',39:'Ohio',40:'Oklahoma',
+  41:'Oregon',42:'Pennsylvania',44:'Rhode Island',45:'South Carolina',
+  46:'South Dakota',47:'Tennessee',48:'Texas',49:'Utah',50:'Vermont',
+  51:'Virginia',53:'Washington',54:'West Virginia',55:'Wisconsin',56:'Wyoming'
+};
+
+// Short labels for small states
+const SHORT = {
+  'Connecticut':'CT','Delaware':'DE','D.C.':'DC','Hawaii':'HI',
+  'Massachusetts':'MA','Maryland':'MD','New Hampshire':'NH',
+  'New Jersey':'NJ','Rhode Island':'RI','Vermont':'VT'
+};
+
+// Warm palette — map-friendly colors matching guide aesthetic
+const COLORS = {
+  1:'#c8956c',2:'#6ab4cc',4:'#d47a30',5:'#c05a5a',6:'#6a8fd4',
+  8:'#7aab8a',9:'#d4a64a',10:'#9ab5c8',11:'#c46a8a',12:'#5abfa0',
+  13:'#d4bc6a',15:'#4ab065',16:'#9dbfbf',17:'#c87a5a',18:'#6ab4c8',
+  19:'#d4a64a',20:'#c8956c',21:'#9050b0',22:'#d46a6a',23:'#5a8ad4',
+  24:'#d03a7a',25:'#7aab8a',26:'#a8ccd8',27:'#c05a5a',28:'#d4bc6a',
+  29:'#6ab4c8',30:'#8aaa5a',31:'#c87a5a',32:'#d47a30',33:'#9dbfbf',
+  34:'#6a8fd4',35:'#c8956c',36:'#c46a8a',37:'#5abfa0',38:'#d4a64a',
+  39:'#9ab5c8',40:'#d03a7a',41:'#4ab065',42:'#6ab4cc',44:'#c05a5a',
+  45:'#7aab8a',46:'#d4bc6a',47:'#9050b0',48:'#d47a30',49:'#5a8ad4',
+  50:'#c87a5a',51:'#8aaa5a',53:'#d46a6a',54:'#6ab4c8',55:'#a8ccd8',
+  56:'#d4a64a'
+};
+
+// Large enough states to show full label
+const LARGE_STATES = new Set([6,8,4,48,30,32,35,41,53,16,27,31,38,46,56,20,19,25,22,13,12,47]);
+
+// Guide pins [name, lon, lat, href]
+const PINS = [
+  ['Alaska',       -153.00, 64.20, '../../Guides/Alaska/alaska_v1.html'],
+  ['Bend',         -121.31, 44.06, '../../Guides/Bend/bend_v2.html'],
+  ['New York',      -74.00, 40.71, '../../Guides/New York/new_york_v1.html'],
+  ['Palm Desert',  -116.37, 33.72, '../../Guides/Palm Desert/palm_desert_v1.html'],
+  ['Palo Alto',    -122.14, 37.44, '../../Guides/Palo Alto/palo_alto_v6.html'],
+  ['Pasadena',     -118.14, 34.15, '../../Guides/Pasadena/pasadena_v5.html'],
+  ['San Diego',    -117.16, 32.72, '../../Guides/San Diego/san_diego_v1.html'],
+  ['San Francisco',-122.42, 37.77, '../../Guides/San Francisco/sf_v3.html'],
+  ['Montreal',   -73.57, 45.50, '../../Guides/Montreal/montreal_v1.html'],
+  ['Quebec City',-71.21, 46.81, '../../Guides/Quebec City/quebec_city_v1.html'],
+  ['Vancouver',  -123.12, 49.28, '../../Guides/Vancouver/vancouver_v1.html'],
+];
+
+const tip = document.getElementById('tip');
+const tn = document.getElementById('tn'), ts = document.getElementById('ts');
+const wrap = document.getElementById('wrap');
+let usData = null;
+
+function showTip(event, name, sub) {
+  tn.textContent = name; ts.textContent = sub || ''; tip.style.opacity = '1';
+  const r = wrap.getBoundingClientRect();
+  let x = event.clientX - r.left + 14, y = event.clientY - r.top - 44;
+  const tw = tip.offsetWidth || 140;
+  if (x + tw > r.width - 8) x = event.clientX - r.left - tw - 14;
+  if (y < 4) y = event.clientY - r.top + 14;
+  tip.style.left = x + 'px'; tip.style.top = y + 'px';
+}
+
+function buildMap() {
+  const W = wrap.clientWidth, H = wrap.clientHeight;
+  const svgEl = document.getElementById('svg');
+  svgEl.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+  if (!usData) return;
+
+  const proj = d3.geoAlbersUsa().scale(Math.min(W * 1.1, H * 1.9)).translate([W * 0.5, H * 0.5]);
+  const pathGen = d3.geoPath().projection(proj);
+
+  const states   = topojson.feature(usData, usData.objects.states);
+  const borders  = topojson.mesh(usData, usData.objects.states, (a, b) => a !== b);
+  const nation   = topojson.mesh(usData, usData.objects.states, (a, b) => a === b);
+
+  const svg = d3.select('#svg');
+  svg.selectAll('*').remove();
+
+  // States
+  svg.selectAll('.state').data(states.features).join('path')
+    .attr('class', 'state').attr('d', pathGen)
+    .style('fill', d => COLORS[+d.id] || '#b5a898')
+    .on('mousemove', (e, d) => {
+      const name = STATES[+d.id] || 'Unknown';
+      showTip(e, name, '');
+    })
+    .on('mouseleave', () => { tip.style.opacity = '0'; });
+
+  // State borders
+  svg.append('path').datum(borders).attr('class', 'state-borders').attr('d', pathGen);
+  svg.append('path').datum(nation).attr('class', 'nation-border').attr('d', pathGen);
+
+  // State labels
+  svg.selectAll('.state-label').data(states.features).join('text')
+    .attr('class', d => LARGE_STATES.has(+d.id) ? 'state-label large' : 'state-label')
+    .attr('transform', d => {
+      const c = pathGen.centroid(d);
+      if (!c || isNaN(c[0])) return 'translate(-9999,-9999)';
+      return 'translate(' + c[0] + ',' + c[1] + ')';
+    })
+    .text(d => {
+      const name = STATES[+d.id] || '';
+      return SHORT[name] || name;
+    });
+
+  // City pins
+  const pinG = svg.append('g');
+  PINS.forEach(function(p) {
+    const name = p[0], lon = p[1], lat = p[2], href = p[3];
+    const pt = proj([lon, lat]);
+    if (!pt) return; // AlbersUSA returns null for out-of-range coords
+    const g = pinG.append('g').attr('class', 'pin-group')
+      .attr('transform', 'translate(' + pt[0] + ',' + pt[1] + ')')
+      .on('click', () => window.open(href, '_blank'))
+      .on('mousemove', e => { showTip(e, name, '📖 Open Guide'); })
+      .on('mouseleave', () => { tip.style.opacity = '0'; });
+    g.append('circle').attr('class', 'pin-circle').attr('r', 6);
+    g.append('text').attr('class', 'pin-label').attr('y', -10).text(name);
+  });
+}
+
+fetch('https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json')
+  .then(r => r.json())
+  .then(data => { usData = data; buildMap(); })
+  .catch(() => {
+    d3.select('#svg').append('text').attr('x', '50%').attr('y', '50%')
+      .attr('text-anchor', 'middle').attr('fill', '#6b4422').attr('font-size', 16)
+      .text('Could not load map data — please check your internet connection.');
+  });
+
+let resizeTimer;
+window.addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(buildMap, 80); });
+</script>
+</body>
+</html>

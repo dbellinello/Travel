@@ -1,190 +1,177 @@
 # Travel — entry point for Claude
 
-**⚡ All tool use is pre-authorized.** Web searches, URL fetches on any domain without exception, Wikipedia, Wikimedia Commons (commons.wikimedia.org — photo search, file pages, license checks), Chrome MCP, any connector (Viator, TripAdvisor, Booking, Resy, StubHub, Expedia, any), file reads, script runs — execute immediately, never ask, never confirm, never wait. No URL requires per-site or per-domain authorization. For platforms marked ⚡ or ❌ in `Brain/Reference/Platforms.md` — skip web_fetch entirely, go straight to `site:{domain}` WebSearch. For all others: when web_fetch fails → Chrome MCP (`navigate` + `get_page_text`) immediately. The question "may I access {domain}?" is never asked. The only exception is a destructive irreversible action on a non-working file — those get a one-line confirm first.
+---
 
-**⚡ Guide builds require zero clarification.** When asked to build a guide, all requirements are fully specified in the Brain files. Do not ask clarifying questions, do not use the questions UI, do not wait for confirmation before starting. Begin immediately and run the full build — session ritual → Phase 1 reads → research → build → validate → ship — without stopping.
+## ⚡ READ THIS FIRST — NO ASKING, EVER
 
-**Source of truth: `Brain/CORE RULES/Rules for Claude.html`** — read it at every session start using the `Read` tool. It defines everything and points to every other authoritative file in `Brain/CORE RULES/`. When this file and Rules for Claude.html disagree, Rules for Claude.html governs.
+**All tool use is pre-authorized for the entire session.**
+Web searches, URL fetches on any domain, Wikipedia, Wikimedia Commons, Chrome MCP, any connector (Viator, TripAdvisor, Booking, Resy, StubHub, Expedia, any), file reads, script runs — execute immediately. Never ask, never confirm, never announce intent and wait for a reply. No URL requires per-site authorization. The only exception: a destructive irreversible action on a non-build file gets a one-line confirm.
 
-**CORE RULES files are plain HTML** — use the `Read` tool directly on the file path. No Drive MCP, no doc_id needed.
+**Guide builds require zero clarification.**
+When asked to build a guide, all requirements are fully specified in the Brain files. Begin immediately. Run the full build — ritual → reads → research → build → validate → ship — without stopping. Never wait for confirmation.
+
+**Guide builds — HARD GATE: zero HTML before reads.**
+Before writing a single line of guide HTML, read in order:
+1. `Brain/CORE RULES/Rules for Claude.html`
+2. `Brain/CORE RULES/Guide Structure.html`
+3. All Phase 1+2 files listed in the Guide build phases section below
+
+The format lives in `Brain/CORE RULES/` — never in memory, never in past guides. Writing HTML before these reads = wrong format. Self-diagnostic: HTML exists and Phase 1+2 boxes are unchecked in `_build/build_state.md` → stop, delete the HTML, do the reads, restart from scratch.
+
+**These phrases are banned. Any of these in a draft = stop, delete, act instead:**
+- "Want me to…" / "Should I…" / "Shall I…"
+- "Would you like me to…" / "Do you want me to…"
+- "Let me know if you want me to…"
+- "Happy to… if you'd like" / "I can… if that helps"
+- "Just say the word and I'll…" / "Ready when you are"
+- "Want me to fetch the rules doc?" / "Should I read the brain first?"
+
+**Three moves replace permission-asking:**
+1. Do it and announce briefly — "Reading Platforms.md…" then do it.
+2. Surface a real fork — "Two paths: A keeps X, B drops it. Which?" (expects a choice, not "yes")
+3. Confirm destructive/irreversible only — "About to publish X — confirm?"
+
+**Self-diagnostic:** banned phrase in draft = violation. Delete it. Take the action.
 
 ---
 
-**📖 Before building any guide:** Read the planning and formatting instructions in `Brain/CORE RULES/` first — every time. Follow what's in the rules; never invent structure or format. When anything is unclear mid-build, park the question in `Travel/To Do List/To_Do_List.md` (❓ Open Questions) and keep building. Never block.
+## Source of truth
 
-**🎨 HTML formatting:** All HTML files follow the formatting rules in `Brain/Reference/Core Rules Formatting.html`. Read it before creating or editing any HTML.
-
-**🧪 Validator work:** Read the procedure in `Brain/CORE RULES/Rules for Claude.html` § 4 before any validator task. Validator check comes before any guide fix — always.
-
-**🚫 File location — two-crib rule:** Two environments, two root folders. Every file belongs to one:
-- **Cowork surface** → `Travel/` (guides, brain, scripts, specs, trip data, formatting rules, essentials). All Cowork file creation stays here.
-- **Mobile surface** → `Travel/On The Go/` (on-the-go rules). Mobile can only ADD files — Cowork tidies periodically.
-
-**🗺 Trip updates:** Any request to update or edit trip data goes to `Travel/Trip Essentials/Trips.html` — read `Travel/Trip Essentials/Trips - Rules.md` before making any changes.
-
-**🗂 Mistakes go to archive:** Any file or folder created in the wrong place by Claude gets moved to `Travel/archive/`. Never `rm`, never left in place.
-
-**🔌 Connectors:** Viator and TripAdvisor are always MCP connectors — never web search for these. Browser tasks use Claude in Chrome MCP. Connectors are already configured per `Brain/Reference/Connectors.html` — do not prompt to connect, suggest connectors, or search the connector registry at session start or before any task. Proceed directly with whatever is available.
-
-**📚 Key references — read before using:**
-- **URL failures during a guide build** → `Brain/CORE RULES/Links.html`
-- **Building a PDF** → `Brain/Reference/PDF Render Notes.md`
-- **What Claude can do** → `Brain/Reference/Connectors.html`
-
-**✈️ Travel planning:** Before any task involving flights, hotels, house rentals, or car rentals — read the on-demand files in `On Demand/` first. For hotels, also check `Travel/Hotel Research/` for previous research before starting anything new.
-
----
-
-## How this workspace is organized
-
-This folder is the Cowork workspace. Two subfolders:
-
-- **`Brain/`** — contains the brain. `Brain/CORE RULES/` holds the authoritative `.html` files. Everything else under `Brain/` (markdown files in `Brain/mds/`, CSS, scripts, logs) is operational scaffolding — Claude-maintained, not authoritative for rules.
-
-- **`Guides/`** — shipped output only. Frozen until when asked. Never read, grep, audit, or reference any file under `Guides/` unless explicitly names it. Old guides are finished artifacts, not references or templates.
-
-**Vocabulary:** when the user says *"the HTML," "the HTML files," "fix the {name} HTML,"* she means `Brain/CORE RULES/{name}.html`. That's the live file.
+`Brain/CORE RULES/Rules for Claude.html` — governs everything. When this file and Rules for Claude.html disagree, Rules for Claude.html wins. Read it at every session start with the `Read` tool directly — no Drive MCP, no doc_id.
 
 ---
 
 ## Session ritual
 
-Runs before the first response, every Cowork session. Auto-authorized — no asking permission. Full detail in `Brain/CORE RULES/Rules for Claude.html` § 1.
+Runs before the first response, every session. Auto-authorized — no asking.
 
-1. Run `python3 Brain/scripts/guide_tools.py start`
-2. Read `Travel/CLAUDE.md`
-3. Read `Brain/mds/travel_map.md`
-4. Read `Brain/CORE RULES/Rules for Claude.html`
-5. Open `Brain/Reference/Platforms.md` — if any platform is ❌ failed or ⏳ retry, note it in opening message, do not block
-6. Read `Brain/Reference/Connectors.html` — know what's available, do not prompt or announce
-7. Open the audit log in `Brain/mds/` — if more than 7 days since last entry, add one line to opening message: "Last audit: {date} ({N} days ago)." Do not ask. Continue immediately.
-
-**Self-diagnostic:** when a draft contains *"Want me to fetch the rules doc?", "Should I read the brain first?"* — the ritual was skipped. Stop. Run it. Re-draft.
+1. `python3 Brain/scripts/guide_tools.py start`
+2. Read `Brain/mds/travel_map.md`
+3. Read `Brain/CORE RULES/Rules for Claude.html`
+4. Check `Brain/Reference/Platforms.md` — note any ❌ or ⏳ in opening message, do not block
+5. Read `Brain/Reference/Connectors.html` — know what's available, do not announce or prompt
+6. Check `Brain/mds/audit_log.md` — if last entry > 7 days ago, add one line: "Last audit: {date} ({N} days ago)." Continue immediately.
 
 ---
 
-## Guide-build phases — required reads
+## Routing
 
-**⚠️ MANDATORY GATE: Do not write a single line of HTML until Phase 1 and Phase 2 reads are complete.** "Zero clarification" means no user questions — it does NOT mean skipping reads. The CORE RULES files ARE the format and template. A guide built without reading them has no template and will be wrong.
+| Task | Go to |
+|------|-------|
+| Trip data update | `Travel/Trip Essentials/Trips.html` — read `Trips - Rules.md` first |
+| Flights / hotels / rentals / weather | Read matching file in `Travel/On Demand/` first |
+| Shopping request | Read `Travel/shopping_profile_v2.md` first |
+| URL failure in a build | `Brain/CORE RULES/Links.html` |
+| PDF rendering | `Brain/Reference/PDF Render Notes.md` |
+| Connector capabilities | `Brain/Reference/Connectors.html` |
+| Validator work | Read `Rules for Claude.html § 4` before touching anything |
 
-A guide build moves through seven phases. Each has a mandatory read list. Full phase definitions live in `Brain/CORE RULES/Guide Structure.html` § 1. Reading these files in order is non-optional — skipping is how guides drift and get rebuilt.
-
-**Phase 0 — Session start.** Done by the Session ritual above.
-
-**Build-state tracker.** At the start of every guide build, create `Guides/{City}/_build/build_state.md` with a checkbox for each Phase 1-6 required file. Flip each `[ ]` to `[x]` as the build progresses. Format is in `Brain/CORE RULES/Guide Structure.html § 1`.
-
-**Phase 1 — Technical prerequisites** (before anything else — Claude's tools, rules, constraints, link/photo formats):
-- `Brain/CORE RULES/Links.html`
-- `Brain/CORE RULES/Photos Rules.html`
-- Capabilities file (`Brain/Reference/`)
-- `Brain/Reference/Platforms.md`
-
-**Phase 2 — Guide structure** (before researching any city):
-- `Brain/CORE RULES/Guide Structure.html`
-- `Brain/CORE RULES/Stops Structure.html`
-- `Brain/CORE RULES/Hotel Banner.html`
-- `Brain/CORE RULES/Trip at a Glance.html`
-
-**Phase 3 — Day shape** (before locking any day):
-- `Brain/CORE RULES/Day Structure.html`
-
-**Phase 4 — Per-stop build** (every stop in the itinerary):
-- `Brain/CORE RULES/Tickets.html` — for any ticketed stop (🎟)
-- `Brain/CORE RULES/Motion Rule.html`
-- `Brain/CORE RULES/Icon Order and Format.html`
-
-**Phase 5 — Per-section build** (each extra section that ships):
-- The matching `*Extra Section*.html` file
-- Plus `Motion Rule.html`, `Icon Order and Format.html` as needed
-
-**Phase 6 — Ship gate** (before output):
-- Run the Pre-Ship Checklist end-to-end (`Brain/Reference/Ship Checklist.html`). Any "no" blocks ship.
-- Validator passes (`Brain/scripts/validate_itinerary.py`)
-- Every extra section is populated or carries its negative-finding line
-
-**Self-diagnostic:** when a guide build starts and Phase 1-2 reads haven't happened — the build is already drifting. Stop, do the reads, start the build over.
+**File location:** all Cowork files stay inside `Travel/`. Mobile surface files in `Travel/On The Go/`.
+**Archive:** never `rm`. Move to `Travel/archive/`. Always. Pre-authorized — no asking.
+**CORE RULES:** never edit `Brain/CORE RULES/` without explicit per-session approval.
+**Guides/:** frozen. Never read, grep, or reference any file there unless explicitly named.
+**Connectors:** already configured. Do not prompt to connect, suggest connectors, or search the registry.
+**Vocabulary:** when the user says "the HTML," "fix the {name} HTML" → means `Brain/CORE RULES/{name}.html`.
 
 ---
 
-## Parking surface
+## Guide build phases
 
-One file. Three sections. Everything lives in `Travel/To Do List/To_Do_List.md`. Full rules in § 5 of Rules for Claude.html.
+Full spec in `Brain/CORE RULES/Guide Structure.html`. **Do not write a single line of HTML before Phase 1 + 2 reads are done.**
 
-- **✈️ My Tasks** — private tasks. Read only — never append.
-- **🔧 Rules for Update** — rule proposals. Propose → approval in same session → apply to matching `Brain/CORE RULES/*.html` → delete item.
-- **❓ Open Questions** — mid-build questions. Park and keep building.
+**First action of any build — create the build-state tracker:**
+`Guides/{City}/_build/build_state.md` with a checkbox `[ ]` for every Phase 1–6 file. Flip each to `[x]` when read or completed. The validator and ship gate read this file — an unchecked Phase 5/6 = not done.
 
-**Single to-do list (2026-05-18):** the mobile `On The Go/To do list/` was removed. `Travel/To Do List/To_Do_List.md` is now the only place — no second source to merge.
+- **Phase 1** — `Links.html` · `Photos Rules.html` · `Brain/Reference/Connectors.html` · `Brain/Reference/Platforms.md`
+- **Phase 2** — `Guide Structure.html` · `Stops Structure.html` · `Hotel Banner.html` · `Trip at a Glance.html` · `Brain/Reference/Toolbar.html` · `Brain/Reference/Navigation.html`
+- **Phase 3** — `Day Structure.html` (before locking any day)
+- **Phase 4** — `Tickets.html` · `Motion Rule.html` · `Icon Order and Format.html` (per stop)
+- **Phase 5** — matching `*Extra Section*.html` for each section (re-read at start of each)
+- **Phase 6** — `Ship Checklist.html` · validator 0 failures · ship gate
 
----
-
-## Archive rules
-
-Full rules in `Brain/CORE RULES/Rules for Claude.html` § 3. Two walls:
-
-- **Wall 1 — Auto-archive before every new version.** Pre-authorized. Before creating a new version of any file, move the current one to `Travel/archive/` first. Archive destination is always `Travel/archive/` — never per-folder subfolders.
-- **Wall 2 — Archive is read-locked.** Never read archive files without explicit per-file permission. Archives preserve history, not inform builds.
-
-**The word is ARCHIVE.** Never `rm`. When something needs to go away: `mv` to `Travel/archive/`, done.
+**City name only** → look in `Trips.html`, use hotel + dates there.
+**City + day count** → skip Trips.html, run hotel research, build for stated day count.
+Dates never ship in a guide. Always Day 1 / Day 2 / Day N. Never ask for dates.
 
 ---
 
-## Rendering guide PDFs in Cowork
+## Research workflow — follow this order, every build
 
-The canonical renderer is `Brain/scripts/render_pdf.py` (Playwright + headless Chromium). It does not run inside Cowork. Run it from a normal terminal.
+**Before researching anything** — Phase 1 reads must be done: `Links.html` · `Photos Rules.html` · `Brain/Reference/Connectors.html` · `Brain/Reference/Platforms.md`. These define the tools and rules. Skipping them = building without a method.
 
-When asked to render a PDF from inside a Cowork session, use WeasyPrint. Read `Brain/Reference/PDF Render Notes.md` before every WeasyPrint render — it has the full recipe, CSS override block, and all gotchas.
+**Tours (always MCP first — never start with web search):**
+1. Viator MCP: `search_experiences` → `get_experience_details`. This is always step 1.
+2. GetYourGuide: `site:getyourguide.com {city} {attraction} tour` (no MCP connector exists)
+3. TripAdvisor MCP: `search_experiences`
+- Bar: 4.5+★ · ≥6 reviews. Full rules in `Tours - Extra Section.html`.
+
+**Photos (Wikimedia Commons only — one source, one method):**
+1. Find the filename: WebSearch `site:commons.wikimedia.org {stop name} {city}`
+2. Resolve the URL: `python3 Brain/scripts/commons_photo.py "File:{filename}"`
+3. Never direct-fetch commons.wikimedia.org — it's blocked. Never use Google Images or Unsplash.
+
+**Links and verification:**
+- Every URL live-verified before it ships — including every edit inside a session.
+- Platforms marked ⚡ or ❌ in `Platforms.md`: skip web_fetch entirely → `site:{domain}` WebSearch.
+- When web_fetch fails on anything else → Chrome MCP (`navigate` + `get_page_text`) immediately.
+- Never ask "may I access {domain}?" — pre-authorized, execute.
+
+**Stop research (trusted sources only):**
+- Wikipedia (`en.wikipedia.org`) · Fodor's · Rick Steves · National Geographic Travel · Rough Guides · Atlas Obscura · official tourism boards
+- No random blogs, no affiliate lists, no AI-generated SEO content, no content farms — regardless of Google ranking.
+- Check `Brain/mds/Cities Skip List.md` for the city before picking any stop.
 
 ---
 
 ## Behavioral rules
 
-Full detail in `Brain/CORE RULES/Rules for Claude.html` § 3. Key points:
+Full detail in `Brain/CORE RULES/Rules for Claude.html` § 3. The short version is at the top of this file. Key points:
 
 - No preamble, no option menus, no pop-up questions. Pick what the rules point to and move.
 - Decisive over hesitant. When the task scope is clear, run end-to-end.
 - No permission-asking on already-authorized actions. Do it and announce briefly.
 - Connector usage stays authorized across the session — no re-asking on every action.
+- "Delete" / "remove" / "clean up" = ARCHIVE. Move to `Travel/archive/`. Never `rm`.
 
 ---
 
 ## ⚠️ DriftyCat — things that keep breaking
 
-One-line tripwires. Full rule for each lives in its CORE RULES HTML file.
+One-line tripwires. Full rule for each in its CORE RULES HTML file.
 
-- ⚠️ **Icon format and row order — read the canonical file.** `Brain/CORE RULES/Icon Order and Format.html` — § 1 = 🏨 day boundary · § 2 = universal row order (positions + exact format per icon) · § 3 = section header icons + per-section sub-rows · § 4 = train icons (🚄 vs 🚆). Read before writing any stop box.
-- ⚠️ **Tour-first ALWAYS.** Viator / GetYourGuide / TripAdvisor before skip-the-line, before venue site. Bar: 4.5+★ · ≥6 reviews. Full rule: `Tours - Extra Section.html`.
-- ⚠️ **Zero money in shipped guides.** No `$`, `€`, `£`, `¥`, `~`, no ISO codes — ever.
-- ⚠️ **No placeholders.** `{TBD}` / `{TODO}` / "fill in later" = fabrication.
+- ⚠️ **Working-surface drift = fix immediately, no approval.** Any file outside `Brain/CORE RULES/` that drifts from a CORE RULES rule — fix it in the same pass. CORE RULES is always the authority; working-surface files follow. No questions, no parking. Full rule: `Rules for Claude.html § 3`.
+- ⚠️ **After any CORE RULES approval — work the cascade before announcing done.** Read `Brain/Reference/Change Cascade.html`, work every ✅ step for that change type, regenerate checksums, run doc_workshop_validator. A CORE RULES change without its cascade is half-done. Full rule: `Rules for Claude.html § 3 + § 5`.
+- ⚠️ **No AskUserQuestion — ever.** The Cowork popup is never invoked for any Travel task. Start immediately. Full rule: `Rules for Claude.html § 4`.
+- ⚠️ **Tour-first always.** Viator MCP → GYG → TripAdvisor before venue site. Bar: 4.5+★ · ≥6 reviews.
+- ⚠️ **Zero money in shipped guides.** No `$` `€` `£` `¥` `~` or ISO codes — ever.
 - ⚠️ **No fabrication.** Every fact live-verified this build. Memory from past builds is not a source.
-- ⚠️ **Every link live-verified — every time.** Including every edit inside a session. Bot-blocked platforms verify via `site:` search-result inspection, not direct fetch.
+- ⚠️ **No placeholders.** `{TBD}` / `{TODO}` / "fill in later" = fabrication.
+- ⚠️ **Every link live-verified — every time.** Including every edit inside a session.
 - ⚠️ **Photos in same pass as stop research.** Never deferred.
 - ⚠️ **Wide wins over detail (stop photos).** Facade > interior. Wide > close-up.
-- ⚠️ **No full EoI cards in Trip at a Glance day-card area.** Day-card grid is days-only. Compact extras navigation pills are permitted — navigation infrastructure, not EoI cards.
-- ⚠️ **Don't read past guides.** `Guides/` is output, not reference. This covers format lookups — reading a guide for HTML structure, row order, or section layout is the same violation. Only open a guide file when explicitly named.
-- ⚠️ **HTML format source = matching CORE RULES file. Never a guide.** Any format question goes to the matching `Brain/CORE RULES/` file. A guide cannot answer a format question correctly — it may reflect rules that have since changed.
-- ⚠️ **One archive — `Travel/archive/` only. Never create a new one.** When anything needs to be archived, `mv` it directly to `Travel/archive/`. Never create an `Archive/` or `archive/` subfolder inside Guides/, Trip Essentials/, or any other subdirectory. Every crib keeps breaking this — it is never correct to make a new archive folder anywhere.
-- ⚠️ **CORE RULES folder is owner-only.** No `mv` / `cp` / `rm` / rename / archive / create. Never touch the folder.
-- ⚠️ **No new files in `Brain/mds/` without explicit permission.** The set is fixed (currently 5 `.md` helpers: `audit_log`, `decisions`, `travel_map`, `Cities Gotchas`, `Cities Skip List`) — per Rules for Claude.html § 6.
-- ⚠️ **"List fixes" ≠ audit.** Audit fires only on the word "audit." A "list fixes" ask surfaces what is already known broken.
-- ⚠️ **Absence of rule = don't ship.** When no rule authorizes the format about to ship, that format does not ship.
-- ⚠️ **Agent prompts are mini-rules.** Every rule the agent's output must respect must be written into the prompt.
-- ⚠️ **🚕 Uber time = Google Maps Driving mode. Full stop.** Maps driving time is the number. No ride-share APIs or estimators.
-- ⚠️ **No hedging language in factual rows.** Every 🏛/🚶/🚕/⏰/📍/🎟 row comes from a confirmed source. Full banned list in Rules for Claude.html § 6.
-- ⚠️ **Rule docs state what IS — the validator enforces it.** Positive rules only, no prohibition banners, no bad examples.
-- ⚠️ **Punt-detection — run the tool first.** *"I can't access Viator," "ratings need manual lookup"* — all wrong. Run the tool first.
-- ⚠️ **Validator check before any guide fix.** Write the check in `validate_itinerary.py` first; fix the guide after. Full rule: § 4 of Rules for Claude.html.
-- ⚠️ **Validator before "done" — every session, every scope.** Any session that touches guide HTML (full build, patch, API-crash recovery, single-stop fix) runs `validate_itinerary.py` and reaches 0 failures before saying done. Scope of the change is not an exemption. Full rule: Rules for Claude.html STANDING ORDER (2026-05-30).
-- ⚠️ **Resuming a crashed or incomplete build — read `build_state.md` first.** Before doing anything on a guide that already exists mid-build, open `Guides/{City}/_build/build_state.md`. If Phase 5 is unchecked, the guide is not done. Complete the full Phase 5 ship gate before any done claim.
-- ⚠️ **Calendar hotel blocks — end = checkout + 1 day.** Google Calendar all-day events use exclusive end dates — the block displays through end_date − 1. Always set end date to the day after checkout, or it appears to end one day early.
-- ⚠️ **Day count in prompt = trip not in Trips.html.** "Amsterdam" → look in Trips.html, use hotel + data there. "Amsterdam, 4 days" → day count is the signal the trip isn't in Trips.html → skip lookup, run hotel research, build 4-day guide. Dates never ship in a guide (Day 1 / Day 2 / Day N always). Never ask for dates. Never wait for more input.
-- ⚠️ **guides_index.html — update on every ship, same pass. No exceptions.** When a guide ships, four things happen in one edit: (1) new card added in the correct region section; (2) predecessor's `data-guide-next` and successor's `data-guide-prev` updated; (3) banner destination count and region guide count updated; (4) the guide file's own toolbar-mount `data-prev`/`data-next` set to match its neighbours. Missing any step breaks the chain. Full spec: `Brain/Reference/Navigation.html` § 5 · Ship Checklist § 11.
+- ⚠️ **Icon format — read the canonical file.** `Icon Order and Format.html` before any stop box.
+- ⚠️ **Validator before "done" — every scope.** Any session touching guide HTML runs validator to 0 failures. Scope of change is not an exemption.
+- ⚠️ **Validator check before any guide fix.** Write the check first; fix the guide after.
+- ⚠️ **Don't read past guides.** `Guides/` is output, not reference or format template.
+- ⚠️ **No hedging in factual rows.** "typically open" / "usually takes" / "approximately" = banned. Look it up or omit.
+- ⚠️ **🚕 ride time = Google Maps Driving mode.** No ride-share APIs, no estimators.
+- ⚠️ **One archive — `Travel/archive/` only.** Never create a subfolder archive anywhere else.
+- ⚠️ **guides_index.html — update on every ship, same pass.** Five steps: new card + predecessor/successor data-guide-next/prev + counts + toolbar data-prev/data-next + map pin (see next rule).
+- ⚠️ **Map pins — add on every ship, same pass.** European guides → add pin to `Trip Essentials/Europe Map.html`; US guides → add pin to `Trip Essentials/US Map.html`. Entry format: `['CityName', lon, lat, '../Guides/City/file.html']` in the `PINS` array. Ship gate blocks if pin is missing.
+- ⚠️ **Punt-detection.** "I can't access Viator" / "ratings need manual lookup" = wrong. Run the tool. Chrome MCP bypasses bot-blocks.
+- ⚠️ **No full EoI cards in Trip at a Glance day-card area.** Days-only grid. Compact nav pills permitted.
+- ⚠️ **Day count in prompt = trip not in Trips.html.** "Amsterdam" → look in Trips.html. "Amsterdam, 4 days" → skip lookup, run hotel research.
+- ⚠️ **Calendar hotel blocks — end = checkout + 1 day.** Google Calendar all-day events use exclusive end dates.
+- ⚠️ **Resuming a build — read `build_state.md` first.** If Phase 5 unchecked, the guide is not done.
+- ⚠️ **No new files in `Brain/mds/` without explicit permission.** Fixed set of 5 files.
+- ⚠️ **Absence of rule = don't ship.** No rule authorizes it → it doesn't ship.
+- ⚠️ **Agent prompts are mini-rules.** Every rule the agent's output must respect goes in the prompt.
 
 ---
 
 ## On-demand documents
 
-Run only when explicitly asked. Output goes to `Travel/Trip Essentials/Trips.html` — never auto-ships in a guide. Full rules in each CORE RULES HTML file.
+Run only when explicitly asked. Output goes to `Travel/Trip Essentials/Trips.html` — never auto-ships in a guide.
 
 - `On Demand/Weather - On Demand.html`
 - `On Demand/Delta - On Demand.html`
@@ -195,22 +182,19 @@ Run only when explicitly asked. Output goes to `Travel/Trip Essentials/Trips.htm
 
 ## Shopping
 
-When when asked to find, buy, or research any product — read the shopping profile at **`Travel/shopping_profile_v2.md`** before responding. (Moved from `On The Go/Shopping Profile/` to the Travel root on 2026-05-18 — single file at Travel root, no subfolder.)
+When asked to find, buy, or research any product — read `Travel/shopping_profile_v2.md` before responding.
 
 ---
 
 ## Two-crib architecture
 
-used Claude across two environments sharing the same Drive workspace:
+Two environments, same Drive workspace:
 
 | | Cowork (desktop) | On The Go (mobile) |
 |---|---|---|
 | **Root folder** | `Travel/` | `Travel/On The Go/` |
-| **Capabilities** | Full read/write/edit/delete | Read + add files only — cannot edit or delete |
+| **Capabilities** | Full read/write/edit/delete | Read + add files only |
 | **Entry point** | `Travel/CLAUDE.md` | `Travel/On The Go/Rules/on_the_go_rules_v27.md` |
-| **Where heavy work happens** | ✅ Guides, audits, cleanup, scripts | ❌ Fast lookups while moving |
-
-**Why folders (not single files) for shared resources** like Shopping Profile and on-the-go rules: the mobile crib can only ADD versions, so files accumulate over time. Cowork periodically tidies up. Both cribs read from the same folder — update one place, both pick it up.
 
 ---
 
@@ -219,112 +203,46 @@ used Claude across two environments sharing the same Drive workspace:
 ### CORE RULES HTML file index
 
 | File | Purpose |
-|---|---|
-| `Rules for Claude.html` | Claude behavior — §1 Session start · §2 Authority · §3 Task execution · §4 Building a guide · §5 Parking surface · §6 DriftyCat · §7 What never ships · §8 On-demand · §9 Audit · §10 Close-out · §11 Calendar |
-| `Guide Structure.html` | Section order + EoI shipping (§1) · day numbering (§2) · cross-link anchors (§3) · build discipline (§4) · what never ships (§5) · Cities Gotchas data file (§6) · transit banners (§7) · free self-visit box (§8) · guide directory layout (§9) |
+|------|---------|
+| `Rules for Claude.html` | Master behavior doc — session ritual, authority, task execution, build discipline, parking, DriftyCat, audit, close-out, calendar |
+| `Guide Structure.html` | Section order, EoI shipping, cross-link anchors, build discipline, guide directory layout |
 | `Day Structure.html` | Day-block shape, stop count, geographic clustering, bookends |
 | `Trip at a Glance.html` | Navigation card spec, day-order rule |
 | `Hotel Banner.html` | Title page anatomy, single-name rule |
-| `Stops Structure.html` | Stop selection criteria, day-glance labels, stop types, train day pattern, stop flags, ticket waterfall · Discovery/curation rules: 4-step research flow, quality bar, trusted sources, stop selection |
+| `Stops Structure.html` | Stop selection criteria, stop types, train day pattern, ticket waterfall, discovery/curation rules |
 | `Motion Rule.html` | Walk-vs-ride threshold |
-| Tours.html | ~~Retired 2026-05-20~~ — moved to Travel/Retired Rules/. Tours now governed by Tours - Extra Section.html only. |
-| `Tours - Extra Section.html` | Tours section detail — what ships, rating bar, min count per source (Viator/GYG/TripAdvisor), entry format |
-| `Tickets.html` | Ticket waterfall — official site → Viator → GetYourGuide → Tiqets; ticket box format and rating bar |
+| `Tickets.html` | Ticket waterfall format, ticket box format, rating bar |
 | `Photos Rules.html` | Wikimedia Commons sourcing, licenses, harvest workflow |
-| `Links.html` | Link verification, 📖 Wikipedia spec, 📍 Google Maps spec |
-| `Icon Order and Format.html` | **Icon canonical reference** — § 1: 🏨 day boundary marker · § 2: universal row order (positions + exact format per icon, in one table) · § 3: section header icons (in guide order, with per-section description char limits in the sub-rows) · § 4: train icons (🚄 vs 🚆) |
-| `Brain/Reference/Emoji Library.html` | Locked-out emoji list |
-| `Food Delivery - Extra Section.html` | Food delivery section: platform availability, preference order, delivery rows in Cappuccino, exception approval |
-| `Restaurants Near Hotel - Extra Section.html` | — |
-| `Downtown Restaurants - Extra Section.html` | — |
-| `Michelin Restaurants - Extra Section.html` | — |
-| `Cappuccino - Extra Section.html` | — |
-| `Local Tastes - Extra Section.html` | — |
-| `Shows, Performances & Concerts - Extra Section.html` | — |
-| `Day Trips by Train - Extra Section.html` | Train day-trips only |
-| `Getting Around - Extra Section.html` | — |
-| `Train Stations Near Hotel - Extra Section.html` | Closest station per mode; 🚄 vs 🚆 glyph rule |
-| `Weekly Closures - Extra Section.html` | — |
-| `Cities Gotchas - Extra Section.html` | — |
-| `Pickleball - Extra Section.html` | — |
-| `Claude Inspiration - Extra Section.html` | — |
-| `Skip List.html` | Footnote (last in guide) naming venues skipped because already visited — small italic grey, no banner; ships only when the city has a skip list |
-| `Brain/Reference/Toolbar.html` | **Moved out of CORE RULES → Reference (2026-05-30).** Shared navigation bar — required markup, data-depth, data-maxwidth, data-toolbar-theme, adding pages to the menu (null separators, guides: true flag), footer sharing link |
-| `Brain/Reference/Navigation.html` | **Moved out of CORE RULES → Reference (2026-05-29).** Now covers the shared footnote (carried to the guides), prev/next arrows, chain integrity, guides_index order, scroll bar + button. Trip Essentials page search/no-results behaviour lives in `Trip Essentials/Essentials Pages - Rules.md`. |
-| `On Demand/Hotels & Rentals - On Demand.html` | On demand only |
-| `On Demand/Delta - On Demand.html` | On demand only |
-| `On Demand/Car Rentals - On Demand.html` | On demand only |
-| `On Demand/Weather - On Demand.html` | On demand only |
-
-### Brain root helper files — maintained by Claude after every session
-
-Three files that must stay current. Update before the session ends whenever relevant changes were made — no asking permission. Full rule in `Brain/CORE RULES/Rules for Claude.html` § 10 item 5.
-
-| File | What to update |
-|---|---|
-| `Brain/Reference/Guide Entry Counts.html` | Any count, minimum, or threshold that changed this session (section minimums, char caps, walk caps, etc.) |
-| `Brain/Reference/Validator Index.html` | Every new check added to `validate_itinerary.py` or `brain_check.py` |
-| `Brain/Reference/Rule Dependencies.html` | Any icon, threshold, or shared concept that moved, was renamed, or changed scope |
-| `Brain/Reference/Ship Checklist.html` | §8 when sections are added or removed; §10 when new validator scripts are added |
-| `Brain/Reference/Emoji Library.html` | Whenever an emoji is approved, locked out, or reclassified |
-| `Brain/Reference/Connectors.html` | Whenever a connector is added, removed, tested live for the first time, or its workflow changes |
-| ~~`Brain/Section Snippets.html`~~ | **Archived 2026-05-24.** Permanently banned — causes drift when rules change. `brain_check.py` hard-fails on recreation. |
+| `Links.html` | Link verification, Wikipedia spec, Google Maps spec |
+| `Icon Order and Format.html` | Canonical icon reference — row order, format per icon, section header icons, train icons |
+| `Skip List.html` | Footnote for already-visited venues — ships only when city has a skip list |
+| `Tours - Extra Section.html` | Tours section — source pool, rating bar, per-source minimums, entry format |
+| `Getting Around - Extra Section.html` | Getting around section — tram subsection templates, transit operators |
+| `Weekly Closures - Extra Section.html` | Weekly closures — recurring patterns only |
+| `Local Tastes - Extra Section.html` | Local tastes — city-specific only |
+| `Food Delivery - Extra Section.html` | Food delivery — platform availability, preference order |
+| `Michelin Restaurants - Extra Section.html` | Michelin section — format, booking rules |
+| `Restaurants Near Hotel - Extra Section.html` | Restaurants near hotel section |
+| `Cappuccino - Extra Section.html` | Cappuccino / coffee culture section |
+| `Day Trips by Train - Extra Section.html` | Day trips by train — Train/Why/Book format |
+| `Shows, Performances & Concerts - Extra Section.html` | Shows section — venue own-site links only |
+| `Train Stations Near Hotel - Extra Section.html` | Train stations — walk times, negative-finding line |
+| `Pickleball - Extra Section.html` | Pickleball section |
+| `Downtown Restaurants - Extra Section.html` | Historic downtown restaurants section |
+| `Claude Inspiration - Extra Section.html` | Claude's inspiration note section |
+| `Heads Up - Extra Section.html` | City-specific gotchas — construction, closures, quirks |
 
 ### Validators
 
 | Script | Job |
-|---|---|
+|--------|-----|
 | `guide_tools.py ship` | Single entry point — chains validate + verify + verify-booking |
 | `brain_check.py` | Brain integrity — required sections, required files, ghost references |
 | `validate_itinerary.py` | Guide structure — stop blocks, box shapes, motion rule, currency |
-| `verify_urls.py` | Link health — every URL returns 200 + ≥100 words editorial prose |
-| `verify_booking_links.py` | Subject drift — booking link `<h1>` matches stop subject |
+| `verify_urls.py` | Link health — every URL returns 200 + editorial prose |
+| `verify_booking_links.py` | Subject drift — booking link h1 matches stop subject |
 | `commons_photo.py` | Photo resolution — Commons URLs to 800px thumbs |
-| `autofix_itinerary.py` | Guide auto-repair — rewrites mis-filed booking boxes. Run directly: `python3 Brain/scripts/autofix_itinerary.py {guide}` |
-| `sweep_stray_travel.py` | Stray-file enforcement — scans Downloads/Desktop/Documents/Drive root |
-| `render_pdf.py` | PDF render — headless Chromium 500px (on-demand only) |
-| `validate_pdf.py` | PDF integrity — page-break, image-load, layout (on-demand only) |
-
-### Glossary
-
-| Symbol | Meaning |
-|---|---|
-| 🏨 | Day boundary marker — `🏨 FROM HOTEL` opener / hotel return at day close |
-| 📒 | Stop summary / show description (outside the blue box) |
-| 📅 | Tour box (guided tour booking row) |
-| 🎟️ | Ticket / show booking link |
-| 🚐 | Hotel pickup / drop-off (tour-coach transit) |
-| 📍 | Address — always a clickable Google Maps link |
-| 🚩 | Guided Tour Stop title icon (CSS-rendered) |
-| 🎒 | Self-Guided Stop title icon (CSS-rendered) |
-| 🚆 | Train Stations Near Hotel section icon |
-| 🚄 | High-speed train ONLY |
-| 📖 | Wikipedia link (English Wikipedia only) |
-| 🍽️ | Cuisine type (Michelin) · also Downtown Restaurants section header |
-| ⭐ | Michelin star tier · also Michelin section header |
-| 🎭 | Shows section header |
-| 🍮 | Local Tastes section header |
-| ☕ | Cappuccino section header |
-| 🫕 | Restaurants Near Hotel section header |
-| 🚌 | Getting Around section header |
-| 🚕 | Ride apps glyph |
-| 🚎 | Tram glyph |
-| 🚊 | Regional train transit row — `🚊 {departure station} → {arrival station} · {operator} · {duration}` |
-| 🚝 | Metro transit row (only planned by request) |
-| ⛲️ | Day Trips section header |
-| 🗞️ | Day Trip destination intro |
-| 🎫 | Day Trip booking link |
-| 🗓️ | Weekly Closures section header |
-| 🏓 | Pickleball section header (CA+AZ only) |
-| ❗ | Cities Gotchas section header |
-| ✈️ | Delta / flights — research only, never in itinerary |
-| 🚗 | Car Rentals — on-demand research only, never in itinerary |
-| 🚶 | Walking time on a transit line |
-| 🏛️ | Opening hours |
-| ⏰ | Typical visit time |
-| ⏳ | Tour duration |
-| 🕐 | Tour start time |
-| 👥 | Max group size for a tour |
-| ⚠️ | Stop flag — warning callout (inline inside stop boxes; distinct from the ❗ Cities Gotchas section header) |
-| Extra Section | Any guide section NOT inside a day block. Lives in EoI. |
-| One parking surface | `To_Do_List.md` — three sections: ✈️ My Tasks · 🔧 Rules for Update · ❓ Open Questions |
+| `autofix_itinerary.py` | Guide auto-repair — rewrites mis-filed booking boxes |
+| `sweep_stray_travel.py` | Stray-file enforcement |
+| `render_pdf.py` | PDF render — headless Chromium (on-demand only) |
+| `validate_pdf.py` | PDF integrity (on-demand only) |

@@ -14,7 +14,7 @@ All folder IDs verified 2026-05-02 after prior cleanup.
 | Rules | `Travel/On The Go/Rules/` | `1yh94S5D9901zZ0yx7I0tTp2U5tY1clxw` |
 | Shopping Profile | `Travel/On The Go/Shopping Profile/` | `1bVmnedWA2cT7Z9hHYp7yGxZTdPBZZWF8` |
 | on\_the\_go\_rules (active) | `Rules/on_the_go_rules_v27.md` | this file |
-| shopping\_profile (active) | `Shopping Profile/shopping_profile_v2.md` | see memory |
+| shopping\_profile (active) | `Travel/shopping_profile_v2.md` | moved to Travel/ root 2026-05-18 |
 | Hit List 2026 | `On The Go/The Hit List 2026...` | `1Kwab00GJBye3BLnmZ0GrtF7Hbg8KDAHdX7KlHLdueCE` |
 | Apple Music Links | `On The Go/Apple Music Search Links...` | `1Rq2m_TlmpmZNFw7g6E2vwPJ8ElqEt29IMzDC2hY4pE8` |
 

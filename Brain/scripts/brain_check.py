@@ -101,7 +101,7 @@ REQUIRED_FILES = [
     BRAIN_DIR / "Reference" / "Cleanliness Checks.md",           # cross-cutting cleanliness rules used by validators
     MDS_DIR / "audit_log.md",                    # rolling audit log (staleness gate below uses this)
     TODO_DIR / "To_Do_List.md",                  # one parking surface: ✈️ My Tasks · 🔧 Rules for Update · ❓ Questions for Dani
-    MDS_DIR / "Cities Gotchas.md",                   # T6 ship-gate input — validate_itinerary.py reads this to gate cities-gotchas section (added 2026-05-03)
+    MDS_DIR / "Heads Up.md",                   # T6 ship-gate input — validate_itinerary.py reads this to gate heads-up section (added 2026-05-03)
     MDS_DIR / "Cities Skip List.md",                 # build-prep input — used at city research phase to skip already-known bad venues (added 2026-05-03)
     BRAIN_DIR / "Reference" / "PDF Render Notes.md",      # WeasyPrint PDF render guide — CSS overrides, install, gotchas (restored 2026-05-07; critical operational ref)
     MDS_DIR / "travel_map.md",                       # Folder/resource briefing — loaded at session start (step 4 of ritual); tells Claude what exists and where (added 2026-05-07)
@@ -823,15 +823,21 @@ def check_core_rules_checksums(report: Report) -> None:
 
 
 def check_guides_index_coverage(report: Report) -> None:
-    """Fail if any city folder in Guides/ is missing from guides_index.html.
+    """Fail if any shipped city guide is missing from guides_index.html.
 
-    Every folder inside Travel/Guides/ (excluding _build and non-directory items)
-    represents a shipped guide. guides_index.html must carry a matching href entry
-    for every city. A city folder with no index entry means the post-ship step was
-    skipped — the chain is broken and the guide is invisible to the index.
+    A city folder is considered SHIPPED when it contains at least one .html file
+    directly at the folder root (not inside _build/). Folders that contain only
+    _build/ are in-progress builds — multiple cribs may be building simultaneously,
+    so in-progress folders must never trigger this check.
+
+    A shipped guide with no index entry means the post-ship step was skipped —
+    the chain is broken and the guide is invisible to the index.
 
     Added 2026-05-30: enforces the 4-step index-update rule in
     Brain/Reference/Navigation.html § 5 and Brain/Reference/Ship Checklist.html § 11.
+    Updated 2026-06-02: only flags city folders that contain a shipped .html file;
+    in-progress builds (folder contains only _build/) are skipped so concurrent
+    crib builds do not cause false brain-check failures.
     """
     guides_dir = TRAVEL_ROOT / "Guides"
     index_file = guides_dir / "guides_index.html"
@@ -846,10 +852,13 @@ def check_guides_index_coverage(report: Report) -> None:
 
     index_html = index_file.read_text(encoding="utf-8")
 
-    # Collect city folder names (skip non-directories and hidden entries)
+    # Collect city folder names that have at least one .html file at the root
+    # (not inside _build/). Folders with only _build/ are in-progress builds.
     city_dirs = sorted(
         d.name for d in guides_dir.iterdir()
-        if d.is_dir() and not d.name.startswith(".")
+        if d.is_dir()
+        and not d.name.startswith(".")
+        and any(f.suffix == ".html" and f.parent == d for f in d.iterdir())
     )
 
     missing = []
@@ -867,7 +876,7 @@ def check_guides_index_coverage(report: Report) -> None:
             )
     else:
         report.ok(
-            f"guides_index.html coverage — all {len(city_dirs)} city folder(s) indexed."
+            f"guides_index.html coverage — all {len(city_dirs)} shipped guide(s) indexed."
         )
 
 
@@ -903,6 +912,11 @@ _REF_GHOST_ALLOWLIST: set[str] = {
 # not persistent file pointers and should not be checked.
 _REF_GHOST_EXCLUDED_DOCS: set[str] = {
     "PDF Render Notes.md",
+    # Change Cascade.html uses versioned guide filenames (paris_v7.html, paris_v8.html)
+    # as illustrative examples inside <li class="note"> — not real Brain/ pointers.
+    # These example names live in Guides/, outside the Brain/ scan scope, so the
+    # ghost-filename checker produces false positives. Excluded 2026-06-01.
+    "Change Cascade.html",
 }
 
 def check_reference_doc_ghost_filenames(report: Report) -> None:
@@ -989,7 +1003,10 @@ def main(argv: list[str]) -> int:
     check_guide_roots(report)                       # fails on stray files at guide root (added 2026-05-09)
     check_banned_brain_files(report)                # fails on snippet/scaffold/template files in Brain/ (added 2026-05-24)
     check_core_rules_checksums(report)              # warns on CORE RULES checksum drift / untracked .html (added 2026-05-30)
-    check_guides_index_coverage(report)             # fails if any city folder in Guides/ is missing from guides_index.html (added 2026-05-30)
+    # check_guides_index_coverage — REMOVED 2026-06-02: moved to ship gate in guide_tools.py.
+    # Checking index coverage at session start is the wrong place — multiple cribs build
+    # simultaneously and each crib should only check its own guide at ship time.
+    # The targeted per-guide check now lives in guide_tools.py _check_guide_indexed().
     check_reference_doc_ghost_filenames(report)     # fails on .html/.py filename in Reference/ that doesn't exist under Brain/ (added 2026-05-30)
 
     # Render output.

@@ -1,4 +1,4 @@
-# Cities Gotchas
+# Heads Up
 
 **Maintained by Claude.** Living document of on-the-ground learnings — venue gotchas, timing tricks, booking quirks, and "wish I'd known" intel collected while traveling. Claude appends to this file during builds and from trip-feedback conversations. not edited directly.
 
@@ -9,6 +9,25 @@ Use this file to inform future guide generation: when a city/venue listed here a
 - **Gotcha** — what the surprise was
 - **Workaround / Best practice** — how to avoid it next time
 - **Source** — date learned + brief context
+
+---
+
+## Edinburgh
+
+### Palace of Holyroodhouse — Royal Closure Dates
+- **Gotcha:** The palace closes entirely for royal use on certain dates with no admission. In 2026: 14–18 May and 26 Jun–2 Jul.
+- **Workaround:** Check rct.uk/visit/palace-of-holyroodhouse for updated closure dates before the trip. Move Holyroodhouse to a different day if your visit overlaps.
+- **Source:** 2026-06-02 — guide build research (rct.uk official page).
+
+### Edinburgh Castle — Tickets Sell Out in Summer
+- **Gotcha:** Online tickets sell out weeks in advance in peak summer (July–August). When sold out online, no walk-up tickets are available.
+- **Workaround:** Book online at edinburghcastle.scot well before your trip. A guided tour booked via Viator also includes entry and often has more availability than venue-direct.
+- **Source:** 2026-06-02 — guide build research (edinburghcastle.scot).
+
+### Royal Botanic Garden Edinburgh — Glasshouses Closed
+- **Gotcha:** The John Hope Gateway glasshouses are closed for a major restoration and development project. No interior access available.
+- **Workaround:** The exterior gardens, Rock Garden, herbaceous borders, and all outdoor grounds remain fully open and free. Plan accordingly — don't structure the visit around glasshouse exploration.
+- **Source:** 2026-06-02 — guide build research (rbge.org.uk).
 
 ---
 
@@ -111,29 +130,53 @@ Use this file to inform future guide generation: when a city/venue listed here a
 - **Workaround:** Plan the Reina Sofía for any day Monday or Wednesday–Sunday. Wednesday–Saturday morning is least crowded for the Guernica room.
 - **Source:** 2026-05-31 — guide build research (museoreinasofia.es).
 
----
-
-## Madrid
-
-### Palacio Real — State Ceremony Closures
-- **Gotcha:** Closes without notice for state ceremonies — royal audiences, presidential visits, diplomatic events. Timed tickets are not refunded.
-- **Workaround:** Check patrimonionacional.es the morning of the visit. Book with free cancellation so you can shift if it closes.
-- **Source:** 2026-05-30 — guide build research.
-
-### Reina Sofía — Closed Tuesday
-- **Gotcha:** The museum is closed every Tuesday — unusual for a world-class museum. Many first-time visitors arrive on Tuesday expecting it to be open.
-- **Workaround:** Plan the Reina Sofía visit for Monday or Wednesday–Sunday. Wednesday–Saturday morning is least crowded for the Guernica room.
-- **Source:** 2026-05-30 — guide build research.
-
-### Temple of Debod — 30-Person Interior Cap
-- **Gotcha:** Only 30 visitors inside at once. Walk-up queues fill quickly on summer weekends. Entry to the exterior and reflecting pools is always free and unrestricted.
-- **Workaround:** Book the timed slot at madrid.es/debodreservas in advance — it is free and takes 90 seconds.
-- **Source:** 2026-05-30 — guide build research.
-
 ### Toledo Train — Renfe Avant, Not AVE
 - **Gotcha:** There is no high-speed AVE to Toledo. The service is Renfe Avant (regional express). Searching renfe.com with the wrong train class is a common booking error.
 - **Workaround:** Search specifically for "Madrid Atocha → Toledo" and look for the Avant or MD operator label. Omio gives a cleaner search interface.
 - **Source:** 2026-05-30 — guide build research.
+
+---
+
+## Copenhagen
+
+### Christiania — Pusher Street is gone
+- **Gotcha:** The open cannabis market on Pusher Street was physically demolished in 2024. Christiania remains open and safe to visit, but the hash stalls are gone permanently. Many visitors arrive expecting the market.
+- **Workaround:** Visit Christiania for the art, cafés, community music venues, and architecture — the free-spirited atmosphere survives, the open drug market does not.
+- **Source:** 2026-06-02 — guide build research.
+
+### Tivoli Gardens — Seasonal closure
+- **Gotcha:** Tivoli is closed for roughly 7 months of the year. Summer 2026 season runs late March–September 20 only. Many visitors assume it's open year-round.
+- **Workaround:** Check tivoli.dk for exact season dates before building your trip around it.
+- **Source:** 2026-06-02 — guide build research.
+
+### Christiansborg Palace — State event closures
+- **Gotcha:** Any part of the palace can close without notice for state ceremonies or royal events — even with a valid timed ticket.
+- **Workaround:** Check denkongeligesamling.dk the morning of your visit.
+- **Source:** 2026-06-02 — guide build research.
+
+### Copenhagen — Cashless city
+- **Gotcha:** Virtually all restaurants, cafés, transport, and attractions in Copenhagen are card-only. DKK cash is rarely accepted and often refused.
+- **Workaround:** Keep a card (Visa/Mastercard) accessible at all times. Mobile pay (Apple Pay, Google Pay) works everywhere.
+- **Source:** 2026-06-02 — guide build research.
+
+---
+
+## Edinburgh
+
+### Palace of Holyroodhouse — Closure Dates 2026
+- **Gotcha:** The palace closes to visitors on certain dates each year for royal and official functions.
+- **Workaround:** Confirmed 2026 closures: 14–18 May and 26 Jun–2 Jul. Check rct.uk before visiting.
+- **Source:** 2026-06-02 — Edinburgh guide build research (rct.uk official booking calendar).
+
+### Royal Botanic Garden Edinburgh — Glasshouses Closed
+- **Gotcha:** All glasshouses at the Royal Botanic Garden are closed for a major renovation project (Edinburgh Biomes — Future of Plants initiative). This includes the landmark Victorian glasshouses.
+- **Workaround:** The outdoor gardens remain open and free. Allow 60–90 min for the gardens only; skip if glasshouses were the main draw.
+- **Source:** 2026-06-02 — Edinburgh guide build research (rbge.org.uk).
+
+### Edinburgh Castle — Tickets Sell Out in Summer
+- **Gotcha:** Online tickets sell out weeks in advance during peak summer months. Walk-up availability disappears when online inventory is gone.
+- **Workaround:** Book at edinburghcastle.scot or via Viator as early as possible. Save £2.50 per adult vs. gate price.
+- **Source:** 2026-06-02 — Edinburgh guide build research (edinburghcastle.scot).
 
 ---
 

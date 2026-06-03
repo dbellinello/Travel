@@ -44,7 +44,7 @@ body {
 
 .index-section {
   max-width: 940px;
-  margin: 0 auto;
+  margin: 56px auto 0;
   padding: 0 24px;
 }
 .section-title {
@@ -64,23 +64,26 @@ body {
 .index-table {
   width: 100%;
   border-collapse: collapse;
-  border-radius: 8px;
+  border-radius: 6px;
   overflow: hidden;
   box-shadow: 0 2px 12px rgba(92,61,17,0.10);
 }
-.index-table thead tr {
+.index-banner {
+  display: flex;
   background: linear-gradient(90deg, #7a3b1e 0%, #b85c2a 55%, #d4874a 100%);
-}
-.index-table thead th {
-  padding: 13px 18px;
-  text-align: left;
-  font-size: 11px;
+  border-radius: 6px;
+  padding: 11px 12px;
+  margin-bottom: 18px;
+  font-size: 18px;
   font-weight: 700;
   color: #fff;
   letter-spacing: 0.5px;
   text-transform: uppercase;
 }
-.index-table tbody td { font-size: 11px; }
+.index-banner span:first-child { flex: 0 0 28%; }
+.index-banner span:nth-child(2) { flex: 0 0 52%; }
+.index-banner span:last-child { flex: 0 0 20%; }
+.index-table tbody td { font-size: 13px; }
 .index-table tbody tr:hover {
   filter: brightness(0.96);
 }
@@ -92,16 +95,17 @@ body {
 }
 
 .region-section {
+  margin-top: 56px;
   margin-bottom: 56px;
 }
 .region-header {
-  background: linear-gradient(90deg, #8B6914 0%, #B8860B 60%, #C9A84C 100%);
-  color: #FFF8EC;
+  background: linear-gradient(90deg, #7a3b1e 0%, #b85c2a 55%, #d4874a 100%);
+  color: #fff;
   font-size: 18px;
   font-weight: 700;
   padding: 11px 22px;
   border-radius: 6px;
-  margin-bottom: 28px;
+  margin-bottom: 18px;
   letter-spacing: 0.5px;
   text-transform: uppercase;
 }
@@ -183,10 +187,42 @@ body {
 }
 
 @media (max-width: 600px) {
+  /* Page structure */
+  body { padding-left:10px!important;padding-right:10px!important; }
+  .index-section { padding: 0 12px; }
+  .content-wrap  { padding: 0 12px; }
+
+  /* Title */
   .site-title { font-size: 20px; }
-  .plug-images { flex-direction: column; gap: 16px; }
+
+  /* Index banner — smaller text, stack-friendly */
+  .index-banner { font-size: 14px; padding: 9px 10px; margin-bottom: 14px; }
+  .index-banner span:first-child { flex: 0 0 30%; }
+  .index-banner span:nth-child(2){ flex: 1; }
+  .index-banner span:last-child  { display: none; } /* Voltage label hidden — col still visible */
+
+  /* Index table — force wrap, smaller text, tighter padding */
+  .index-table td { white-space:normal!important; font-size:11px!important; padding:4px 8px!important; }
+  .index-table { font-size: 11px; }
+
+  /* Country detail blocks */
+  .country-block  { padding: 14px 14px; }
+  .country-name   { font-size: 20px; }
+  .plug-block     { padding: 12px 12px; }
+  .plug-type-header { font-size: 14px; }
+
+  /* Images — stack vertically */
+  .plug-images    { flex-direction: column; gap: 16px; }
   .plug-img-box img { width: 100%; height: auto; max-width: 280px; }
+
+  /* Country header — stack name + voltage */
   .country-header { flex-direction: column; gap: 4px; }
+
+  /* Region banners */
+  .region-header  { font-size: 15px; padding: 9px 14px; }
+
+  /* Search box */
+  #plug-search    { font-size: 14px; padding: 10px 12px; }
 }
 
   .essentials {
@@ -240,7 +276,7 @@ body{padding-left:20px!important;padding-right:20px!important;}
 </head>
 <body>
 
-<div id="toolbar-mount" data-depth="2" data-maxwidth="940"></div>
+<div id="toolbar-mount" data-depth="2" data-maxwidth="940" data-no-footnote="1"></div>
 <script src="../../toolbar.js?v=2"></script>
 
 <div class="index-section">
@@ -250,669 +286,672 @@ body{padding-left:20px!important;padding-right:20px!important;}
   </div>
   <input id="plug-search" type="search" placeholder="🔍" autocomplete="off" spellcheck="false">
   <div id="plug-noresult">No country matches that search.</div>
+  <div class="index-banner">
+    <span>Country</span>
+    <span>Plug Types</span>
+    <span>Voltage</span>
+  </div>
   <table class="index-table">
-    <thead>
-      <tr>
-        <th>Country</th>
-        <th>Plug Types</th>
-        <th>Voltage</th>
-      </tr>
-    </thead>
+    <colgroup>
+      <col style="width:28%">
+      <col style="width:52%">
+      <col style="width:20%">
+    </colgroup>
     <tbody>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Albania">Albania</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type F</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Albania">Albania</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type F</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Algeria">Algeria</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type F</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Algeria">Algeria</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type F</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Angola">Angola</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Angola">Angola</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Argentina">Argentina</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type I + Type L</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Argentina">Argentina</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type I + Type L</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Australia">Australia</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type I</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Australia">Australia</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type I</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Austria">Austria</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type F</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Austria">Austria</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type F</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Bangladesh">Bangladesh</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type D + Type G + Type K</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Bangladesh">Bangladesh</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type D + Type G + Type K</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Belarus">Belarus</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type F</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Belarus">Belarus</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type F</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Belgium">Belgium</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type E</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Belgium">Belgium</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type E</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Bolivia">Bolivia</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type A + Type C</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Bolivia">Bolivia</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type A + Type C</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Bosnia">Bosnia</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type F</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Bosnia">Bosnia</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type F</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Brazil">Brazil</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type N</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">127/220V / 60Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Brazil">Brazil</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type N</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">127/220V / 60Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Bulgaria">Bulgaria</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type F</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Bulgaria">Bulgaria</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type F</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Cambodia">Cambodia</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type A + Type C + Type G</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Cambodia">Cambodia</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type A + Type C + Type G</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Cameroon">Cameroon</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type E</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Cameroon">Cameroon</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type E</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Canada">Canada</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type A + Type B</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">120V / 60Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Canada">Canada</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type A + Type B</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">120V / 60Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Chile">Chile</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type L</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Chile">Chile</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type L</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#China">China</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type A + Type C + Type I</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#China">China</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type A + Type C + Type I</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Colombia">Colombia</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type A + Type B</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">110V / 60Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Colombia">Colombia</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type A + Type B</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">110V / 60Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Costa_Rica">Costa Rica</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type A + Type B</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">120V / 60Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Costa_Rica">Costa Rica</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type A + Type B</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">120V / 60Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Croatia">Croatia</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type F</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Cote_dIvoire">Côte d'Ivoire</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type E</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Cuba">Cuba</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type A + Type B + Type C</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">110/220V / 60Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Croatia">Croatia</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type F</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Cyprus">Cyprus</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type G</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Cuba">Cuba</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type A + Type B + Type C</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">110/220V / 60Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Czech_Republic">Czech Republic</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type E + Type F</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Cyprus">Cyprus</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type G</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Cote_dIvoire">Côte d'Ivoire</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type E</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Czech_Republic">Czech Republic</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type E + Type F</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Denmark">Denmark</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type E + Type F + Type K</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Denmark">Denmark</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type E + Type F + Type K</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Dominican_Rep">Dominican Rep.</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type A + Type B</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">110V / 60Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Dominican_Rep">Dominican Rep.</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type A + Type B</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">110V / 60Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Ecuador">Ecuador</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type A + Type B</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">120V / 60Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Ecuador">Ecuador</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type A + Type B</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">120V / 60Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Egypt">Egypt</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type F</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Egypt">Egypt</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type F</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#El_Salvador">El Salvador</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type A + Type B</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">120V / 60Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#El_Salvador">El Salvador</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type A + Type B</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">120V / 60Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Estonia">Estonia</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type F</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Estonia">Estonia</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type F</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Ethiopia">Ethiopia</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type E + Type F + Type L</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Ethiopia">Ethiopia</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type E + Type F + Type L</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Faroe_Islands">Faroe Islands</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type E + Type F + Type K</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Faroe_Islands">Faroe Islands</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type E + Type F + Type K</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Fiji">Fiji</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type I</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">240V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Fiji">Fiji</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type I</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">240V / 50Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Finland">Finland</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type F</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Finland">Finland</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type F</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#France">France</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type E</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#France">France</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type E</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Germany">Germany</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type F</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Germany">Germany</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type F</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Ghana">Ghana</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type D + Type G</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Ghana">Ghana</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type D + Type G</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Greece">Greece</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type F</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Greece">Greece</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type F</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Greenland">Greenland</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type K</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Greenland">Greenland</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type K</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Guatemala">Guatemala</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type A + Type B</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">120V / 60Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Guatemala">Guatemala</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type A + Type B</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">120V / 60Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Honduras">Honduras</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type A + Type B</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">110V / 60Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Honduras">Honduras</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type A + Type B</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">110V / 60Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Hong_Kong">Hong Kong</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type G</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Hong_Kong">Hong Kong</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type G</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Hungary">Hungary</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type F</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Hungary">Hungary</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type F</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Iceland">Iceland</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type F</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Iceland">Iceland</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type F</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#India">India</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type D + Type M</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#India">India</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type D + Type M</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Indonesia">Indonesia</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type F</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Indonesia">Indonesia</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type F</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Iran">Iran</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type F</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Iran">Iran</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type F</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Iraq">Iraq</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type D + Type G</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Iraq">Iraq</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type D + Type G</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Ireland">Ireland</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type G</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Ireland">Ireland</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type G</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Israel">Israel</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type H</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Israel">Israel</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type H</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Italy">Italy</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type F + Type L</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Italy">Italy</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type F + Type L</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Jamaica">Jamaica</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type A + Type B</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">110V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Jamaica">Jamaica</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type A + Type B</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">110V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Japan">Japan</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type A + Type B</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">100V / 50-60Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Japan">Japan</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type A + Type B</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">100V / 50-60Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Jordan">Jordan</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type B + Type C + Type D + Type F + Type G + Type J</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Jordan">Jordan</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type B + Type C + Type D + Type F + Type G + Type J</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Kenya">Kenya</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type G</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">240V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Kenya">Kenya</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type G</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">240V / 50Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Kosovo">Kosovo</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type F</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Kosovo">Kosovo</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type F</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Kuwait">Kuwait</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type G</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">240V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Kuwait">Kuwait</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type G</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">240V / 50Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Laos">Laos</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type A + Type B + Type C + Type F</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Laos">Laos</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type A + Type B + Type C + Type F</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Latvia">Latvia</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type F</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Latvia">Latvia</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type F</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Lebanon">Lebanon</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type A + Type B + Type C + Type D + Type G</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Lebanon">Lebanon</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type A + Type B + Type C + Type D + Type G</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Libya">Libya</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type D + Type L</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">127/230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Libya">Libya</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type D + Type L</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">127/230V / 50Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Liechtenstein">Liechtenstein</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type J</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Liechtenstein">Liechtenstein</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type J</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Lithuania">Lithuania</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type F</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Lithuania">Lithuania</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type F</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Luxembourg">Luxembourg</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type F</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Luxembourg">Luxembourg</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type F</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Madagascar">Madagascar</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type D + Type E</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Madagascar">Madagascar</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type D + Type E</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Malaysia">Malaysia</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type G</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">240V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Malaysia">Malaysia</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type G</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">240V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Maldives">Maldives</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type D + Type G + Type J + Type K + Type L</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Maldives">Maldives</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type D + Type G + Type J + Type K + Type L</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Malta">Malta</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type G</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Malta">Malta</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type G</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Mexico">Mexico</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type A + Type B</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">127V / 60Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Mexico">Mexico</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type A + Type B</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">127V / 60Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Moldova">Moldova</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type F</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Moldova">Moldova</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type F</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Monaco">Monaco</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type E</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Monaco">Monaco</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type E</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Montenegro">Montenegro</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type F</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Montenegro">Montenegro</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type F</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Morocco">Morocco</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type E</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Morocco">Morocco</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type E</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Mozambique">Mozambique</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type F + Type M</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Mozambique">Mozambique</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type F + Type M</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Myanmar">Myanmar</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type A + Type C + Type D + Type F + Type G</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Myanmar">Myanmar</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type A + Type C + Type D + Type F + Type G</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Namibia">Namibia</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type D + Type M</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Namibia">Namibia</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type D + Type M</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Nepal">Nepal</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type D + Type M</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Nepal">Nepal</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type D + Type M</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Netherlands">Netherlands</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type F</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Netherlands">Netherlands</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type F</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#New_Zealand">New Zealand</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type I</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#New_Zealand">New Zealand</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type I</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Nicaragua">Nicaragua</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type A + Type B</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">120V / 60Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Nicaragua">Nicaragua</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type A + Type B</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">120V / 60Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Nigeria">Nigeria</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type D + Type G</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">240V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Nigeria">Nigeria</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type D + Type G</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">240V / 50Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#North_Macedonia">North Macedonia</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type F</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#North_Macedonia">North Macedonia</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type F</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Norway">Norway</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type F</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Norway">Norway</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type F</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Oman">Oman</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type G</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">240V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Oman">Oman</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type G</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">240V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Panama">Panama</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type A + Type B</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">110V / 60Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Panama">Panama</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type A + Type B</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">110V / 60Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Papua_New_Guinea">Papua New Guinea</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type I</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">240V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Papua_New_Guinea">Papua New Guinea</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type I</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">240V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Peru">Peru</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type A + Type B + Type C</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">220V / 60Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Peru">Peru</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type A + Type B + Type C</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">220V / 60Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Philippines">Philippines</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type A + Type B + Type C</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">220V / 60Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Philippines">Philippines</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type A + Type B + Type C</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">220V / 60Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Poland">Poland</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type E</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Poland">Poland</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type E</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Portugal">Portugal</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type F</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Portugal">Portugal</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type F</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Puerto_Rico">Puerto Rico</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type A + Type B</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">120V / 60Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Puerto_Rico">Puerto Rico</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type A + Type B</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">120V / 60Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Qatar">Qatar</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type D + Type G</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">240V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Qatar">Qatar</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type D + Type G</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">240V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Romania">Romania</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type F</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Romania">Romania</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type F</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Russia">Russia</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type F</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Russia">Russia</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type F</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Rwanda">Rwanda</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type J</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Rwanda">Rwanda</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type J</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#San_Marino">San Marino</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type F + Type L</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#San_Marino">San Marino</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type F + Type L</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Saudi_Arabia">Saudi Arabia</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type A + Type B + Type G</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">220V / 60Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Saudi_Arabia">Saudi Arabia</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type A + Type B + Type G</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">220V / 60Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Senegal">Senegal</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type D + Type E</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Senegal">Senegal</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type D + Type E</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Serbia">Serbia</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type F</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Serbia">Serbia</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type F</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Singapore">Singapore</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type G</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Singapore">Singapore</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type G</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Slovakia">Slovakia</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type E + Type F</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Slovakia">Slovakia</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type E + Type F</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Slovenia">Slovenia</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type F</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Slovenia">Slovenia</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type F</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#South_Africa">South Africa</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type M + Type N</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#South_Africa">South Africa</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type M + Type N</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#South_Korea">South Korea</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type F</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">220V / 60Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#South_Korea">South Korea</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type F</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">220V / 60Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Spain">Spain</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type F</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Spain">Spain</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type F</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Sri_Lanka">Sri Lanka</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type D + Type G + Type M</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Sri_Lanka">Sri Lanka</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type D + Type G + Type M</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Sudan">Sudan</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type D</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Sudan">Sudan</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type D</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Sweden">Sweden</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type F</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Sweden">Sweden</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type F</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Switzerland">Switzerland</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type J</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Switzerland">Switzerland</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type J</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Syria">Syria</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type E + Type L</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Syria">Syria</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type E + Type L</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Taiwan">Taiwan</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type A + Type B</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">110V / 60Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Taiwan">Taiwan</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type A + Type B</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">110V / 60Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Tajikistan">Tajikistan</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type F</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Tajikistan">Tajikistan</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type F</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Tanzania">Tanzania</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type D + Type G</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Tanzania">Tanzania</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type D + Type G</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Thailand">Thailand</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type A + Type B + Type C + Type O</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Thailand">Thailand</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type A + Type B + Type C + Type O</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Trinidad">Trinidad</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type A + Type B</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">115V / 60Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Trinidad">Trinidad</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type A + Type B</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">115V / 60Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Tunisia">Tunisia</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type E</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Tunisia">Tunisia</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type E</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Turkey">Turkey</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type F</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Turkey">Turkey</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type F</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Turkmenistan">Turkmenistan</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type F</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Turkmenistan">Turkmenistan</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type F</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#UAE">UAE</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type D + Type G</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#UAE">UAE</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type D + Type G</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#USA">USA</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type A + Type B</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">120V / 60Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Uganda">Uganda</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type G</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">240V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Uganda">Uganda</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type G</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">240V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Ukraine">Ukraine</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type F</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Ukraine">Ukraine</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type F</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#United_Kingdom">United Kingdom</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type G</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#United_Kingdom">United Kingdom</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type G</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Uruguay">Uruguay</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type F + Type L</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
-<tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Uruguay">Uruguay</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type F + Type L</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+<tr style="background:#FFFFFF">
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#USA">USA</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type A + Type B</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">120V / 60Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Uzbekistan">Uzbekistan</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type F</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Uzbekistan">Uzbekistan</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type F</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Vatican_City">Vatican City</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type F + Type L</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Vatican_City">Vatican City</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type F + Type L</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Venezuela">Venezuela</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type A + Type B</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">120V / 60Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Venezuela">Venezuela</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type A + Type B</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">120V / 60Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Vietnam">Vietnam</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type A + Type C + Type F</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Vietnam">Vietnam</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type A + Type C + Type F</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
     </tr>
 <tr style="background:#FFFFFF">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Zambia">Zambia</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type C + Type D + Type G</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Zambia">Zambia</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type C + Type D + Type G</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">230V / 50Hz</td>
     </tr>
 <tr style="background:#FAF7F0">
-      <td style="padding:5px 12px;font-size:11px;font-weight:600;color:#3D1F00;"><a href="#Zimbabwe">Zimbabwe</a></td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;">Type D + Type G</td>
-      <td style="padding:5px 12px;font-size:11px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
+      <td style="padding:5px 12px;font-size:13px;font-weight:600;color:#3D1F00;"><a href="#Zimbabwe">Zimbabwe</a></td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;">Type D + Type G</td>
+      <td style="padding:5px 12px;font-size:13px;color:#1A1A1A;white-space:nowrap;">220V / 50Hz</td>
     </tr>
     </tbody>
   </table>

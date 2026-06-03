@@ -40,11 +40,10 @@ from pathlib import Path
 
 CANONICAL_CSS_HREF = "../Reference/Core Rules Style.css"
 
-# The canonical banner class and required text content.
+# The canonical banner class.
 # Files must use <p class="banner"> — NOT <p class="footer"> with inline style.
-# Case-insensitive match on the text — CSS text-transform renders it visually
-# uppercased either way.
-CANONICAL_BANNER_TEXT = "This document is read-only and can only be edited by request"
+# Banner text is keyword-checked: must contain "read-only" and "edited by request" (W3).
+# Every file must have a banner at both top and bottom of <body> (E17).
 
 # Legacy class names that are explicitly forbidden — replaced by the current
 # canonical structure. (.meta is NOT legacy; it's the canonical meta block.)
@@ -59,6 +58,68 @@ LEGACY_CLASSES = ("titlebar", "title", "locked", "read-only-notice")
 # Documented in Rules for Claude.html § 12.
 # ──────────────────────────────────────────────────────────────────────────
 FORMAT_EXCEPTION_FILES = {"Links.html", "Photos Rules.html", "Rules for Claude.html", "Toolbar.html", "Guide Structure.html"}
+
+# ──────────────────────────────────────────────────────────────────────────
+# Module-level constants used by check_file() — defined once, not per call.
+# ──────────────────────────────────────────────────────────────────────────
+
+# W1 — sanctioned inline <style> pairs and selectors
+_W1_FULL_CSS_FILES = frozenset({"Icon Order and Format.html"})
+_W1_ALLOWED_PAIRS = frozenset({
+    ("code", "font-size"),
+    (".entry", "background"),
+    ("li", "margin-bottom"),
+})
+_W1_ALLOWED_SELECTORS = frozenset({".retired-notice"})
+
+# W4 — files exempt from the h1-must-start-with-emoji rule
+_W4_EXEMPT = frozenset({"Claude Inspiration - Extra Section.html"})
+
+# E11 — canonical selectors that must never have display:none applied
+# Also used for compound-selector decomposition via _E11_CSS_COMBINATOR.
+_E11_CANONICAL_SELECTORS = frozenset({
+    "p.banner", "h1", "h2", "h3", "h4", "p", "ul", "ol", "li", ".banner", ".template",
+})
+_E11_CSS_COMBINATOR = re.compile(r"[\s>+~]+")
+
+# E14 — files that may contain real domain names (platform/link reference docs)
+_DOMAIN_EXEMPT_FILES = frozenset({
+    "links.html",
+    "rules for claude.html",
+    "tours - extra section.html",
+    "michelin restaurants - extra section.html",
+    "photos rules.html",
+    # Extra sections that legitimately reference platform/transit/venue domains
+    "food delivery - extra section.html",
+    "getting around - extra section.html",
+    "shows, performances & concerts - extra section.html",
+})
+
+# W9 — redundant prose patterns (template narration that duplicates the entry format)
+_REDUNDANT_PROSE_PATTERNS = (
+    # Original catches
+    r'ships as its own entry',
+    r'each\s+\S+\s+ships\s+as',
+    r'each\s+entry\s+carries',
+    r'the\s+entry\s+carries',
+    r'appears\s+on\s+every\s+entry\s+without\s+exception',
+    r'followed\s+by\s+the\s+(?:cuisine|description|map|address)',
+    # Heading / row narration
+    r'is\s+the\s+(?:heading|sub-?heading)',
+    r'is\s+the\s+first\s+row',
+    r'immediately\s+below\s+the\s+(?:\w+\s+)?title',
+    # Entry structure narration
+    r'ships\s+as\s+one\s+(?:guided\s+)?stop',
+    r'inside\s+the\s+same\s+colored\s+entry',
+    r'outside\s+the\s+entry',
+    r'one\s+heading\s+and\s+box\s+pair',
+    # Link / element narration
+    r'the\s+only\s+clickable\s+element',
+    r'carries\s+the\s+same\s+visual\s+shape',
+    # Row/box content narration
+    r'the\s+box\s+(?:shows|contains|lists|carries|displays)',
+    r'is\s+followed\s+by\s+(?:its|the)\s+(?:closure|booking|description|rating|address)',
+)
 
 
 # ──────────────────────────────────────────────────────────────────────────
@@ -103,12 +164,18 @@ class Walk:
     headings: list[tuple[int, str]] = field(default_factory=list)
     # Banner tracking: first <p class="banner"> seen
     p_banner_text: str | None = None
+    # All banner texts in document order — used to validate bottom banner
+    p_all_banner_texts: list[str] = field(default_factory=list)
+    # Whether an <hr> appeared between the first and second banner
+    hr_before_bottom_banner: bool = False
     # Legacy footer-as-banner: <p class="footer"> containing read-only text
     p_footer_with_readonly: bool = False
     legacy_class_hits: list[tuple[str, str]] = field(default_factory=list)   # (tag, class)
     spacer_count: int = 0
     external_imgs: list[str] = field(default_factory=list)
-    p_density_runs: list[int] = field(default_factory=list)                  # length of each run of short <p>
+    has_em: bool = False
+    has_i: bool = False
+    banner_count: int = 0
     has_doctype: bool = True   # set by raw scan, not parser
     has_charset: bool = False
     has_lang: bool = False
@@ -123,17 +190,17 @@ class _Walker(html.parser.HTMLParser):
         self._h_level: int | None = None
         self._buf: list[str] = []
         self._h1_first_token: str | None = None
-        self._consec_short_p = 0
         self._p_is_banner: bool = False
         self._p_is_footer: bool = False
         self._p_banner_seen: bool = False    # track whether we've seen the FIRST banner
+        self._hr_after_first_banner: bool = False  # <hr> seen after first banner
 
     # — start tags —
     def handle_starttag(self, tag, attrs):
         a = dict(attrs)
         cls = (a.get("class") or "").split()
 
-        if tag == "html" and a.get("lang"):
+        if tag == "html" and (a.get("lang") or "").lower().startswith("en"):
             self.w.has_lang = True
         if tag == "meta" and (a.get("charset") or "").lower() == "utf-8":
             self.w.has_charset = True
@@ -166,14 +233,19 @@ class _Walker(html.parser.HTMLParser):
             self._p_is_footer = "footer" in cls
             if "spacer" in cls:
                 self.w.spacer_count += 1
-        if tag == "div":
-            for legacy in LEGACY_CLASSES:
-                if legacy in cls:
-                    self.w.legacy_class_hits.append((tag, legacy))
-        if tag == "p":
-            for legacy in LEGACY_CLASSES:
-                if legacy in cls and legacy != "banner":
-                    self.w.legacy_class_hits.append((tag, legacy))
+        if tag == "div" and "spacer" in cls:
+            self.w.spacer_count += 1
+        if tag == "hr" and self._p_banner_seen:
+            # Track <hr> appearing between first and subsequent banners
+            self._hr_after_first_banner = True
+        if tag == "em":
+            self.w.has_em = True
+        if tag == "i":
+            self.w.has_i = True
+        # E5 — legacy class check on any element (not just div/p)
+        for legacy in LEGACY_CLASSES:
+            if legacy in cls:
+                self.w.legacy_class_hits.append((tag, legacy))
 
     # — end tags —
     def handle_endtag(self, tag):
@@ -197,13 +269,19 @@ class _Walker(html.parser.HTMLParser):
             self._capture = None
             self._h_level = None
             self._buf = []
-            self._consec_short_p = 0
         elif tag == "p" and self._capture == "p":
             text = "".join(self._buf).strip()
-            if self._p_is_banner and not self._p_banner_seen:
-                # Capture FIRST <p class="banner"> only — not subsequent repeats.
-                self.w.p_banner_text = text
-                self._p_banner_seen = True
+            if self._p_is_banner:
+                self.w.banner_count += 1
+                self.w.p_all_banner_texts.append(text)
+                if not self._p_banner_seen:
+                    # Capture FIRST <p class="banner"> — also resets hr tracker.
+                    self.w.p_banner_text = text
+                    self._p_banner_seen = True
+                    self._hr_after_first_banner = False  # reset for inter-banner window
+                elif self.w.banner_count == 2:
+                    # Second banner: record whether an <hr> preceded it
+                    self.w.hr_before_bottom_banner = self._hr_after_first_banner
             if self._p_is_footer:
                 # Check if this footer paragraph is actually serving as the read-only
                 # banner — legacy pattern: <p class="footer" style="color:#cc0000; …">
@@ -214,20 +292,8 @@ class _Walker(html.parser.HTMLParser):
                 _tl = text.lower()
                 if ("read-only" in _tl or "read only" in _tl) and "edited by request" in _tl:
                     self.w.p_footer_with_readonly = True
-            # density tracking (skip banner & template & list-context paragraphs)
-            if not self._p_is_banner and len(text) <= 80 and text:
-                self._consec_short_p += 1
-            else:
-                if self._consec_short_p >= 3:
-                    self.w.p_density_runs.append(self._consec_short_p)
-                self._consec_short_p = 0
             self._capture = None
             self._buf = []
-        elif tag in ("ul", "ol", "div", "h2", "h3", "body"):
-            # any block boundary (or end of body) breaks the short-p run
-            if self._consec_short_p >= 3:
-                self.w.p_density_runs.append(self._consec_short_p)
-            self._consec_short_p = 0
 
     # — text —
     def handle_data(self, data):
@@ -250,8 +316,6 @@ def _starts_with_emoji(s: str) -> bool:
     if 0x2B00 <= cp <= 0x2BFF:            # misc symbols & arrows (⭐ ⬆ etc.)
         return True
     if 0x2300 <= cp <= 0x23FF:            # misc technical (⏳ ⌚ etc.)
-        return True
-    if cp == 0x00A7:                      # § itself
         return True
     return False
 
@@ -309,29 +373,29 @@ def check_file(path: Path) -> list[Finding]:
             f"stylesheet link does not point to canonical "
             f"(→ {', '.join(w.stylesheet_links)}; should be `{CANONICAL_CSS_HREF}`)",
         ))
+    else:
+        # Canonical link present — warn on any additional non-canonical stylesheet links.
+        _extra_css = [h for h in w.stylesheet_links if CANONICAL_CSS_HREF not in h]
+        if _extra_css:
+            findings.append(Finding(
+                "WARN", "W_css [§1,§3]",
+                f"extra stylesheet link(s) alongside canonical — only the canonical should be linked: "
+                f"{', '.join(_extra_css)}",
+            ))
+
+    # Pre-compute parsed inline style rules once — reused by W1 and E11a to
+    # avoid calling parse_css twice per file when both checks fire.
+    _parsed_style: dict[str, dict[str, str]] = (
+        parse_css("\n".join(w.style_blocks)) if w.style_blocks else {}
+    )
 
     # W1 — unexpected inline <style> declarations.
-    # UFR §8 explicitly requires every CORE RULES file to carry a local <style>
-    # block with these sanctioned per-file overrides of the canonical values:
-    #   code { font-size: inherit; }          — overrides canonical 13px
-    #   .entry { background: #fef9e0; }       — overrides canonical #f9f9f9
-    #   li { margin-bottom: 12px; }           — spacing override
-    # The .retired-notice class is also sanctioned for files that mark retired
-    # content blocks. Any declaration outside these known-allowed (selector,
-    # property) pairs is unexpected and warrants a warning.
-    # W1-exempt files: these carry intentional full <style> blocks that must be
-    # preserved exactly as-is. W1 is suppressed entirely for these files.
-    # Icon Order and Format.html — special standalone format; full CSS block
-    # required for its rich icon-table presentation. Do not modify its styles.
-    _W1_FULL_CSS_FILES = {"Icon Order and Format.html"}
-    _W1_ALLOWED_PAIRS = {
-        ("code", "font-size"),
-        (".entry", "background"),
-        ("li", "margin-bottom"),
-    }
-    _W1_ALLOWED_SELECTORS = {".retired-notice"}
+    # Sanctioned per-file overrides: code/font-size, .entry/background, li/margin-bottom,
+    # and .retired-notice. Any other (selector, property) pair warrants a warning.
+    # _W1_FULL_CSS_FILES carry intentional full <style> blocks (e.g. rich icon tables) —
+    # W1 is suppressed for them. Constants are module-level (see top of file).
     if w.style_blocks and path.name not in _W1_FULL_CSS_FILES:
-        actual_rules = parse_css("\n".join(w.style_blocks))
+        actual_rules = _parsed_style
         unexpected = []
         for sel, props in actual_rules.items():
             if sel in _W1_ALLOWED_SELECTORS:
@@ -393,6 +457,42 @@ def check_file(path: Path) -> list[Finding]:
             '`<p class="banner">` — remove the duplicate `footer` banner',
         ))
 
+    # E17 — banner must appear at both top and bottom of every file (§3)
+    # E4 catches a missing top banner; E17 catches a missing bottom banner.
+    # Files with zero banners already fail E4, so E17 only fires when count == 1.
+    if w.banner_count == 1:
+        findings.append(Finding(
+            "ERROR", "E17 [§3]",
+            "only one `<p class=\"banner\">` found — banner must appear at both top "
+            "and bottom of `<body>`; add a matching banner (with `<hr>`) at the bottom",
+        ))
+
+    # W_banner_count — more than 2 banners is structurally wrong
+    if w.banner_count > 2:
+        findings.append(Finding(
+            "WARN", "W_banner_count [§3]",
+            f"{w.banner_count} `<p class=\"banner\">` elements found — expected exactly 2 "
+            "(top and bottom); remove extras",
+        ))
+
+    # W3b — bottom banner must also contain the required phrases (W3 only checks the top)
+    if w.banner_count >= 2:
+        _bottom_text = w.p_all_banner_texts[1].lower()
+        if not ("read-only" in _bottom_text and "edited by request" in _bottom_text):
+            findings.append(Finding(
+                "WARN", "W3b [§6]",
+                f"bottom `<p class=\"banner\">` missing required phrases 'read-only' and/or "
+                f"'edited by request' — got: {w.p_all_banner_texts[1][:80]!r}",
+            ))
+
+    # W_hr — bottom banner must be preceded by an <hr> separator
+    if w.banner_count >= 2 and not w.hr_before_bottom_banner:
+        findings.append(Finding(
+            "WARN", "W_hr [§3]",
+            "no `<hr>` found before the bottom `<p class=\"banner\">` — "
+            "add `<hr>` immediately before the closing banner",
+        ))
+
     # E5 — no legacy <div class=titlebar/title/meta/locked/read-only-notice>
     if w.legacy_class_hits:
         seen = sorted(set(c for _, c in w.legacy_class_hits))
@@ -401,11 +501,11 @@ def check_file(path: Path) -> list[Finding]:
             f"legacy classes present (forbidden): {', '.join(f'`.{c}`' for c in seen)}",
         ))
 
-    # E6 — no <p class="spacer">
+    # E6 — no spacer elements (<p> or <div> with class="spacer")
     if w.spacer_count:
         findings.append(Finding(
             "ERROR", "E6 [§7]",
-            f"{w.spacer_count} `<p class=\"spacer\">` element(s) — CSS margins already handle vertical spacing",
+            f"{w.spacer_count} `class=\"spacer\"` element(s) — CSS margins already handle vertical spacing",
         ))
 
     # E7 — exactly one <h1> for the title
@@ -415,12 +515,9 @@ def check_file(path: Path) -> list[Finding]:
     elif h1_count > 1:
         findings.append(Finding("ERROR", "E7 [§3,§6]", f"{h1_count} `<h1>` elements — should be exactly 1"))
 
-    # W4 — h1 should start with an emoji (or embedded <img>)
-    # Exemption: Claude Inspiration - Extra Section.html — section icon, title,
-    # and color theme are Claude's pick per-guide (per Guide Structure.html). No
-    # canonical emoji belongs in the rule file's h1 because the choice happens
-    # at build time, not rule time.
-    _W4_EXEMPT = {"Claude Inspiration - Extra Section.html"}
+    # W4 — h1 should start with an emoji (or embedded <img>).
+    # _W4_EXEMPT: Claude Inspiration - Extra Section.html is exempt because its
+    # icon/title/color are Claude's per-guide choice at build time, not rule time.
     if (w.has_h1
             and not w.h1_starts_with_visual
             and path.name not in _W4_EXEMPT):
@@ -446,14 +543,18 @@ def check_file(path: Path) -> list[Finding]:
     #   B) style="display:none" attribute directly on canonical-class elements
     # Vector A — inline style block scan
     if w.style_blocks:
-        actual_rules = parse_css("\n".join(w.style_blocks))
-        CANONICAL_SELECTORS = {"p.banner", "h1", "h2", "h3", "h4", "p",
-                               "ul", "ol", "li", ".banner", ".template"}
+        actual_rules = _parsed_style
         hidden = [
             sel for sel, props in actual_rules.items()
             if props.get("display") == "none"
-            and (sel in CANONICAL_SELECTORS
-                 or any(c in sel for c in CANONICAL_SELECTORS))
+            and (
+                sel in _E11_CANONICAL_SELECTORS
+                or any(
+                    token in _E11_CANONICAL_SELECTORS
+                    for token in _E11_CSS_COMBINATOR.split(sel)
+                    if token
+                )
+            )
         ]
         if hidden:
             findings.append(Finding(
@@ -461,10 +562,13 @@ def check_file(path: Path) -> list[Finding]:
                 "canonical element(s) hidden with `display:none` in inline `<style>` — required structural "
                 f"elements must be visible: {', '.join(f'`{s}`' for s in sorted(hidden))}",
             ))
-    # Vector B — inline style attribute on elements with canonical classes
+    # Vector B — inline style attribute on elements with canonical classes.
+    # Uses lookaheads so class/style order in the tag doesn't matter.
     _inline_hidden = re.findall(
-        r'<(?:p|h[1-6]|div)\s[^>]*class="[^"]*(?:banner|meta|template)[^"]*"[^>]*'
-        r'style="[^"]*display\s*:\s*none[^"]*"',
+        r'<(?:p|h[1-6]|div)\s'
+        r'(?=[^>]*\bclass="[^"]*(?:banner|meta|template)[^"]*")'
+        r'(?=[^>]*\bstyle="[^"]*display\s*:\s*none[^"]*")'
+        r'[^>]*>',
         raw, re.IGNORECASE
     )
     if _inline_hidden:
@@ -497,7 +601,9 @@ def check_file(path: Path) -> list[Finding]:
     # Rule docs use ~ in prose/examples legitimately; the broad ban lives
     # in validate_itinerary.py which checks shipped guide HTML.
     raw_no_comments = re.sub(r'<!--.*?-->', '', raw, flags=re.DOTALL)
-    rendered = re.sub(r'<[^>]+>', ' ', raw_no_comments)
+    rendered = re.sub(r'<[^>]+>', ' ', raw_no_comments)   # E9: comment-stripped source
+    # Shared rendered base for all other content checks — computed once.
+    _rendered_text = re.sub(r'<[^>]+>', ' ', raw)
     tilde_hits = []
     for m in re.finditer(r'(?:🚶|🚕|🚌)\s*~\s*\d', rendered):
         snip = re.sub(r'\s+', ' ', rendered[max(0, m.start()-20):m.end()+30].strip())[:80]
@@ -514,10 +620,12 @@ def check_file(path: Path) -> list[Finding]:
     # Rule-doc HTMLs document format rules — they must never show actual prices
     # ($, €, £, ¥, etc. adjacent to a digit). On Demand files live in a
     # subfolder and are not scanned by this validator (folder-level glob only).
-    _rendered = re.sub(r'<[^>]+>', ' ', raw).replace('&nbsp;', ' ')
+    # html.unescape converts entity-encoded symbols (&euro;, &dollar;, &pound;)
+    # to their literal characters before scanning.
+    _rendered_currency = html.unescape(_rendered_text)
     currency_hits = []
-    for m in re.finditer(r'([\$€£¥₩₹₽฿])\s*\d|\d+\s*([\$€£¥₩₹₽฿])', _rendered):
-        snip = _rendered[max(0, m.start() - 20):m.end() + 20].strip()[:60]
+    for m in re.finditer(r'([\$€£¥₩₹₽฿])\s*\d|\d+\s*([\$€£¥₩₹₽฿])', _rendered_currency):
+        snip = _rendered_currency[max(0, m.start() - 20):m.end() + 20].strip()[:60]
         currency_hits.append(snip)
     if currency_hits:
         findings.append(Finding(
@@ -529,26 +637,24 @@ def check_file(path: Path) -> list[Finding]:
 
 
     # E12 — no personal name references in rule-doc HTMLs
-    # "Dani" is prohibited except in exempt patterns:
-    #   - "Questions for Dani" (section label)
-    #   - "My Tasks (Dani only)" (section label)
-    #   - "BY REQUEST" in the read-only banner
-    _rendered_text = re.sub(r'<[^>]+>', ' ', raw)
-    _exempt = re.compile(
-        r'Questions for Dani'    # section label
-        r'|My Tasks[^.]*?Dani'   # section label (allow for parenthetical before name)
-        r'|BY REQUEST',          # banner (already neutral)
+    # "Dani" is prohibited except in two section-label patterns.
+    # Uses exempt-span approach (not substitution) to keep match positions correct
+    # in _rendered_text so snippets are extracted from the right location.
+    _e12_exempt = re.compile(
+        r'Questions for Dani'   # section label
+        r'|My Tasks[^.]*?Dani', # section label (allow for parenthetical before name)
         re.I | re.DOTALL
     )
-    # scrub exempt spans, then look for bare "Dani"
-    _scrubbed = _exempt.sub('___EXEMPT___', _rendered_text)
-    _name_hits = re.findall(r'\bDani\b', _scrubbed)
+    _e12_exempt_spans = [(m.start(), m.end()) for m in _e12_exempt.finditer(_rendered_text)]
+    _name_hits = [
+        m for m in re.finditer(r'\bDani\b', _rendered_text)
+        if not any(s <= m.start() < e for s, e in _e12_exempt_spans)
+    ]
     if _name_hits:
-        # collect snippets for the message
         _snips = []
-        for m in re.finditer(r'\bDani\b', _scrubbed):
-            snip = _rendered_text[max(0, m.start()-30):m.end()+30].strip()
-            snip = re.sub(r'\s+', ' ', snip)[:80]
+        for m in _name_hits:
+            snip = _rendered_text[max(0, m.start()-30):m.end()+30]
+            snip = re.sub(r'\s+', ' ', snip).strip()[:80]
             _snips.append(snip)
         findings.append(Finding(
             "ERROR", "E12 [content]",
@@ -556,10 +662,12 @@ def check_file(path: Path) -> list[Finding]:
             f"use neutral phrasing (e.g. 'the traveler'). First: {_snips[0]!r}",
         ))
 
-    # E13 — no dated personal attributions (Per Dani YYYY-MM-DD or — Dani YYYY-MM-DD)
+    # E13 — no dated personal attributions (Per Dani YYYY-MM-DD or [—/–/--] Dani YYYY-MM-DD)
+    # Checked on _rendered_text (not raw) to avoid matching inside HTML attributes.
+    # Covers em dash (—), en dash (–), and double-hyphen (--).
     _attr_hits = re.findall(
-        r'(?:Per Dani|—\s*Dani)\s+\d{4}-\d{2}-\d{2}',
-        raw, re.I
+        r'(?:Per Dani|(?:—|–|--)\s*Dani)\s+\d{4}-\d{2}-\d{2}',
+        _rendered_text, re.I
     )
     if _attr_hits:
         findings.append(Finding(
@@ -579,9 +687,12 @@ def check_file(path: Path) -> list[Finding]:
         _e15_raw = re.sub(r'<script[^>]*>.*?</script>', '', raw, flags=re.DOTALL | re.IGNORECASE)
         _e15_raw = re.sub(r'<style[^>]*>.*?</style>', '', _e15_raw, flags=re.DOTALL | re.IGNORECASE)
         _e15_raw = re.sub(r'<!--.*?-->', '', _e15_raw, flags=re.DOTALL)
-        # Exempt "Links.html" filename citations — proper noun reference, not the banned word.
-        # Strip those before scanning so citations like "per Links.html §6" don't fire.
+        # Exempt filename citations containing banned words — proper noun references, not the
+        # banned word itself. Covers Links.html and any *Map.html reference (Europe Map.html,
+        # US Map.html, etc.) so citations like "per Links.html §6" or "Europe Map.html pin"
+        # don't fire.
         _e15_raw = re.sub(r'\bLinks?\.html\b', '___FILENAME___', _e15_raw, flags=re.IGNORECASE)
+        _e15_raw = re.sub(r'\b\w[\w ]*?Map\.html\b', '___FILENAME___', _e15_raw, flags=re.IGNORECASE)
         _e15_word_re = re.compile(r'>([^<]*\b(?:Maps?|Links?)\b[^<]*)<', re.IGNORECASE)
         _e15_hits: list[str] = []
         for _e15m in _e15_word_re.finditer(_e15_raw):
@@ -597,27 +708,15 @@ def check_file(path: Path) -> list[Finding]:
                 + '; '.join(f'"{h}"' for h in _e15_hits[:3]),
             ))
 
-    # E14 — no real domain names in rule docs (hard fail)
-    # Rule docs are universal — baked-in domains (venue sites, booking URLs) create
-    # city lock-in and drift. Domains belong only in files that are explicitly about
-    # platforms or links (Links.html, Rules for Claude.html, Tours - Extra Section.html,
-    # Michelin Restaurants, Photos Rules). 2026-05-13: `Tour Stop Rules.html` was
-    # split into `Tours - Extra Section.html` + `Stops Structure.html`; the platform/domain
-    # content stayed in Tours - Extra Section.html, so only that successor is exempt here.
-    _DOMAIN_EXEMPT_FILES = {
-        "links.html",
-        "rules for claude.html",
-        "tours - extra section.html",
-        "michelin restaurants - extra section.html",
-        "photos rules.html",
-    }
+    # E14 — no real domain names in rule docs (hard fail).
+    # Platform/link reference files are exempt (see _DOMAIN_EXEMPT_FILES at module level).
     if path.name.lower() not in _DOMAIN_EXEMPT_FILES:
-        _rendered_for_domains = re.sub(r'<[^>]+>', ' ', raw)
-        # strip HTML entities that are part of template code blocks
-        _rendered_for_domains = _rendered_for_domains.replace('&lt;', ' ').replace('&gt;', ' ').replace('&amp;', ' ')
+        # Strip HTML entities that are part of template code blocks
+        _rendered_for_domains = _rendered_text.replace('&lt;', ' ').replace('&gt;', ' ').replace('&amp;', ' ')
         _domain_pat = re.compile(
             r'(?<![{/\w.-])([a-z0-9][a-z0-9\-]{1,60}'
-            r'\.(?:com|org|net|fr|pt|es|it|de|uk|nl|be|ch|at|io|co|gov|edu))'
+            r'\.(?:com|org|net|fr|pt|es|it|de|uk|nl|be|ch|at|io|co|gov|edu'
+            r'|eu|app|dev|au|ca|se|no|dk|fi|us))'
             r'(?![}\w-])',
             re.IGNORECASE
         )
@@ -641,51 +740,26 @@ def check_file(path: Path) -> list[Finding]:
                 f"{', '.join(_domain_hits[:5])}",
             ))
 
-    # W9 — redundant prose that restates what the entry template already shows visually.
-    # Phrases like "each X ships as its own entry carrying…" duplicate the template row
-    # and create drift when the format changes. The template is the spec — prose
-    # descriptions of it are noise.
-    # FORMAT_EXCEPTION_FILES are exempt: they are Claude-reference/behavioral docs that
-    # legitimately use constructions like "without exception" in rule prose, not template narration.
+    # FORMAT_EXCEPTION_FILES are exempt from E16 and W9 — they use <em> intentionally
+    # and may legitimately contain constructions like "without exception" in rule prose.
     if path.name in FORMAT_EXCEPTION_FILES:
         return findings
-    _REDUNDANT_PROSE_PATTERNS = [
-        # Original catches
-        r'ships as its own entry',
-        r'each\s+\S+\s+ships\s+as',          # "each X ships as…" (any word, not just \w)
-        r'each\s+entry\s+carries',
-        r'the\s+entry\s+carries',
-        r'appears\s+on\s+every\s+entry\s+without\s+exception',
-        r'followed\s+by\s+the\s+(?:cuisine|description|map|address)',
 
-        # Heading / row narration
-        r'is\s+the\s+(?:heading|sub-?heading)',    # "X is the heading / sub-heading"
-        r'is\s+the\s+first\s+row',                 # "X is the first row"
-        r'immediately\s+below\s+the\s+(?:\w+\s+)?title',  # "immediately below the title"
+    # E16 — <em> and <i> forbidden in rule docs (§8 No italic)
+    if w.has_em or w.has_i:
+        _italic_tags = ", ".join(t for t, flag in [("<em>", w.has_em), ("<i>", w.has_i)] if flag)
+        findings.append(Finding(
+            "ERROR", "E16 [§8]",
+            f"{_italic_tags} tag(s) present — italic is not permitted in rule docs; strip on sight",
+        ))
 
-        # Entry structure narration
-        r'ships\s+as\s+one\s+(?:guided\s+)?stop',  # "ships as one guided stop"
-        r'inside\s+the\s+same\s+colored\s+entry',
-        r'outside\s+the\s+entry',
-        r'one\s+heading\s+and\s+box\s+pair',
-
-        # Link / element narration
-        r'the\s+only\s+clickable\s+element',
-        r'carries\s+the\s+same\s+visual\s+shape',
-
-        # Row/box content narration
-        r'the\s+row\s+(?:shows|contains|lists|carries|displays)',
-        r'the\s+box\s+(?:shows|contains|lists|carries|displays)',
-        r'is\s+followed\s+by\s+(?:its|the)\s+(?:closure|booking|description|rating|address)',
-
-        # Generic "without exception" in format context
-        r'without\s+exception',
-    ]
-    _rendered_for_prose = re.sub(r'<[^>]+>', ' ', raw)
+    # W9 — redundant prose that restates what the entry template already shows visually.
+    # The template is the spec; prose descriptions of it create drift. Patterns are
+    # defined at module level as _REDUNDANT_PROSE_PATTERNS.
     _prose_hits = []
     for pat in _REDUNDANT_PROSE_PATTERNS:
-        for m in re.finditer(pat, _rendered_for_prose, re.I):
-            snip = _rendered_for_prose[max(0, m.start()-20):m.end()+40].strip()
+        for m in re.finditer(pat, _rendered_text, re.I):
+            snip = _rendered_text[max(0, m.start()-20):m.end()+40].strip()
             snip = re.sub(r'\s+', ' ', snip)[:80]
             _prose_hits.append(snip)
     if _prose_hits:
@@ -772,6 +846,23 @@ def report(folder: Path, results: list[tuple[Path, list[Finding]]], quiet: bool)
         print(f"  Files with errors ({len(error_files)}):")
         for n in error_files:
             print(f"     · {n}")
+
+    # ── Post-edit cascade reminder ────────────────────────────────────────
+    # Fires after every run. If this followed a CORE RULES edit, verify each
+    # item before announcing done. Full cascade: Change Cascade.html.
+    print()
+    print("  ── Cascade check (after any CORE RULES edit) ──────────────────")
+    print("  ✦ Travel/CLAUDE.md          — DriftyCat · build phases · session ritual")
+    print("  ✦ Validator Index.html       — if any validator check was added/changed")
+    print("  ✦ Rule Dependencies.html     — if icons, thresholds, or concepts changed")
+    print("  ✦ Separation Map.md          — if rule ownership moved")
+    print("  ✦ Guide Entry Counts.html    — if any count or threshold changed")
+    print("  ✦ travel_map.md              — if files were added, removed, or renamed")
+    print("  ✦ Toolbar.html / Navigation.html — if toolbar or nav rules changed")
+    print("  ✦ core_rules_checksums.json  — run update_core_rules_checksums.py")
+    print("  Full checklist: Brain/Reference/Change Cascade.html")
+    print(_hr())
+
     return 1 if error_files else 0
 
 

@@ -82,6 +82,7 @@ Usage:
   python3 guide_tools.py validate-pdf   <file.html>    # post-render gate (no output file)
   python3 guide_tools.py ship           <file.html>    # full pre-ship pipeline
   python3 guide_tools.py start                          # session startup: brain-check + sweep-stray + to-do summary
+  python3 guide_tools.py init            <City>         # create build-state tracker for a new guide build
   python3 guide_tools.py audit                         # open audit workflow
 
 Exit code matches the underlying script; `ship` fails fast on the first
@@ -285,7 +286,7 @@ def _run_start() -> int:
         text = todo_path.read_text(encoding="utf-8")
         sections = {
             "🔧 Rules for Update": [],
-            "❓ Questions for Dani": [],
+            "❓ Open Questions": [],
             "✈️ My Tasks": [],
         }
         current = None
@@ -319,9 +320,204 @@ def _run_start() -> int:
                 print(f"\n  {heading}: (empty)")
 
     print("\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
-    print("  ✅  Session startup complete. Read Rules for Claude.html to begin.")
+    print("  ✅  Session startup complete.")
+    print()
+    print("  📖  Session reads (complete ritual steps 3–6):")
+    print("       Read  Brain/CORE RULES/Rules for Claude.html")
+    print("       Check Brain/Reference/Platforms.md     (note any ❌ or ⏳)")
+    print("       Read  Brain/Reference/Connectors.html")
+    print("       Check Brain/mds/audit_log.md           (note if last entry > 7 days ago)")
+    print()
+    print("  🏗   Before ANY guide build — Phase 1 reads (in this order, before researching):")
+    print("       1. Brain/CORE RULES/Links.html")
+    print("       2. Brain/CORE RULES/Photos Rules.html")
+    print("       3. Brain/Reference/Connectors.html   ← connectors + research workflow")
+    print("       4. Brain/Reference/Platforms.md      ← which platforms need site: search")
+    print()
+    print("       Then run: python3 Brain/scripts/guide_tools.py init {City}")
+    print("       This creates the build-state tracker. Do it before researching anything.")
     print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n")
     return 0
+
+
+def _run_init(city: str) -> int:
+    """
+    Create a pre-filled build-state tracker for a new guide build.
+
+    Creates Guides/{City}/_build/build_state.md with all Phase 0–6 checkboxes
+    unchecked. Claude checks them off as it reads each file and completes each
+    phase. The validator reads this file at ship time and fails if any required
+    entry is unchecked.
+
+    Added 2026-06-01: removes the friction of manually writing the tracker,
+    which caused Claude to skip creating it and bypass the phase-read enforcement.
+    """
+    today = _dt.date.today().isoformat()
+    build_dir = TRAVEL_ROOT / "Guides" / city / "_build"
+    build_dir.mkdir(parents=True, exist_ok=True)
+    tracker_path = build_dir / "build_state.md"
+
+    if tracker_path.exists():
+        print(f"⚠  build_state.md already exists at {tracker_path}")
+        print("   Delete or rename it before running init for a fresh build.")
+        return 1
+
+    content = f"""# Build state — {city}
+Started: {today}
+Last updated: {today}
+
+## Phase 0 — Session start
+- [ ] Rules for Claude.html
+
+## Phase 1 — Technical prerequisites
+- [ ] Links.html
+- [ ] Photos Rules.html
+- [ ] Connectors.html
+- [ ] Platforms.md
+
+## Phase 2 — Guide structure
+- [ ] Guide Structure.html
+- [ ] Stops Structure.html
+- [ ] Hotel Banner.html
+- [ ] Trip at a Glance.html
+- [ ] Toolbar.html
+- [ ] Navigation.html
+
+## Phase 3 — Day shape
+- [ ] Day Structure.html
+
+## Phase 4 — Per-stop build
+- [ ] Tickets.html
+- [ ] Motion Rule.html
+- [ ] Icon Order and Format.html
+
+## Phase 5 — Per-section build
+- [ ] Weekly Closures - Extra Section.html
+- [ ] Tours - Extra Section.html
+- [ ] Cappuccino - Extra Section.html
+- [ ] Restaurants Near Hotel - Extra Section.html
+- [ ] Downtown Restaurants - Extra Section.html
+- [ ] Local Tastes - Extra Section.html
+- [ ] Food Delivery - Extra Section.html
+- [ ] Shows, Performances & Concerts - Extra Section.html
+- [ ] Getting Around - Extra Section.html
+- [ ] Train Stations Near Hotel - Extra Section.html
+- [ ] Day Trips by Train - Extra Section.html
+- [ ] Michelin Restaurants - Extra Section.html
+- [ ] Heads Up - Extra Section.html
+- [ ] Claude Inspiration - Extra Section.html
+
+## Phase 6 — Ship gate
+- [ ] Brain/Reference/Ship Checklist.html
+- [ ] validate_itinerary.py passes
+- [ ] every extra populated or carries negative-finding line
+"""
+    tracker_path.write_text(content, encoding="utf-8")
+    print(f"✅  Build-state tracker created: {tracker_path}")
+    print()
+    print("   Next steps:")
+    print("   1. Read Phase 1 files and check them off as [x]")
+    print("   2. Read Phase 2 files and check them off as [x]")
+    print("   3. Look up the hotel in Travel/Trip Essentials/Trips.html")
+    print("   4. Start researching stops — check Brain/mds/Cities Skip List.md first")
+    return 0
+
+
+def _check_guide_indexed(guide_path: Path) -> int:
+    """
+    Ship gate: verify this specific guide's city folder is in guides_index.html.
+
+    Each crib checks only its own guide — not all guides. Fires at ship time only.
+    The city folder is the parent directory of the guide HTML file
+    (e.g. Guides/Edinburgh/ for Guides/Edinburgh/edinburgh_v1.html).
+
+    Added 2026-06-02: replaced check_guides_index_coverage in brain_check.py,
+    which ran at session start and incorrectly flagged other cribs' in-progress
+    builds. This check is scoped to one guide, runs only at ship time, and each
+    crib only validates its own guide's entry.
+    """
+    guides_dir = TRAVEL_ROOT / "Guides"
+    index_file = guides_dir / "guides_index.html"
+
+    if not index_file.exists():
+        print(
+            "\n🚫  SHIP BLOCKED — Guides/guides_index.html missing.\n"
+            "    The master index does not exist.\n",
+            file=sys.stderr,
+        )
+        return 1
+
+    city_folder = guide_path.parent.name  # e.g. "Edinburgh"
+    index_html = index_file.read_text(encoding="utf-8")
+
+    if f"./{city_folder}/" not in index_html and f'href="./{city_folder}/' not in index_html:
+        print(
+            f"\n🚫  SHIP BLOCKED — guides_index.html has no entry for Guides/{city_folder}/.\n"
+            f"    Complete the 4-step index update before shipping:\n"
+            f"    Brain/Reference/Navigation.html § 5\n",
+            file=sys.stderr,
+        )
+        return 1
+
+    print(f"  ✅  guides_index.html — {city_folder} entry found.")
+    return 0
+
+
+def _check_guide_pinned(guide_path: Path) -> int:
+    """
+    Ship gate: verify this guide's city has a pin in at least one map file.
+
+    All six continent maps are checked:
+      Europe Map, US Map, Asia Map, Africa Map, Oceania Map, South America Map.
+    The city name just needs to be present in one of them.
+
+    Added 2026-06-02: enforces Navigation.html § 5 step 5 (map pin rule).
+    Updated 2026-06-02: expanded from 2 maps to all 6 continent maps.
+    """
+    city_folder = guide_path.parent.name  # e.g. "Amsterdam"
+    essentials = TRAVEL_ROOT / "Trip Essentials"
+    maps_dir  = essentials / "Maps"
+    map_files = [
+        maps_dir  / "Europe Map.html",
+        maps_dir  / "US Map.html",
+        maps_dir  / "Asia Map.html",
+        maps_dir  / "Africa Map.html",
+        maps_dir  / "Oceania Map.html",
+        maps_dir  / "South America Map.html",
+        essentials / "Europe Map.html",
+        essentials / "US Map.html",
+    ]
+
+    found_in = None
+    for map_file in map_files:
+        if not map_file.exists():
+            continue
+        content = map_file.read_text(encoding="utf-8")
+        # PINS entries look like: ['CityName', lon, lat, ...] or ["CityName", ...]
+        if f"['{city_folder}'" in content or f'["{city_folder}"' in content:
+            found_in = map_file.name
+            break
+
+    if found_in:
+        print(f"  ✅  Map pin — {city_folder} found in {found_in}.")
+        return 0
+
+    print(
+        f"\n🚫  SHIP BLOCKED — no map pin found for {city_folder}.\n"
+        f"    Add a pin to the appropriate continent map before shipping:\n"
+        f"    • European guides   → Trip Essentials/Europe Map.html\n"
+        f"    • US/Canada guides  → Trip Essentials/US Map.html\n"
+        f"    • Asian guides      → Trip Essentials/Asia Map.html\n"
+        f"    • African guides    → Trip Essentials/Africa Map.html\n"
+        f"    • Oceania guides    → Trip Essentials/Oceania Map.html\n"
+        f"    • S. America guides → Trip Essentials/South America Map.html\n"
+        f"    Entry format in the PINS array:\n"
+        f"    ['{city_folder}', lon, lat, '../Guides/{city_folder}/file.html']\n"
+        f"    Full rule: Brain/Reference/Navigation.html § 5 step 5\n",
+        file=sys.stderr,
+    )
+    return 1
+
 
 def main() -> int:
     if len(sys.argv) < 2 or sys.argv[1] in {"-h", "--help", "help"}:
@@ -394,10 +590,11 @@ def main() -> int:
         _patch_verification_log(Path(tail[0]).resolve())
 
         # ── brain-check gate (added 2026-05-30) ──────────────────────────────
-        # brain_check.py verifies guides_index.html has an entry for every city
-        # folder under Guides/. Added after a Zurich guide shipped without an
-        # index entry, causing the next session-start to fail. Running it first
-        # catches the missing-index-entry case before validate/verify run.
+        # Verifies Brain integrity (required files, checksums, pointers) before
+        # running the full validate/verify pipeline. Note: guides_index coverage
+        # is NOT checked here — that check was moved to _check_guide_indexed()
+        # below (runs after verify-booking) so each crib only checks its own
+        # guide at ship time. Updated 2026-06-02.
         rc_brain = _run(SUBCOMMANDS["brain-check"], [])
         if rc_brain != 0:
             print(
@@ -413,10 +610,36 @@ def main() -> int:
             rc = _run(SUBCOMMANDS[sub], tail)
             if rc != 0:
                 return rc
+
+        # ── guides_index.html gate (added 2026-06-02) ─────────────────────────
+        # Each crib checks only its own guide. Verifies that guides_index.html
+        # has an entry for the city folder containing the guide being shipped.
+        # Fires at ship time — never at session start. Replaced the old
+        # check_guides_index_coverage in brain_check.py which ran at session
+        # start and incorrectly flagged other cribs' in-progress builds.
+        rc_idx = _check_guide_indexed(Path(tail[0]).resolve())
+        if rc_idx != 0:
+            return rc_idx
+        # ──────────────────────────────────────────────────────────────────────
+
+        # ── map pin gate (added 2026-06-02) ───────────────────────────────────
+        # Verifies the city has a pin in Europe Map.html or US Map.html.
+        # Full rule: Brain/Reference/Navigation.html § 5 step 5.
+        rc_pin = _check_guide_pinned(Path(tail[0]).resolve())
+        if rc_pin != 0:
+            return rc_pin
+        # ──────────────────────────────────────────────────────────────────────
+
         return 0
 
     if cmd == "start":
         return _run_start()
+
+    if cmd == "init":
+        if not tail:
+            print("Usage: guide_tools.py init <City>", file=sys.stderr)
+            return 2
+        return _run_init(" ".join(tail))
 
     if cmd == "audit":
         return _open_audit()

@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Colors and Font Size</title>
+<style>
+  body { font-family: Arial, sans-serif; font-size: 12pt; line-height: 1.5; margin: 40px; color: #000; max-width: 680px; }
+  h1 { font-size: 18pt; font-weight: bold; margin: 0 0 4px 0; }
+  .subtitle { font-size: 11pt; color: #555; margin-bottom: 4px; }
+  .version { font-size: 10pt; color: #888; margin-bottom: 32px; }
+  .note { background: #fffbe6; border-left: 3px solid #e6c200; padding: 6px 12px; margin: 0 0 28px 0; font-size: 10.5pt; }
+  h2 { font-size: 13pt; font-weight: bold; border-top: 2px solid #ddd; padding-top: 10px; margin: 28px 0 14px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 11pt; }
+  th { text-align: left; font-size: 10pt; font-weight: bold; text-transform: uppercase; letter-spacing: 0.05em; color: #777; padding: 8px 12px 6px; border-bottom: 2px solid #e0e0e0; background: #fafafa; }
+  td { padding: 10px 12px; border-bottom: 1px solid #eee; vertical-align: middle; }
+  tr:last-child td { border-bottom: none; }
+  .swatch { display: inline-block; width: 28px; height: 28px; border-radius: 5px; vertical-align: middle; margin-right: 10px; flex-shrink: 0; }
+  .grad { display: inline-block; width: 80px; height: 28px; border-radius: 5px; vertical-align: middle; margin-right: 10px; flex-shrink: 0; }
+  .hex { font-family: monospace; font-size: 10.5pt; color: #444; }
+  .section-name { font-weight: normal; }
+  .order { color: #aaa; font-size: 10pt; text-align: center; }
+  .footer { margin-top: 40px; font-size: 10pt; color: #888; border-top: 1px solid #ddd; padding-top: 10px; }
+</style>
+</head>
+<body>
+<p style="color:#1a5f2a; background:#e6f5ea; padding:10px 14px; border-radius:4px; font-size:15px; line-height:1.5; margin-bottom:28px;"><strong>CLAUDE MAINTAINS THIS FILE — FIX IMMEDIATELY, NO APPROVAL NEEDED</strong><br>
+When this file drifts from Brain/CORE RULES/, fix it in the same pass. CORE RULES is the authority; this file follows. No questions, no permission, no parking for later.</p>
+
+<h1>Colors and Font Size</h1>
+<p class="subtitle">Color and font size reference for guides and travel documents</p>
+<p class="version">v2 · June 2026</p>
+
+<div class="note">Section colors are CSS tokens in <code>Guides/guide_v3.css</code>. Change the token there — all guides pick it up automatically. Never hardcode colors in individual guide files.</div>
+
+<h2>§ 1. Guide extra sections — border &amp; title color (in ship order)</h2>
+<table>
+  <tr>
+    <th>#</th>
+    <th>Section</th>
+    <th>Color</th>
+    <th>Token</th>
+  </tr>
+  <tr>
+    <td class="order">1</td>
+    <td class="section-name">🗓️ Weekly Closures</td>
+    <td><span class="swatch" style="background:#8b3520;"></span><span class="hex">#8b3520</span></td>
+    <td><code>--c-closures-border</code></td>
+  </tr>
+  <tr>
+    <td class="order">2</td>
+    <td class="section-name">📅 Tours</td>
+    <td><span class="swatch" style="background:#a61c00;"></span><span class="hex">#a61c00</span></td>
+    <td><code>--c-tours-border</code></td>
+  </tr>
+  <tr>
+    <td class="order">3</td>
+    <td class="section-name">☕ Cappuccino</td>
+    <td><span class="swatch" style="background:#7030A0;"></span><span class="hex">#7030A0</span></td>
+    <td><code>--c-cappuccino-border</code></td>
+  </tr>
+  <tr>
+    <td class="order">4</td>
+    <td class="section-name">🫕 Restaurants Near Hotel</td>
+    <td><span class="swatch" style="background:#700f31;"></span><span class="hex">#700f31</span></td>
+    <td><code>--c-nearhotel-border</code></td>
+  </tr>
+  <tr>
+    <td class="order">5</td>
+    <td class="section-name">🍽️ Downtown</td>
+    <td><span class="swatch" style="background:#5c036d;"></span><span class="hex">#5c036d</span></td>
+    <td><code>--c-downtown-border</code></td>
+  </tr>
+  <tr>
+    <td class="order">6</td>
+    <td class="section-name">🍮 Local Tastes</td>
+    <td><span class="swatch" style="background:#e08a1f;"></span><span class="hex">#e08a1f</span></td>
+    <td><code>--c-tastes-border</code></td>
+  </tr>
+  <tr>
+    <td class="order">7</td>
+    <td class="section-name">🚗 Food Delivery</td>
+    <td><span class="swatch" style="background:#9b2335;"></span><span class="hex">#9b2335</span></td>
+    <td><code>--c-delivery-border</code></td>
+  </tr>
+  <tr>
+    <td class="order">8</td>
+    <td class="section-name">🎭 Shows, Performances &amp; Concerts</td>
+    <td><span class="swatch" style="background:#5a74c4;"></span><span class="hex">#5a74c4</span></td>
+    <td><code>--c-shows-border</code></td>
+  </tr>
+  <tr>
+    <td class="order">9</td>
+    <td class="section-name">🚌 Getting Around</td>
+    <td><span class="swatch" style="background:#1c8a99;"></span><span class="hex">#1c8a99</span></td>
+    <td><code>--c-gettingaround-border</code></td>
+  </tr>
+  <tr>
+    <td class="order">10</td>
+    <td class="section-name">🚆 Train Stations Near Hotel</td>
+    <td><span class="swatch" style="background:#3d5282;"></span><span class="hex">#3d5282</span></td>
+    <td><code>--c-stations-border</code></td>
+  </tr>
+  <tr>
+    <td class="order">11</td>
+    <td class="section-name">⛲️ Day Trips by Train</td>
+    <td><span class="swatch" style="background:#0d6b7a;"></span><span class="hex">#0d6b7a</span></td>
+    <td><code>--c-daytrips-border</code></td>
+  </tr>
+  <tr>
+    <td class="order">12</td>
+    <td class="section-name">🏓 Pickleball</td>
+    <td><span class="swatch" style="background:#792a45;"></span><span class="hex">#792a45</span></td>
+    <td><code>--c-pickleball-border</code></td>
+  </tr>
+  <tr>
+    <td class="order">13</td>
+    <td class="section-name">⭐ Michelin</td>
+    <td><span class="swatch" style="background:#BA7517;"></span><span class="hex">#BA7517</span></td>
+    <td><code>--c-michelin-border</code></td>
+  </tr>
+  <tr>
+    <td class="order">14</td>
+    <td class="section-name">❗️ Heads Up</td>
+    <td><span class="swatch" style="background:#b91c1c;"></span><span class="hex">#b91c1c</span></td>
+    <td><code>--c-headsup-border</code></td>
+  </tr>
+</table>
+
+<h2>§ 2. Guide extra sections — background</h2>
+<p>All sections share a single background token: <code>--c-*-bg: #fdf8f0</code> (warm cream). Only the border and title color differ per section.</p>
+
+<h2>§ 3. Guide chrome</h2>
+<table>
+  <tr>
+    <th>Element</th>
+    <th>Color</th>
+    <th>Token / location</th>
+  </tr>
+  <tr>
+    <td>Hotel banner</td>
+    <td><span class="grad" style="background: linear-gradient(135deg, #7a3b1e 0%, #b85c2a 55%, #d4874a 100%);"></span><span class="hex">135deg #7a3b1e → #b85c2a → #d4874a</span></td>
+    <td><code>.title-page</code> in <code>guide_v3.css</code></td>
+  </tr>
+  <tr>
+    <td>Body links</td>
+    <td><span class="swatch" style="background:#2867c4;"></span><span class="hex">#2867c4</span></td>
+    <td><code>--c-link</code> in <code>guide_v3.css</code></td>
+  </tr>
+  <tr>
+    <td>Toolbar prev/next arrows</td>
+    <td><span class="swatch" style="background:#6b4422;"></span><span class="hex">#6b4422</span></td>
+    <td><code>--c-title-bg</code> → <code>.toolbar-nav a</code> in <code>guide_v3.css</code></td>
+  </tr>
+  <tr>
+    <td>Trip at a Glance — title, day card border, extras pills, day headers</td>
+    <td><span class="swatch" style="background:#8a6c1a;"></span><span class="hex">#8a6c1a</span></td>
+    <td><code>--c-purple</code> in <code>guide_v3.css</code></td>
+  </tr>
+  <tr>
+    <td>Trip at a Glance — day card background</td>
+    <td><span class="swatch" style="background:#fdf8f0; border: 1px solid #e0d4b8;"></span><span class="hex">#fdf8f0</span></td>
+    <td><code>--c-purple-pale</code> in <code>guide_v3.css</code></td>
+  </tr>
+  <tr>
+    <td>Trip at a Glance — day card hover</td>
+    <td><span class="swatch" style="background:#faefd8;"></span><span class="hex">#faefd8</span></td>
+    <td><code>--c-purple-hover</code> in <code>guide_v3.css</code></td>
+  </tr>
+</table>
+
+<h2>§ 4. Transit &amp; motion system</h2>
+<p>Used for motion banners (🚶 walk, 🚕 ride, 🚎 tram, 🚝 metro), transit boxes, ticket boxes, and train blocks.</p>
+<p><strong>guide_v3.css unified palette (2026-06-01):</strong> all transit and booking elements — motion banners, tour boxes, ticket boxes, train blocks — now share the universal warm background and gold border. The blue token family (<code>--c-blue</code>, <code>--c-blue-pale</code>, <code>--c-blue-deeper</code>, <code>--c-banner-blue</code>, <code>--c-train-bg</code>) is <strong>retired</strong> in guide_v3.css.</p>
+<table>
+  <tr>
+    <th>Element</th>
+    <th>Color</th>
+    <th>Token</th>
+  </tr>
+  <tr>
+    <td>Motion banner · tour box · ticket box · train block — background</td>
+    <td><span class="swatch" style="background:#fdf8f0; border: 1px solid #e0d4b8;"></span><span class="hex">#fdf8f0</span></td>
+    <td><code>--c-warm-bg</code></td>
+  </tr>
+  <tr>
+    <td>Motion banner · tour box · ticket box · train block — border</td>
+    <td><span class="swatch" style="background:#8a6c1a;"></span><span class="hex">#8a6c1a</span></td>
+    <td><code>--c-purple</code></td>
+  </tr>
+</table>
+
+<h2>§ 5. Page structure</h2>
+<table>
+  <tr>
+    <th>Element</th>
+    <th>Color</th>
+    <th>Token</th>
+  </tr>
+  <tr>
+    <td>Page background</td>
+    <td><span class="swatch" style="background:#f5f4f0; border: 1px solid #e0d4b8;"></span><span class="hex">#f5f4f0</span></td>
+    <td><code>--c-page-bg</code></td>
+  </tr>
+  <tr>
+    <td>Stop card background</td>
+    <td><span class="swatch" style="background:#fff; border: 1px solid #e0d4b8;"></span><span class="hex">#ffffff</span></td>
+    <td><code>--c-card-bg</code></td>
+  </tr>
+  <tr>
+    <td>Section divider</td>
+    <td><span class="swatch" style="background:#d0d0d0;"></span><span class="hex">#d0d0d0</span></td>
+    <td><code>--c-next-border</code></td>
+  </tr>
+</table>
+
+<h2>§ 6. Text colors</h2>
+<table>
+  <tr>
+    <th>Use</th>
+    <th>Color</th>
+    <th>Token</th>
+  </tr>
+  <tr>
+    <td>All body text — single token everywhere</td>
+    <td><span class="swatch" style="background:#1a1a1a;"></span><span class="hex">#1a1a1a</span></td>
+    <td><code>--c-text-primary</code></td>
+  </tr>
+  <tr>
+    <td>Muted — used in: negative-finding lines · photo captions · Michelin "Not shown" count · essentials toolbar buttons + Back to Top</td>
+    <td><span class="swatch" style="background:#555;"></span><span class="hex">#555555</span></td>
+    <td><code>--c-text-muted</code></td>
+  </tr>
+</table>
+
+<h2>§ 7. Typeface</h2>
+<p>One font stack used everywhere — system UI, no web font loaded:</p>
+<p><code>-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif</code></p>
+<p>Renders as <strong>San Francisco</strong> on Apple devices, <strong>Segoe UI</strong> on Windows, and the system sans-serif on everything else.</p>
+
+<h2>§ 8. Font sizes — desktop</h2>
+<p>Base scale: <code>body { font-size: 15px }</code>. All values below are desktop. Mobile overrides listed separately.</p>
+<table>
+  <tr>
+    <th>Element</th>
+    <th>Size</th>
+    <th>Weight</th>
+  </tr>
+  <tr><td>Hotel banner — city name</td><td>18px</td><td>bold, uppercase</td></tr>
+  <tr><td>Hotel banner — hotel name</td><td>15px</td><td>bold</td></tr>
+  <tr><td>Hotel banner — address</td><td>12px</td><td>normal</td></tr>
+  <tr><td>Trip at a Glance title · Day headers</td><td>18px</td><td>bold</td></tr>
+  <tr><td>Trip at a Glance — day card title</td><td>14px</td><td>normal</td></tr>
+  <tr><td>Trip at a Glance — day card stops</td><td>13px</td><td>normal</td></tr>
+  <tr><td>Trip at a Glance — extras pills</td><td>11.5px</td><td>normal</td></tr>
+  <tr><td>Stop name</td><td>17px</td><td>bold</td></tr>
+  <tr><td>Stop row (icons + text)</td><td>16px</td><td>normal</td></tr>
+  <tr><td>Extra section title (.extras-title)</td><td>19px</td><td>bold</td></tr>
+  <tr><td>Extra section subheading (.extras-sub)</td><td>16px</td><td>bold</td></tr>
+  <tr><td>Extra section body · tour/ticket/transit boxes · warn callout</td><td>15px</td><td>normal</td></tr>
+  <tr><td>Negative-finding line (.extras-empty)</td><td>15px</td><td>normal, italic</td></tr>
+  <tr><td>Photo caption / empty state</td><td>12px</td><td>normal, italic</td></tr>
+  <tr><td>Michelin "Not shown" count</td><td>15px</td><td>normal</td></tr>
+</table>
+
+<h2>§ 9. Font sizes — mobile overrides</h2>
+<p>Applied at <code>max-width: 600px</code>. Base scale bumps to <code>20px</code> for readability.</p>
+<table>
+  <tr>
+    <th>Element</th>
+    <th>Mobile size</th>
+  </tr>
+  <tr><td>Body base</td><td>20px</td></tr>
+  <tr><td>Hotel banner — city name</td><td>22px</td></tr>
+  <tr><td>Hotel banner — hotel name</td><td>16px</td></tr>
+  <tr><td>Hotel banner — address</td><td>13px</td></tr>
+  <tr><td>Day headers</td><td>18px</td></tr>
+  <tr><td>Extra section title (.extras-title)</td><td>21px</td></tr>
+  <tr><td>Extra section subheading (.extras-sub)</td><td>18px</td></tr>
+  <tr><td>Stop name</td><td>19px</td></tr>
+  <tr><td>Stop row</td><td>18px</td></tr>
+  <tr><td>Warn callout</td><td>18px</td></tr>
+</table>
+
+<h2>§ 10. Toolbar colors (toolbar.js — 2026-06-02)</h2>
+<table>
+  <tr><th>Element</th><th>Color</th><th>Notes</th></tr>
+  <tr>
+    <td>Bar background</td>
+    <td><span class="swatch" style="background:#e8e4db;"></span><span class="hex">#e8e4db</span></td>
+    <td>Darker than page, creates visible band</td>
+  </tr>
+  <tr>
+    <td>Bar bottom border</td>
+    <td><span class="swatch" style="background:#ccc8be;"></span><span class="hex">#ccc8be</span></td>
+    <td>+ <code>box-shadow: 0 2px 8px rgba(0,0,0,.07)</code></td>
+  </tr>
+  <tr>
+    <td>Pill background</td>
+    <td><span class="swatch" style="background:#f0ece4;"></span><span class="hex">#f0ece4</span></td>
+    <td>Warm off-white</td>
+  </tr>
+  <tr>
+    <td>Pill border</td>
+    <td><span class="swatch" style="background:#b8b3a8;"></span><span class="hex">#b8b3a8</span></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Pill text</td>
+    <td><span class="swatch" style="background:#3d3a32;"></span><span class="hex">#3d3a32</span></td>
+    <td>Near-dark for contrast</td>
+  </tr>
+</table>
+
+<h2>§ 11. Site-wide selected / active state standard (2026-06-02)</h2>
+<p>All interactive selected states across the site use the hotel banner gradient. Do not use flat gold (<code>#8a6c1a</code>) or dark brown (<code>#6b4422</code>) for selected states.</p>
+<table>
+  <tr><th>Property</th><th>Value</th></tr>
+  <tr><td>background</td><td><span class="grad" style="background:linear-gradient(135deg,#7a3b1e 0%,#b85c2a 55%,#d4874a 100%);"></span><span class="hex">linear-gradient(135deg, #7a3b1e 0%, #b85c2a 55%, #d4874a 100%)</span></td></tr>
+  <tr><td>border-color</td><td><span class="swatch" style="background:#b85c2a;"></span><span class="hex">#b85c2a</span></td></tr>
+  <tr><td>color</td><td><span class="swatch" style="background:#fdf8f0; border:1px solid #e0d4b8;"></span><span class="hex">#fdf8f0</span></td></tr>
+</table>
+<p>Applied to: map region nav <code>.rn-on</code> (6 map files), EU Trains <code>.filter-btn.active</code>, Resources <code>.cat-pill.active</code>.</p>
+
+<h2>§ 12. Map region nav colors (Trip Essentials/Maps/*.html — 2026-06-02)</h2>
+<p>Each region has a CSS class (<code>.rn-*</code>) with a colored dot + tinted pill. Active state always uses the hotel banner gradient (§ 11).</p>
+<table>
+  <tr><th>Region</th><th>Class</th><th>Dot</th><th>Pill bg</th><th>Text</th></tr>
+  <tr><td>Europe</td><td><code>.rn-eu</code></td><td><span class="swatch" style="background:#dc4444;width:16px;height:16px;border-radius:50%"></span><span class="hex">#dc4444</span></td><td><span class="swatch" style="background:#fde8e8;"></span><span class="hex">#fde8e8</span></td><td><span class="hex">#a02020</span></td></tr>
+  <tr><td>N. America</td><td><code>.rn-na</code></td><td><span class="swatch" style="background:#e87830;width:16px;height:16px;border-radius:50%"></span><span class="hex">#e87830</span></td><td><span class="swatch" style="background:#fdf0e4;"></span><span class="hex">#fdf0e4</span></td><td><span class="hex">#8a3a08</span></td></tr>
+  <tr><td>Asia</td><td><code>.rn-as</code></td><td><span class="swatch" style="background:#c8940a;width:16px;height:16px;border-radius:50%"></span><span class="hex">#c8940a</span></td><td><span class="swatch" style="background:#fdf5d8;"></span><span class="hex">#fdf5d8</span></td><td><span class="hex">#7a5000</span></td></tr>
+  <tr><td>Africa</td><td><code>.rn-af</code></td><td><span class="swatch" style="background:#2ea84e;width:16px;height:16px;border-radius:50%"></span><span class="hex">#2ea84e</span></td><td><span class="swatch" style="background:#e4f5e8;"></span><span class="hex">#e4f5e8</span></td><td><span class="hex">#1a6030</span></td></tr>
+  <tr><td>S. America</td><td><code>.rn-sa</code></td><td><span class="swatch" style="background:#3a74d4;width:16px;height:16px;border-radius:50%"></span><span class="hex">#3a74d4</span></td><td><span class="swatch" style="background:#e4eef8;"></span><span class="hex">#e4eef8</span></td><td><span class="hex">#1a3a8b</span></td></tr>
+  <tr><td>Oceania</td><td><code>.rn-oc</code></td><td><span class="swatch" style="background:#8050d0;width:16px;height:16px;border-radius:50%"></span><span class="hex">#8050d0</span></td><td><span class="swatch" style="background:#f0e8f8;"></span><span class="hex">#f0e8f8</span></td><td><span class="hex">#4a1880</span></td></tr>
+</table>
+
+<h2>§ 13. Other documents</h2>
+<table>
+  <tr>
+    <th>Document</th>
+    <th>Element</th>
+    <th>Color</th>
+  </tr>
+  <tr>
+    <td>Plug Adapter Guide</td>
+    <td>Index table header bar</td>
+    <td><span class="grad" style="background: linear-gradient(90deg, #7a3b1e 0%, #b85c2a 55%, #d4874a 100%);"></span><span class="hex">90deg #7a3b1e → #b85c2a → #d4874a</span></td>
+  </tr>
+  <tr>
+    <td>Plug Adapter Guide</td>
+    <td>Region header bar</td>
+    <td><span class="grad" style="background: linear-gradient(90deg, #8B6914 0%, #B8860B 60%, #C9A84C 100%);"></span><span class="hex">90deg #8B6914 → #B8860B → #C9A84C</span></td>
+  </tr>
+</table>
+
+<div class="footer">Guide token source: <code>Guides/guide_v3.css</code> — token block starting at line 38. Last updated 2026-06-02 — § 4 rewritten; §§ 10–12 added (toolbar colors, selected state standard, map region nav palette).</div>
+
+</body>
+</html>

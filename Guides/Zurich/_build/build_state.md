@@ -12,7 +12,7 @@ Last updated: 2026-05-30
 - [x] Trip at a Glance.html
 - [x] Toolbar.html
 - [x] Navigation.html
-- [x] Capabilities
+- [x] Connectors.html
 - [x] Platforms.md
 
 ## Phase 2 — Day shape

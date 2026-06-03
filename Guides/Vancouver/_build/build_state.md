@@ -7,7 +7,7 @@ Last updated: 2026-05-30
 
 ## Phase 1 — Pre-build orientation
 - [x] Platforms.md
-- [x] Capabilities
+- [x] Connectors.html
 - [x] Guide Structure.html
 - [x] Stops Structure.html
 - [x] Hotel Banner.html

@@ -11,6 +11,8 @@ li { margin-bottom: 12px; }
 </style>
 </head>
 <body>
+<p style="color:#1a5f2a; background:#e6f5ea; padding:10px 14px; border-radius:4px; font-size:15px; line-height:1.5; margin-bottom:28px;"><strong>CLAUDE MAINTAINS THIS FILE — FIX IMMEDIATELY, NO APPROVAL NEEDED</strong><br>
+When this file drifts from Brain/CORE RULES/, fix it in the same pass. CORE RULES is the authority; this file follows. No questions, no permission, no parking for later.</p>
 <p class="banner"><strong>ATTENTION: THIS DOCUMENT IS READ-ONLY AND CAN ONLY BE EDITED BY REQUEST</strong><br>
 Read the formatting rules first — Brain/Reference/.<br>
 CSS, HTML, and validator code are not permitted in rule text.<br>
@@ -94,7 +96,7 @@ Rules are written like a legal document — active voice, generic phrasing, no s
 <li>⛲️ Day Trips by Train</li>
 <li>🏓 Pickleball (California, Arizona, and Oregon only — silently omitted elsewhere)</li>
 <li>⭐ Michelin Restaurants</li>
-<li>❗️ Cities Gotchas (conditional — ships only when entries exist)</li>
+<li>❗️ Heads Up (conditional — ships only when entries exist)</li>
 <li>🌟 Claude Inspiration (optional — silently omitted when nothing surfaced)</li>
 <li>Skip List footnote (conditional — very last; ships only when the city has a skip list)</li>
 </ul>
@@ -116,12 +118,13 @@ Rules are written like a legal document — active voice, generic phrasing, no s
 </ul>
 
 <h2>§ 11. Post-ship</h2>
-<p>All four steps below happen in a single edit to <code>Guides/guides_index.html</code>. Partial updates break the chain.</p>
+<p>All five steps below happen in a single pass. Partial updates break the chain and block the validator.</p>
 <ul>
 <li>New card added in the correct region section, in canonical order, with the right <code>data-guide-num</code>?</li>
 <li>Predecessor card's <code>data-guide-next</code> and successor card's <code>data-guide-prev</code> updated to point to the new guide?</li>
 <li>Banner destination count and region guide count both updated?</li>
 <li>The guide file's own toolbar-mount <code>data-prev</code> and <code>data-next</code> set to match its neighbours in the chain?</li>
+<li>City pin added to <code>Trip Essentials/Maps/Europe Map.html</code> (European guides) or <code>Trip Essentials/Maps/US Map.html</code> (US guides)? Entry format in the <code>PINS</code> array: <code>['CityName', lon, lat, '../Guides/City/file.html']</code>. The validator and ship gate both hard-fail if this is missing. Rule: Navigation.html § 5 step 5.</li>
 </ul>
 
 <hr style="margin: 48px 0 16px 0; border: none; border-top: 1px solid #ddd;">

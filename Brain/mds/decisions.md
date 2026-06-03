@@ -6,6 +6,16 @@
 
 ---
 
+## 2026-06-02 — guides_index coverage check moved from brain_check to ship gate
+
+**Decision:** `check_guides_index_coverage` removed from `brain_check.py` entirely. Replaced by `_check_guide_indexed()` in `guide_tools.py`, called as the final step of the ship gate.
+
+**Why:** Session start is the wrong place — multiple cribs build simultaneously and each crib should only validate its own guide's index entry at ship time. Running it at session start caused false failures from other cribs' in-progress builds. The check is now scoped to one guide, runs only at `guide_tools.py ship`, and each crib only checks its own city folder entry in `guides_index.html`.
+
+**What replaced it:** `_check_guide_indexed(guide_path)` in `guide_tools.py` — checks that `guides_index.html` contains an entry for the city folder of the guide being shipped. Fires after validate/verify/verify-booking pass. Brain_check drops from 50 checks to 49 checks (expected).
+
+---
+
 ## 2026-05-31 — Guide Structure.html added to FORMAT_EXCEPTION_FILES
 
 `Guide Structure.html` added to `FORMAT_EXCEPTION_FILES` in `doc_workshop_validator.py` and listed in `Rules for Claude.html § 12`. The Phase 1 required-reads list uses the word "link" to describe hyperlink/URL format conventions and references "Links.html" by name — both triggered E15 ("Map/Maps/Link/Links banned in visible text") as false positives. The E15 rule targets guide content drift; Guide Structure.html is a Claude reference file describing CORE RULES file names and subject matter. Fix: added format exception banner to Guide Structure.html (matching the pattern in Links.html / Rules for Claude.html) and added the file to the validator exception set.

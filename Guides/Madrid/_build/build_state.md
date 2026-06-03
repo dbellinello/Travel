@@ -8,7 +8,7 @@ Last updated: 2026-05-31
 ## Phase 1 — Technical prerequisites
 - [x] Links.html
 - [x] Photos Rules.html
-- [x] Capabilities
+- [x] Connectors.html
 - [x] Platforms.md
 
 ## Phase 2 — Guide structure

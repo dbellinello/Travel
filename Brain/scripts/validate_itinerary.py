@@ -55,15 +55,19 @@ WARN = "⚠️ "
 # ║  This prints at the end of every run. There is no excuse to forget.     ║
 # ╚══════════════════════════════════════════════════════════════════════════╝
 CHANGELOG = [
-    ("2026-05-27", "Editorial drift words banned from guide content and CORE RULES note spans: 'vibe', 'contactless', 'fastest way', 'worth the trip/a visit/it', 'worth crossing' added to _HEDGE_PATTERNS (hard-fail in shipped guides); 'vibe', 'worth', 'ticket info', 'kind of experience', 'character' added to _CR_NOTE_BANNED_WORDS (hard-fail in CORE RULES <span class=\"note\"> annotations). Companion rule edits: 'kind of experience' removed from Getting Around, Icon Order, Tours; 'ticket info' removed from Getting Around, Icon Order; 'vibe', 'and character', 'why it worth the trip', 'the surprise', 'route/stops/line details' removed from all description note spans across Pickleball, Downtown Restaurants, Cities Gotchas, Day Trips by Train. London metro description to be fixed (contactless + fastest way)."),
+    ("2026-06-02", "Validator fix: _idx_hrefs uses dest-card class (was glance-day — guides_index was redesigned to use dest-card); map lookup now checks Trip Essentials/Maps/ first; _INDEX_EXCLUDED_GUIDES emptied (Copenhagen + Edinburgh shipped)."),
+    ("2026-06-02", "MAP PIN check added: FAIL if the guide's city name is not present as a PINS entry in Trip Essentials/Europe Map.html or Trip Essentials/US Map.html. Enforces Navigation.html § 5 step 5 (map pin rule added 2026-06-02). Check runs after the GUIDES INDEX coverage check. Companion changes: guide_tools.py ship gate (_check_guide_pinned), CLAUDE.md DriftyCat, Navigation.html § 5, Ship Checklist.html § 11, Validator Index.html."),
+    ("2026-06-02", "BUILD_STATE_PHASE_1: 'Capabilities' renamed to 'Connectors.html' — guide_tools.py init already emitted 'Connectors.html'; validator was still checking the old name, causing a Phase 1 fail on any guide built via init. All existing build_state.md files updated in the same pass."),
+    ("2026-06-02", "Phase 1+2 early exit: _bs_phase_check now returns bool; if Phase 1 or Phase 2 unchecked, validator halts immediately with a loud banner listing which files are missing/unchecked and exits with code 2. Running 500+ checks on invented-format HTML is noise — halt forces the reads first."),
+    ("2026-05-27", "Editorial drift words banned from guide content and CORE RULES note spans: 'vibe', 'contactless', 'fastest way', 'worth the trip/a visit/it', 'worth crossing' added to _HEDGE_PATTERNS (hard-fail in shipped guides); 'vibe', 'worth', 'ticket info', 'kind of experience', 'character' added to _CR_NOTE_BANNED_WORDS (hard-fail in CORE RULES <span class=\"note\"> annotations). Companion rule edits: 'kind of experience' removed from Getting Around, Icon Order, Tours; 'ticket info' removed from Getting Around, Icon Order; 'vibe', 'and character', 'why it worth the trip', 'the surprise', 'route/stops/line details' removed from all description note spans across Pickleball, Downtown Restaurants, Heads Up, Day Trips by Train. London metro description to be fixed (contactless + fastest way)."),
     ("2026-05-27", "Local Tastes calibration anchor updated: '§2 Google Maps link anchor' → '§2 location anchor' (needle 'Google Maps' → 'goes to its location') — Local Tastes spec text changed from 'is a Google Maps link' to 'goes to its location' as part of Maps/Link word ban."),
     ("2026-05-27", '"Map"/"Maps" bare visible text banned globally — any text node containing the word Map or Maps (case-insensitive, singular or plural) now hard-fails. Extends the existing <a>Maps</a> link-text check to cover all visible text drift (e.g. "Address [Maps]"). Per Icon Order and Format.html row 7 — address IS the link, the word Map/Maps never appears as guide text.'),
     ("2026-05-08", "Initial validator — core structure, stop/section checks"),
     ("2026-05-08", "STANDING ORDER added: write check before fixing guide"),
     ("2026-05-18", "Tram section checks: operator link required when tram present, forbidden when absent"),
     ("2026-05-18", "Transit-box check added for Getting Around extra section"),
-    ("2026-05-19", "Cities Gotchas: flipped check — entries must use .transit-box, bare divs now fail"),
-    ("2026-05-19", "Cities Gotchas: rewrote row collector using _walk_balanced_div (position-based walk)"),
+    ("2026-05-19", "Heads Up: flipped check — entries must use .transit-box, bare divs now fail"),
+    ("2026-05-19", "Heads Up: rewrote row collector using _walk_balanced_div (position-based walk)"),
     ("2026-05-19", "📅 rows: em-dash between tour name and operator now fails (must use ·)"),
     ("2026-05-19", "Time format: clock notation (2h00, 1h25) now fails — must use English (2 hrs, 1 hr 25 min)"),
     ("2026-05-19", "CHANGELOG block added — embedded at top of file, prints last 5 entries at end of every run"),
@@ -106,7 +110,7 @@ CHANGELOG = [
     ("2026-05-19", "🗓️ Weekly Closures: WC-X4 extended — all words in category name must be title-cased, not just the first; '&' exempt"),
     ("2026-05-19", "📍 Maps link: home city in display text now fails — city belongs in URL query only; different city allowed for out-of-city stops"),
     ("2026-05-20", "⭐ star spacing REVERSED (supersedes 2026-05-19): rating is tight N.N⭐, no space before ⭐ — '4.8⭐' not '4.8 ⭐'. New global check fails any decimal rating with a space before the star. Rules (venue review-link, Tours, Tickets) all use tight; newest rule prevails."),
-    ("2026-05-20", "📅 Tours: added as Extras section (after Weekly Closures) — section enums, entry-format / rating-bar / per-platform-minimum hard-fail checks, TOURS_EXCLUDED_GUIDES rollout gate"),
+    ("2026-05-20", "📅 Tours: added as Extras section (after Weekly Closures) — section enums, entry-format / rating-bar / per-platform-minimum checks. _TOURS_MINIMUM_EXEMPT rollout exemption removed 2026-06-02 (all guides fixed)"),
     ("2026-05-21", "🎟 Tours flat-format check: hard FAIL if any .tour-box wrapper found inside #tours extras-section — Tours entries must use flat Iceland layout (plain divs in .entry-body); nested .tour-box = double background + retired format"),
     ("2026-05-23", "Getting Around §2b tram description row enforced — first row of tram transit-box must be ≤80 char service description, not the template line; hard fail when missing"),
     ("2026-05-24", "Getting Around §2b tram description row cap raised to ≤160 chars (2 lines max) — rule updated in Icon Order and Format.html §3"),
@@ -171,7 +175,7 @@ CHANGELOG = [
     ("2026-05-25", "🚆 Train Stations Near Hotel — reverted inline-icon-in-body check: the 2026-05-25 check requiring both 🚆 and 🚄 in the entry body was wrong. Per § 3a/§3b, the icon belongs on the heading (extras-sub) only; description row is plain [Lines] → [Key Destinations]. Check removed; heading-icon enforcement (already present) is sufficient."),
     ("2026-05-25", "🚦 Motion Rule §1 time-format enforcement — 🚶/🚕 times ≥60 min must use Xh Ymin (or Xh when Y=0); 'N min' with N≥60 now hard-fails with a suggested correction. _unit_re updated to strip Xh Ymin in leftover-prose check. Motion Rule.html §1 updated with explicit format rule."),
     ("2026-05-25", "🚦 Motion / Transit Banners audit (Motion Rule.html) — 1 fix: dead guided-stop 🚐 block removed (lines 4842–4910, ~70 lines). The .guided CSS class was retired 2026-05-20; _guided_sn_re always returned False on all current guides; _guided_next_violations was always []; check() passed vacuously every run. Tombstone comment added. Coverage verified complete against all three rule sections: §1 stops pattern (🚶/🚕 N min, tram/metro inline) — _validate_motion_row; §2 extra sections with motion (Cappuccino, RNH, Stations, Pickleball, Shows) and without (Downtown, Local Tastes, Michelin, Gotchas) — each has dedicated row-type enforcement; §3 day wrapper (opener, between-stops, closer, train variants, 🚉 ARRIVE banner) — covered by opener/closer/bookend/train-header/arrive-first checks. No gaps found."),
-    ("2026-05-25", "Trip at a Glance extras pill label text hard-fail added: every .glance-extra-link visible label must exactly match the canonical name defined in Trip at a Glance.html § 3 (owner-defined decisions, not formatting). _GLANCE_PILL_CANONICAL_LABELS dict maps href anchor → required label text. Canonical labels: weekly-closures→'🗓️ Weekly Closures', tours→'📅 Tours', cappuccino→'☕ Cappuccino', restaurants→'🫕 Restaurants Near Hotel', downtown→'🍽️ Downtown Restaurants', local-tastes→'🍮 Local Tastes', food-delivery→'🚗 Food Delivery', shows→'🎭 Shows', getting-around→'🚌 Getting Around', stations-near-hotel→'🚆 Stations Near Hotel', day-trips→'⛲️ Day Trips by Train', pickleball→'🏓 Pickleball', michelin→'⭐ Michelin Restaurants', cities-gotchas→'❗ Cities Gotchas'. All 16 guides updated to match."),
+    ("2026-05-25", "Trip at a Glance extras pill label text hard-fail added: every .glance-extra-link visible label must exactly match the canonical name defined in Trip at a Glance.html § 3 (owner-defined decisions, not formatting). _GLANCE_PILL_CANONICAL_LABELS dict maps href anchor → required label text. Canonical labels: weekly-closures→'🗓️ Weekly Closures', tours→'📅 Tours', cappuccino→'☕ Cappuccino', restaurants→'🫕 Restaurants Near Hotel', downtown→'🍽️ Downtown Restaurants', local-tastes→'🍮 Local Tastes', food-delivery→'🚗 Food Delivery', shows→'🎭 Shows', getting-around→'🚌 Getting Around', stations-near-hotel→'🚆 Stations Near Hotel', day-trips→'⛲️ Day Trips by Train', pickleball→'🏓 Pickleball', michelin→'⭐ Michelin Restaurants', heads-up→'❗ Heads Up'. All 16 guides updated to match."),
     ("2026-05-25", "🚦 Motion Rule — two consecutive motion rows hard-fail: any two adjacent <div> rows both starting with 🚶 or 🚕 inside the same box (shows-box, entry-body, station-box) are a hard fail. 🚶 and 🚕 must share a single row ('🚶 N min · 🚕 M min'); splitting them is format drift. Scoped to extras boxes only (stop-blocks enforce via _validate_motion_row already)."),
     ("2026-05-26", "Food review link format check — outer regex blind-spot fixed: _food_review_re previously matched only class='review-link' anchors whose text already contained ⭐ AND 'reviews'; anchors with wrong text (★ star, no star, no 'reviews') were silently invisible and passed. Outer regex changed from ([^<]*⭐[^<]*reviews[^<]*) to ([^<]+) — ALL class='review-link' anchors are now validated against the N.N⭐ · N+ reviews format. Applies to Cappuccino / Restaurants Near Hotel / Downtown (all 3 food sections)."),
     ("2026-05-26", "Food review link — must have class='review-link' check added: any <a> in .extras-sub whose text matches the rating pattern (N.N⭐ · N+ reviews) must carry class='review-link'. Without it, CSS rule '.extras-sub a { color: inherit; font-weight: inherit }' renders the link dark+bold (heading color) instead of blue (#2867c4) + normal weight. New hard-fail covers all 3 food sections (Cappuccino / RNH / Downtown)."),
@@ -209,6 +213,10 @@ CHANGELOG = [
     ("2026-05-31", "idx-coverage-self + idx-coverage-all: FAIL if this guide or any guide folder is absent from guides_index.html — unlisted guide is invisible to carousel and navigation"),
     ("2026-05-31", "carousel-alpha: FAIL if carousel chain (data-guide-next in guides_index.html) is not in pure global A\u2192Z order by city name (diacritics normalized). Carousel ignores region grouping used by the index."),
     ("2026-05-31", "guides_index.html alphabetical order check added — within each .glance-section (region), guides must be in alphabetical order by city name (case-insensitive, diacritics normalized: Ålesund → Alesund, Montréal → Montreal). One violation reported per out-of-order region. Rule added to Navigation.html §4."),
+    ("2026-06-01", ".title-hotel banned suffix check added: hard-fail when .title-hotel text ends with a generic accommodation word (Home, House, Apartment, Airbnb, Condo, Villa, Cottage, Cabin, Rental Home). Property name only — accommodation type is implicit. Bend guide fixed: 'Sunriver Rental Home' → 'Sunriver Rental'. No other guides affected."),
+    ("2026-06-01", "Hotel banner formatting enforcement added: (1) .title-address must not contain <strong>/<b> or inline font-weight:bold — address is plain weight, subordinate to hotel name; (2) .title-hotel must not have an inline style stripping its bold (font-weight:normal/400/etc.) — hotel name is the primary label and must remain bold. Both checks enforce the guide_v3.css hierarchy: city (large bold) > hotel name (medium bold) > address (small plain). Per Hotel Banner.html §1."),
+    ("2026-06-01", "Link-color allowlist restored: CANONICAL_LINK_BLUE #8a6c1a → #2867c4 (guide_v3.css restored --c-link to blue on 2026-06-01; validator not updated at the time — fixed now). #tours .extras-sub a allowlist entry updated to match (#8a6c1a → #2867c4). .index-banner-sub a remains #8a6c1a (--c-purple unchanged). Toolbar colors (#6b4422) unchanged."),
+    ("2026-06-01", "Claude Inspiration calibration anchor needles updated: theme-purple/theme-amber/theme-teal removed (spec § 2 rewritten to 'No fixed palette — choose freely'); replaced with 'No fixed palette' and 'theme-{color}' anchors that exist in the updated spec."),
     ("2026-05-31", "Wikimedia hotlink sentinel exemption removed — the `<!-- hotlink: CDN download blocked in Cowork sandbox -->` comment no longer authorises a hotlink src. commons_photo.py --download fetches the original file and resizes with PIL, bypassing the CDN thumbnail HTTP 400. ALL upload.wikimedia.org img src values now hard-fail regardless of any sentinel comment. Use `python3 Brain/scripts/commons_photo.py --download Guides/{City}/_build/assets/800px-Foo.jpg \"File:Foo.jpg\"` to convert existing hotlinks."),
 ]
 
@@ -487,7 +495,7 @@ def validate(html: str, filename: str):
     BUILD_STATE_PHASE_1 = [
         "Links.html",
         "Photos Rules.html",
-        "Capabilities",
+        "Connectors.html",
         "Platforms.md",
     ]
     BUILD_STATE_PHASE_2 = [
@@ -495,6 +503,8 @@ def validate(html: str, filename: str):
         "Stops Structure.html",
         "Hotel Banner.html",
         "Trip at a Glance.html",
+        "Toolbar.html",
+        "Navigation.html",
     ]
     BUILD_STATE_PHASE_3 = [
         "Day Structure.html",
@@ -521,7 +531,7 @@ def validate(html: str, filename: str):
         'day-trips-by-train':  'Day Trips by Train - Extra Section.html',
         'pickleball':          'Pickleball - Extra Section.html',
         'michelin':            'Michelin Restaurants - Extra Section.html',
-        'cities-gotchas':      'Cities Gotchas - Extra Section.html',
+        'heads-up':      'Heads Up - Extra Section.html',
         'claude-inspiration':  'Claude Inspiration - Extra Section.html',
         'skip-list':           'Skip List.html',
     }
@@ -559,25 +569,70 @@ def validate(html: str, filename: str):
                 if _bs_m:
                     _bs_entries[_bs_m.group(2).strip()] = (_bs_m.group(1).lower() == 'x')
 
-            def _bs_phase_check(_label: str, _required: list[str], _ctx: str = ""):
-                _missing = [f for f in _required if f not in _bs_entries]
-                _unchecked = [f for f in _required if _bs_entries.get(f) is False]
+            # Basename-normalised lookup — allows path-prefixed entries like
+            # "Brain/Reference/Toolbar.html" to match required bare name "Toolbar.html".
+            # Guide Structure.html Phase 2 template emits the path-prefixed form for
+            # orientation; the validator accepts either form. Added 2026-06-01.
+            from pathlib import Path as _Path
+            _bs_by_name: dict[str, bool] = {_Path(k).name: v for k, v in _bs_entries.items()}
+
+            def _bs_phase_check(_label: str, _required: list[str], _ctx: str = "") -> bool:
+                _missing = [f for f in _required
+                            if f not in _bs_entries and _Path(f).name not in _bs_by_name]
+                _unchecked = [f for f in _required
+                              if (_Path(f).name in _bs_by_name and not _bs_by_name[_Path(f).name])
+                              or (f in _bs_entries and not _bs_entries[f])]
                 _detail_parts: list[str] = []
                 if _missing:
                     _detail_parts.append(f"missing tracker entries: {', '.join(_missing)}")
                 if _unchecked:
                     _detail_parts.append(f"unchecked entries: {', '.join(_unchecked)}")
+                _passed = not (_missing or _unchecked)
                 check(
                     f"Build-state tracker — {_label}{_ctx}",
-                    not (_missing or _unchecked),
+                    _passed,
                     '; '.join(_detail_parts) if _detail_parts else ""
                 )
+                return _passed
 
             # Phase 1 — always required (technical prerequisites).
-            _bs_phase_check("Phase 1 (technical prerequisites) all entries are [x]", BUILD_STATE_PHASE_1)
+            _bs_p1_ok = _bs_phase_check("Phase 1 (technical prerequisites) all entries are [x]", BUILD_STATE_PHASE_1)
 
             # Phase 2 — always required (guide structure rules).
-            _bs_phase_check("Phase 2 (guide structure) all entries are [x]", BUILD_STATE_PHASE_2)
+            _bs_p2_ok = _bs_phase_check("Phase 2 (guide structure) all entries are [x]", BUILD_STATE_PHASE_2)
+
+            # ── EARLY EXIT: Phase 1 or Phase 2 unchecked ──────────────────────
+            # The format lives in CORE RULES. A guide written before these reads
+            # is built from memory — wrong structure, wrong sections, wrong HTML.
+            # Running 500+ checks on invented-format HTML produces noise, not signal.
+            # Fix: do the reads, flip the boxes in build_state.md, rebuild, re-run.
+            if not (_bs_p1_ok and _bs_p2_ok):
+                print("\n" + "━" * 60)
+                print("🚫  PHASE READS MISSING — VALIDATION HALTED")
+                print("━" * 60)
+                print("  Phase 1 and/or Phase 2 boxes are unchecked in build_state.md.")
+                print("  This means CORE RULES format files were not read before")
+                print("  the guide was built. The format cannot be trusted.")
+                print()
+                print("  Required reads — do these first, then rebuild the guide:")
+                print()
+                print("  Phase 1 (technical prerequisites):")
+                for _f in BUILD_STATE_PHASE_1:
+                    _name = _Path(_f).name
+                    _ok = _bs_by_name.get(_name, _bs_entries.get(_f, False))
+                    print(f"    {'✅' if _ok else '❌'}  Brain/CORE RULES/{_name}")
+                print()
+                print("  Phase 2 (guide structure — the format lives here):")
+                for _f in BUILD_STATE_PHASE_2:
+                    _name = _Path(_f).name
+                    _ok = _bs_by_name.get(_name, _bs_entries.get(_f, False))
+                    print(f"    {'✅' if _ok else '❌'}  Brain/CORE RULES/{_name}")
+                print()
+                print("  Do NOT patch the guide before doing the reads.")
+                print("  The format is in CORE RULES — not in memory, not in past guides.")
+                print("━" * 60 + "\n")
+                sys.exit(2)
+            # ── END EARLY EXIT ─────────────────────────────────────────────────
 
             # Phase 3 — always required (day shape rules apply to every guide).
             _bs_phase_check("Phase 3 (day shape) all entries are [x]", BUILD_STATE_PHASE_3)
@@ -726,7 +781,7 @@ def validate(html: str, filename: str):
 
     # TB-4: toolbar.js script tag present with correct relative path for depth=2
     _tb_script_m = re.search(
-        r'<script\b[^>]*\bsrc\s*=\s*"(\.\./\.\./toolbar\.js)"[^>]*>',
+        r'<script\b[^>]*\bsrc\s*=\s*"(\.\./\.\./toolbar\.js[^"]*)"[^>]*>',
         html, re.IGNORECASE,
     )
     check(
@@ -826,14 +881,11 @@ def validate(html: str, filename: str):
             'no absolute URLs; path must point to another page within Guides/',
         )
 
-    # TB-9: footer sharing link is INJECTED by toolbar.js — one definition for
-    # every page (Trip Essentials, Guides index, and guides). Each page links to
-    # its own live URL (derived from location), so it is correct regardless of the
-    # GitHub repo name and survives repo renames with no per-file edits.
-    # A guide must therefore: (a) load toolbar.js so the footer is injected, and
+    # TB-9: footer sharing link is injected by footnote.js, auto-loaded by toolbar.js.
+    # A guide must: (a) load toolbar.js (which auto-loads footnote.js), and
     # (b) NOT carry a stale inline footer div with a hardcoded public URL — that
-    # would duplicate the injected footer and pin a stale repo name.
-    # Rule source: Brain/Reference/Toolbar.html §5.
+    # would duplicate the injected footnote and pin a stale repo name.
+    # Rule source: Brain/Reference/Toolbar.html §6.
     _tb9_loads_toolbar = bool(re.search(r'<script[^>]+toolbar\.js', html, re.IGNORECASE))
     _tb9_stale_inline = bool(re.search(
         r'<div[^>]*text-align\s*:\s*center[^>]*>'
@@ -841,11 +893,12 @@ def validate(html: str, filename: str):
         html, re.IGNORECASE | re.DOTALL,
     ))
     check(
-        'TB-9 footer sharing link — injected by toolbar.js; guide must load '
-        'toolbar.js and carry no stale inline footer div (Brain/Reference/Toolbar.html §5)',
+        'TB-9 footer sharing link — injected by footnote.js (auto-loaded by toolbar.js); '
+        'guide must load toolbar.js and carry no stale inline footer div '
+        '(Brain/Reference/Toolbar.html §6)',
         _tb9_loads_toolbar and not _tb9_stale_inline,
-        "Footer sharing link is now injected by toolbar.js — ensure the guide loads "
-        "../toolbar.js and remove any inline footer div with a hardcoded github.io URL",
+        "Footer sharing link is injected by footnote.js via toolbar.js — ensure the guide "
+        "loads toolbar.js and remove any inline footer div with a hardcoded github.io URL",
     )
 
     # TB-10: guide is in the carousel chain — data-prev AND data-next are both
@@ -942,6 +995,39 @@ def validate(html: str, filename: str):
             if _tb10_msg else '',
         )
 
+    # TB-11: footnote.js must exist at Travel/footnote.js and contain the three
+    # required elements: (a) document.body.appendChild — guarantees the footnote
+    # is genuinely the last element regardless of page structure; (b) SITE_BASE
+    # constant — offline file:// fallback URL; (c) data-no-footnote guard — per-page
+    # suppression support. Rule source: Brain/Reference/Toolbar.html §6.
+    _tb11_fn_path = Path(filename).resolve().parent.parent.parent / "footnote.js"
+    if _tb11_fn_path.exists():
+        _tb11_js       = _tb11_fn_path.read_text(encoding="utf-8", errors="replace")
+        _tb11_body_app = bool(re.search(r"document\.body\.appendChild", _tb11_js))
+        _tb11_site_base= bool(re.search(r"SITE_BASE",                    _tb11_js))
+        _tb11_no_foot  = bool(re.search(r"data-no-footnote",             _tb11_js))
+        _tb11_pass     = _tb11_body_app and _tb11_site_base and _tb11_no_foot
+        _tb11_missing  = [
+            label for label, ok in [
+                ("document.body.appendChild", _tb11_body_app),
+                ("SITE_BASE constant",         _tb11_site_base),
+                ("data-no-footnote guard",     _tb11_no_foot),
+            ] if not ok
+        ]
+        check(
+            'TB-11 footnote.js structure — document.body.appendChild; SITE_BASE; '
+            'data-no-footnote suppression guard (Brain/Reference/Toolbar.html §6)',
+            _tb11_pass,
+            "footnote.js missing required element(s): " + ", ".join(_tb11_missing),
+        )
+    else:
+        check(
+            'TB-11 footnote.js exists at Travel/footnote.js '
+            '(Brain/Reference/Toolbar.html §6)',
+            False,
+            f"footnote.js not found at {_tb11_fn_path} — create it or check the path",
+        )
+
     # ─── NOTHING BEFORE .title-page INSIDE .container ───────────────────────
     _container_m = re.search(
         r'<div\b[^>]*\bclass\s*=\s*"[^"]*\bcontainer\b[^"]*"[^>]*>(.*?)'
@@ -955,7 +1041,7 @@ def validate(html: str, filename: str):
         # them before the prose/element check prevents a false positive here.
         _before_title = re.sub(
             r'<div\b[^>]*\bid\s*=\s*"toolbar-mount"[^>]*>.*?</div>\s*'
-            r'<script\b[^>]*\bsrc\s*=\s*"[^"]*toolbar\.js"[^>]*>\s*(?:</script>)?',
+            r'<script\b[^>]*\bsrc\s*=\s*"[^"]*toolbar\.js[^"]*"[^>]*>\s*(?:</script>)?',
             '', _before_title, flags=re.IGNORECASE | re.DOTALL,
         )
         _before_title_stripped = _before_title.strip()
@@ -1577,6 +1663,31 @@ def validate(html: str, filename: str):
         title_page_children_hits[0] if title_page_children_hits else "",
     )
 
+    # ─── TITLE HOTEL: banned trailing words (Home, House, Apartment, Airbnb) ──
+    # Hotel Banner.html §1 — .title-hotel is the property name only;
+    # generic accommodation-type words at the end are banned (e.g. "Sunriver Rental Home").
+    _TITLE_HOTEL_BANNED_SUFFIX_RE = re.compile(
+        r'\b(?:Home|House|Apartment|Airbnb|Condo|Villa|Cottage|Cabin|Rental\s+Home)\s*$',
+        re.IGNORECASE,
+    )
+    _th_suffix_fails: list[str] = []
+    for _thm in re.finditer(
+        r'<div\b[^>]*\bclass\s*=\s*"title-hotel"[^>]*>\s*([^<]+?)\s*</div>',
+        html, re.IGNORECASE,
+    ):
+        _th_text = _thm.group(1).strip()
+        if _TITLE_HOTEL_BANNED_SUFFIX_RE.search(_th_text):
+            _th_suffix_fails.append(
+                f'"{_th_text}" — remove generic accommodation type from end '
+                f'(e.g. "Rental Home" → "Rental"; Hotel Banner.html §1)'
+            )
+    check(
+        ".title-hotel must not end with a generic accommodation word "
+        "(Home / House / Apartment / Airbnb / Rental Home — Hotel Banner.html §1)",
+        not _th_suffix_fails,
+        _th_suffix_fails[0] if _th_suffix_fails else "",
+    )
+
     # ─── TITLE CARD: every .title-address Maps link + address format ──
     print("\n── TITLE CARD: .title-address Maps links + format ──")
     _ta_maps_fails: list[str] = []
@@ -1634,6 +1745,57 @@ def validate(html: str, filename: str):
         (f'{len(_ta_incomplete)} address(es) missing a street number: '
          + '; '.join(_ta_incomplete[:3]))
         if _ta_incomplete else '',
+    )
+
+    # ─── TITLE CARD: .title-hotel bold / .title-address plain enforcement ──────
+    # Hotel Banner.html §1 — .title-hotel is bold (set by guide_v3.css); .title-address
+    # is plain weight and smaller. Checks prevent inline overrides or markup that
+    # would flip the visual hierarchy back to the pre-2026-06-01 broken state.
+    print("\n── TITLE CARD: hotel name bold / address plain ──")
+
+    # (a) .title-address must not contain <strong> or <b> — making it bold overrides CSS.
+    _ta_bold_fails: list[str] = []
+    for _tam3 in re.finditer(
+        r'<div\b[^>]*\bclass\s*=\s*"title-address"[^>]*>(.*?)</div>',
+        html, re.IGNORECASE | re.DOTALL,
+    ):
+        _ta3_inner = _tam3.group(1)
+        if re.search(r'<(strong|b)\b', _ta3_inner, re.IGNORECASE):
+            _ta_bold_fails.append(
+                f'"{RE_STRIP_TAGS.sub("", _ta3_inner).strip()[:60]}" '
+                f'— <strong>/<b> inside .title-address makes address bold; '
+                f'address must be plain weight (Hotel Banner.html §1)'
+            )
+        if re.search(r'font-weight\s*:\s*(bold|[5-9]\d\d)', _ta3_inner, re.IGNORECASE):
+            _ta_bold_fails.append(
+                f'"{RE_STRIP_TAGS.sub("", _ta3_inner).strip()[:60]}" '
+                f'— inline font-weight bold on .title-address; '
+                f'address must be plain weight (Hotel Banner.html §1)'
+            )
+    check(
+        ".title-address must be plain weight — no <strong>, <b>, or inline bold style "
+        "(Hotel Banner.html §1: address is subordinate to hotel name)",
+        not _ta_bold_fails,
+        _ta_bold_fails[0] if _ta_bold_fails else "",
+    )
+
+    # (b) .title-hotel must not have an inline style stripping its bold.
+    _th_unbold_fails: list[str] = []
+    for _thm2 in re.finditer(
+        r'<div\b[^>]*\bclass\s*=\s*"title-hotel"[^>]*style\s*=\s*"([^"]*)"[^>]*>',
+        html, re.IGNORECASE,
+    ):
+        _th_style = _thm2.group(1)
+        if re.search(r'font-weight\s*:\s*(normal|[1-3]\d\d|400)', _th_style, re.IGNORECASE):
+            _th_unbold_fails.append(
+                f'inline style removes bold from .title-hotel: style="{_th_style[:80]}" '
+                f'— hotel name must be bold (Hotel Banner.html §1)'
+            )
+    check(
+        ".title-hotel must not have an inline style that strips bold "
+        "(Hotel Banner.html §1: hotel name is the primary label, styled bold by guide_v3.css)",
+        not _th_unbold_fails,
+        _th_unbold_fails[0] if _th_unbold_fails else "",
     )
 
     # ─── TITLE CARD SCOPE — hotel is name + address only ──────
@@ -1792,6 +1954,29 @@ def validate(html: str, filename: str):
 
     if glance_m:
         glance_inner, _ = _walk_balanced_div(html, glance_m.end())
+
+        # ── glance-title must be a <div class="glance-title">, not a heading ──
+        # toolbar.js injects ‹/› arrows by querying `.glance-title`; using <h2>
+        # or any heading element breaks arrow injection and CSS styling.
+        # Per Trip at a Glance.html §1 — locked 2026-06-01.
+        _glance_title_m = re.search(
+            r'<(?P<tag>\w+)\b[^>]*\bclass\s*=\s*"[^"]*\bglance-title\b[^"]*"',
+            glance_inner, re.IGNORECASE,
+        )
+        _glance_title_tag = _glance_title_m.group('tag').lower() if _glance_title_m else None
+        _glance_heading_used = _glance_title_tag in ('h1', 'h2', 'h3', 'h4', 'h5', 'h6') if _glance_title_tag else False
+        _glance_title_missing = _glance_title_m is None
+        check(
+            'Trip at a Glance — .glance-title must be a <div>, not a heading element '
+            '(toolbar.js queries .glance-title via querySelector; <h2> breaks arrow injection '
+            'and CSS; Trip at a Glance.html §1)',
+            not _glance_title_missing and not _glance_heading_used,
+            (f'.glance-title uses <{_glance_title_tag}> — replace with <div class="glance-title">; '
+             f'heading elements break toolbar.js arrow injection')
+            if _glance_heading_used else
+            ('Missing <div class="glance-title"> inside .glance-section')
+            if _glance_title_missing else '',
+        )
 
         # Match every <a …> block inside the section; filter to glance-day only.
         glance_day_re = re.compile(
@@ -2104,7 +2289,7 @@ def validate(html: str, filename: str):
         "day-trips-by-train",
         "pickleball",
         "michelin",
-        # "cities-gotchas" pill label is enforced separately below
+        # "heads-up" pill label is enforced separately below
     ]
     # Canonical visible label text per href anchor — owner-defined, hard-fail on deviation.
     _GLANCE_PILL_CANONICAL_LABELS = {
@@ -2121,7 +2306,7 @@ def validate(html: str, filename: str):
         "day-trips-by-train": "⛲️ Day Trips by Train",
         "pickleball":         "🏓 Pickleball",
         "michelin":           "⭐ Michelin Restaurants",
-        "cities-gotchas":     "❗ Cities Gotchas",
+        "heads-up":     "❗ Heads Up",
     }
     _pill_anchor_re = re.compile(
         r'<a\b[^>]*class\s*=\s*"[^"]*\bglance-extra-link\b[^"]*"[^>]*href\s*=\s*"#([^"]+)"[^>]*>(.*?)</a>',
@@ -10882,13 +11067,13 @@ def validate(html: str, filename: str):
         "day-trips-by-train",
         "pickleball",        # conditional — ships for CA + AZ trips only
         "michelin",
-        "cities-gotchas",    # conditional — ships only when entries exist
+        "heads-up",    # conditional — ships only when entries exist
         "skip-list",         # conditional — footnote, very last; ships only when the city has a skip list
     ]
     eoi_canonical_set = set(eoi_canonical_order)
     # Subset that ships universally — used by T4. The two conditional
-    # sections (pickleball, cities-gotchas) are gated by T5/T6 instead.
-    eoi_conditional_set = {"pickleball", "cities-gotchas", "skip-list", "day-trips-by-train"}
+    # sections (pickleball, heads-up) are gated by T5/T6 instead.
+    eoi_conditional_set = {"pickleball", "heads-up", "skip-list", "day-trips-by-train"}
     eoi_universal_required = [
         sid for sid in eoi_canonical_order if sid not in eoi_conditional_set
     ]
@@ -10976,8 +11161,8 @@ def validate(html: str, filename: str):
     # We only run T4 when the document has at least one .day-block (otherwise
     # this is a non-guide doc and the rule doesn't apply — e.g., a standalone
     # snippet or an isolated test fixture).
-    # Conditionals (pickleball, cities-gotchas) are NOT required here — they
-    # are gated by T5/T6 based on trip state and Cities Gotchas.md entries.
+    # Conditionals (pickleball, heads-up) are NOT required here — they
+    # are gated by T5/T6 based on trip state and Heads Up.md entries.
     has_any_day_block = bool(re.search(
         r'<div\b[^>]*class\s*=\s*"[^"]*\bday-block\b', html, re.IGNORECASE,
     ))
@@ -10990,7 +11175,7 @@ def validate(html: str, filename: str):
         'sections ship in every guide (per Guide Structure.html Section order '
         '— universally-shipping sections: 10 universal (1–9 plus Michelin at #11); '
         'sections with no qualifying content ship a negative-finding line, never silently skipped; '
-        'Pickleball + Cities Gotchas are conditional)',
+        'Pickleball + Heads Up are conditional)',
         not (has_any_day_block and eoi_missing),
         (f"{len(eoi_missing)} of {len(eoi_universal_required)} universal "
          f"Extras section(s) missing from this guide: "
@@ -11083,24 +11268,24 @@ def validate(html: str, filename: str):
         )
     # else: no pickleball, no parseable state — nothing to enforce.
 
-    # T6 — Cities Gotchas ship-gate.
-    # Per Guide Structure.html Section order — Cities Gotchas (#12) ships
-    # ONLY when Brain/mds/Cities Gotchas.md has entries for the trip city
+    # T6 — Heads Up ship-gate.
+    # Per Guide Structure.html Section order — Heads Up (#12) ships
+    # ONLY when Brain/mds/Heads Up.md has entries for the trip city
     # (h2 heading `## CityName`); silently omitted otherwise — no header,
     # no negative-finding line.
     #
     # Detection:
     #   - Trip city extracted from .title-city text (uppercase per
     #     Hotel Banner.html §1 Entry).
-    #   - Cities Gotchas.md is parsed for "## CityName" headings; if the
+    #   - Heads Up.md is parsed for "## CityName" headings; if the
     #     trip city contains one of those city names (case-insensitive
     #     substring match), the section MUST ship. The substring match
     #     handles compound titles like "PASADENA & GREATER LA" matching
     #     a "Pasadena" h2 entry.
     #
     # Skip the check if either side is unresolvable (no .title-city, or
-    # Cities Gotchas.md missing/unreadable) — T1/T2 still rail the id
-    # validity and ordering, so a stray cities-gotchas section can't hide.
+    # Heads Up.md missing/unreadable) — T1/T2 still rail the id
+    # validity and ordering, so a stray heads-up section can't hide.
     trip_city_text = None
     title_city_m2 = re.search(
         r'<div\b[^>]*class\s*=\s*"[^"]*\btitle-city\b[^"]*"[^>]*>\s*([^<]+?)\s*</div>',
@@ -11110,10 +11295,10 @@ def validate(html: str, filename: str):
         trip_city_text = title_city_m2.group(1).strip().lower()
 
     gotcha_cities: set[str] = set()
-    # Cities Gotchas.md lives at Brain/mds/Cities Gotchas.md (sibling of
+    # Heads Up.md lives at Brain/mds/Heads Up.md (sibling of
     # this scripts/ folder one level up). Use the validator file's
     # location to resolve the path robustly regardless of cwd.
-    cg_path = Path(__file__).resolve().parent.parent / "mds" / "Cities Gotchas.md"
+    cg_path = Path(__file__).resolve().parent.parent / "mds" / "Heads Up.md"
     if cg_path.is_file():
         try:
             cg_text = cg_path.read_text(encoding="utf-8")
@@ -11126,7 +11311,7 @@ def validate(html: str, filename: str):
         except OSError:
             pass
 
-    cities_gotchas_present = "cities-gotchas" in eoi_present_set
+    heads_up_present = "heads-up" in eoi_present_set
 
     if has_any_day_block and trip_city_text is not None and gotcha_cities:
         matched_gotcha_city = next(
@@ -11134,31 +11319,31 @@ def validate(html: str, filename: str):
         )
         if matched_gotcha_city is not None:
             check(
-                '⚠️ Guide Structure — Cities Gotchas section ships when '
-                'Cities Gotchas.md has entries for the trip city '
+                '⚠️ Guide Structure — Heads Up section ships when '
+                'Heads Up.md has entries for the trip city '
                 f'(matched: "{matched_gotcha_city}") '
                 '(per Guide Structure.html Section order — #11 conditional)',
-                cities_gotchas_present,
+                heads_up_present,
                 (
-                    f'trip city "{trip_city_text}" matches Cities Gotchas.md '
+                    f'trip city "{trip_city_text}" matches Heads Up.md '
                     f'entry "{matched_gotcha_city}" but no .extras-section '
-                    'id="cities-gotchas" found — section is required when '
+                    'id="heads-up" found — section is required when '
                     'entries exist'
-                ) if not cities_gotchas_present else '',
+                ) if not heads_up_present else '',
             )
         else:
             check(
-                '⚠️ Guide Structure — Cities Gotchas section silently '
-                'omitted when Cities Gotchas.md has no entries for the '
+                '⚠️ Guide Structure — Heads Up section silently '
+                'omitted when Heads Up.md has no entries for the '
                 'trip city (per Guide Structure.html Section order — '
                 'no entries = silently omitted; no header, no '
                 'negative-finding line)',
-                not cities_gotchas_present,
+                not heads_up_present,
                 (
                     f'trip city "{trip_city_text}" has no entries in '
-                    'Cities Gotchas.md but .extras-section id="cities-gotchas" '
+                    'Heads Up.md but .extras-section id="heads-up" '
                     'is present — must be silently omitted'
-                ) if cities_gotchas_present else '',
+                ) if heads_up_present else '',
             )
     # else: trip_city_text or gotcha_cities unresolvable; skip the gate.
 
@@ -11166,7 +11351,7 @@ def validate(html: str, filename: str):
     # Per Skip List.html § 1: when the destination has a skip list (a city
     # heading in Brain/mds/Cities Skip List.md), the guide ships the Skip List
     # footnote (id="skip-list", very last); when it has none, the footnote is
-    # omitted entirely. Same gate pattern as Cities Gotchas above.
+    # omitted entirely. Same gate pattern as Heads Up above.
     _skip_cities: set[str] = set()
     _sl_path = Path(__file__).resolve().parent.parent / "mds" / "Cities Skip List.md"
     if _sl_path.is_file():
@@ -12402,7 +12587,7 @@ def validate(html: str, filename: str):
         ('day-trips',           ('⛲️', '🚄'),      'Day Trips by Train'),
         ('pickleball',          ('🏓',),           'Pickleball'),
         ('michelin',            ('⭐', '★'),       'Michelin Restaurants'),
-        ('cities-gotchas',      ('❗',),            'Cities Gotchas'),
+        ('heads-up',      ('❗',),            'Heads Up'),
         # Claude Inspiration: icon is Claude's pick per guide — not enforced.
     ]
     _icon_wrong: list[str] = []
@@ -12433,7 +12618,7 @@ def validate(html: str, filename: str):
         '(🗓️ Weekly Closures · 📅 Tours · ☕ Cappuccino · 🫕 Restaurants Near Hotel · 🍽️ Downtown · '
         '🍮 Local Tastes · 🚗 Food Delivery · 🎭 Shows · 🚌 Getting Around · '
         '🚆/🚄 Stations Near Hotel · ⛲️/🚄 Day Trips · '
-        '🏓 Pickleball · ⭐ Michelin · ❗ Cities Gotchas)',
+        '🏓 Pickleball · ⭐ Michelin · ❗ Heads Up)',
         len(_icon_wrong) == 0,
         f'{len(_icon_wrong)} section(s) with wrong or missing icon: '
         + '; '.join(_icon_wrong[:5])
@@ -13605,7 +13790,7 @@ def validate(html: str, filename: str):
         'tours', 'getting-around', 'cappuccino', 'restaurants', 'downtown',
         'local-tastes', 'food-delivery', 'shows', 'stations-near-hotel',
         'day-trips', 'michelin', 'weekly-closures', 'pickleball',
-        'cities-gotchas',
+        'heads-up',
     ]
     for _dbs_id in _DIV_BALANCE_SECTIONS:
         _dbs_open_re = re.compile(
@@ -13678,7 +13863,7 @@ def validate(html: str, filename: str):
         'local-tastes':        (set(),  False),  # dish name — plain text
         'stations-near-hotel': ({'🚊', '🚄'},  True),   # 🚊/🚄 structural prefix required on each entry heading (entry format: 🚊 [Station Name] or 🚄 [Station Name]); 🚆 is section-title only (forbidden on headings, 2026-05-26)
         'pickleball':          (set(),  False),  # venue name — plain text
-        'cities-gotchas':      (set(),  False),  # entry headings — plain text (❗️ on entries removed 2026-05-19 per Dani; section title carries the icon)
+        'heads-up':      (set(),  False),  # entry headings — plain text (❗️ on entries removed 2026-05-19 per Dani; section title carries the icon)
         'weekly-closures':     (set(),  False),  # venue/day label — plain text
     }
     # Match one emoji code point + optional variation selector (U+FE00–FE0F) as a unit.
@@ -13740,9 +13925,8 @@ def validate(html: str, filename: str):
     #   § 2 Rating bar : every tour ≥ 4.5⭐ AND ≥ 6 reviews; a rating that is
     #                    not visible is treated as 0 (so it fails the bar).
     #   § 3 Minimums   : ≥ 5 Viator + ≥ 5 GetYourGuide + ≥ 5 TripAdvisor (15 total),
-    #                    counted by the tour-name link domain — HARD FAIL if below,
-    #                    unless the guide is on _TOURS_MINIMUM_EXEMPT (documented
-    #                    reason; same pattern as the Train Day quota exemption).
+    #                    counted by the tour-name link domain. Shortfalls warn;
+    #                    document reason in <!-- low-count: [reason] --> comment.
     #   § 4 Entry      : 📅 name-link + operator · rating⭐ · reviews heading;
     #                    body box with 🕐/⏳/👥 row, 📍 Google Maps link,
     #                    🚶/🚕 motion row (or 🏨 pickup for hotel-pickup tours).
@@ -13910,26 +14094,9 @@ def validate(html: str, filename: str):
             'Tours .entry-body blocks and use flat divs only'
             if _tours_wrapped else '',
         )
-        # Per-platform minimums — § 3. HARD FAIL when any source is below 5,
-        # UNLESS the guide is on _TOURS_MINIMUM_EXEMPT with a documented reason
-        # (same pattern as the Train Day quota exemption above). A documented
-        # exemption passes with the reason named; an undocumented shortfall blocks
-        # ship. Reverted warn → fail-with-exemption 2026-05-21 per Dani: a
-        # silently-ignored warning is noise — every shortfall must be accounted for.
-        _TOURS_MINIMUM_EXEMPT = {
-            # Reykjavík — GetYourGuide and Tripadvisor are bot-blocked in the build
-            #   environment (Cloudflare 403 / Chrome hang), so the Links.html h1-match
-            #   gate can't run on their product pages. Ships Viator-verified tours only.
-            #   Top up GYG/TA to 5 each when their pages are reachable.
-            'reykjavik_v2.html': 'GetYourGuide and Tripadvisor bot-blocked in build environment — Links.html h1-match cannot run; Viator-verified tours only',
-            # Bend — small high-desert tour market. After applying the 4.5⭐/6-review
-            #   bar and excluding private tours, only the qualifying tours below exist
-            #   per source (Viator 4 / GetYourGuide 2 / TripAdvisor 3). The remaining
-            #   Bend products are private, sub-6-review, or unrated. No tours invented
-            #   to pad the count (Tours - Extra Section.html §3/§6).
-            'bend_v2.html': 'Bend is a small tour market — only 4 Viator / 2 GetYourGuide / 3 TripAdvisor tours clear the 4.5⭐/6-review bar after excluding private tours; no others qualify',
-        }
-        _tours_min_file = Path(filename).name if filename else ''
+        # Per-platform minimums — § 3. Below the 5/5/5 minimum is a warning.
+        # Document the reason in the <!-- low-count: [reason] --> comment after
+        # the section header. No guide-level exemptions — every shortfall warns.
         _src_bad: list[str] = []
         if _tours_src['Viator'] < 5:
             _src_bad.append(f"Viator {_tours_src['Viator']}/5")
@@ -13942,13 +14109,7 @@ def validate(html: str, filename: str):
             'TripAdvisor (15 total), counted by the tour-name link domain '
             '(per Tours - Extra Section.html § 3)'
         )
-        if _src_bad and _tours_min_file in _TOURS_MINIMUM_EXEMPT:
-            check(
-                _src_label + ' — exempted by validator (documented reason: '
-                + _TOURS_MINIMUM_EXEMPT[_tours_min_file] + ')',
-                True,
-            )
-        elif _src_bad:
+        if _src_bad:
             # Per Dani 2026-05-24: below the per-platform minimum WARNS, never hard-fails —
             # some destinations are genuinely small tour markets; ship what qualifies and
             # document why in the <!-- low-count: [reason] --> comment after the section header.
@@ -14745,7 +14906,7 @@ def validate(html: str, filename: str):
     # The outermost page wrapper in every guide is <div class="container">.
     # A stray </div> closing it early leaves subsequent extras-sections floating
     # at <body> level — no card styling, extreme left margin, headings clipped.
-    # Paris incident 2026-05-07: stray </div> after Michelin left Cities Gotchas
+    # Paris incident 2026-05-07: stray </div> after Michelin left Heads Up
     # floating; heading appeared as just "S".
     page_balance_bad: list[str] = []
     _page_div_m = re.search(
@@ -18024,7 +18185,7 @@ def validate(html: str, filename: str):
         import unicodedata as _ud2
         hrefs = set()
         for _m in re.finditer(
-            r'<a\b[^>]*class\s*=\s*"[^"]*\bglance-day\b[^"]*"[^>]*href\s*=\s*"([^"]+)"',
+            r'<a\b[^>]*class\s*=\s*"[^"]*\bdest-card\b[^"]*"[^>]*href\s*=\s*"([^"]+)"',
             idx_html, re.IGNORECASE,
         ):
             # Normalize: strip leading ./ and %20-decode
@@ -18041,6 +18202,9 @@ def validate(html: str, filename: str):
         _indexed = _idx_hrefs(_idx_html2)
         _in_index = _this_rel in _indexed
         # Check B — scan all guide folders
+        # In-progress builds: folder exists but guide isn't indexed yet.
+        # Remove an entry here when the guide ships and is added to guides_index.html.
+        _INDEX_EXCLUDED_GUIDES = set()  # emptied 2026-06-02: Copenhagen + Edinburgh now shipped
         for _gfolder in sorted(_guides_root.iterdir()):
             if not _gfolder.is_dir():
                 continue
@@ -18048,7 +18212,7 @@ def validate(html: str, filename: str):
                 if _gfile.suffix != '.html' or _gfile.name.startswith('_'):
                     continue
                 _grel = str(_gfile.relative_to(_guides_root))
-                if _grel not in _indexed:
+                if _grel not in _indexed and _grel not in _INDEX_EXCLUDED_GUIDES:
                     _all_guide_missing.append(_grel)
                 break  # one HTML per folder
     else:
@@ -18067,6 +18231,49 @@ def validate(html: str, filename: str):
         f'{len(_all_guide_missing)} guide(s) missing from index: '
         + ', '.join(_all_guide_missing[:5])
         if _all_guide_missing else '',
+    )
+
+    # ─── MAP PIN — city must have a pin in one of the six continent maps ────────
+    # Navigation.html § 5 step 5: every shipped guide must have a corresponding
+    # pin in the appropriate continent map.
+    # Updated 2026-06-02: expanded from 2 maps to all 6 continent maps.
+    print("\n── MAP PIN — city pinned in a continent map ──")
+    _travel_root = Path(filename).resolve().parent.parent.parent   # Travel/
+    _essentials  = _travel_root / "Trip Essentials"
+    _city_name   = Path(filename).resolve().parent.name            # e.g. "Amsterdam"
+    _maps_dir    = _essentials / "Maps"
+    _all_maps    = [
+        _maps_dir    / "Europe Map.html",
+        _maps_dir    / "US Map.html",
+        _maps_dir    / "Asia Map.html",
+        _maps_dir    / "Africa Map.html",
+        _maps_dir    / "Oceania Map.html",
+        _maps_dir    / "South America Map.html",
+        # Legacy top-level paths (pre-Maps-folder migration)
+        _essentials  / "Europe Map.html",
+        _essentials  / "US Map.html",
+        _essentials  / "Asia Map.html",
+        _essentials  / "Africa Map.html",
+        _essentials  / "Oceania Map.html",
+        _essentials  / "South America Map.html",
+    ]
+    _pin_found   = False
+    _pin_found_in = ""
+    for _map_file in _all_maps:
+        if _map_file.exists():
+            _map_html = _map_file.read_text(encoding="utf-8", errors="ignore")
+            if f"['{_city_name}'" in _map_html or f'["{_city_name}"' in _map_html:
+                _pin_found = True
+                _pin_found_in = _map_file.name
+                break
+    check(
+        f'MAP PIN — {_city_name} has a pin in a continent map '
+        f'(Navigation.html § 5 step 5)',
+        _pin_found,
+        f'{_city_name} not found in any continent map PINS array. '
+        f'Add [\'{_city_name}\', lon, lat, \'../Guides/{_city_name}/file.html\'] '
+        f'to Europe Map, US Map, Asia Map, Africa Map, Oceania Map, or South America Map.'
+        if not _pin_found else '',
     )
 
     # ─── CAROUSEL — globally alphabetical order ───────────────────────────────
@@ -18421,7 +18628,7 @@ def validate(html: str, filename: str):
     _body_box_classes = ('entry-body', 'shows-box', 'transit-box', 'station-box')
     for _esi in _extras_secs_iter:
         _esi_id = _esi.group(1).lower()
-        if _esi_id in ('weekly-closures', 'cities-gotchas', 'pickleball'):
+        if _esi_id in ('weekly-closures', 'heads-up', 'pickleball'):
             continue
         _esi_inner, _ = _walk_balanced_div(html, _esi.end())
         # 1) Every prose row INSIDE a body box
@@ -18867,9 +19074,9 @@ def validate(html: str, filename: str):
     # EXTRAS: CITIES GOTCHAS
     # ═══════════════════════════════════════════════════════════
     print("\n── CITIES GOTCHAS ──")
-    if cities_gotchas_present:
+    if heads_up_present:
         _cg_sec_re = re.compile(
-            r'<div\b(?=[^>]*\bextras-section\b)(?=[^>]*\bid\s*=\s*"cities-gotchas")[^>]*>',
+            r'<div\b(?=[^>]*\bextras-section\b)(?=[^>]*\bid\s*=\s*"heads-up")[^>]*>',
             re.IGNORECASE,
         )
         _cg_m = _cg_sec_re.search(html)
@@ -18884,13 +19091,13 @@ def validate(html: str, filename: str):
             if _cg_title_m:
                 _cg_title_text  = RE_STRIP_TAGS.sub('', _cg_title_m.group(1)).strip()
                 # Accept regular space or hair space (U+200A) after ❗ — both render correctly
-                _cg_title_exact = (_cg_title_text in ('❗ Cities Gotchas', '❗ Cities Gotchas'))
+                _cg_title_exact = (_cg_title_text in ('❗ Heads Up', '❗ Heads Up'))
         # Exact title — drift like "❗️ Gotchas" or "❗️ City Gotchas" must fail.
         check(
-            'Cities Gotchas — .extras-title is exactly "❗ Cities Gotchas" '
+            'Heads Up — .extras-title is exactly "❗ Heads Up" '
             '(per Icon Order and Format.html)',
             _cg_title_exact,
-            f'extras-title is "{_cg_title_text[:60]}" — must be exactly "❗ Cities Gotchas"'
+            f'extras-title is "{_cg_title_text[:60]}" — must be exactly "❗ Heads Up"'
             if not _cg_title_exact else '',
         )
 
@@ -18919,15 +19126,15 @@ def validate(html: str, filename: str):
                     _cg_bare_drift.append('bare <div> after .extras-sub (wrap in .transit-box)')
                     break  # one error is enough to flag the issue
         check(
-            'Cities Gotchas — entry body rows must be inside .transit-box '
+            'Heads Up — entry body rows must be inside .transit-box '
             '(bare <div> directly after .extras-sub is the old flat format — '
             'wrap the gotcha + workaround rows in <div class="transit-box">) '
-            '(Cities Gotchas - Extra Section.html § 2)',
+            '(Heads Up - Extra Section.html § 2)',
             not _cg_bare_drift,
             '; '.join(_cg_bare_drift[:3]) if _cg_bare_drift else '',
         )
         check(
-            'Cities Gotchas — .entry-body / .shows-box must not appear here '
+            'Heads Up — .entry-body / .shows-box must not appear here '
             '(they belong to other sections)',
             not _cg_wrong_box,
             f'{len(_cg_wrong_box)} wrong box(es): ' + '; '.join(_cg_wrong_box[:3]) if _cg_wrong_box else '',
@@ -19193,37 +19400,37 @@ def validate(html: str, filename: str):
                         )
 
         check(
-            'Cities Gotchas — section present only when entries exist; '
+            'Heads Up — section present only when entries exist; '
             'no entries = section must not appear (§ 1 — silence means clean)',
             not _cg_empty_section,
             '; '.join(_cg_empty_section) if _cg_empty_section else '',
         )
         check(
-            'Cities Gotchas — heading row: "Venue — Short Title" '
+            'Heads Up — heading row: "Venue — Short Title" '
             '(plain text, em-dash, text on both sides, no leading ❗️, no links) '
-            '(Cities Gotchas - Extra Section.html § 2)',
+            '(Heads Up - Extra Section.html § 2)',
             not _cg_heading_fmt,
             f'{len(_cg_heading_fmt)} violation(s): ' + '; '.join(_cg_heading_fmt[:3])
             if _cg_heading_fmt else '',
         )
         check(
-            'Cities Gotchas — heading row contains no emoji '
+            'Heads Up — heading row contains no emoji '
             '(venue and short title are plain text) '
-            '(Cities Gotchas - Extra Section.html § 2)',
+            '(Heads Up - Extra Section.html § 2)',
             not _cg_heading_emoji,
             f'{len(_cg_heading_emoji)} heading(s) with emoji: '
             + '; '.join(_cg_heading_emoji[:3]) if _cg_heading_emoji else '',
         )
         check(
-            'Cities Gotchas — no duplicate heading rows '
+            'Heads Up — no duplicate heading rows '
             '(same "Venue — Short Title" must not appear more than once)',
             not _cg_heading_dupes,
             '; '.join(_cg_heading_dupes[:3]) if _cg_heading_dupes else '',
         )
         check(
-            'Cities Gotchas — gotcha row (row 2) non-empty, ≤150 chars, '
+            'Heads Up — gotcha row (row 2) non-empty, ≤150 chars, '
             'no emoji, no links, does not start with "Workaround:" '
-            '(Cities Gotchas - Extra Section.html § 2)',
+            '(Heads Up - Extra Section.html § 2)',
             not _cg_gotcha_empty and not _cg_gotcha_too_long
             and not _cg_bad_icons and not _cg_gotcha_linked
             and not _cg_gotcha_mislabeled,
@@ -19234,9 +19441,9 @@ def validate(html: str, filename: str):
             ) or '',
         )
         check(
-            'Cities Gotchas — "Workaround:" row (row 3) present, capital W, '
+            'Heads Up — "Workaround:" row (row 3) present, capital W, '
             'non-empty text after colon, no emoji '
-            '(Cities Gotchas - Extra Section.html § 2)',
+            '(Heads Up - Extra Section.html § 2)',
             not _cg_no_workaround and not _cg_workaround_case
             and not _cg_workaround_empty,
             '; '.join(
@@ -19245,8 +19452,8 @@ def validate(html: str, filename: str):
             ) or '',
         )
         check(
-            'Cities Gotchas — no extra rows beyond the 3-row format '
-            '(Cities Gotchas - Extra Section.html § 2)',
+            'Heads Up — no extra rows beyond the 3-row format '
+            '(Heads Up - Extra Section.html § 2)',
             not _cg_extra_rows,
             f'{len(_cg_extra_rows)} entry(ies) with drift rows: '
             + '; '.join(_cg_extra_rows[:3]) if _cg_extra_rows else '',
@@ -19262,9 +19469,9 @@ def validate(html: str, filename: str):
                 if _pre:
                     _cg_prose_intro.append(f'"{_pre[:60]}"')
         check(
-            'Cities Gotchas — no intro prose before first ❗️ entry '
+            'Heads Up — no intro prose before first ❗️ entry '
             '(section goes directly from title to entries) '
-            '(Cities Gotchas - Extra Section.html § 2)',
+            '(Heads Up - Extra Section.html § 2)',
             not _cg_prose_intro,
             f'{len(_cg_prose_intro)} prose row(s) before first entry: '
             + '; '.join(_cg_prose_intro[:3]) if _cg_prose_intro else '',
@@ -19295,9 +19502,9 @@ def validate(html: str, filename: str):
                         )
                         break
         check(
-            'Cities Gotchas — no build annotations in gotcha/workaround rows '
+            'Heads Up — no build annotations in gotcha/workaround rows '
             '([UPDATE]/[CHECK]/🔴/[TBD] etc. must be stripped before shipping) '
-            '(Cities Gotchas - Extra Section.html § 2)',
+            '(Heads Up - Extra Section.html § 2)',
             not _cg_annot_hits,
             f'{len(_cg_annot_hits)} entry(ies) with annotation leakage: '
             + '; '.join(_cg_annot_hits[:3]) if _cg_annot_hits else '',
@@ -19308,89 +19515,89 @@ def validate(html: str, filename: str):
         # Day Trips, Pickleball, Food Delivery, Train Stations Near Hotel).
         _cg_p_tags = re.findall(r'<p', _cg_inner, re.IGNORECASE) if _cg_m else []
         check(
-            'Cities Gotchas — no <p> tags inside section '
+            'Heads Up — no <p> tags inside section '
             '(entries are flat divs; <p> is structural drift) '
-            '(Cities Gotchas - Extra Section.html § 2)',
+            '(Heads Up - Extra Section.html § 2)',
             not _cg_p_tags,
-            f'{len(_cg_p_tags)} <p> tag(s) found inside cities-gotchas'
+            f'{len(_cg_p_tags)} <p> tag(s) found inside heads-up'
             if _cg_p_tags else '',
         )
 
         # ── New checks: heading annot, em-dash, generic venue, lengths, caps, etc. ──
         check(
-            'Cities Gotchas — no build annotations in heading row '
+            'Heads Up — no build annotations in heading row '
             '([UPDATE]/🔴/[TBD] etc. in "❗️ Venue — Short Title" must be removed)',
             not _cg_heading_annot,
             f'{len(_cg_heading_annot)} heading(s) with annotation: ' + '; '.join(_cg_heading_annot[:3]) if _cg_heading_annot else '',
         )
         check(
-            'Cities Gotchas — heading separator must be em-dash "—" (U+2014), not hyphen or en-dash '
-            '(Cities Gotchas - Extra Section.html § 2)',
+            'Heads Up — heading separator must be em-dash "—" (U+2014), not hyphen or en-dash '
+            '(Heads Up - Extra Section.html § 2)',
             not _cg_bad_dash,
             f'{len(_cg_bad_dash)} heading(s) with wrong dash: ' + '; '.join(_cg_bad_dash[:3]) if _cg_bad_dash else '',
         )
         check(
-            'Cities Gotchas — venue name is a specific name, not a generic category word '
+            'Heads Up — venue name is a specific name, not a generic category word '
             '("Restaurant", "Hotel", "Museum", etc. fail) '
-            '(Cities Gotchas - Extra Section.html § 2)',
+            '(Heads Up - Extra Section.html § 2)',
             not _cg_generic_venue,
             f'{len(_cg_generic_venue)} generic venue name(s): ' + '; '.join(_cg_generic_venue[:3]) if _cg_generic_venue else '',
         )
         check(
-            'Cities Gotchas — venue name (before " — ") is 2–60 chars '
-            '(Cities Gotchas - Extra Section.html § 2)',
+            'Heads Up — venue name (before " — ") is 2–60 chars '
+            '(Heads Up - Extra Section.html § 2)',
             not _cg_venue_len_bad,
             f'{len(_cg_venue_len_bad)} out-of-range venue name(s): ' + '; '.join(_cg_venue_len_bad[:3]) if _cg_venue_len_bad else '',
         )
         check(
-            'Cities Gotchas — venue name and short title must differ '
+            'Heads Up — venue name and short title must differ '
             '(identical text on both sides of " — " is copy-paste drift)',
             not _cg_venue_eq_title,
             f'{len(_cg_venue_eq_title)} heading(s) where venue == short title: ' + '; '.join(_cg_venue_eq_title[:3]) if _cg_venue_eq_title else '',
         )
         check(
-            'Cities Gotchas — gotcha row has ≥5 chars of text '
-            '(Cities Gotchas - Extra Section.html § 2 "the surprise" must be substantive)',
+            'Heads Up — gotcha row has ≥5 chars of text '
+            '(Heads Up - Extra Section.html § 2 "the surprise" must be substantive)',
             not _cg_gotcha_too_short,
             f'{len(_cg_gotcha_too_short)} gotcha(s) under 5 chars: ' + '; '.join(_cg_gotcha_too_short[:3]) if _cg_gotcha_too_short else '',
         )
         check(
-            'Cities Gotchas — workaround text has ≥10 chars after the colon '
-            '(Cities Gotchas - Extra Section.html § 2 "[What To Do Instead]" must be actionable)',
+            'Heads Up — workaround text has ≥10 chars after the colon '
+            '(Heads Up - Extra Section.html § 2 "[What To Do Instead]" must be actionable)',
             not _cg_wa_too_short,
             f'{len(_cg_wa_too_short)} workaround(s) under 10 chars: ' + '; '.join(_cg_wa_too_short[:3]) if _cg_wa_too_short else '',
         )
         check(
-            'Cities Gotchas — gotcha row starts with a capital letter (prose consistency)',
+            'Heads Up — gotcha row starts with a capital letter (prose consistency)',
             not _cg_gotcha_nocap,
             f'{len(_cg_gotcha_nocap)} gotcha(s) starting lowercase: ' + '; '.join(_cg_gotcha_nocap[:3]) if _cg_gotcha_nocap else '',
         )
         check(
-            'Cities Gotchas — workaround text (after "Workaround: ") starts with capital letter',
+            'Heads Up — workaround text (after "Workaround: ") starts with capital letter',
             not _cg_wa_nocap,
             f'{len(_cg_wa_nocap)} workaround(s) starting lowercase: ' + '; '.join(_cg_wa_nocap[:3]) if _cg_wa_nocap else '',
         )
         check(
-            'Cities Gotchas — workaround text must differ from gotcha text '
+            'Heads Up — workaround text must differ from gotcha text '
             '(identical = copy-paste drift; each row has distinct purpose)',
             not _cg_wa_eq_gotcha,
             f'{len(_cg_wa_eq_gotcha)} entry(ies) where workaround == gotcha: ' + '; '.join(_cg_wa_eq_gotcha[:3]) if _cg_wa_eq_gotcha else '',
         )
         _cg_h_tags = re.findall(r'<h[2-6]', _cg_inner, re.IGNORECASE) if _cg_m else []
         check(
-            'Cities Gotchas — no <h2>–<h6> heading tags inside section (format drift)',
+            'Heads Up — no <h2>–<h6> heading tags inside section (format drift)',
             not _cg_h_tags,
-            f'{len(_cg_h_tags)} <h> tag(s) found inside cities-gotchas' if _cg_h_tags else '',
+            f'{len(_cg_h_tags)} <h> tag(s) found inside heads-up' if _cg_h_tags else '',
         )
         _cg_br_count = len(re.findall(r'<br\s*/?>', _cg_inner, re.IGNORECASE)) if _cg_m else 0
         check(
-            'Cities Gotchas — no <br> tags inside section (row breaks come from the div-per-row structure inside .transit-box)',
+            'Heads Up — no <br> tags inside section (row breaks come from the div-per-row structure inside .transit-box)',
             _cg_br_count == 0,
             f'{_cg_br_count} <br> tag(s) found' if _cg_br_count else '',
         )
         _cg_inline_styles = re.findall(r'<[^>]+style\s*=\s*"[^"]*"', _cg_inner, re.IGNORECASE) if _cg_m else []
         check(
-            'Cities Gotchas — no inline style= attributes inside section',
+            'Heads Up — no inline style= attributes inside section',
             not _cg_inline_styles,
             f'{len(_cg_inline_styles)} inline style(s) found' if _cg_inline_styles else '',
         )
@@ -19403,13 +19610,13 @@ def validate(html: str, filename: str):
                         _cg_nested_divs.append(f'"{_cg_rows_text[_ei][:50]}" — row has nested <div>')
                         break
         check(
-            'Cities Gotchas — no nested <div> inside entry body rows (body divs inside .transit-box must be plain)',
+            'Heads Up — no nested <div> inside entry body rows (body divs inside .transit-box must be plain)',
             not _cg_nested_divs,
             f'{len(_cg_nested_divs)} entry row(s) with nested <div>: ' + '; '.join(_cg_nested_divs[:3]) if _cg_nested_divs else '',
         )
         check(
-            'Cities Gotchas — section div resolved correctly when listed as present '
-            '(id="cities-gotchas" must be on the .extras-section div)',
+            'Heads Up — section div resolved correctly when listed as present '
+            '(id="heads-up" must be on the .extras-section div)',
             _cg_m is not None,
             'Section in eoi_present_set but div not resolved — check id and class on the container'
             if _cg_m is None else '',
@@ -19430,8 +19637,8 @@ def validate(html: str, filename: str):
                             f'"{_short_t[:52]}" ({len(_short_t)} chars)'
                         )
         check(
-            'Cities Gotchas — short title (after " — ") must be ≤40 chars '
-            '(Cities Gotchas - Extra Section.html § 2)',
+            'Heads Up — short title (after " — ") must be ≤40 chars '
+            '(Heads Up - Extra Section.html § 2)',
             not _cg_short_title_long,
             f'{len(_cg_short_title_long)} heading(s) with long short-title: '
             + '; '.join(_cg_short_title_long[:3]) if _cg_short_title_long else '',
@@ -19457,9 +19664,9 @@ def validate(html: str, filename: str):
                         )
                         break
         check(
-            'Cities Gotchas — no tilde (~) in gotcha/workaround rows '
+            'Heads Up — no tilde (~) in gotcha/workaround rows '
             '(tilde is globally banned outside ⏰ context) '
-            '(Cities Gotchas - Extra Section.html § 2)',
+            '(Heads Up - Extra Section.html § 2)',
             not _cg_tilde_hits,
             f'{len(_cg_tilde_hits)} entry(ies) with tilde: '
             + '; '.join(_cg_tilde_hits[:3]) if _cg_tilde_hits else '',
@@ -19499,15 +19706,15 @@ def validate(html: str, filename: str):
                             f'"{_label_p}" — workaround ends with "…{_wa_body_tp[-20:]}"'
                         )
         check(
-            'Cities Gotchas — gotcha row must end with sentence-ending punctuation (. !) '
-            '(Cities Gotchas - Extra Section.html § 2)',
+            'Heads Up — gotcha row must end with sentence-ending punctuation (. !) '
+            '(Heads Up - Extra Section.html § 2)',
             not _cg_gotcha_no_period,
             f'{len(_cg_gotcha_no_period)} entry(ies) with gotcha missing trailing punctuation: '
             + '; '.join(_cg_gotcha_no_period[:3]) if _cg_gotcha_no_period else '',
         )
         check(
-            'Cities Gotchas — workaround text must end with sentence-ending punctuation (. !) '
-            '(Cities Gotchas - Extra Section.html § 2)',
+            'Heads Up — workaround text must end with sentence-ending punctuation (. !) '
+            '(Heads Up - Extra Section.html § 2)',
             not _cg_wa_no_period,
             f'{len(_cg_wa_no_period)} entry(ies) with workaround missing trailing punctuation: '
             + '; '.join(_cg_wa_no_period[:3]) if _cg_wa_no_period else '',
@@ -19519,9 +19726,9 @@ def validate(html: str, filename: str):
         # author should review and trim.
         _cg_entry_count = len(_entry_starts) if _cg_m else 0
         check(
-            'Cities Gotchas — entry count < 8 '
+            'Heads Up — entry count < 8 '
             '(≥8 entries signals section may be overcrowded; review & curate) '
-            '(Cities Gotchas - Extra Section.html § 1)',
+            '(Heads Up - Extra Section.html § 1)',
             _cg_entry_count < 8,
             f'{_cg_entry_count} entries — consider curating down to <8'
             if _cg_entry_count >= 8 else '',
@@ -19538,7 +19745,7 @@ def validate(html: str, filename: str):
                 if '~' in _ht:
                     _cg_tilde_heading.append(f'"{_ht[:60]}"')
         check(
-            'Cities Gotchas — no tilde (~) in heading row '
+            'Heads Up — no tilde (~) in heading row '
             '(heading is never an ⏰ distance row; tilde is globally banned here)',
             not _cg_tilde_heading,
             f'{len(_cg_tilde_heading)} heading(s) with tilde: '
@@ -19557,9 +19764,9 @@ def validate(html: str, filename: str):
                     if _v and not _v[0].isupper():
                         _cg_venue_nocap.append(f'"{_ht[:60]}" — venue starts lowercase')
         check(
-            'Cities Gotchas — venue name (before " — ") starts with a capital letter '
+            'Heads Up — venue name (before " — ") starts with a capital letter '
             '(proper-noun venues must be capitalised) '
-            '(Cities Gotchas - Extra Section.html § 2)',
+            '(Heads Up - Extra Section.html § 2)',
             not _cg_venue_nocap,
             f'{len(_cg_venue_nocap)} venue(s) starting lowercase: '
             + '; '.join(_cg_venue_nocap[:3]) if _cg_venue_nocap else '',
@@ -19575,8 +19782,8 @@ def validate(html: str, filename: str):
                     if _st and not _st[0].isupper():
                         _cg_stitle_nocap.append(f'"{_ht[:60]}" — short title starts lowercase')
         check(
-            'Cities Gotchas — short title (after " — ") starts with a capital letter '
-            '(Cities Gotchas - Extra Section.html § 2)',
+            'Heads Up — short title (after " — ") starts with a capital letter '
+            '(Heads Up - Extra Section.html § 2)',
             not _cg_stitle_nocap,
             f'{len(_cg_stitle_nocap)} short title(s) starting lowercase: '
             + '; '.join(_cg_stitle_nocap[:3]) if _cg_stitle_nocap else '',
@@ -19594,9 +19801,9 @@ def validate(html: str, filename: str):
                         f'"{_ht[:60]}" — {_ht.count(" — ")} " — " separators (must be exactly 1)'
                     )
         check(
-            'Cities Gotchas — heading row contains exactly one " — " separator '
+            'Heads Up — heading row contains exactly one " — " separator '
             '(multiple em-dashes = format drift) '
-            '(Cities Gotchas - Extra Section.html § 2)',
+            '(Heads Up - Extra Section.html § 2)',
             not _cg_multi_dash,
             f'{len(_cg_multi_dash)} heading(s) with multiple " — " separators: '
             + '; '.join(_cg_multi_dash[:3]) if _cg_multi_dash else '',
@@ -19614,7 +19821,7 @@ def validate(html: str, filename: str):
                     if _v.endswith('.'):
                         _cg_venue_period.append(f'"{_ht[:60]}" — venue name ends with period')
         check(
-            'Cities Gotchas — venue name must not end with a period '
+            'Heads Up — venue name must not end with a period '
             '(labels are not sentences; trailing period is authoring drift)',
             not _cg_venue_period,
             f'{len(_cg_venue_period)} venue(s) with trailing period: '
@@ -19634,7 +19841,7 @@ def validate(html: str, filename: str):
                     if _st and (_st[0] in _QUOTE_CHARS or _st[-1] in _QUOTE_CHARS):
                         _cg_stitle_quoted.append(f'"{_ht[:60]}" — short title wrapped in quotes')
         check(
-            'Cities Gotchas — short title must not be wrapped in quote marks '
+            'Heads Up — short title must not be wrapped in quote marks '
             '(plain text label; quotes are formatting drift)',
             not _cg_stitle_quoted,
             f'{len(_cg_stitle_quoted)} short title(s) with quote marks: '
@@ -19661,9 +19868,9 @@ def validate(html: str, filename: str):
                         + ' | '.join(_hds[:3])
                     )
         check(
-            'Cities Gotchas — same venue name must not appear more than once '
+            'Heads Up — same venue name must not appear more than once '
             '(same venue under different short titles = split entry drift) '
-            '(Cities Gotchas - Extra Section.html § 2)',
+            '(Heads Up - Extra Section.html § 2)',
             not _cg_venue_dupes,
             f'{len(_cg_venue_dupes)} duplicate venue(s): '
             + '; '.join(_cg_venue_dupes[:3]) if _cg_venue_dupes else '',
@@ -19675,10 +19882,10 @@ def validate(html: str, filename: str):
             if _cg_m else []
         )
         check(
-            'Cities Gotchas — no <script> or <style> tags inside section '
+            'Heads Up — no <script> or <style> tags inside section '
             '(structural/style markup does not belong in entry content)',
             not _cg_script_tags,
-            f'{len(_cg_script_tags)} <script>/<style> tag(s) found inside cities-gotchas'
+            f'{len(_cg_script_tags)} <script>/<style> tag(s) found inside heads-up'
             if _cg_script_tags else '',
         )
 
@@ -19690,10 +19897,10 @@ def validate(html: str, filename: str):
             if _cg_m else []
         )
         check(
-            'Cities Gotchas — no HTML comments (<!-- -->) inside section '
+            'Heads Up — no HTML comments (<!-- -->) inside section '
             '(build notes must be stripped before shipping)',
             not _cg_comments,
-            f'{len(_cg_comments)} HTML comment(s) found inside cities-gotchas'
+            f'{len(_cg_comments)} HTML comment(s) found inside heads-up'
             if _cg_comments else '',
         )
 
@@ -19716,7 +19923,7 @@ def validate(html: str, filename: str):
                         )
                         break
         check(
-            'Cities Gotchas — no <strong> or <em> tags in gotcha/workaround rows '
+            'Heads Up — no <strong> or <em> tags in gotcha/workaround rows '
             '(entry rows are plain text; bold/italic is formatting drift)',
             not _cg_markup_rows,
             f'{len(_cg_markup_rows)} entry row(s) with <strong>/<em>: '
@@ -19729,20 +19936,20 @@ def validate(html: str, filename: str):
             if _cg_m else []
         )
         check(
-            'Cities Gotchas — no <ul> or <ol> tags inside section '
+            'Heads Up — no <ul> or <ol> tags inside section '
             '(flat-div structure; list markup is format drift)',
             not _cg_list_tags,
-            f'{len(_cg_list_tags)} <ul>/<ol> tag(s) found inside cities-gotchas'
+            f'{len(_cg_list_tags)} <ul>/<ol> tag(s) found inside heads-up'
             if _cg_list_tags else '',
         )
 
 
-    # ── Drift protection: Cities Gotchas - Extra Section.html ────────────────
+    # ── Drift protection: Heads Up - Extra Section.html ────────────────
     # Verify the CORE RULES spec still contains key format anchors. If the
     # file is trimmed or rewritten, future builds lose format calibration.
     _cg_spec_path = (
         Path(filename).resolve().parent.parent.parent
-        / 'Brain' / 'CORE RULES' / 'Cities Gotchas - Extra Section.html'
+        / 'Brain' / 'CORE RULES' / 'Heads Up - Extra Section.html'
     )
     _cg_spec_ok = False
     _cg_spec_text = ''
@@ -19753,13 +19960,13 @@ def validate(html: str, filename: str):
         except OSError:
             pass
     check(
-        'Cities Gotchas - Extra Section.html is readable at expected CORE RULES path',
+        'Heads Up - Extra Section.html is readable at expected CORE RULES path',
         _cg_spec_ok,
         f'File not found or unreadable at: {_cg_spec_path}' if not _cg_spec_ok else '',
     )
     if _cg_spec_ok:
         _cg_spec_anchors = [
-            ('§ 1 source-file ref (Cities Gotchas.md)',     'Cities Gotchas.md'),
+            ('§ 1 source-file ref (Heads Up.md)',     'Heads Up.md'),
             ('§ 1 silence-means-clean anchor',              'Silence means clean'),
             ('§ 2 leading icon anchor (❗️)',                '❗️'),
             ('§ 2 heading format anchor ([Venue])',          '[Venue]'),
@@ -19772,11 +19979,11 @@ def validate(html: str, filename: str):
             if _cg_needle not in _cg_spec_text:
                 _cg_spec_drifted.append(_cg_label)
         # Only hard-fail the calibration check when the guide actually ships a
-        # Cities Gotchas section — if the section is absent, spec drift doesn't
+        # Heads Up section — if the section is absent, spec drift doesn't
         # block the current guide (the content rules are still usable by future builds).
-        _cg_cal_fail = _cg_spec_drifted and cities_gotchas_present
+        _cg_cal_fail = _cg_spec_drifted and heads_up_present
         check(
-            'Cities Gotchas - Extra Section.html — calibration anchors intact '
+            'Heads Up - Extra Section.html — calibration anchors intact '
             '(source-file ref + format anchors; missing = spec has drifted)',
             not _cg_cal_fail,
             f'{len(_cg_spec_drifted)} anchor(s) missing from CORE RULES file: '
@@ -19784,49 +19991,49 @@ def validate(html: str, filename: str):
         )
 
     else:
-        check('Cities Gotchas — .extras-title exact text — section absent, skipped', True)
-        check('Cities Gotchas — no box wrappers — section absent, skipped', True)
-        check('Cities Gotchas — section present only when entries exist — section absent, skipped', True)
-        check('Cities Gotchas — heading row format — section absent, skipped', True)
-        check('Cities Gotchas — heading row no extra emoji — section absent, skipped', True)
-        check('Cities Gotchas — no duplicate headings — section absent, skipped', True)
-        check('Cities Gotchas — gotcha row (non-empty, ≤150, no emoji, no links, not mislabeled) — section absent, skipped', True)
-        check('Cities Gotchas — Workaround: row (capital W, non-empty, no emoji) — section absent, skipped', True)
-        check('Cities Gotchas — no extra rows — section absent, skipped', True)
-        check('Cities Gotchas — no intro prose before first entry — section absent, skipped', True)
-        check('Cities Gotchas — no annotation leakage in body rows — section absent, skipped', True)
-        check('Cities Gotchas — no <p> tags — section absent, skipped', True)
-        check('Cities Gotchas — no annotation leakage in heading row — section absent, skipped', True)
-        check('Cities Gotchas — em-dash separator — section absent, skipped', True)
-        check('Cities Gotchas — generic venue name guard — section absent, skipped', True)
-        check('Cities Gotchas — venue name length range — section absent, skipped', True)
-        check('Cities Gotchas — venue ≠ short title — section absent, skipped', True)
-        check('Cities Gotchas — gotcha min length — section absent, skipped', True)
-        check('Cities Gotchas — workaround min length — section absent, skipped', True)
-        check('Cities Gotchas — gotcha capital letter — section absent, skipped', True)
-        check('Cities Gotchas — workaround capital letter — section absent, skipped', True)
-        check('Cities Gotchas — workaround ≠ gotcha — section absent, skipped', True)
-        check('Cities Gotchas — no <h> tags — section absent, skipped', True)
-        check('Cities Gotchas — no <br> tags — section absent, skipped', True)
-        check('Cities Gotchas — no inline styles — section absent, skipped', True)
-        check('Cities Gotchas — no nested divs — section absent, skipped', True)
-        check('Cities Gotchas — _cg_m resolved — section absent, skipped', True)
-        check('Cities Gotchas — short title ≤40 chars — section absent, skipped', True)
-        check('Cities Gotchas — no tilde in gotcha/workaround — section absent, skipped', True)
-        check('Cities Gotchas — gotcha trailing punctuation (. !) — section absent, skipped', True)
-        check('Cities Gotchas — workaround trailing punctuation (. !) — section absent, skipped', True)
-        check('Cities Gotchas — entry count < 8 — section absent, skipped', True)
-        check('Cities Gotchas — no tilde in heading row — section absent, skipped', True)
-        check('Cities Gotchas — venue name starts with capital — section absent, skipped', True)
-        check('Cities Gotchas — short title starts with capital — section absent, skipped', True)
-        check('Cities Gotchas — exactly one em-dash separator — section absent, skipped', True)
-        check('Cities Gotchas — no trailing period on venue name — section absent, skipped', True)
-        check('Cities Gotchas — short title no quote marks — section absent, skipped', True)
-        check('Cities Gotchas — no duplicate venue names — section absent, skipped', True)
-        check('Cities Gotchas — no <script>/<style> tags — section absent, skipped', True)
-        check('Cities Gotchas — no HTML comments — section absent, skipped', True)
-        check('Cities Gotchas — no <strong>/<em> in entry rows — section absent, skipped', True)
-        check('Cities Gotchas — no <ul>/<ol> tags — section absent, skipped', True)
+        check('Heads Up — .extras-title exact text — section absent, skipped', True)
+        check('Heads Up — no box wrappers — section absent, skipped', True)
+        check('Heads Up — section present only when entries exist — section absent, skipped', True)
+        check('Heads Up — heading row format — section absent, skipped', True)
+        check('Heads Up — heading row no extra emoji — section absent, skipped', True)
+        check('Heads Up — no duplicate headings — section absent, skipped', True)
+        check('Heads Up — gotcha row (non-empty, ≤150, no emoji, no links, not mislabeled) — section absent, skipped', True)
+        check('Heads Up — Workaround: row (capital W, non-empty, no emoji) — section absent, skipped', True)
+        check('Heads Up — no extra rows — section absent, skipped', True)
+        check('Heads Up — no intro prose before first entry — section absent, skipped', True)
+        check('Heads Up — no annotation leakage in body rows — section absent, skipped', True)
+        check('Heads Up — no <p> tags — section absent, skipped', True)
+        check('Heads Up — no annotation leakage in heading row — section absent, skipped', True)
+        check('Heads Up — em-dash separator — section absent, skipped', True)
+        check('Heads Up — generic venue name guard — section absent, skipped', True)
+        check('Heads Up — venue name length range — section absent, skipped', True)
+        check('Heads Up — venue ≠ short title — section absent, skipped', True)
+        check('Heads Up — gotcha min length — section absent, skipped', True)
+        check('Heads Up — workaround min length — section absent, skipped', True)
+        check('Heads Up — gotcha capital letter — section absent, skipped', True)
+        check('Heads Up — workaround capital letter — section absent, skipped', True)
+        check('Heads Up — workaround ≠ gotcha — section absent, skipped', True)
+        check('Heads Up — no <h> tags — section absent, skipped', True)
+        check('Heads Up — no <br> tags — section absent, skipped', True)
+        check('Heads Up — no inline styles — section absent, skipped', True)
+        check('Heads Up — no nested divs — section absent, skipped', True)
+        check('Heads Up — _cg_m resolved — section absent, skipped', True)
+        check('Heads Up — short title ≤40 chars — section absent, skipped', True)
+        check('Heads Up — no tilde in gotcha/workaround — section absent, skipped', True)
+        check('Heads Up — gotcha trailing punctuation (. !) — section absent, skipped', True)
+        check('Heads Up — workaround trailing punctuation (. !) — section absent, skipped', True)
+        check('Heads Up — entry count < 8 — section absent, skipped', True)
+        check('Heads Up — no tilde in heading row — section absent, skipped', True)
+        check('Heads Up — venue name starts with capital — section absent, skipped', True)
+        check('Heads Up — short title starts with capital — section absent, skipped', True)
+        check('Heads Up — exactly one em-dash separator — section absent, skipped', True)
+        check('Heads Up — no trailing period on venue name — section absent, skipped', True)
+        check('Heads Up — short title no quote marks — section absent, skipped', True)
+        check('Heads Up — no duplicate venue names — section absent, skipped', True)
+        check('Heads Up — no <script>/<style> tags — section absent, skipped', True)
+        check('Heads Up — no HTML comments — section absent, skipped', True)
+        check('Heads Up — no <strong>/<em> in entry rows — section absent, skipped', True)
+        check('Heads Up — no <ul>/<ol> tags — section absent, skipped', True)
 
     # ─── SECTION HEADER ICONS — batch check (per-section starts-with + cross-icon leak) ─────────────
     # Reuses _SECTION_ICON_MAP from the section-icon enforcement block above.
@@ -19884,7 +20091,7 @@ def validate(html: str, filename: str):
     # Dead loop removed 2026-05-18 — check was retired 2026-05-14 (rule updated;
     # Universal Formatting Rules now accepts <p> wrappers inside extras-sections),
     # but the loop was still iterating every guide for nothing. Sibling per-section
-    # checks (Cities Gotchas no-<p>, Local Tastes no-<p>, etc.) remain.
+    # checks (Heads Up no-<p>, Local Tastes no-<p>, etc.) remain.
 
     # ─── FORMAT CONTRACT: no logistics inside .ride-apps ───────────────────
     print("\n── FORMAT CONTRACT: no logistics inside .ride-apps ──")
@@ -20344,9 +20551,8 @@ def validate(html: str, filename: str):
                 ('§ 1 optional section anchor',          'Optional'),
                 ('§ 1 free-form prose anchor',           'Free-form prose'),
                 ('§ 1 no duplication anchor',            'No duplication'),
-                ('§ 2 theme colors list anchor',         'theme-purple'),
-                ('§ 2 amber color anchor',               'theme-amber'),
-                ('§ 2 teal color anchor',                'theme-teal'),
+                ('§ 2 no fixed palette anchor',          'No fixed palette'),   # updated 2026-06-01: spec § 2 rewritten to "No fixed palette — choose freely"; theme-purple/theme-amber/theme-teal removed from spec
+                ('§ 2 theme class anchor',               'theme-{color}'),       # updated 2026-06-01: generic pattern replaces specific color list
                 ('§ 3 placement anchor',                 'Always the last'),
                 ('§ 4 id anchor',                        'claude-inspiration'),
                 ('§ 4 extras-title anchor',              'extras-title'),
@@ -21751,48 +21957,49 @@ def validate(html: str, filename: str):
     # ─── CSS: LINK COLOR SINGLE SOURCE OF TRUTH ───────────────
     print("\n── CSS (link-color invariants) ──")
 
-    CANONICAL_LINK_BLUE = "#8a6c1a"   # updated 2026-05-31: global link color changed from #2867c4 to gold (#8a6c1a); extras-sections restore #2867c4 via .extras-section { --c-link } override
+    CANONICAL_LINK_BLUE = "#2867c4"   # restored 2026-06-01: guide_v3.css reverted --c-link back to blue #2867c4 (was gold #8a6c1a since 2026-05-31)
     LINK_COLOR_ALLOWLIST = {
         # selector                          expected color   purpose
         # .title-links a retired 2026-04-22 — no links block on title card
         "#michelin .extras-sub a":         ("#1a1a1a", "restaurant name — dark list item, not a nav link"),
         ".warn a":                         ("#a36009", "amber warning callout"),
         ".extras-sub a":                   ("inherit",  "extras-sub link inherits parent purple — styled as plain heading, not a nav link"),
-        "#tours .extras-sub a":            ("#8a6c1a", "tours extras-sub links use gold (--c-link) — tours section is outside .extras-section blue-restore scope"),
-        "#cities-gotchas .transit-box a":  ("#a36009", "cities-gotchas tip links use warn-amber (--c-warn-link) per guide_v2.css §cities-gotchas palette"),
-        ".index-banner-sub a":             ("#8a6c1a", "guides-index banner sub-links use gold accent (--c-purple recoloured 2026-05-31) — index page only, not guide content"),
+        "#tours .extras-sub a":            ("#2867c4", "tours extras-sub links use blue (--c-link restored 2026-06-01) — tours section uses var(--c-link) directly"),
+        "#heads-up .transit-box a":  ("#a61c00", "heads-up tip links use --c-headsup-link (#a61c00 tours-border red) per guide_v3.css — updated 2026-06-01 from #a36009"),
+        ".index-banner-sub a":             ("#8a6c1a", "guides-index banner sub-links use gold accent (--c-purple = #8a6c1a) — index page only, not guide content"),
         ".title-page .title-address a":    ("#ffffff", "white address link on dark title-card background — title card uses inverted palette"),
-        # Guide-toolbar base colour — default toolbar accent before any theme override (updated 2026-05-31: #3d5f80 → #6b4422 warm chestnut via --c-title-bg)
+        # Guide-toolbar base colour — default toolbar accent before any theme override (--c-title-bg = #6b4422 warm chestnut)
         ".toolbar-nav a":                                     ("#6b4422", "toolbar accent — default (--c-title-bg)"),
         ".toolbar-essentials a":                              ("#6b4422", "toolbar accent — default (--c-title-bg)"),
-        # Guide-toolbar theme variants — nav + essentials links inherit the toolbar accent colour (added 2026-05-29)
-        ".guide-toolbar.theme-purple .toolbar-nav a":         ("#7030a0", "toolbar accent — purple theme"),
-        ".guide-toolbar.theme-purple .toolbar-essentials a":  ("#7030a0", "toolbar accent — purple theme"),
-        ".guide-toolbar.theme-teal .toolbar-nav a":           ("#1c8a99", "toolbar accent — teal theme"),
-        ".guide-toolbar.theme-teal .toolbar-essentials a":    ("#1c8a99", "toolbar accent — teal theme"),
-        ".guide-toolbar.theme-coral .toolbar-nav a":          ("#c85a54", "toolbar accent — coral theme"),
-        ".guide-toolbar.theme-coral .toolbar-essentials a":   ("#c85a54", "toolbar accent — coral theme"),
-        ".guide-toolbar.theme-pink .toolbar-nav a":           ("#d4336c", "toolbar accent — pink theme"),
-        ".guide-toolbar.theme-pink .toolbar-essentials a":    ("#d4336c", "toolbar accent — pink theme"),
-        ".guide-toolbar.theme-sage .toolbar-nav a":           ("#6b9080", "toolbar accent — sage theme"),
-        ".guide-toolbar.theme-sage .toolbar-essentials a":    ("#6b9080", "toolbar accent — sage theme"),
-        ".guide-toolbar.theme-amber .toolbar-nav a":          ("#d97706", "toolbar accent — amber theme"),
-        ".guide-toolbar.theme-amber .toolbar-essentials a":   ("#d97706", "toolbar accent — amber theme"),
-        ".guide-toolbar.theme-indigo .toolbar-nav a":         ("#4338ca", "toolbar accent — indigo theme"),
-        ".guide-toolbar.theme-indigo .toolbar-essentials a":  ("#4338ca", "toolbar accent — indigo theme"),
-        ".guide-toolbar.theme-green .toolbar-nav a":          ("#059669", "toolbar accent — green theme"),
-        ".guide-toolbar.theme-green .toolbar-essentials a":   ("#059669", "toolbar accent — green theme"),
-        ".guide-toolbar.theme-yellow .toolbar-nav a":         ("#eab308", "toolbar accent — yellow theme"),
-        ".guide-toolbar.theme-yellow .toolbar-essentials a":  ("#eab308", "toolbar accent — yellow theme"),
+        ".guide-nav a":                                       ("#6b4422", "guide prev/next nav link — uses --c-title-bg warm chestnut"),
+        # Guide-toolbar theme variants — guide_v3.css maps each theme to its section's border color variable (updated 2026-06-01)
+        ".guide-toolbar.theme-purple .toolbar-nav a":         ("#7030a0", "toolbar accent — purple theme (--c-cappuccino-border)"),
+        ".guide-toolbar.theme-purple .toolbar-essentials a":  ("#7030a0", "toolbar accent — purple theme (--c-cappuccino-border)"),
+        ".guide-toolbar.theme-teal .toolbar-nav a":           ("#1c8a99", "toolbar accent — teal theme (--c-gettingaround-border)"),
+        ".guide-toolbar.theme-teal .toolbar-essentials a":    ("#1c8a99", "toolbar accent — teal theme (--c-gettingaround-border)"),
+        ".guide-toolbar.theme-coral .toolbar-nav a":          ("#1c8a99", "toolbar accent — coral theme maps to --c-gettingaround-border (#1c8a99) in guide_v3.css"),
+        ".guide-toolbar.theme-coral .toolbar-essentials a":   ("#1c8a99", "toolbar accent — coral theme maps to --c-gettingaround-border (#1c8a99) in guide_v3.css"),
+        ".guide-toolbar.theme-pink .toolbar-nav a":           ("#700f31", "toolbar accent — pink theme (--c-nearhotel-border)"),
+        ".guide-toolbar.theme-pink .toolbar-essentials a":    ("#700f31", "toolbar accent — pink theme (--c-nearhotel-border)"),
+        ".guide-toolbar.theme-sage .toolbar-nav a":           ("#8b3520", "toolbar accent — sage theme (--c-closures-border)"),
+        ".guide-toolbar.theme-sage .toolbar-essentials a":    ("#8b3520", "toolbar accent — sage theme (--c-closures-border)"),
+        ".guide-toolbar.theme-amber .toolbar-nav a":          ("#ba7517", "toolbar accent — amber theme (--c-michelin-border)"),
+        ".guide-toolbar.theme-amber .toolbar-essentials a":   ("#ba7517", "toolbar accent — amber theme (--c-michelin-border)"),
+        ".guide-toolbar.theme-indigo .toolbar-nav a":         ("#3d5282", "toolbar accent — indigo theme (--c-stations-border)"),
+        ".guide-toolbar.theme-indigo .toolbar-essentials a":  ("#3d5282", "toolbar accent — indigo theme (--c-stations-border)"),
+        ".guide-toolbar.theme-green .toolbar-nav a":          ("#1c8a99", "toolbar accent — green theme maps to --c-gettingaround-border (#1c8a99) in guide_v3.css"),
+        ".guide-toolbar.theme-green .toolbar-essentials a":   ("#1c8a99", "toolbar accent — green theme maps to --c-gettingaround-border (#1c8a99) in guide_v3.css"),
+        ".guide-toolbar.theme-yellow .toolbar-nav a":         ("#792a45", "toolbar accent — yellow theme (--c-pickleball-border)"),
+        ".guide-toolbar.theme-yellow .toolbar-essentials a":  ("#792a45", "toolbar accent — yellow theme (--c-pickleball-border)"),
     }
 
-    # guide_v2.css lives in Travel/Guides/ (shared across all guides).
-    css_path = Path(__file__).resolve().parent.parent.parent / 'Guides' / 'guide_v2.css'
+    # guide_v3.css lives in Travel/Guides/ (shared across all guides).
+    css_path = Path(__file__).resolve().parent.parent.parent / 'Guides' / 'guide_v3.css'
     try:
         css_text = css_path.read_text(encoding='utf-8')
-        check("guide_v2.css located", True, str(css_path.name))
+        check("guide_v3.css located", True, str(css_path.name))
     except FileNotFoundError:
-        check("guide_v2.css located", False, f"missing at {css_path}")
+        check("guide_v3.css located", False, f"missing at {css_path}")
         css_text = None
 
     if css_text:
@@ -22112,7 +22319,7 @@ def validate(html: str, filename: str):
             sections.append((current_city, current_entries))
 
         # Find the matching city section using the same substring rule as
-        # Cities Gotchas (trip_city_text is lowercased title-card text).
+        # Heads Up (trip_city_text is lowercased title-card text).
         for city_name, entries in sections:
             if city_name.lower() in trip_city_text:
                 matched_skip_city = city_name

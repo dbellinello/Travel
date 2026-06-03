@@ -1,3 +1,5 @@
+> **Claude maintains this file — fix immediately, no approval needed.** When this file drifts from Brain/CORE RULES/, fix it in the same pass. CORE RULES is the authority; this file follows. No questions, no permission, no parking for later.
+
 # Guide PDF Rendering — WeasyPrint Notes
 
 ## Background
@@ -89,19 +91,20 @@ body { font-family: sans-serif; }
 }
 
 /* Mobile font sizes (WeasyPrint has no viewport, so @media (max-width: 600px) never fires)
-   Use the mobile breakpoint values from guide_v2.css — NOT the desktop defaults */
-body { font-size: 21px; line-height: 1.55; }
+   Use the mobile breakpoint values from guide_v3.css — NOT the desktop defaults.
+   Values derived from guide_v3.css @media (max-width: 600px) block + token values.
+   Updated 2026-06-02 to match guide_v3.css (was stale v2 values). */
+body { font-size: 20px; line-height: 1.55; }
 .container { padding: 0 14px 32px; }
-.title-hotel { font-size: 21px; } .title-address { font-size: 19px; }
-.glance-title, .day-header, .extras-title { font-size: 25px; }
-.extras-sub { font-size: 21px; } #michelin .extras-sub { font-size: 17px; }
-.glance-day-title { font-size: 20px; } .glance-day-stops { font-size: 19px; }
-.stop-num, .stop-name { font-size: 24px; } .stop-row { font-size: 21px; }
+.title-city { font-size: 22px; } .title-hotel { font-size: 16px; } .title-address { font-size: 13px; }
+.glance-title, .day-header { font-size: 18px; }
+.extras-title { font-size: 21px; }
+.extras-sub { font-size: 18px; }
+.glance-day-title { font-size: 16px; } .glance-day-stops { font-size: 15px; }
+.stop-num, .stop-name { font-size: 19px; } .stop-row { font-size: 18px; }
 .tour-box, .ticket-box, .entry-body, .shows-box, .transit-box,
 .hotel-first, .arrive-first, div.train, .next, .next-tram, .warn
-  { padding: 10px 12px; font-size: 19px; }
-/* .local-tastes-title / .local-tastes-list — pre-Style-A, retired 2026-05-19; .extras-sub covers names (line above), .entry-body covers body boxes */
-/* .ride-apps — pre-Style-A Getting Around prose, retired 2026-05-19; Getting Around now uses .extras-sub + .transit-box (both sized above) */
+  { padding: 10px 12px; font-size: 18px; }
 """
 ```
 
@@ -109,21 +112,22 @@ body { font-size: 21px; line-height: 1.55; }
 
 ## Staging Directory Setup
 
-Before rendering, the staging directory must mirror the relative paths the HTML expects. The staging root needs a `Brain/` folder alongside `guides/`.
+Before rendering, the staging directory must mirror the relative paths the HTML expects. The guide links `../guide_v3.css` so the CSS must sit one level above the guide folder.
 
 ```bash
 STAGING=/sessions/.../mnt/outputs/render
 DRIVE="/sessions/.../mnt/GoogleDrive-bellinello@gmail.com/My Drive/Travel"
 CITY=Pasadena
 
-mkdir -p "$STAGING/guides/$CITY/_build/assets"
+mkdir -p "$STAGING/Guides/$CITY/_build/assets"
 
 # Guide HTML + photos
-cp "$DRIVE/Guides/$CITY/${CITY,,}_v2.html" "$STAGING/guides/$CITY/"
-cp "$DRIVE/Guides/$CITY/_build/assets/"*.jpg "$STAGING/guides/$CITY/_build/assets/"
+cp "$DRIVE/Guides/$CITY/"*.html "$STAGING/Guides/$CITY/"
+cp "$DRIVE/Guides/$CITY/_build/assets/"*.jpg "$STAGING/Guides/$CITY/_build/assets/"
 
-# Shared CSS
-cp "$DRIVE/Brain/Reference/Guide Style.css" "$STAGING/Brain/"
+# Shared CSS — must be at Guides/guide_v3.css (one level above guide folder)
+# so the guide's <link href="../guide_v3.css"> resolves correctly
+cp "$DRIVE/Brain/Reference/Guide Style.css" "$STAGING/Guides/guide_v3.css"
 ```
 
 ---

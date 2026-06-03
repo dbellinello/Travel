@@ -37,13 +37,13 @@ Everything else hides:
 - the page's own section jump-nav (the row of section/airport/hub links),
 - any colour-key legend or tier legend,
 - the index table (Plug page), and
-- the **shared footnote** (the sharing link the toolbar script adds at the foot of the page).
+- the **shared footnote** (the sharing link `footnote.js` adds at the foot of the page).
 
 The shared top toolbar always stays in place. As soon as the query matches again or the field is cleared, every hidden element returns.
 
 ## Why the footnote hides too
 
-The shared footnote is appended at runtime by `toolbar.js`, after the page's own scripts cache their elements. Each page therefore looks the footnote up live, at the moment it decides the no-results state, rather than caching a reference that might not exist yet. This keeps the empty state clean regardless of when the footnote was injected.
+The shared footnote is appended at runtime by `footnote.js` (auto-loaded by `toolbar.js`), after the page's own scripts cache their elements. Each page therefore looks the footnote up live, at the moment it decides the no-results state, rather than caching a reference that might not exist yet. This keeps the empty state clean regardless of when the footnote was injected.
 
 ---
 *Added 2026-05-29.*

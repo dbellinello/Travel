@@ -14,8 +14,8 @@
 **Owner:** the owner. **Claude's access:** read only — never edit, never append.
 Private tasks — bookings, flights, hotels, logistics, anything personal.
 
-### Section 2: 🔧 Rules for Update
-**Owner:** Claude proposes, approved. **Flow:** proposal written here → approved in same session in same session → Claude applies change to matching HTML file in `Brain/CORE RULES/` → item deleted.
+### Section 2: 🔧 Edits to Files under Core Rules Folder
+**Owner:** Claude proposes, approved. **Flow:** proposal written here → approved in same session → Claude applies change to matching HTML file in `Brain/CORE RULES/` → item deleted.
 Cross-session tasks, rule proposals, open items, anything needing to carry forward.
 
 ### Section 3: ❓ Open Questions
@@ -29,8 +29,8 @@ Mid-build questions that surface during a guide build and would otherwise block 
 | Trigger | Goes to |
 |---|---|
 | Mid-build ambiguity, question for the owner | ❓ Open Questions |
-| *"park this," "add to the to-do list," "log this," "what's pending?"* | 🔧 Rules for Update |
-| *"add this rule," "new rule:," "amend the {section}," "lock this in"* | 🔧 Rules for Update — then wait for approval before touching HTML |
+| *"park this," "add to the to-do list," "log this," "what's pending?"* | 🔧 Edits to Files under Core Rules Folder |
+| *"add this rule," "new rule:," "amend the {section}," "lock this in"* | 🔧 Edits to Files under Core Rules Folder — then wait for approval before touching HTML |
 | Private trip tasks (bookings, flights, hotels) | ✈️ My Tasks — owner writes only |
 
 ---
@@ -46,7 +46,7 @@ Mid-build questions that surface during a guide build and would otherwise block 
 ## Source of truth for guide rules
 
 `Brain/CORE RULES/*.html` — canonical, owner-authored. The only source of truth for guide rules.
-`To_Do_List.md` 🔧 Rules for Update — proposals pending the owner's approval. Not yet authoritative until applied to the HTML.
+`To_Do_List.md` 🔧 Edits to Files under Core Rules Folder — proposals pending the owner's approval. Not yet authoritative until applied to the HTML.
 
 ---
 

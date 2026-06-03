@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Europe Map</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; background: #f5f4f0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+  body { display: flex; flex-direction: column; }
+  #map-header { padding: 16px 24px 10px; flex-shrink: 0; }
+  #map-header h1 { font-size: 20px; font-weight: 700; color: #6b4422; letter-spacing: -0.01em; }
+  #wrap { position: relative; flex: 1 1 auto; min-height: 0; background: #e8dfd0; overflow: hidden; }
+  svg { width: 100%; height: 100%; display: block; }
+  .country { stroke: #fdf8f0; stroke-width: 1.4; cursor: default; transition: filter 0.12s; }
+  .country:hover { filter: brightness(1.12); }
+  .borders { fill: none; stroke: rgba(253,248,240,0.7); stroke-width: 0.7; pointer-events: none; }
+  .country-label { font-size: 9px; font-weight: 700; fill: #3a1a00; text-anchor: middle; dominant-baseline: central; pointer-events: none; user-select: none; paint-order: stroke; stroke: rgba(253,248,240,0.8); stroke-width: 3px; }
+  .country-label.large { font-size: 11px; }
+  .country-label.medium { font-size: 9.5px; }
+  .pin-group { cursor: pointer; }
+  .pin-circle { fill: #6b4422; stroke: #fdf8f0; stroke-width: 2; transition: transform 0.15s, fill 0.15s; transform-origin: center; transform-box: fill-box; }
+  .pin-group:hover .pin-circle { fill: #BA7517; transform: scale(1.5); }
+  .pin-label { font-size: 9px; font-weight: 700; fill: #6b4422; text-anchor: middle; dominant-baseline: auto; pointer-events: none; user-select: none; paint-order: stroke; stroke: rgba(253,248,240,0.95); stroke-width: 3.5px; }
+  .pin-group:hover .pin-label { fill: #BA7517; }
+  #tip { position: absolute; pointer-events: none; background: #6b4422; color: #fdf8f0; padding: 7px 15px; border-radius: 8px; font-size: 14px; font-weight: 600; letter-spacing: 0.02em; box-shadow: 0 4px 18px rgba(0,0,0,0.28); white-space: nowrap; opacity: 0; transition: opacity 0.1s; z-index: 99; }
+  .tip-sub { font-size: 11px; color: #e5c99a; margin-top: 2px; }
+  #legend { position: absolute; top: 14px; right: 14px; background: rgba(253,248,240,0.90); border-radius: 8px; padding: 7px 12px; font-size: 11px; color: #6b4422; display: flex; align-items: center; gap: 7px; font-weight: 600; box-shadow: 0 1px 6px rgba(0,0,0,0.08); }
+  .ldot { width: 10px; height: 10px; border-radius: 50%; background: #6b4422; border: 2px solid #fdf8f0; box-shadow: 0 0 0 1px #6b4422; flex-shrink: 0; }
+  #region-nav { position:absolute; left:16px; top:50%; transform:translateY(-50%); display:flex; flex-direction:column; gap:7px; z-index:10; padding:0; background:none; border:none; overflow:visible; }
+  .rn { padding:5px 14px; border-radius:20px; border:1.5px solid #d8d4cc; background:#f5f4f0; color:#6b4422; font-size:12px; font-weight:600; text-decoration:none; white-space:nowrap; transition:background .12s,border-color .12s; flex-shrink:0; box-shadow:0 2px 8px rgba(0,0,0,0.22); }
+  .rn:hover { background:#faefd8; border-color:#8a6c1a; }
+  .rn.rn-on { background:linear-gradient(135deg,#7a3b1e 0%,#b85c2a 55%,#d4874a 100%); color:#fdf8f0; border-color:#b85c2a; }
+
+  #map-left-stack { position:absolute; left:14px; top:50%; transform:translateY(-50%); display:flex; flex-direction:column; gap:12px; align-items:flex-start; z-index:10; }
+  #left-panel { display:flex; flex-direction:column; background:rgba(253,248,240,0.82); border-radius:12px; padding:10px 8px; box-shadow:0 2px 12px rgba(0,0,0,0.13); backdrop-filter:blur(4px); gap:4px; }
+  #guide-legend { background:rgba(253,248,240,0.92); border-radius:8px; padding:6px 12px; font-size:11px; color:#6b4422; display:flex; align-items:center; gap:7px; font-weight:600; box-shadow:0 1px 6px rgba(0,0,0,0.10); }
+  #region-nav { position:static !important; left:auto; top:auto; transform:none; display:flex; flex-direction:column; gap:7px; z-index:auto; }
+
+  /* ── Zoom subregion buttons ── */
+  #zoom-nav { display:flex; flex-direction:column; gap:4px; }
+  .zoom-section-label { font-size:9.5px; font-weight:700; color:#9a8870; letter-spacing:0.06em; text-transform:uppercase; padding:2px 4px 0; }
+  .zn { padding:4px 12px; border-radius:16px; border:1.5px solid #d8d4cc; background:#f5f4f0; color:#6b4422; font-size:11px; font-weight:600; text-decoration:none; white-space:nowrap; transition:background .12s,border-color .12s; display:block; }
+  .zn:hover { background:#faefd8; border-color:#8a6c1a; }
+  .zn.zn-on { background:linear-gradient(135deg,#7a3b1e 0%,#b85c2a 55%,#d4874a 100%); color:#fdf8f0; border-color:#b85c2a; }
+
+  /* ── Panel divider ── */
+  .panel-divider { height:1px; background:#ddd9d0; margin:4px 0; }
+
+  /* ── Region-coloured nav pills ── */
+  .rn { display:flex; align-items:center; gap:7px; }
+  .rn::before { content:''; width:9px; height:9px; border-radius:50%; flex-shrink:0; }
+  .rn-eu  { background:#fde8e8 !important; border-color:#f0a0a0 !important; color:#a02020 !important; }
+  .rn-eu::before  { background:#dc4444; }
+  .rn-na  { background:#fdf0e4 !important; border-color:#f0b878 !important; color:#8a3a08 !important; }
+  .rn-na::before  { background:#e87830; }
+  .rn-as  { background:#fdf5d8 !important; border-color:#e8d060 !important; color:#7a5000 !important; }
+  .rn-as::before  { background:#c8940a; }
+  .rn-af  { background:#e4f5e8 !important; border-color:#90d0a0 !important; color:#1a6030 !important; }
+  .rn-af::before  { background:#2ea84e; }
+  .rn-sa  { background:#e4eef8 !important; border-color:#90b8e8 !important; color:#1a3a8b !important; }
+  .rn-sa::before  { background:#3a74d4; }
+  .rn-oc  { background:#f0e8f8 !important; border-color:#c090e0 !important; color:#4a1880 !important; }
+  .rn-oc::before  { background:#8050d0; }
+  .rn.rn-on { background:linear-gradient(135deg,#7a3b1e 0%,#b85c2a 55%,#d4874a 100%) !important; color:#fdf8f0 !important; border-color:#b85c2a !important; }
+  .rn.rn-on::before { background:rgba(255,255,255,0.55); }
+</style>
+</head>
+<body>
+<div id="toolbar-mount" data-depth="2" data-maxwidth="1400" data-no-footnote="1"></div>
+<script src="../../toolbar.js?v=2"></script>
+
+<div id="wrap">
+  <svg id="svg"></svg>
+<div id="map-left-stack">
+<div id="guide-legend"><div class="ldot"></div> Guide available</div>
+<div id="left-panel">
+  <!-- Subregion zoom -->
+  <div id="zoom-nav">
+    <span class="zoom-section-label">Zoom</span>
+    <a class="zn zn-on" data-key="all"   href="#">All Europe</a>
+    <a class="zn"       data-key="west"  href="#">W. Europe</a>
+    <a class="zn"       data-key="north" href="#">N. Europe</a>
+    <a class="zn"       data-key="east"  href="#">E. Europe</a>
+  </div>
+  <div class="panel-divider"></div>
+  <!-- Continent nav -->
+  <div id="region-nav">
+    <a class="rn rn-eu rn-on" href="Europe%20Map.html">Europe</a>
+    <a class="rn rn-na" href="US%20Map.html">N. America</a>
+    <a class="rn rn-as" href="Asia%20Map.html">Asia</a>
+    <a class="rn rn-af" href="Africa%20Map.html">Africa</a>
+    <a class="rn rn-sa" href="South%20America%20Map.html">S. America</a>
+    <a class="rn rn-oc" href="Oceania%20Map.html">Oceania</a>
+  </div>
+</div>
+</div>
+  <div id="tip"><div id="tn"></div><div class="tip-sub" id="ts"></div></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+<script>
+const EU = {
+  8:'Albania',20:'Andorra',40:'Austria',112:'Belarus',56:'Belgium',
+  70:'Bosnia and Herzegovina',100:'Bulgaria',191:'Croatia',196:'Cyprus',
+  203:'Czechia',208:'Denmark',233:'Estonia',246:'Finland',250:'France',
+  276:'Germany',300:'Greece',348:'Hungary',352:'Iceland',372:'Ireland',
+  380:'Italy',428:'Latvia',438:'Liechtenstein',440:'Lithuania',442:'Luxembourg',
+  470:'Malta',498:'Moldova',492:'Monaco',499:'Montenegro',528:'Netherlands',
+  807:'North Macedonia',578:'Norway',616:'Poland',620:'Portugal',642:'Romania',
+  643:'Russia',674:'San Marino',688:'Serbia',703:'Slovakia',705:'Slovenia',
+  724:'Spain',752:'Sweden',756:'Switzerland',792:'Turkey',804:'Ukraine',
+  826:'United Kingdom',336:'Vatican City',383:'Kosovo'
+};
+const SHORT = {
+  'Albania':'Albania','Andorra':'AND','Austria':'Austria','Belarus':'Belarus',
+  'Belgium':'Belgium','Bosnia and Herzegovina':'Bosnia','Bulgaria':'Bulgaria',
+  'Croatia':'Croatia','Cyprus':'Cyprus','Czechia':'Czechia','Denmark':'Denmark',
+  'Estonia':'Estonia','Finland':'Finland','France':'France','Germany':'Germany',
+  'Greece':'Greece','Hungary':'Hungary','Iceland':'Iceland','Ireland':'Ireland',
+  'Italy':'Italy','Latvia':'Latvia','Liechtenstein':'LIE','Lithuania':'Lithuania',
+  'Luxembourg':'LUX','Malta':'MT','Moldova':'Moldova','Monaco':'MC',
+  'Montenegro':'MNE','Netherlands':'Neth.','North Macedonia':'N.Mac.',
+  'Norway':'Norway','Poland':'Poland','Portugal':'Portugal','Romania':'Romania',
+  'Russia':'Russia →','San Marino':'SM','Serbia':'Serbia','Slovakia':'Slovakia',
+  'Slovenia':'SVN','Spain':'Spain','Sweden':'Sweden','Switzerland':'Switz.',
+  'Turkey':'Turkey','Ukraine':'Ukraine','United Kingdom':'UK',
+  'Vatican City':'VA','Kosovo':'XK'
+};
+const COLORS = {
+  8:'#c8956c',20:'#a05c3b',40:'#7aab8a',112:'#9dbfbf',56:'#d4a64a',
+  70:'#c05a5a',100:'#9ab5c8',191:'#8aaa5a',196:'#c8956c',203:'#6ab4c8',
+  208:'#c87a5a',233:'#d4bc6a',246:'#5abfa0',250:'#6a8fd4',276:'#c46a8a',
+  300:'#9050b0',348:'#d47a30',352:'#6ab4cc',372:'#4ab065',380:'#5a8ad4',
+  428:'#d03a7a',438:'#a8ccd8',440:'#c8956c',442:'#c05a5a',470:'#d4a64a',
+  498:'#7aab8a',492:'#9050b0',499:'#8aaa5a',528:'#d46a6a',807:'#6ab4c8',
+  578:'#9dbfbf',616:'#d4bc6a',620:'#c05a5a',642:'#6a8fd4',643:'#c46a8a',
+  674:'#5abfa0',688:'#d47a30',703:'#6ab4cc',705:'#4ab065',724:'#d4a64a',
+  752:'#5a8ad4',756:'#d03a7a',792:'#9050b0',804:'#c8956c',826:'#c05a5a',
+  336:'#a8ccd8',383:'#d4bc6a'
+};
+const LARGE = new Set([250,276,724,380,792,826,804,643,616,752,578,246,642,300,348,528,203,112,620,372]);
+const MEDIUM = new Set([56,70,100,40,703,705,191,352,428,233,440,208,498,688,756,807,499,8,196]);
+const PINS = [
+  ['Alesund',        6.15, 62.47, '../../Guides/Alesund/alesund_v1.html'],
+  ['Amsterdam',      4.90, 52.37, '../../Guides/Amsterdam/amsterdam_v1.html'],
+  ['Barcelona',      2.17, 41.39, '../../Guides/Barcelona/barcelona_v1.html'],
+  ['Cascais',       -9.55, 38.70, '../../Guides/Cascais/cascais_v2.html'],
+  ['Copenhagen',    12.57, 55.68, '../../Guides/Copenhagen/copenhagen_v1.html'],
+  ['Dublin',        -6.27, 53.33, '../../Guides/Dublin/dublin_v1.html'],
+  ['Edinburgh',     -3.19, 55.95, '../../Guides/Edinburgh/edinburgh_v1.html'],
+  ['Helsinki',      25.00, 60.17, '../../Guides/Helsinki/helsinki_v1.html'],
+  ['Reykjavik',   -22.00, 64.10, '../../Guides/Iceland/reykjavik_v2.html'],
+  ['Lisbon',        -9.14, 38.72, '../../Guides/Lisbon/lisbon_v4.html'],
+  ['London',        -0.13, 51.51, '../../Guides/London/london_v5.html'],
+  ['Madrid',        -3.70, 40.42, '../../Guides/Madrid/madrid_v1.html'],
+  ['Marktoberdorf', 10.62, 47.78, '../../Guides/Marktoberdorf/marktoberdorf_v1.html'],
+  ['Munich',        11.58, 48.14, '../../Guides/Munich/munich_v2.html'],
+  ['Oslo',          10.75, 59.91, '../../Guides/Oslo/oslo_v1.html'],
+  ['Paris',          2.35, 48.85, '../../Guides/Paris/paris_v7.html'],
+  ['Porto',         -8.61, 41.15, '../../Guides/Porto/porto_v2.html'],
+  ['Sintra',        -9.39, 38.95, '../../Guides/Sintra/sintra_v2.html'],
+  ['Tromso',        18.96, 69.65, '../../Guides/Tromso/tromso_v1.html'],
+  ['Turin',          7.69, 45.07, '../../Guides/Turin/turin_v14.html'],
+  ['Vienna',        16.37, 48.21, '../../Guides/Vienna/vienna_v1.html'],
+  ['Zurich',         8.54, 47.37, '../../Guides/Zurich/zurich_v1.html'],
+];
+
+/* ── Subregion zoom bounds [west-lon, south-lat], [east-lon, north-lat]
+   All Europe: shifted west to include Iceland; eastern bound cut at ~42°E
+   so Russia is still rendered (and labelled "Russia →") but no longer
+   forces the viewport deep into Siberia.                                   */
+const SUBREGIONS = {
+  all:   [[-25, 34], [42, 72]],   // full Europe — Russia shown but clipped at right
+  west:  [[-12, 36], [20, 63]],   // UK · Ireland · France · Iberia · Benelux · DACH · Italy N
+  north: [[ -5, 54], [32, 72]],   // Scandinavia · Finland · Baltics
+  east:  [[ 11, 35], [42, 57]],   // Central · Eastern · Balkans · Greece · Ukraine
+};
+let activeBounds = SUBREGIONS.all;
+
+const tip = document.getElementById('tip');
+const tn = document.getElementById('tn'), ts = document.getElementById('ts');
+const wrap = document.getElementById('wrap');
+let worldData = null;
+
+function showTip(event, name, sub) {
+  tn.textContent = name; ts.textContent = sub || ''; tip.style.opacity = '1';
+  const r = wrap.getBoundingClientRect();
+  let x = event.clientX - r.left + 14, y = event.clientY - r.top - 44;
+  const tw = tip.offsetWidth || 140;
+  if (x + tw > r.width - 8) x = event.clientX - r.left - tw - 14;
+  if (y < 4) y = event.clientY - r.top + 14;
+  tip.style.left = x + 'px'; tip.style.top = y + 'px';
+}
+
+function buildMap() {
+  const W = wrap.clientWidth, H = wrap.clientHeight;
+  const svgEl = document.getElementById('svg');
+  svgEl.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+  if (!worldData) return;
+
+  const countries = topojson.feature(worldData, worldData.objects.countries);
+  const borders   = topojson.mesh(worldData, worldData.objects.countries, (a, b) => a !== b);
+  const eu = countries.features.filter(f => EU[+f.id]);
+
+  const proj = d3.geoMercator()
+    .fitExtent([[10, 8], [W - 10, H - 8]], {
+      type: 'Feature',
+      geometry: { type: 'LineString', coordinates: [activeBounds[0], activeBounds[1]] }
+    });
+
+  const pathGen = d3.geoPath().projection(proj);
+  const svg = d3.select('#svg');
+  svg.selectAll('*').remove();
+
+  svg.selectAll('.country').data(eu).join('path')
+    .attr('class', 'country').attr('d', pathGen)
+    .style('fill', d => COLORS[+d.id] || '#b5a898')
+    .on('mousemove', (e, d) => { showTip(e, EU[+d.id], ''); })
+    .on('mouseleave', () => { tip.style.opacity = '0'; });
+
+  svg.append('path').datum(borders).attr('class', 'borders').attr('d', pathGen);
+
+  svg.selectAll('.country-label')
+    .data(eu.filter(f => LARGE.has(+f.id) || MEDIUM.has(+f.id)))
+    .join('text')
+    .attr('class', d => LARGE.has(+d.id) ? 'country-label large' : 'country-label medium')
+    .attr('transform', d => {
+      // Russia's centroid is deep in Siberia — use a fixed European Russia point instead
+      const c = (+d.id === 643) ? proj([36, 59]) : pathGen.centroid(d);
+      if (!c || isNaN(c[0])) return 'translate(-9999,-9999)';
+      return 'translate(' + c[0] + ',' + c[1] + ')';
+    })
+    .text(d => SHORT[EU[+d.id]] || EU[+d.id]);
+
+  const pinG = svg.append('g');
+  PINS.forEach(function(p) {
+    const name = p[0], lon = p[1], lat = p[2], href = p[3];
+    const pt = proj([lon, lat]);
+    if (!pt || isNaN(pt[0])) return;
+    const px = pt[0], py = pt[1];
+    // Skip pins that project outside the visible canvas
+    if (px < 0 || px > W || py < 0 || py > H) return;
+    const g = pinG.append('g').attr('class', 'pin-group')
+      .attr('transform', 'translate(' + px + ',' + py + ')')
+      .on('click', () => window.open(href, '_blank'))
+      .on('mousemove', e => { showTip(e, name, '📖 Open Guide'); })
+      .on('mouseleave', () => { tip.style.opacity = '0'; });
+    g.append('circle').attr('class', 'pin-circle').attr('r', 6);
+    g.append('text').attr('class', 'pin-label').attr('y', -10).text(name);
+  });
+}
+
+fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
+  .then(r => r.json())
+  .then(world => { worldData = world; buildMap(); })
+  .catch(() => {
+    d3.select('#svg').append('text').attr('x', '50%').attr('y', '50%')
+      .attr('text-anchor', 'middle').attr('fill', '#6b4422').attr('font-size', 16)
+      .text('Could not load map data — please check your internet connection.');
+  });
+
+let resizeTimer;
+window.addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(buildMap, 80); });
+
+/* ── Zoom button click handlers ── */
+document.querySelectorAll('.zn').forEach(function(el) {
+  el.addEventListener('click', function(e) {
+    e.preventDefault();
+    document.querySelectorAll('.zn').forEach(function(z) { z.classList.remove('zn-on'); });
+    el.classList.add('zn-on');
+    activeBounds = SUBREGIONS[el.dataset.key];
+    buildMap();
+  });
+});
+</script>
+</body>
+</html>

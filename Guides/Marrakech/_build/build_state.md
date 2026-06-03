@@ -7,7 +7,7 @@ Last updated: 2026-05-24 (Session 5 — full audit fix)
 - [x] Rules for Claude.html
 
 ## Phase 1 — Pre-build orientation
-- [x] Capabilities
+- [x] Connectors.html
 - [x] Platforms.md
 - [x] Guide Structure.html
 - [x] Stops Structure.html

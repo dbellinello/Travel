@@ -2,7 +2,7 @@
 
 > **Read this at every session start.** It is your complete map of what exists, where it lives, and what it's for. If you don't know where something is — it's in here.
 >
-> **Last updated: 2026-05-28**
+> **Last updated: 2026-06-01**
 
 ---
 
@@ -27,6 +27,9 @@ You are Claude, working inside the owner's Travel folder on Google Drive. You bu
 | `Icons Library/` | Icon assets for guides. Key utility files: `icon_resources.md` (source links + notes), `_PREVIEW_all_icons.html` (browse all icons), `icon_picker_transport.html` (transport icon picker). `for_guides/` contains the icons actually used in shipped guides (organised by section: cappuccino, pickleball, shows, etc.). Source packs in `Favorite iconscout_3d/`, `iconscout_2d/`, `3dicons_co/`, `magnific/`, `transport_icons/`. | owner-managed, Claude references |
 | `Brain/Reference/Emoji Library.html` | Locked-out emoji list and glyph registry. Moved from `Travel/Emojis Library/` 2026-05-26. | Claude maintains |
 | `Trip Essentials/` | Combined essentials + trip-tracker folder (formerly separate `Trips/` folder merged here). Trip tracker: `Trips.html` (live tracker — source of truth for trip data; Claude edits this), `Trips v2.html`, `Trips - Rules.md` (read before editing Trips.html). Packing: `Travel Packing List.md`, `Travel Packing.html`, `Travel Packing v2.html`, `Plug Adapter/` (folder). Lounges: `Lounges Europe.html`, `Lounges Europe v2.html`, `Lounges US.html`, `Lounges US v2.html`. Delta routes: `Delta Routes Full.html`, `Delta Routes Full v2.html`, `Delta Routes SEA.html`, `Delta Routes SEA v2.html`. Also `README.md`. | owner-managed, Claude edits Trips.html when asked |
+| `toolbar.js` | Navigation toolbar JavaScript. Required by every HTML page via `<div id="toolbar-mount">`. Renders: top nav bar (ITEMS), scroll progress bar, prev/next guide arrows (‹ ›) inside `.glance-title`, two fixed scroll buttons (∧ up / ∨ down, right side of viewport, vertically centred — all pages), and the shared footnote. Claude edits this file when navigation behaviour changes are requested. See `Brain/Reference/Toolbar.html` for mount markup rules; `Brain/Reference/Navigation.html` for full feature spec. | Claude edits, owner-managed |
+| `footnote.js` | Footnote toolbar JavaScript. Injects the sharing link as the last element of `<body>` on every page. Auto-loaded by `toolbar.js` — no per-page script tag needed. Suppress on a specific page with `data-no-footnote="1"` on the toolbar-mount div. Edit only this file to change footnote behavior. | Claude references, owner-managed |
+| `.nojekyll` | Empty marker file. Tells GitHub Pages not to process the Travel folder as a Jekyll site. Do not delete. | owner-managed |
 | `shopping_profile_v2.md` | the owner's shopping profile — preferences and style. **Moved here from `On The Go/Shopping Profile/` on 2026-05-18** so it sits with everything else Cowork-edited. Read before any shopping / product / buying request. | owner-managed, Claude reads |
 | `To Do List/` | `To_Do_List.md` = cross-session task list (owner tasks + Rules for Update + Questions for the owner). `README.md` = index and routing rules for the folder. Claude reads and edits `To_Do_List.md` per the README. | owner-managed |
 | `On Demand/` | On-demand research docs — read only when explicitly asked. None ship with the guide. Files: `Weather - On Demand.html`, `Delta - On Demand.html`, `Hotels & Rentals - On Demand.html`, `Car Rentals - On Demand.html`, `_style.css`. Moved from `Brain/CORE RULES/On Demand - Don't Ship in Guide/` 2026-05-28. | Claude reads, owner-managed |
@@ -46,7 +49,7 @@ To read any CORE RULES file: use the `Read` tool directly on the `.html` file pa
 | File | What it governs |
 |---|---|
 | `Rules for Claude.html` | **Master rules doc.** Session ritual, build discipline, parking surfaces, archive walls, all behavioral rules. Read at session start. |
-| `Guide Structure.html` | Overall guide shape, section IDs, section order, the canonical 14-id list (Tours first, added 2026-05-20). Guide directory layout. |
+| `Guide Structure.html` | Overall guide shape, section IDs, section order, the canonical 15-id list (Weekly Closures #1, Tours #2, skip-list #15). Guide directory layout. |
 | ~~`Ship Checklist.html`~~ | Moved to `Brain/Reference/` 2026-05-24 — no longer a CORE RULES file |
 | `Stops Structure.html` | Stop selection criteria (what to include/exclude), stop block format (§§2–5), Train Day entry pattern |
 | `Day Structure.html` | Day shape rules: geographic clustering, stop count, route discipline |
@@ -72,11 +75,9 @@ To read any CORE RULES file: use the `Read` tool directly on the `.html` file pa
 | `Pickleball - Extra Section.html` | Pickleball section (the owner plays) |
 | `Downtown Restaurants - Extra Section.html` | Historic downtown restaurants section |
 | `Claude Inspiration - Extra Section.html` | Claude's inspiration note section |
-| `Cities Gotchas - Extra Section.html` | City-specific gotchas section: construction, closures, quirks per city |
+| `Heads Up - Extra Section.html` | City-specific gotchas section: construction, closures, quirks per city |
 | `Guide Entry Counts.html` | Canonical min/max/exact count reference for every enforced count in the guide system — enforcement type and negative-finding line status. Lives at `Brain/Reference/Guide Entry Counts.html` (moved out of CORE RULES 2026-05-24 → Brain root → `Reference/` folder 2026-05-24). |
 | `Skip List.html` | Skip List footnote section — appears last in guide; names venues skipped because already visited; small italic grey, no banner; ships only when the city has a skip list. |
-| `Toolbar.html` | Shared navigation bar — required on every HTML page. Covers: mount div markup, data-depth (folder levels from Travel/), data-maxwidth (760 Trip Essentials / 940 Guides), how to add pages to the menu (edit toolbar.js ITEMS only). *(added 2026-05-29)* |
-| `Brain/Reference/Navigation.html` | Moved out of CORE RULES → `Brain/Reference/` 2026-05-29; banner removed. Covers: the **shared footnote** (the sharing link carried across to the guides), prev/next arrow navigation for guide sequences (data-prev / data-next, chain integrity, guides_index wiring, inserting a new guide), the scroll progress bar, and the scroll button. *(added 2026-05-29)* |
 | `Trip Essentials/Essentials Pages - Rules.md` | Behaviour of the Trip Essentials pages: which pages carry a search box, how search filters and collapses groups, and the no-results state (title + search box + message only; content, jump-nav, legends, index table, and shared footnote all hide). *(added 2026-05-29)* |
 
 ---
@@ -100,6 +101,9 @@ Helper file for cribs. When a rule is changed, the crib consults this map to fin
 | `Brain/Reference/Platforms.md` | Booking platform rules: which platforms are allowed, which are banned, direct-link requirements. Moved from `Brain/mds/` 2026-05-27. |
 | `Brain/Reference/Separation Map.md` | Locator table: which CORE RULES file owns which rule. Use this to know where to look when a rule question comes up. Moved from `Brain/mds/` 2026-05-27. |
 | `Brain/Reference/Change Cascade.html` | Reference map of what to update when a rule, format, or structure changes — which files cascade from which decisions. |
+| `Brain/Reference/Toolbar.html` | Shared navigation bar spec — mount div markup, data-depth (folder levels from Travel/), data-maxwidth (760 Trip Essentials / 940 Guides), how to add pages to the menu (edit toolbar.js ITEMS only). Lives in Reference (not CORE RULES). *(moved to Reference 2026-05-29)* |
+| `Brain/Reference/Navigation.html` | Navigation rules — shared footnote, prev/next arrow navigation, scroll progress bar, scroll button. Moved out of CORE RULES → `Brain/Reference/` 2026-05-29. |
+| `Brain/Reference/Colors and Font Size.html` | Color and font size reference for guides and travel documents — hex values, swatches, and type scale for guide CSS. |
 | ~~`Brain/Section Snippets.html`~~ | **Archived 2026-05-24** to `Travel/archive/`. Permanently banned — snippet files cause format drift when rules change. Read CORE RULES directly. `brain_check.py` hard-fails if any snippet/scaffold/template file is recreated under Brain/. |
 
 ---
@@ -112,7 +116,7 @@ No new files without the owner's explicit permission. These 5 are the complete s
 |---|---|
 | `travel_map.md` | **This file.** Folder map + resource briefing. Read at session start. |
 | `audit_log.md` | Rolling audit log. Updated after every guide build and audit pass. brain_check gates on staleness. |
-| `Cities Gotchas.md` | Per-city known issues (construction, closures, quirks). Claude writes and maintains this as cities are researched. Feeds T6 ship gate. |
+| `Heads Up.md` | Per-city known issues (construction, closures, quirks). Claude writes and maintains this as cities are researched. Feeds T6 ship gate. |
 | `Cities Skip List.md` | Venues to skip per city (bad experience, permanently closed, not the owner's style). Claude writes and maintains. Used at research phase. |
 | `decisions.md` | Non-trivial judgment call log — bans, demotions, retirements, significant trade-offs. Required by cleanliness_checks.md rule 128. Append new entries at the top. |
 
@@ -193,7 +197,7 @@ When the user asks for the to-do list, read `Travel/To Do List/To_Do_List.md` �
 - **archive/ is a vault.** Never rm anything — archive to `Travel/archive/` and move on. No archive subfolders inside Guides/.
 - **brain_check must pass 0 failures** before starting any guide build. Run it. Fix it. Then build.
 - **WeasyPrint notes are critical.** Before any in-Cowork PDF render, read `Brain/Reference/PDF Render Notes.md` in full.
-- **Cities Gotchas and Cities Skip List are yours.** You write and maintain them as you research cities.
+- **Heads Up and Cities Skip List are yours.** You write and maintain them as you research cities.
 
 ---
 
@@ -209,4 +213,4 @@ When the user asks for the to-do list, read `Travel/To Do List/To_Do_List.md` �
 
 *Updated by Claude: 2026-05-24 (MD audit) — Updated `On The Go/Rules/` entry: active file is now `on_the_go_rules_v27.md`; archive holds v5–v26 (v11–v26 were in active folder, archived today). Marrakech guide uses `index.html` filename (inconsistent with other guides — logged as ❓ for the owner).*
 
-*Updated by Claude: 2026-05-11 — (1) Added `Brain/CORE RULES/script/` section. (2) Added `Cities Gotchas - Extra Section.html` to CORE RULES table (was in folder but missing from map). (3) Added `Brain/mds/decisions.md` section (new file, rule 128 additive). (4) Added `_DO_NOT_ARCHIVE.md` and `On Demand/_README.md` to CORE RULES table (both existed on disk, neither was documented). (5) Updated `On The Go/Rules/` description — active file is `on_the_go_rules_v11.md` (created 2026-05-11); v5–v10 in archive/.*
+*Updated by Claude: 2026-05-11 — (1) Added `Brain/CORE RULES/script/` section. (2) Added `Heads Up - Extra Section.html` to CORE RULES table (was in folder but missing from map). (3) Added `Brain/mds/decisions.md` section (new file, rule 128 additive). (4) Added `_DO_NOT_ARCHIVE.md` and `On Demand/_README.md` to CORE RULES table (both existed on disk, neither was documented). (5) Updated `On The Go/Rules/` description — active file is `on_the_go_rules_v11.md` (created 2026-05-11); v5–v10 in archive/.*

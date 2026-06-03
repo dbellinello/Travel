@@ -112,9 +112,9 @@
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
   }
   .filter-btn:hover, .filter-btn.active {
-    background: var(--accent);
+    background: linear-gradient(135deg, #7a3b1e 0%, #b85c2a 55%, #d4874a 100%);
     color: #ffffff;
-    border-color: var(--accent);
+    border-color: #b85c2a;
     font-weight: 600;
   }
 
@@ -288,7 +288,7 @@
 </style>
 </head>
 <body>
-<div id="toolbar-mount" data-depth="1" data-maxwidth="940"></div>
+<div id="toolbar-mount" data-depth="1" data-maxwidth="940" data-no-footnote="1"></div>
 <script src="../toolbar.js?v=2"></script>
 
 <div class="wrap">
@@ -357,7 +357,7 @@
   <button class="filter-btn" onclick="filterCards('high-speed',this)">🚄 High-Speed</button>
   <button class="filter-btn" onclick="filterCards('night',this)">🌙 Night Train</button>
   <button class="filter-btn" onclick="filterCards('intercity',this)">🚆 Intercity</button>
-  <button class="filter-btn" onclick="filterCards('regional',this)">🚞 Regional</button>
+  <button class="filter-btn" onclick="filterCards('regional',this)">🚊 Regional</button>
   <button class="filter-btn" onclick="filterCards('private',this)">⚡ Private Operator</button>
   <button class="filter-btn" onclick="filterCards('pass',this)">🎫 Rail Pass</button>
 </div>
@@ -381,7 +381,7 @@
       <!-- Eurostar (inc Thalys) -->
       <div class="train-card" data-type="high-speed">
         <div class="card-top">
-          <div class="train-icon">🚄</div>
+          <div class="train-icon">🚅</div>
           <div class="train-meta">
             <div class="train-name">Eurostar (+ former Thalys)</div>
             <div class="train-operator">EUROSTAR GROUP · merged Oct 2023</div>
@@ -513,7 +513,7 @@
       <!-- European Sleeper -->
       <div class="train-card" data-type="night">
         <div class="card-top">
-          <div class="train-icon">🌃</div>
+          <div class="train-icon">🛌</div>
           <div class="train-meta">
             <div class="train-name">European Sleeper</div>
             <div class="train-operator">Private · Brussels-based startup</div>
@@ -618,7 +618,7 @@
       <!-- SNCF TGV -->
       <div class="train-card" data-type="high-speed">
         <div class="card-top">
-          <div class="train-icon">🚄</div>
+          <div class="train-icon">🇫🇷</div>
           <div class="train-meta">
             <div class="train-name">TGV / inOui</div>
             <div class="train-operator">SNCF (Société Nationale des Chemins de Fer)</div>
@@ -679,7 +679,7 @@
       <!-- OUIGO -->
       <div class="train-card" data-type="high-speed">
         <div class="card-top">
-          <div class="train-icon">🟣</div>
+          <div class="train-icon">💸</div>
           <div class="train-meta">
             <div class="train-name">OUIGO</div>
             <div class="train-operator">SNCF · Low-cost high-speed</div>
@@ -728,7 +728,7 @@
       <!-- Intercités de Nuit -->
       <div class="train-card" data-type="night">
         <div class="card-top">
-          <div class="train-icon">🌙</div>
+          <div class="train-icon">🌠</div>
           <div class="train-meta">
             <div class="train-name">Intercités de Nuit</div>
             <div class="train-operator">SNCF · Domestic night trains</div>
@@ -777,7 +777,7 @@
 
       <div class="train-card" data-type="high-speed intercity">
         <div class="card-top">
-          <div class="train-icon">🚄</div>
+          <div class="train-icon">🇩🇪</div>
           <div class="train-meta">
             <div class="train-name">Deutsche Bahn (ICE / IC / EC)</div>
             <div class="train-operator">DB · Germany's national railway</div>
@@ -904,7 +904,7 @@
 
       <div class="train-card" data-type="high-speed intercity">
         <div class="card-top">
-          <div class="train-icon">🚄</div>
+          <div class="train-icon">🇪🇸</div>
           <div class="train-meta">
             <div class="train-name">Renfe (AVE / Avant / MD)</div>
             <div class="train-operator">Renfe Operadora · Spain's national rail</div>
@@ -957,7 +957,7 @@
 
       <div class="train-card" data-type="high-speed private">
         <div class="card-top">
-          <div class="train-icon">⚡</div>
+          <div class="train-icon">🟠</div>
           <div class="train-meta">
             <div class="train-name">Iryo</div>
             <div class="train-operator">Trenitalia + Air Nostrum · Private HS</div>
@@ -1006,7 +1006,7 @@
 
       <div class="train-card" data-type="high-speed intercity">
         <div class="card-top">
-          <div class="train-icon">🚄</div>
+          <div class="train-icon">🇮🇹</div>
           <div class="train-meta">
             <div class="train-name">Trenitalia (Le Frecce / IC)</div>
             <div class="train-operator">Trenitalia · Italy's national railway</div>
@@ -1063,7 +1063,7 @@
 
       <div class="train-card" data-type="high-speed private">
         <div class="card-top">
-          <div class="train-icon">⚡</div>
+          <div class="train-icon">❤️</div>
           <div class="train-meta">
             <div class="train-name">Italo (NTV)</div>
             <div class="train-operator">Nuovo Trasporto Viaggiatori · Private HS</div>
@@ -1113,7 +1113,7 @@
 
       <div class="train-card" data-type="high-speed intercity">
         <div class="card-top">
-          <div class="train-icon">🚄</div>
+          <div class="train-icon">🇦🇹</div>
           <div class="train-meta">
             <div class="train-name">ÖBB Railjet</div>
             <div class="train-operator">ÖBB · Austrian Federal Railways</div>
@@ -1170,7 +1170,7 @@
 
       <div class="train-card" data-type="high-speed intercity">
         <div class="card-top">
-          <div class="train-icon">🏔</div>
+          <div class="train-icon">🚆</div>
           <div class="train-meta">
             <div class="train-name">SBB (Swiss Federal Railways)</div>
             <div class="train-operator">SBB CFF FFS · Switzerland's national rail</div>
@@ -1237,7 +1237,7 @@
 
       <div class="train-card" data-type="intercity regional">
         <div class="card-top">
-          <div class="train-icon">🌷</div>
+          <div class="train-icon">🚈</div>
           <div class="train-meta">
             <div class="train-name">NS International</div>
             <div class="train-operator">Nederlandse Spoorwegen · Netherlands</div>
@@ -1403,7 +1403,7 @@
 
       <div class="train-card" data-type="high-speed intercity">
         <div class="card-top">
-          <div class="train-icon">🌲</div>
+          <div class="train-icon">🚃</div>
           <div class="train-meta">
             <div class="train-name">SJ (Swedish Railways)</div>
             <div class="train-operator">Statens Järnvägar · Sweden</div>
@@ -1454,7 +1454,7 @@
 
       <div class="train-card" data-type="intercity night">
         <div class="card-top">
-          <div class="train-icon">🌙</div>
+          <div class="train-icon">🌌</div>
           <div class="train-meta">
             <div class="train-name">Snälltåget</div>
             <div class="train-operator">Sweden · Private sleeper + seasonal</div>
@@ -1599,7 +1599,7 @@
     <div class="trains-grid">
       <div class="train-card" data-type="intercity regional">
         <div class="card-top">
-          <div class="train-icon">🚆</div>
+          <div class="train-icon">🇵🇹</div>
           <div class="train-meta">
             <div class="train-name">CP (Comboios de Portugal)</div>
             <div class="train-operator">Portugal's national railway</div>
@@ -1657,7 +1657,7 @@
 
       <div class="train-card" data-type="intercity">
         <div class="card-top">
-          <div class="train-icon">🦅</div>
+          <div class="train-icon">🛤</div>
           <div class="train-meta">
             <div class="train-name">PKP Intercity</div>
             <div class="train-operator">Poland's national long-distance rail</div>
@@ -1951,7 +1951,7 @@
 
       <div class="train-card" data-type="intercity">
         <div class="card-top">
-          <div class="train-icon">🐺</div>
+          <div class="train-icon">🇷🇴</div>
           <div class="train-meta">
             <div class="train-name">CFR Călători (Romania)</div>
             <div class="train-operator">Romanian National Railways</div>
@@ -2100,7 +2100,7 @@
 
       <div class="train-card" data-type="intercity regional">
         <div class="card-top">
-          <div class="train-icon">🏛</div>
+          <div class="train-icon">🇬🇷</div>
           <div class="train-meta">
             <div class="train-name">Hellenic Train (Greece)</div>
             <div class="train-operator">Formerly TrainOSE · Greece</div>

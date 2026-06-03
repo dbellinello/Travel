@@ -158,6 +158,9 @@ BOT_BLOCKED_HOSTS = {
     "luas.ie", "www.luas.ie",
     "bolt.eu", "www.bolt.eu",
     "free-now.com", "www.free-now.com",
+    # Finnish transit and food-delivery (403 to crawlers from non-FI IPs)
+    "hsl.fi", "www.hsl.fi",
+    "foodora.fi", "www.foodora.fi",
     # Coachella Valley performing arts venue — 403 to crawlers
     "mccallumtheatre.com", "www.mccallumtheatre.com",
 }

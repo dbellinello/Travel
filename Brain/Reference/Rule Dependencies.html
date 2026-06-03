@@ -70,6 +70,8 @@ tr:hover td { background: #f9f9f9; }
 </style>
 </head>
 <body>
+<p style="color:#1a5f2a; background:#e6f5ea; padding:10px 14px; border-radius:4px; font-size:15px; line-height:1.5; margin-bottom:28px;"><strong>CLAUDE MAINTAINS THIS FILE — FIX IMMEDIATELY, NO APPROVAL NEEDED</strong><br>
+When this file drifts from Brain/CORE RULES/, fix it in the same pass. CORE RULES is the authority; this file follows. No questions, no permission, no parking for later.</p>
 
 <h1>🗺 Rule Dependencies</h1>
 
@@ -81,14 +83,8 @@ tr:hover td { background: #f9f9f9; }
 
 <!-- ══════════════════════════════════════════════════════════════════════ -->
 <div class="drift-panel">
-<h2 style="margin-top:0;">⚠️ Drift Watch — 2 Active Conflicts</h2>
+<h2 style="margin-top:0;">⚠️ Drift Watch — 1 Active Conflict</h2>
 <p style="font-size:12px; color:#666; margin-bottom:16px;"><strong>Drift = same rule, different value in different files.</strong> Documentation gaps belong in <code>🔧 Rules for Update</code> in <code>To_Do_List.md</code>. Intentional design exceptions belong in the relevant icon card or concept entry. Drift Watch is reserved for live conflicts only.</p>
-
-<div class="drift-entry">
-<div class="drift-title">🚗 Food Delivery missing from Icon Order § 3 section list</div>
-<div class="drift-body"><strong>Guide Structure.html</strong> lists 🚗 Food Delivery as extra section 7 (between Local Tastes and Shows). <strong>Icon Order and Format.html § 3</strong> section-header table jumps from 🍮 Local Tastes straight to 🎭 Shows — Food Delivery is not listed.</div>
-<div class="drift-fix">Fix needed: Food Delivery entry and sub-row format must be added to Icon Order § 3.</div>
-</div>
 
 <div class="drift-entry">
 <div class="drift-title">Icon Order § 3 uses abbreviated section names (intentional design — not a drift)</div>
@@ -636,13 +632,13 @@ tr:hover td { background: #f9f9f9; }
 <div class="icon-card">
  <div class="icon-glyph">❗️</div>
  <div class="icon-body">
- <div class="icon-name">Cities Gotchas</div>
- <div class="icon-row"><div class="icon-row-label">Section home</div><div class="icon-row-value">Cities Gotchas - Extra Section.html</div></div>
+ <div class="icon-name">Heads Up</div>
+ <div class="icon-row"><div class="icon-row-label">Section home</div><div class="icon-row-value">Heads Up - Extra Section.html</div></div>
  <div class="icon-row"><div class="icon-row-label">Extra section position</div><div class="icon-row-value">14 (Guide Structure) — conditional</div></div>
- <div class="icon-row"><div class="icon-row-label">Anchor ID</div><div class="icon-row-value"><code>id="cities-gotchas"</code></div></div>
- <div class="icon-row"><div class="icon-row-label">External source</div><div class="icon-row-value"><code>Brain/mds/Cities Gotchas.md</code> · only ships when matching <code>## {City}</code> heading has entries</div></div>
+ <div class="icon-row"><div class="icon-row-label">Anchor ID</div><div class="icon-row-value"><code>id="heads-up"</code></div></div>
+ <div class="icon-row"><div class="icon-row-label">External source</div><div class="icon-row-value"><code>Brain/mds/Heads Up.md</code> · only ships when matching <code>## {City}</code> heading has entries</div></div>
  <div class="icon-row"><div class="icon-row-label">Caps</div><div class="icon-row-value">≤150 char gotcha · short title ≤40 chars (after “ — ”) · trailing punctuation required (. !) — ? banned globally · max 7 entries (8+ = warn)</div></div>
- <div class="icon-row"><div class="icon-row-label">validate_itinerary.py touchpoints</div><div class="icon-row-value">exact title "❗ Cities Gotchas" · no box wrappers · section present only when entries exist · 3-row format (heading / gotcha / Workaround:) · heading format (❗ Venue — Short Title) · no extra emoji in heading · no duplicate headings · gotcha: non-empty, ≤150 chars, no emoji, no links, doesn't start with "Workaround:" · short title ≤40 chars · no tilde (~) in gotcha/workaround rows · gotcha + workaround each end with sentence punctuation (. ! ?) · Workaround: capital-W, non-empty, no emoji · no extra rows · no intro prose · no annotation leakage ([UPDATE]/[TBD]/🔴) · no &lt;p&gt; tags · entry count &lt;8 (warn if ≥8) · spec file readable + calibration anchors intact</div></div>
+ <div class="icon-row"><div class="icon-row-label">validate_itinerary.py touchpoints</div><div class="icon-row-value">exact title "❗ Heads Up" · no box wrappers · section present only when entries exist · 3-row format (heading / gotcha / Workaround:) · heading format (❗ Venue — Short Title) · no extra emoji in heading · no duplicate headings · gotcha: non-empty, ≤150 chars, no emoji, no links, doesn't start with "Workaround:" · short title ≤40 chars · no tilde (~) in gotcha/workaround rows · gotcha + workaround each end with sentence punctuation (. ! ?) · Workaround: capital-W, non-empty, no emoji · no extra rows · no intro prose · no annotation leakage ([UPDATE]/[TBD]/🔴) · no &lt;p&gt; tags · entry count &lt;8 (warn if ≥8) · spec file readable + calibration anchors intact</div></div>
  </div>
 </div>
 
@@ -656,7 +652,7 @@ tr:hover td { background: #f9f9f9; }
  <div class="icon-row"><div class="icon-row-label">Extra section position</div><div class="icon-row-value">Last (Guide Structure) — conditional</div></div>
  <div class="icon-row"><div class="icon-row-label">Anchor ID</div><div class="icon-row-value"><code>id="claude-inspiration"</code></div></div>
  <div class="icon-row"><div class="icon-row-label">Negative-finding posture</div><div class="icon-row-value">Silently omits when empty — intentional design exception. Every other extra section ships an explicit "No qualifying X..." line; Claude Inspiration is the only optional/creative extra section, so silent-omit fits its role.</div></div>
- <div class="icon-row"><div class="icon-row-label">Theming</div><div class="icon-row-value">9 color palettes: <code>theme-purple · theme-teal · theme-coral · theme-pink · theme-sage · theme-amber · theme-indigo · theme-green · theme-yellow</code> (defined in <code>guide_v2.css</code>)</div></div>
+ <div class="icon-row"><div class="icon-row-label">Theming</div><div class="icon-row-value">9 color palettes: <code>theme-purple · theme-teal · theme-coral · theme-pink · theme-sage · theme-amber · theme-indigo · theme-green · theme-yellow</code> (defined in <code>guide_v3.css</code>)</div></div>
  </div>
 </div>
 
@@ -686,7 +682,7 @@ tr:hover td { background: #f9f9f9; }
  <div class="icon-name">Food Delivery section icon</div>
  <div class="icon-row"><div class="icon-row-label">Home</div><div class="icon-row-value">Food Delivery - Extra Section.html (section header and sub-section headings)</div></div>
  <div class="icon-row"><div class="icon-row-label">Used in</div><div class="icon-row-value">Food Delivery section only (standalone section, not inline within Cappuccino entries)</div></div>
- <div class="icon-row"><div class="icon-row-label">Note</div><div class="icon-row-value">This is also in the Drift Watch as missing from Icon Order §3 — Icon Order §3 section header table does not list 🚗 Food Delivery</div></div>
+ <div class="icon-row"><div class="icon-row-label">Note</div><div class="icon-row-value">🚗 Food Delivery is listed in Icon Order §3 between 🍮 Local Tastes and 🎭 Shows. Drift Watch entry cleared 2026-06-01.</div></div>
  </div>
 </div>
 
@@ -741,7 +737,7 @@ tr:hover td { background: #f9f9f9; }
 <tr><td><span class="tag tag-threshold">5 entries</span></td><td>Downtown Restaurants</td><td>Minimum 5</td></tr>
 <tr><td><span class="tag tag-threshold">5 entries</span></td><td>Cappuccino · Michelin</td><td>Top 5 each</td></tr>
 <tr><td><span class="tag tag-threshold">No cap</span></td><td>Pickleball</td><td>List all qualifying courts within 25 min walk</td></tr>
-<tr><td><span class="tag tag-threshold">&lt;8 entries</span> warn if ≥8</td><td>Cities Gotchas - Extra Section.html</td><td>Cities Gotchas section — validator warns when entry count ≥8; not a hard error</td></tr>
+<tr><td><span class="tag tag-threshold">&lt;8 entries</span> warn if ≥8</td><td>Heads Up - Extra Section.html</td><td>Heads Up section — validator warns when entry count ≥8; not a hard error</td></tr>
 <tr><td><span class="tag tag-threshold">1 photo</span> per stop</td><td>Photos Rules.html</td><td>Photos Rules · ships negative-finding "No pictures found" when none</td></tr>
 <tr><td><span class="tag tag-threshold">4.5+★ rating bar</span></td><td>Tours - Extra Section.html</td><td>Tours — applies to every tour-box and ticket source</td></tr>
 <tr><td><span class="tag tag-threshold">≥6 reviews</span> minimum</td><td>Tours - Extra Section.html</td><td>Tours · DriftyCat tour-first reminder in Rules for Claude</td></tr>
@@ -749,7 +745,7 @@ tr:hover td { background: #f9f9f9; }
 <tr><td><span class="tag tag-threshold">≥100 words</span> Wikipedia prose gate</td><td>Links.html § 📖</td><td>Photos Rules (tertiary photo source: Wikipedia article images, same article gate) · Links.html</td></tr>
 <tr><td><span class="tag tag-threshold">800 px</span> Wikimedia thumbnail</td><td>Photos Rules.html</td><td>Photos Rules — canonical thumbnail URL</td></tr>
 <tr><td><span class="tag tag-threshold">4 license</span> allowlist</td><td>Photos Rules.html</td><td>Public Domain · CC0 · CC-BY · CC-BY-SA</td></tr>
-<tr><td><span class="tag tag-threshold">9 color themes</span></td><td>Claude Inspiration · guide_v2.css</td><td>Claude Inspiration entries only</td></tr>
+<tr><td><span class="tag tag-threshold">9 color themes</span></td><td>Claude Inspiration · guide_v3.css</td><td>Claude Inspiration entries only</td></tr>
 </tbody>
 </table>
 
@@ -763,8 +759,8 @@ tr:hover td { background: #f9f9f9; }
 <tr><td><span class="tag tag-threshold">no description</span></td><td>Getting Around — 🚕 ride-app entry</td><td>Getting Around §1</td><td>Ride App section has no description row — app name heading + link only</td></tr>
 <tr><td><span class="tag tag-threshold">≤160 chars</span></td><td>Getting Around — 🚎 tram description</td><td>Getting Around §2</td><td>—</td></tr>
 <tr><td><span class="tag tag-threshold">≤80 chars</span></td><td>Getting Around — 🚝 metro description</td><td>Getting Around §3</td><td>—</td></tr>
-<tr><td><span class="tag tag-threshold">≤150 chars</span></td><td>Cities Gotchas — gotcha line</td><td>Cities Gotchas</td><td>—</td></tr>
-<tr><td><span class="tag tag-threshold">≤40 chars</span></td><td>Cities Gotchas — short title (after “ — ”)</td><td>Cities Gotchas - Extra Section.html</td><td>Validator-enforced; added 2026-05-17</td></tr>
+<tr><td><span class="tag tag-threshold">≤150 chars</span></td><td>Heads Up — gotcha line</td><td>Heads Up</td><td>—</td></tr>
+<tr><td><span class="tag tag-threshold">≤40 chars</span></td><td>Heads Up — short title (after “ — ”)</td><td>Heads Up - Extra Section.html</td><td>Validator-enforced; added 2026-05-17</td></tr>
 <tr><td><span class="tag tag-threshold">≤160 chars</span></td><td>Shows entry description (🗒)</td><td>Icon Order (Shows 🗒 row) · Shows - Extra Section.html</td><td>Aligned 2026-05-16 — icon changed from 📒 to 🗒 to avoid confusion with stop descriptions.</td></tr>
 <tr><td><span class="tag tag-threshold">≤240 chars</span></td><td>Local Tastes dish description</td><td>Local Tastes - Extra Section.html</td><td>Icon Order doesn't specify a limit — defers to Local Tastes file.</td></tr>
 <tr><td><span class="tag tag-threshold">≤320 chars</span></td><td>Day Trips by Train city intro (🗞️)</td><td>Icon Order (Day Trips by Train 🗞️ sub-row) · Day Trips by Train - Extra Section.html</td><td>Aligned 2026-05-13 — Day Trips by Train file used to say ≤280; now both say ≤320.</td></tr>
@@ -858,7 +854,7 @@ tr:hover td { background: #f9f9f9; }
 <div class="concept">
  <div class="concept-name">Anchor IDs (cross-link contract)</div>
  <div class="concept-owner">Source: this file — canonical list below</div>
- <div class="concept-files">Used in: Trip at a Glance (extras-pill <code>href</code> targets) · every extra section (must carry the matching <code>id</code>) · ship-gate validator (broken anchors fail)<br><em>Anchor IDs: <code>tours · weekly-closures · cappuccino · restaurants · downtown · local-tastes · food-delivery · shows · getting-around · stations-near-hotel · day-trips-by-train · pickleball · michelin · cities-gotchas · claude-inspiration · skip-list</code></em><br><em>Canonical pill label text per anchor is defined in Trip at a Glance.html § 3 — owner-defined decisions, hard-fail enforced by validator. Validator source of truth: <code>_GLANCE_PILL_CANONICAL_LABELS</code> dict in <code>validate_itinerary.py</code>.</em><br><em>Note: <code>skip-list</code> is a footnote, not a section card — it has no extras-pill link in Trip at a Glance. The id is still required for validator enforcement when it ships (Validator Coverage GLOBAL — Skip List footnote check).</em></div>
+ <div class="concept-files">Used in: Trip at a Glance (extras-pill <code>href</code> targets) · every extra section (must carry the matching <code>id</code>) · ship-gate validator (broken anchors fail)<br><em>Anchor IDs: <code>tours · weekly-closures · cappuccino · restaurants · downtown · local-tastes · food-delivery · shows · getting-around · stations-near-hotel · day-trips-by-train · pickleball · michelin · heads-up · claude-inspiration · skip-list</code></em><br><em>Canonical pill label text per anchor is defined in Trip at a Glance.html § 3 — owner-defined decisions, hard-fail enforced by validator. Validator source of truth: <code>_GLANCE_PILL_CANONICAL_LABELS</code> dict in <code>validate_itinerary.py</code>.</em><br><em>Note: <code>skip-list</code> is a footnote, not a section card — it has no extras-pill link in Trip at a Glance. The id is still required for validator enforcement when it ships (Validator Coverage GLOBAL — Skip List footnote check).</em></div>
 </div>
 
 <div class="concept">
@@ -868,8 +864,8 @@ tr:hover td { background: #f9f9f9; }
 </div>
 
 <div class="concept">
- <div class="concept-name">Cities Gotchas data dependency</div>
- <div class="concept-owner">Source: Cities Gotchas - Extra Section.html → external file <code>Brain/mds/Cities Gotchas.md</code></div>
+ <div class="concept-name">Heads Up data dependency</div>
+ <div class="concept-owner">Source: Heads Up - Extra Section.html → external file <code>Brain/mds/Heads Up.md</code></div>
  <div class="concept-files">Referenced from: Guide Structure (extras list) · Rules for Claude DriftyCat<br><em>Only extra section with an external-file data dependency. Format: <code>## {City}</code> heading, then entries.</em></div>
 </div>
 
@@ -909,7 +905,7 @@ tr:hover td { background: #f9f9f9; }
  <div class="concept-name">Section title vs pill label — two different canonical strings</div>
  <div class="concept-owner">Source: section files (section header) · Trip at a Glance.html §3 (pill label)</div>
  <div class="concept-files">Every extra section has two canonical strings — they are different and must not be confused:<br>
- <strong>Section header title</strong> (the <code>.extras-title</code> div inside the guide HTML) — full name, validator-enforced hard fail on deviation. Canonical strings: "🗓️ Weekly Closures" · "📅 Tours" · "☕ Cappuccino" · "🫕 Restaurants Near Hotel" · "🍽️ Downtown Restaurants" · "🍮 Local Tastes" · "🚗 Food Delivery" · "🎭 Shows, Performances &amp; Concerts" · "🚌 Getting Around" · "🚆 Train Stations Near Hotel" · "⛲️ Day Trips by Train" · "🏓 Pickleball" · "⭐ Michelin Restaurants" · "❗ Cities Gotchas" · varies Claude Inspiration<br>
+ <strong>Section header title</strong> (the <code>.extras-title</code> div inside the guide HTML) — full name, validator-enforced hard fail on deviation. Canonical strings: "🗓️ Weekly Closures" · "📅 Tours" · "☕ Cappuccino" · "🫕 Restaurants Near Hotel" · "🍽️ Downtown Restaurants" · "🍮 Local Tastes" · "🚗 Food Delivery" · "🎭 Shows, Performances &amp; Concerts" · "🚌 Getting Around" · "🚆 Train Stations Near Hotel" · "⛲️ Day Trips by Train" · "🏓 Pickleball" · "⭐ Michelin Restaurants" · "❗ Heads Up" · varies Claude Inspiration<br>
  <strong>Pill label</strong> (Trip at a Glance §3 extras row) — owner-defined in Trip at a Glance.html, some use short form: "🎭 Shows" · "🚆 Stations Near Hotel" · "✨ Claude Inspiration". See Trip at a Glance.html §3 for every canonical pill label.</div>
 </div>
 
@@ -921,10 +917,10 @@ tr:hover td { background: #f9f9f9; }
 <tbody>
 <tr><td colspan="3" style="background:#f0f0f0; padding:6px 10px; font-weight:700; font-size:12px; color:#555;">Meta / behavioral</td></tr>
 <tr><td><strong>Rules for Claude.html</strong></td><td>Session ritual, build discipline, archive rule, GitHub Pages procedure, DriftyCat reminders, parking-surface rule</td><td>Points at every section file</td></tr>
-<tr><td><strong>Guide Structure.html</strong></td><td>extra section order, anchor IDs, build discipline checklist, what never ships, guide directory layout</td><td>All section files · Motion Rule · Icon Order · Cities Gotchas.md</td></tr>
+<tr><td><strong>Guide Structure.html</strong></td><td>extra section order, anchor IDs, build discipline checklist, what never ships, guide directory layout</td><td>All section files · Motion Rule · Icon Order · Heads Up.md</td></tr>
 <tr><td colspan="3" style="background:#f0f0f0; padding:6px 10px; font-weight:700; font-size:12px; color:#555;">Page shell</td></tr>
 <tr><td><strong>Brain/Reference/Toolbar.html</strong></td><td>Moved out of CORE RULES → <code>Brain/Reference/</code> 2026-05-30. Shared navigation bar — required on every HTML page. Owns: mount div markup, <code>data-depth</code> (folder levels from Travel/), <code>data-maxwidth</code> (760 Trip Essentials / 940 Guides), <code>data-toolbar-theme="guide"</code> (index-page accent override), how to add pages to the menu (edit <code>toolbar.js</code> ITEMS only; null separators and guides: true flag supported). <em>Added 2026-05-29.</em></td><td>toolbar.js (source file, Travel root)</td></tr>
-<tr><td><strong>Brain/Reference/Navigation.html</strong></td><td>Moved out of CORE RULES → <code>Brain/Reference/</code> 2026-05-29. Owns: the <strong>shared footnote</strong> (sharing link carried across to the guides), prev/next arrow navigation for guide sequences (<code>data-prev</code> / <code>data-next</code> attributes on the toolbar mount div, chain integrity, <code>guides_index.html</code> wiring, inserting a new guide), the scroll progress bar, and the scroll button. <em>Added 2026-05-29.</em></td><td>Toolbar.html (mount div) · toolbar.js · guides_index.html</td></tr>
+<tr><td><strong>Brain/Reference/Navigation.html</strong></td><td>Moved out of CORE RULES → <code>Brain/Reference/</code> 2026-05-29. Owns: the <strong>shared footnote</strong> (sharing link carried across to the guides), prev/next arrow navigation for guide sequences (<code>data-prev</code> / <code>data-next</code> attributes on the toolbar mount div, chain integrity, <code>guides_index.html</code> wiring, inserting a new guide — five steps including the map pin), the scroll progress bar, and the scroll button. <em>Added 2026-05-29.</em></td><td>Toolbar.html (mount div) · toolbar.js · guides_index.html · Trip Essentials/Europe Map.html · Trip Essentials/US Map.html</td></tr>
 <tr><td><strong>Trip Essentials/Essentials Pages - Rules.md</strong></td><td>Behaviour of the Trip Essentials pages. Owns: which pages carry a search box, search filtering and group collapse, and the no-results state (title + search box + message only; content, jump-nav, legends, index table, and shared footnote all hide). <em>Added 2026-05-29.</em></td><td>toolbar.js (shared footnote) · Navigation.html</td></tr>
 <tr><td colspan="3" style="background:#f0f0f0; padding:6px 10px; font-weight:700; font-size:12px; color:#555;">Title page + navigation</td></tr>
 <tr><td><strong>Hotel Banner.html</strong></td><td>3-line banner (CITY / Hotel / Address), hotel-naming once rule, address format (matches Links.html), rental name swap</td><td>—</td></tr>
@@ -953,9 +949,9 @@ tr:hover td { background: #f9f9f9; }
 <tr><td><strong>Day Trips by Train - Extra Section.html</strong></td><td>🗞️ city intro ≤320, 🎫 booking row, exact (not ~) travel time, ascending-by-travel-time order, "no departure city" rule</td><td>Tours - Extra Section.html (tour-first carve-out) · Icon Order</td></tr>
 <tr><td><strong>Pickleball - Extra Section.html</strong></td><td>~25 min walk cap, no cap on entries, Indoor/Outdoor suffix, regional conditional ship (CA/AZ/OR)</td><td>Motion Rule · Icon Order</td></tr>
 <tr><td><strong>Michelin Restaurants - Extra Section.html</strong></td><td>Tier ordering (⭐⭐⭐ → ⭐⭐ → ⭐), within-tier by ride time, 5 entries, ≤80 char description (mandatory), "Not shown:" overflow line · <strong>Entry format:</strong> star rating + name is first <code>&lt;div&gt;</code> inside <code>.entry-body</code> — no <code>.extras-sub</code> wrapper; name plain (not linked)</td><td>Icon Order (📍 only)</td></tr>
-<tr><td><strong>Cities Gotchas - Extra Section.html</strong></td><td>≤150 char gotcha, Workaround line, external-file data dependency (Brain/mds/Cities Gotchas.md)</td><td>External md file</td></tr>
-<tr><td><strong>Claude Inspiration - Extra Section.html</strong></td><td>Free-form section, 9 color palettes, silent-omit when empty (only extra section with this posture)</td><td>guide_v2.css (theme classes)</td></tr>
-<tr><td><strong>Skip List.html</strong></td><td>Extra section position: Last (after Claude Inspiration) — conditional · Single italic grey footnote line, no title banner, no icon heading · Lead-in label "Skipping:" followed by skipped venues separated by middle-dot · Ships only when destination has entries in Cities Skip List; silently omitted otherwise (no negative-finding line) · Validator-enforced: <code>id="skip-list"</code> + <code>.skip-list-note</code> text begins with "Skipping:" · Same conditional gate as Cities Gotchas (external-file dependency, silent-omit)</td><td>Brain/mds/Cities Skip List.md (external data source)</td></tr>
+<tr><td><strong>Heads Up - Extra Section.html</strong></td><td>≤150 char gotcha, Workaround line, external-file data dependency (Brain/mds/Heads Up.md)</td><td>External md file</td></tr>
+<tr><td><strong>Claude Inspiration - Extra Section.html</strong></td><td>Free-form section, 9 color palettes, silent-omit when empty (only extra section with this posture)</td><td>guide_v3.css (theme classes)</td></tr>
+<tr><td><strong>Skip List.html</strong></td><td>Extra section position: Last (after Claude Inspiration) — conditional · Single italic grey footnote line, no title banner, no icon heading · Lead-in label "Skipping:" followed by skipped venues separated by middle-dot · Ships only when destination has entries in Cities Skip List; silently omitted otherwise (no negative-finding line) · Validator-enforced: <code>id="skip-list"</code> + <code>.skip-list-note</code> text begins with "Skipping:" · Same conditional gate as Heads Up (external-file dependency, silent-omit)</td><td>Brain/mds/Cities Skip List.md (external data source)</td></tr>
 </tbody>
 </table>
 
@@ -967,7 +963,7 @@ tr:hover td { background: #f9f9f9; }
 <table>
 <thead><tr><th>Target</th><th>Lives in</th><th>What it touches</th></tr></thead>
 <tbody>
-<tr><td><strong>Guide Style.css / guide_v2.css</strong></td><td><code>Brain/Reference/Guide Style.css</code> (source) · <code>Guides/guide_v2.css</code> (GitHub Pages deploy copy)</td><td>Typography, motion banners, tour boxes, extra sections, Claude Inspiration theme classes, mobile <code>@media (max-width: 600px)</code> block. <span class="impact-med">When CSS changes → copy to <code>Guides/</code>.</span></td></tr>
+<tr><td><strong>Guide Style.css / guide_v3.css</strong></td><td><code>Brain/Reference/Guide Style.css</code> (source) · <code>Guides/guide_v3.css</code> (GitHub Pages deploy copy — all 37 guides migrated to v3 as of 2026-05-31)</td><td>Typography, motion banners, tour boxes, extra sections, Claude Inspiration theme classes, mobile <code>@media (max-width: 600px)</code> block. <span class="impact-med">When CSS changes → edit Brain/Reference/Guide Style.css → copy to <code>Guides/guide_v3.css</code>.</span> guide_v2.css retired.</td></tr>
 <tr><td><strong>validate_itinerary.py</strong></td><td><code>Brain/scripts/</code></td><td><strong>677 check() calls total (2026-05-17).</strong> Per-stop checks: 📒 length, 📅/🎟 link presence, 🏛/⏳ exclusivity, motion-row presence, &gt;40-min override, on-demand content leaks (🌤 / delta.com URLs), hedging-language ban (50 patterns: original 34 + 16 added 2026-05-17 covering attribution hedges "said to be/believed to be/reportedly", invented social proof "locals say/many visitors", probability hedges "probably/likely/possibly", deferred verification "see website for times", temporal staleness "as of 20XX", reputation claims "widely regarded as", frequency hedges "often closes") · Food Delivery: 18 checks incl. description-ends-with-period, URL domain vs. platform name (13-platform map), link anchor not generic, negative-finding extras-empty class, no [City] placeholder (5 added 2026-05-17) · <strong>Global parentheses ban</strong> — no <code>(</code> in any visible text, every section · <strong>Tilde ban</strong> — <code>~</code> valid only after ⏰ rows, banned everywhere else · <strong>Extras-sub heading URL check</strong> — <code>href</code> in <code>.extras-sub</code> heading must be a review platform (Yelp, Google Maps, TripAdvisor); official venue-site URLs fail · <strong>📍 locked-pattern check</strong> — Google Maps URLs within 250 chars of a 📍 emoji must use <code>https://www.google.com/maps/search/?api=1&amp;query=</code> · <strong>Compound station name whitelist</strong> (<code>_COMPOUND_STATION_NAMES</code>) — exempts known compound names (e.g. <em>La Défense — Grande Arche</em>) from the em-dash heading check · <strong>Michelin name-inside-box check</strong> — restaurant name must be first <code>&lt;div&gt;</code> inside <code>.entry-body</code>; <code>.extras-sub</code> on a Michelin entry fails · <strong>Weekly Closures Signal A/B</strong> — Signal A: stop name in category text = fail; Signal B: ≥5 real alphabetic words (≥2 chars, counted by <code>re.match(r'[a-zA-ZÀ-ÿ]{2,}', w)</code>) in category text = fail · <strong>Restaurants Near Hotel §4a motion row exception</strong> — hotel's own restaurant entry must have no motion row; regular entries require one · <strong>build_state.md Phase 5 gate</strong> — every shipping extra section must be listed before ship</td></tr>
 <tr><td><strong>guide_tools.py</strong></td><td><code>Brain/scripts/</code></td><td><code>start</code> (brain-check + sweep + to-do) · <code>validate</code> (per-guide) · <code>ship</code> (final gate, exit 0 = done)</td></tr>
 <tr><td><strong>brain_check.py</strong></td><td><code>Brain/scripts/</code></td><td>Brain integrity — runs at session start. Warnings block task work.</td></tr>
@@ -975,7 +971,7 @@ tr:hover td { background: #f9f9f9; }
 <tr><td><strong>render_pdf.py</strong> (Playwright) <strong>· WeasyPrint notes</strong></td><td><code>Brain/scripts/</code> · <code>Brain/Reference/PDF Render Notes.md</code></td><td>On-demand PDF rendering. Cowork must use WeasyPrint (Playwright Chromium SIGTRAP-crashes in sandbox).</td></tr>
 <tr><td><strong>audit_log.md</strong></td><td><code>Brain/mds/audit_log.md</code></td><td>Append validation entries (date · time · pass/fail count) before ship · session close-out entries · audit findings</td></tr>
 <tr><td><strong>decisions.md</strong></td><td><code>Brain/mds/decisions.md</code></td><td>Non-trivial judgment calls (bans, demotions, retirements). Append from session — never carry in memory.</td></tr>
-<tr><td><strong>Cities Skip List.md / Cities Gotchas.md</strong></td><td><code>Brain/mds/</code></td><td>External-file data dependencies for two rules (Day Structure stop-skip · Cities Gotchas extra section)</td></tr>
+<tr><td><strong>Cities Skip List.md / Heads Up.md</strong></td><td><code>Brain/mds/</code></td><td>External-file data dependencies for two rules (Day Structure stop-skip · Heads Up extra section)</td></tr>
 </tbody>
 </table>
 

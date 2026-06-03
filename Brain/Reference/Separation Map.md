@@ -1,3 +1,5 @@
+> **Claude maintains this file — fix immediately, no approval needed.** When this file drifts from Brain/CORE RULES/, fix it in the same pass. CORE RULES is the authority; this file follows. No questions, no permission, no parking for later.
+
 # Separation Map
 
 Which topic belongs in which core rules doc. Check this before adding anything to any file.
@@ -13,13 +15,13 @@ Each doc has ONE job. If a topic isn't listed under a file, it doesn't go there.
 - `data-maxwidth` values (760 Trip Essentials / 940 Guides)
 - How to add a new page to the menu (edit `toolbar.js` ITEMS array only — never per-file)
 - Auto-styling behavior (toolbar reads page background at runtime — no per-page override needed)
-- Footer sharing link (§ 5 — cosmetic public URL, guide pages only)
+- Footer sharing link (§ 6 — cosmetic public URL, every page; injected by `footnote.js`, auto-loaded by `toolbar.js`)
 
 ---
 
 ## Brain/Reference/Navigation.html  *(moved out of CORE RULES 2026-05-29)*
 
-- The shared footnote — the sharing link carried across to the guides (auto-injected by `toolbar.js` on Trip Essentials pages + guides index)
+- The shared footnote — the sharing link carried across to every page (injected by `footnote.js`, auto-loaded by `toolbar.js`; suppress per-page with `data-no-footnote="1"`)
 - `data-prev` / `data-next` attributes on the toolbar mount div (guide pages only)
 - Chain integrity rule (bidirectional consistency — predecessor's next must match successor's prev)
 - `guides_index.html` wiring (matching `data-guide-prev` / `data-guide-next` on index cards)
@@ -57,11 +59,22 @@ Each doc has ONE job. If a topic isn't listed under a file, it doesn't go there.
 
 Moved to `Travel/Retired Rules/Retired_Tours.html`. In-stop tour boxes and the Guided Tour Stop pattern are retired. All tour rules now live in `Tours - Extra Section.html`.
 
+## Tours - Extra Section
+
+- Per-source minimums (≥5 Viator, ≥5 GetYourGuide, ≥5 TripAdvisor — 15 total)
+- Walking tour cap (minimum 2, maximum 4 per guide across all platforms)
+- Rating bar (≥4.5⭐ AND ≥6 reviews — hard fail below bar)
+- Grouping & numbering (grouped by platform: Viator → GYG → TripAdvisor; per-platform counter resets to 1)
+- Entry format (📅 [N]. [Tour Name link] · [Operator] · [Rating]⭐ · [Reviews]+ reviews + body box with 🔖 summary, 🕐/⏳/👥 row, 📍 meeting point, 🚶/🚕 motion)
+- Negative-finding lines ("No Tours in {City}." / "Not enough Tours in {City}.")
+- City rule (tours must be held in or depart from the guide city)
+- Hotel pickup variants (🏨 ↔ 🚐 / 🏨 → 🚐 / 🏨 ← 🚐)
+
 ## Guide Structure
 
 - Section order top-to-bottom (Title Page → Trip at a Glance → Day blocks → Extra sections → Claude Inspiration)
-- Extra-section order (15 sections: Weekly Closures is #1; Tours is #2 — added 2026-05-20, after Weekly Closures; 12 universal + 2 conditional — Pickleball (CA/AZ/OR only), Cities Gotchas (entries gated) — plus Claude Inspiration optional / always last)
-- Universal shipping rule (every guide ships the 12 universal Extra sections; Pickleball + Cities Gotchas are conditional)
+- Extra-section order (15 sections: Weekly Closures is #1; Tours is #2 — added 2026-05-20, after Weekly Closures; 12 universal + 2 conditional — Pickleball (CA/AZ/OR only), Heads Up (entries gated) — plus Claude Inspiration optional / always last)
+- Universal shipping rule (every guide ships the 12 universal Extra sections; Pickleball + Heads Up are conditional)
 - Build phases & required reads per phase (Phase 0–5 with mandatory file reads)
 - Day numbering (Day 1 = first full touring day per Day Structure § 1)
 
@@ -197,7 +210,7 @@ Train day-trips only (by-car/Uber retired 2026-05-03).
 - City-wide patterns only
 - Format: Category · Closed Day
 
-## Cities Gotchas
+## Heads Up
 
 - Per-trip "wish I'd known" intel — venue gotchas, timing tricks, booking quirks
 - Format per entry: Venue/Topic + Gotcha + Workaround + Source (date learned)
@@ -238,6 +251,8 @@ Train day-trips only (by-car/Uber retired 2026-05-03).
 |---|---|
 | A new stop type | Stops Structure.html |
 | A new tour sourcing rule | Tours - Extra Section.html |
+| A tour quality bar change (rating/review threshold) | Tours - Extra Section.html |
+| A tour grouping or entry format rule | Tours - Extra Section.html |
 | A new EoI section | Guide Structure |
 | A new stop flag | Stops Structure.html |
 | A new ticket platform | Tickets.html (waterfall) |
@@ -247,7 +262,7 @@ Train day-trips only (by-car/Uber retired 2026-05-03).
 | A day structure rule | Day Structure |
 | A walk-vs-ride threshold tweak | Motion Rule |
 | A research source | Stops Structure.html |
-| A new Cities Gotchas entry | Cities Gotchas |
+| A new Heads Up entry | Heads Up |
 | A new Pickleball-section rule | Pickleball |
 | A new day-trip rule | Day Trips by Train - Extra Section |
 | A new icon assignment or row-order rule | Icon Order and Format |

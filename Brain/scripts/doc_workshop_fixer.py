@@ -56,8 +56,16 @@ CANONICAL_CSS_HREF = "../Reference/Core Rules Style.css"
 CANONICAL_LINK_TAG = f'<link rel="stylesheet" href="{CANONICAL_CSS_HREF}">'
 
 CANONICAL_BANNER = (
-    '<p class="banner">This document is read-only and can only be edited by request</p>'
+    '<p class="banner"><strong>ATTENTION: THIS DOCUMENT IS READ-ONLY AND CAN ONLY BE EDITED BY REQUEST</strong><br>\n'
+    'Read the formatting rules first — Brain/Reference/.<br>\n'
+    'CSS, HTML, and validator code are not permitted in rule text.<br>\n'
+    "Rules are written like a legal document — active voice, generic phrasing, no specific examples. "
+    "The rules state what is; the validator catches what isn't.</p>"
 )
+
+# Canonical hr separators — top hr hugs the top banner, bottom hr hugs the bottom banner.
+CANONICAL_HR_TOP = '<hr style="margin: 16px 0 48px 0; border: none; border-top: 1px solid #ddd;">'
+CANONICAL_HR_BOTTOM = '<hr style="margin: 48px 0 16px 0; border: none; border-top: 1px solid #ddd;">'
 
 # Fallback emojis for files that have no source emoji on their h1.
 # Keys match the file's <title> text (case-insensitive). Add new entries here
@@ -87,8 +95,13 @@ def has_canonical_link(raw: str) -> bool:
 
 
 def has_canonical_banner(raw: str) -> bool:
-    """File already has <p class="banner"> as the read-only notice."""
+    """File has at least one <p class="banner"> element."""
     return bool(re.search(r'<p\s[^>]*class="[^"]*banner[^"]*"', raw, flags=re.I))
+
+
+def has_both_banners(raw: str) -> bool:
+    """File has both a top and bottom <p class="banner"> (E17 requires two)."""
+    return len(re.findall(r'<p\s[^>]*class="[^"]*banner[^"]*"', raw, flags=re.I)) >= 2
 
 
 def has_footer_banner(raw: str) -> bool:
@@ -110,7 +123,7 @@ def needs_fix(raw: str) -> bool:
         return True
     if not has_canonical_link(raw):
         return True
-    if not has_canonical_banner(raw):
+    if not has_both_banners(raw):   # catches no banner, wrong-class banner, or missing bottom banner
         return True
     if has_spacers(raw):
         return True
@@ -260,6 +273,13 @@ def extract_body_content(raw: str) -> str:
         "",
         body,
         flags=re.S | re.I,
+    )
+    # Strip canonical banner-separator hr elements — rebuild() re-injects them.
+    # Identified by the specific top (16px) and bottom (48px) leading margin values.
+    # Internal <hr> elements with other styles are preserved.
+    body = re.sub(
+        r'\s*<hr\s+style="margin:\s*(?:16|48)px[^"]*"[^>]*>',
+        "", body, flags=re.I,
     )
     return body
 
@@ -440,8 +460,11 @@ def rebuild(raw: str) -> str:
     # Compose final document
     doc = "\n".join(head_parts) + "\n"
     doc += CANONICAL_BANNER + "\n"
+    doc += CANONICAL_HR_TOP + "\n\n"
     doc += f"{h1_html}\n"
     doc += f"{body_content}\n"
+    doc += "\n" + CANONICAL_HR_BOTTOM + "\n"
+    doc += CANONICAL_BANNER + "\n"
     doc += "</body>\n</html>\n"
     return doc
 

@@ -8,7 +8,7 @@ Rebuild → pasadena_v5.html (was v4). US travel rules applied: NO trains, Uber/
 - [x] Rules for Claude.html
 
 ## Phase 1 — Pre-build orientation
-- [x] Capabilities
+- [x] Connectors.html
 - [x] Platforms.md
 - [x] Guide Structure.html
 - [x] Stops Structure.html

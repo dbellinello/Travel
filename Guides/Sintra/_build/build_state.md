@@ -8,7 +8,7 @@ Source: rebuilt as sintra_v2 on 2026-05-21 — Tours Extra Section added (5 Viat
 - [x] Rules for Claude.html
 
 ## Phase 1 — Pre-build orientation
-- [x] Capabilities
+- [x] Connectors.html
 - [x] Platforms.md
 - [x] Guide Structure.html
 - [x] Stops Structure.html
