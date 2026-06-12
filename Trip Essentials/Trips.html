@@ -24,8 +24,8 @@
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
-  font-size: 15px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif;
+  font-size: 14px;
   line-height: 1.5;
   min-height: 100vh;
   padding-bottom: 80px;
@@ -38,14 +38,14 @@ body {
 
 /* ── Page header ── */
 .header { padding: 20px 0 20px; border-bottom: 1px solid var(--border); margin-bottom: 0; }
-.header-label { font-size: 11px; letter-spacing: 0.25em; color: var(--muted); text-transform: uppercase; margin-bottom: 8px; }
+.header-label { font-size: 12px; letter-spacing: 0.25em; color: var(--muted); text-transform: uppercase; margin-bottom: 8px; }
 .top-url { text-align: center; font-size: 12px; padding: 6px 0; background: var(--surface); border-bottom: 1px solid var(--border); }
 .top-url a { color: var(--muted); text-decoration: none; }
 .top-url a:hover { color: var(--accent); }
-.header-url { font-size: 13px; color: var(--muted); margin-top: 6px; }
+.header-url { font-size: 12px; color: var(--muted); margin-top: 6px; }
 .header-url a { color: var(--muted); text-decoration: none; }
 .header-url a:hover { color: var(--accent); }
-.header h1 { font-size: clamp(20px, 3vw, 28px); font-weight: 600; letter-spacing: -0.01em; color: var(--accent); line-height: 1.1; margin-bottom: 0; }
+.header h1 { font-size: 14px; font-weight: 600; letter-spacing: -0.01em; color: var(--accent); line-height: 1.1; margin-bottom: 0; }
 
 /* ── Essentials bar ── */
 .essentials {
@@ -75,8 +75,8 @@ body {
 .essentials-link:hover { color: var(--accent); border-color: var(--accent); }
 
 /* ── Month divider ── */
-.month-block { margin: 36px 0 14px; padding-bottom: 6px; border-bottom: 1px solid var(--accent); }
-.month-label { font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--accent); }
+.month-block { margin: 14px 0 8px; padding-bottom: 6px; border-bottom: 1px solid var(--accent); }
+.month-label { font-size: 12px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--accent); }
 
 /* ── Trip card ── */
 .trip { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; margin-bottom: 12px; }
@@ -85,16 +85,16 @@ body {
 .trip-header { padding: 12px 18px 11px; background: var(--surface2); border-bottom: 1px solid var(--border); }
 .trip-dates  { display: inline; font-size: 14px; font-weight: 400; color: var(--text); }
 .trip-dates::after { content: ' · '; font-weight: 400; }
-.trip-title  { display: inline; font-size: 15px; font-weight: 400; color: var(--text); line-height: 1.4; }
+.trip-title  { display: inline; font-size: 14px; font-weight: 400; color: var(--text); line-height: 1.4; }
 .trip-head-line { margin-bottom: 4px; }
-.trip-status { font-size: 13px; color: var(--muted); margin-top: 3px; }
+.trip-status { font-size: 14px; color: var(--muted); margin-top: 3px; }
 
 /* ── Trip body ── */
-.trip-body { padding: 0 18px 48px; font-size: 15px; }
+.trip-body { padding: 0 18px 48px; font-size: 14px; }
 
 /* ── Section label ── */
 .sec {
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--muted);
@@ -130,7 +130,7 @@ body {
 
 /* ── Flight rows ── */
 .row {
-  font-size: 15px;
+  font-size: 12px;
   color: var(--text);
   padding: 4px 0;
   line-height: 1.5;
@@ -140,29 +140,29 @@ body {
 /* ── Flight table ── */
 .ftable { display: grid; grid-template-columns: 62px 72px 130px 58px 1fr; gap: 0; margin: 1px 0; }
 .ftable.no-date { grid-template-columns: 130px 58px 1fr; }
-.fc { padding: 1px 8px 1px 0; font-size: 13px; color: var(--text); line-height: 1.5; }
+.fc { padding: 1px 8px 1px 0; font-size: 14px; color: var(--text); line-height: 1.5; }
 .fc.muted { color: var(--muted); opacity: 0.7; }
 
 /* ── Hotel block ── */
 .hotel { margin-bottom: 24px; padding-top: 4px; }
 .hotel:last-child { margin-bottom: 0; }
 .hotel-name  { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
-.hotel-dates { font-size: 13px; color: var(--muted); margin-top: 10px; margin-bottom: 0; }
+.hotel-dates { font-size: 14px; color: var(--muted); margin-top: 10px; margin-bottom: 0; }
 .copy {
-  font-size: 13px;
+  font-size: 12px;
   color: var(--muted);
   display: block;
   padding: 4px 0 0;
   user-select: all;
   -webkit-user-select: all;
 }
-.hotel p { font-size: 13px; padding: 4px 0 0; margin: 0; color: var(--muted); }
+.hotel p { font-size: 14px; padding: 4px 0 0; margin: 0; color: var(--muted); }
 .hotel p a { color: var(--accent); text-decoration: none; }
 .hotel p a:hover { text-decoration: underline; }
 
 /* ── Action bar ── */
 .action {
-  font-size: 13px;
+  font-size: 12px;
   margin-top: 14px;
   padding: 8px 12px;
   background: #fffdf4;
@@ -175,7 +175,7 @@ body {
 .unconfirmed {
   display: block;
   margin-top: 12px;
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: #8a5a00;
@@ -192,7 +192,7 @@ a { color: var(--accent); }
 
 @media (max-width: 600px) {
   .wrap { padding: 0 16px; }
-  .trip-title { font-size: 17px; }
+  .trip-title { font-size: 14px; }
 }
 
 /* ── Polish additions ── */
@@ -225,7 +225,7 @@ html { scroll-behavior: smooth; }
 .copy { position:relative; cursor:pointer; }
 .copy-toast {
   position:absolute; left:0; top:-26px;
-  font-size:11px; letter-spacing:0.08em; text-transform:uppercase;
+  font-size: 12px; letter-spacing:0.08em; text-transform:uppercase;
   background:#2e7d32; color:#fff;
   padding:2px 8px; border-radius:3px;
   opacity:0; transition:opacity .2s;
@@ -234,21 +234,14 @@ html { scroll-behavior: smooth; }
 .copy-toast.show { opacity:1; }
 
 /* ===== Unified essentials header (injected for consistency) ===== */
-.header, .page-header, .site-header { padding: 18px 0 14px !important; border-bottom: 1px solid #d8d4cc !important; margin: 0 0 14px !important; }
+.header, .page-header, .site-header { background: linear-gradient(135deg, #7a3b1e 0%, #b85c2a 55%, #d4874a 100%) !important; padding: 14px 18px !important; border-radius: 10px !important; border-bottom: none !important; margin: 36px 0 14px !important; }
 .header-label, .header-eyebrow { display: none !important; }
-.header h1, .page-header h1, .site-header h1, .site-title { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif !important; font-size: 27px !important; font-weight: 600 !important; letter-spacing: -0.01em !important; line-height: 1.2 !important; color: #8a6c1a !important; margin: 0 !important; }
-.header-desc { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif !important; font-size: 14px !important; font-weight: 400 !important; line-height: 1.6 !important; color: #6b6860 !important; max-width: 640px !important; margin: 0 0 26px !important; }
+.header h1, .page-header h1, .site-header h1, .site-title { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif !important; font-size: 16px !important; font-weight: bold !important; color: #ffffff !important; text-transform: uppercase !important; letter-spacing: 0.04em !important; line-height: 1.2 !important; margin: 0 !important; }
+.header-desc { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif !important; font-size: 12px !important; font-weight: 400 !important; color: rgba(255,255,255,0.72) !important; line-height: 1.5 !important; margin: 4px 0 0 !important; }
 /* ===== end unified header ===== */
 
 /* uniform comfortable page gutter */
 body{padding-left:20px!important;padding-right:20px!important;}
-#trip-noresult + .month-block{margin-top:0!important;}
-
-/* page search (matches lounge/plug) */
-#trip-search,#guide-search{width:100%;box-sizing:border-box;padding:12px 16px;margin:0 0 18px;font-size:15px;border:1.5px solid #E0D4B8;border-radius:8px;background:#FFFDF8;color:#3D1F00;outline:none;transition:border-color .15s,box-shadow .15s;}
-#trip-search:focus,#guide-search:focus{border-color:#B8860B;box-shadow:0 0 0 3px rgba(184,134,11,.12);}
-#trip-search::placeholder,#guide-search::placeholder{color:#A8895A;}
-#trip-noresult,#guide-noresult{display:none;padding:12px 4px;font-size:13px;color:#7A5C2E;}
 </style>
 <script>
 document.addEventListener('DOMContentLoaded',()=>{
@@ -266,7 +259,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 <body>
 
 <div id="toolbar-mount" data-depth="1" data-maxwidth="940" data-no-footnote="1"></div>
-<script src="../toolbar.js?v=2"></script>
+<script src="../Guides/toolbar.js?v=2"></script>
 
 <div class="wrap">
 
@@ -278,27 +271,37 @@ document.addEventListener('DOMContentLoaded',()=>{
 
 
 <!-- ══════════════════════════════ JUNE ══════════════════════════════ -->
-<input id="trip-search" type="search" placeholder="🔍" autocomplete="off" spellcheck="false">
-<div id="trip-noresult">No trips match that search.</div>
 <div class="month-block"><span class="month-label">June</span></div>
 
 <div class="trip">
   <div class="trip-header">
-    <div class="trip-dates">May 29 — Jun 7</div>
+    <div class="trip-dates">May 29 — Jun 17</div>
     <div class="trip-title">🇧🇷 Rio de Janeiro</div>
   </div>
   <div class="trip-body">
     <div class="sec"><span class="who dani">Dani</span><span style="color:var(--muted)"> + </span><span class="who leo">Leo</span><span class="sec-divider">|</span>Flights</div>
     <div class="ftable"><span class="fc">May 29</span><span class="fc">1:30 PM</span><span class="fc">SEA → ATL</span><span class="fc">DL542</span><span class="fc">arrive 9:32 PM</span></div>
     <div class="ftable"><span class="fc">May 29</span><span class="fc">11:45 PM</span><span class="fc">ATL → GIG</span><span class="fc">DL61</span><span class="fc">arrive 10:15 AM +1</span></div>
-    <div class="ftable"><span class="fc">Jun 6</span><span class="fc">9:00 PM</span><span class="fc">GIG → ATL</span><span class="fc">DL60</span><span class="fc">arrive 5:56 AM +1</span></div>
-    <div class="ftable"><span class="fc">Jun 7</span><span class="fc">9:55 AM</span><span class="fc">ATL → SEA</span><span class="fc">DL774</span><span class="fc">arrive 12:25 PM</span></div>
+    <div class="ftable"><span class="fc">Jun 16</span><span class="fc">9:00 PM</span><span class="fc">GIG → ATL</span><span class="fc">DL60</span><span class="fc">arrive 5:56 AM +1</span></div>
+    <div class="ftable"><span class="fc">Jun 17</span><span class="fc">9:55 AM</span><span class="fc">ATL → SEA</span><span class="fc">DL774</span><span class="fc">arrive 12:25 PM</span></div>
 
-    <div class="sec"><span class="who dani">Dani</span><span style="color:var(--muted)"> + </span><span class="who leo">Leo</span><span class="sec-divider">|</span>Hotel</div>
+    <div class="sec"><span class="who dani">Dani</span><span style="color:var(--muted)"> + </span><span class="who leo">Leo</span><span class="sec-divider">|</span>Hotels</div>
     <div class="hotel">
       <div class="hotel-name">Fairmont Rio de Janeiro Copacabana<span style="font-weight:400;color:var(--muted)"> · May 30 → Jun 6</span></div>
       <span class="copy">Av. Atlântica, 4240 - Copacabana, Rio de Janeiro</span>
       <p>📍 <a href="https://www.google.com/maps/search/?api=1&query=Fairmont+Rio+de+Janeiro+Copacabana+Av+Atlantica+4240+Copacabana+Rio+de+Janeiro">Open in Maps</a></p>
+    </div>
+    <div class="hotel">
+      <div class="hotel-name">Miramar by Windsor<span style="font-weight:400;color:var(--muted)"> · Jun 6 → Jun 7</span></div>
+      <span class="copy">Av. Atlântica, 3668, Copacabana, Rio de Janeiro, 22071-001</span>
+      <p>📍 <a href="https://www.google.com/maps/search/?api=1&query=Av+Atlantica+3668+Copacabana+Rio+de+Janeiro">Open in Maps</a></p>
+      <p>📞 +55 21 2195-6200</p>
+    </div>
+    <div class="hotel">
+      <div class="hotel-name">Emiliano Rio<span style="font-weight:400;color:var(--muted)"> · Jun 7 → Jun 16</span></div>
+      <span class="copy">Av. Atlântica, 3804, Copacabana, Rio de Janeiro, 22070-001</span>
+      <p>📍 <a href="https://www.google.com/maps/search/?api=1&query=Av+Atlantica+3804+Copacabana+Rio+de+Janeiro">Open in Maps</a></p>
+      <p>📞 +55 21 3503-6600</p>
     </div>
   </div>
 </div>

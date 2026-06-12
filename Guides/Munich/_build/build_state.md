@@ -1,6 +1,6 @@
 # Build state — Munich
 Started: 2026-05-18
-Last updated: 2026-05-18
+Last updated: 2026-06-10 (Phase 5 closed — guide_tools.py ship: 683✅ 0❌ 2⚠️ · verify_urls clean · ship gate exit 0)
 
 ## Phase 0 — Session start
 - [x] Rules for Claude.html
@@ -11,7 +11,7 @@ Last updated: 2026-05-18
 - [x] Guide Structure.html
 - [x] Stops Structure.html
 - [x] Hotel Banner.html
-- [x] Trip at a Glance.html
+- [x] Trip Overview.html
 - [x] Toolbar.html
 - [x] Navigation.html
 
@@ -40,12 +40,12 @@ Last updated: 2026-05-18
 - [x] Michelin Restaurants - Extra Section.html
 - [x] Heads Up - Extra Section.html
 - [x] Claude Inspiration - Extra Section.html
-- [x] Skip List.html
+- [x] Skip List - Extra Section.html
 
 ## Phase 5 — Ship gate
-- [ ] Pre-Ship Checklist.html
-- [ ] validate_itinerary.py passes
-- [ ] every extra populated or carries negative-finding line
+- [x] Pre-Ship Checklist.html
+- [x] validate_itinerary.py passes
+- [x] every extra populated or carries negative-finding line
 
 ## Build notes
 - Hotel: Sofitel Munich Bayerpost · Bayerstr. 12 · 80335 Munich (Sofitel — preferred International brand).

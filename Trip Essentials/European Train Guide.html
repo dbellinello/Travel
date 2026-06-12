@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../_travel_style.css">
 <title>European Train Guide</title>
 <style>
   :root {
@@ -22,8 +23,8 @@
   body {
     background: var(--bg);
     color: var(--text);
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
-    font-size: 15px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif;
+    font-size: 14px;
     line-height: 1.6;
     min-height: 100vh;
     padding-bottom: 80px;
@@ -33,16 +34,22 @@
   .wrap { max-width: 940px; margin: 0 auto; padding: 0 24px; }
 
   /* HEADER - matches other Trip Essentials pages */
-  .header { padding: 18px 0 14px; border-bottom: 1px solid var(--border); margin: 0 0 14px; }
+  .header {
+  background: linear-gradient(135deg, #7a3b1e 0%, #b85c2a 55%, #d4874a 100%);
+  padding: 14px 18px;
+  border-radius: 10px;
+  border-bottom: none;
+  margin: 36px 0 14px;
+}
   .header h1 {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
-    font-size: 27px;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    line-height: 1.2;
-    color: #8a6c1a;
-    margin: 0;
-  }
+  font-size: 16px;
+  font-weight: bold;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  margin: 0;
+}
 
   /* BOOKING AGGREGATORS SECTION */
   .aggregators-section {
@@ -53,7 +60,7 @@
   }
   .agg-inner { max-width: 940px; margin: 0 auto; padding: 0 24px; }
   .agg-title {
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.18em;
     text-transform: uppercase;
@@ -79,9 +86,9 @@
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(138,108,26,0.10);
   }
-  .agg-name { font-weight: 600; color: var(--text); font-size: 13px; margin-bottom: 3px; }
-  .agg-desc { font-size: 11px; color: var(--muted); line-height: 1.4; }
-  .agg-link { display: inline-block; margin-top: 5px; font-family: monospace; font-size: 10px; color: var(--accent); text-decoration: none; }
+  .agg-name { font-weight: 600; color: var(--text); font-size: 14px; margin-bottom: 3px; }
+  .agg-desc { font-size: 14px; color: var(--muted); line-height: 1.4; }
+  .agg-link { display: inline-block; margin-top: 5px; font-family: monospace; font-size: 14px; color: var(--accent); text-decoration: none; }
 
   /* FILTERS */
   .controls {
@@ -94,7 +101,7 @@
     align-items: center;
   }
   .filter-label {
-    font-size: 11px;
+    font-size: 12px;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     color: var(--muted);
@@ -109,7 +116,7 @@
     font-size: 12px;
     cursor: pointer;
     transition: all 0.15s;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif;
   }
   .filter-btn:hover, .filter-btn.active {
     background: linear-gradient(135deg, #7a3b1e 0%, #b85c2a 55%, #d4874a 100%);
@@ -122,7 +129,7 @@
   main { padding: 20px 24px 32px; max-width: 940px; margin: 0 auto; }
 
   /* COUNTRY SECTION */
-  .country-section { margin-bottom: 48px; }
+  .country-section { margin-bottom: 16px; }
   .country-header {
     display: flex;
     align-items: center;
@@ -131,10 +138,10 @@
     padding-bottom: 12px;
     border-bottom: 1px solid var(--border);
   }
-  .country-flag { font-size: 26px; line-height: 1; }
-  .country-name { font-size: 20px; font-weight: 600; color: var(--accent); }
+  .country-flag { font-size: 15px; line-height: 1; }
+  .country-name { font-size: 14px; font-weight: 600; color: var(--accent); }
   .country-count {
-    font-size: 11px;
+    font-size: 12px;
     color: var(--muted);
     background: var(--surface2);
     border: 1px solid var(--border);
@@ -166,11 +173,11 @@
   .train-icon { font-size: 22px; flex-shrink: 0; line-height: 1; margin-top: 2px; }
   .train-meta { flex: 1; min-width: 0; }
   .train-name { font-size: 14px; font-weight: 600; color: var(--text); line-height: 1.2; margin-bottom: 3px; }
-  .train-operator { font-size: 11px; color: var(--muted); font-family: monospace; letter-spacing: 0.3px; }
+  .train-operator { font-size: 14px; color: var(--muted); font-family: monospace; letter-spacing: 0.3px; }
 
   .type-badge {
     flex-shrink: 0;
-    font-size: 10px;
+    font-size: 12px;
     font-family: monospace;
     letter-spacing: 0.5px;
     text-transform: uppercase;
@@ -187,10 +194,10 @@
 
   .card-body { padding: 14px 18px; }
   .info-row { display: flex; gap: 8px; margin-bottom: 10px; align-items: flex-start; }
-  .info-icon { font-size: 13px; flex-shrink: 0; margin-top: 1px; width: 18px; text-align: center; }
-  .info-content { flex: 1; font-size: 13px; color: var(--text); }
+  .info-icon { font-size: 12px; flex-shrink: 0; margin-top: 1px; width: 18px; text-align: center; }
+  .info-content { flex: 1; font-size: 14px; color: var(--text); }
   .info-label {
-    font-size: 10px;
+    font-size: 12px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--muted);
@@ -201,7 +208,7 @@
 
   .country-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 4px; }
   .ctag {
-    font-size: 11px;
+    font-size: 12px;
     background: var(--tag-bg);
     border: 1px solid var(--border);
     color: var(--text);
@@ -215,12 +222,12 @@
   .ctag.cross  { border-color: rgba(37,99,235,0.25);  background: rgba(37,99,235,0.05);  color: #1d4ed8; }
 
   .routes-list { display: flex; flex-direction: column; gap: 4px; margin-top: 4px; }
-  .route-item { font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 5px; }
+  .route-item { font-size: 14px; color: var(--muted); display: flex; align-items: center; gap: 5px; }
   .route-item::before { content: '↔'; color: var(--border); flex-shrink: 0; }
 
   .booking-section { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border); }
   .booking-label {
-    font-size: 10px;
+    font-size: 12px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--muted);
@@ -234,7 +241,7 @@
     align-items: center;
     gap: 5px;
     text-decoration: none;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 500;
     padding: 4px 10px;
     border-radius: 4px;
@@ -246,13 +253,13 @@
   .book-link.secondary { background: var(--surface2); color: var(--muted); border-color: var(--border); }
   .book-link.secondary:hover { color: var(--text); border-color: var(--muted); }
 
-  .section-divider { display: flex; align-items: center; gap: 16px; margin: 28px 0 20px; }
+  .section-divider { display: flex; align-items: center; gap: 16px; margin: 12px 0 8px; }
   .section-divider hr { flex: 1; border: none; border-top: 1px solid var(--border); }
-  .section-divider-text { font-family: monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+  .section-divider-text { font-family: monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
 
-  .multi-section { margin-bottom: 48px; }
-  .multi-header { font-size: 17px; font-weight: 600; color: var(--accent); margin-bottom: 5px; display: flex; align-items: center; gap: 10px; }
-  .multi-sub { color: var(--muted); font-size: 13px; margin-bottom: 18px; }
+  .multi-section { margin-bottom: 16px; }
+  .multi-header { font-size: 14px; font-weight: 600; color: var(--accent); margin-bottom: 5px; display: flex; align-items: center; gap: 10px; }
+  .multi-sub { color: var(--muted); font-size: 12px; margin-bottom: 18px; }
 
   .legend {
     display: flex;
@@ -264,7 +271,7 @@
     border: 1px solid var(--border);
     border-radius: 5px;
   }
-  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--muted); }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
   .legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
 
   /* hide inline footer and toolbar.js injected footnote */
@@ -274,31 +281,30 @@
   /* uniform gutter */
   body { padding-left: 20px !important; padding-right: 20px !important; }
 
-  /* Search */
-  #train-search{width:100%;box-sizing:border-box;padding:12px 16px;margin:0 0 18px;font-size:15px;border:1.5px solid #E0D4B8;border-radius:8px;background:#FFFDF8;color:#3D1F00;outline:none;transition:border-color .15s,box-shadow .15s;}
-  #train-search:focus{border-color:#B8860B;box-shadow:0 0 0 3px rgba(184,134,11,.12);}
-  #train-search::placeholder{color:#A8895A;}
-  #train-noresult{display:none;padding:12px 4px;font-size:13px;color:#7A5C2E;}
 
   @media (max-width: 600px) {
     .trains-grid { grid-template-columns: 1fr; }
     .agg-grid { grid-template-columns: repeat(2, 1fr); }
-    .controls { padding: 12px 14px; }
+    .controls { padding: 8px 14px; overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+    .controls::-webkit-scrollbar { display: none; }
+    .filter-btn { flex-shrink: 0; }
   }
+  #train-search{width:auto;min-width:180px;max-width:260px;box-sizing:border-box;padding:6px 12px;margin:0 0 10px;font-size:13px;border:1.5px solid #E0D4B8;border-radius:6px;background:#FFFDF8;color:#3D1F00;outline:none;transition:border-color .15s,box-shadow .15s;}
+  #train-search:focus{border-color:#B8860B;box-shadow:0 0 0 3px rgba(184,134,11,.12);}
+  #train-search::placeholder{color:#A8895A;}
+  #train-noresult{display:none;padding:8px 4px;font-size:13px;color:#7A5C2E;}
 </style>
 </head>
 <body>
 <div id="toolbar-mount" data-depth="1" data-maxwidth="940" data-no-footnote="1"></div>
-<script src="../toolbar.js?v=2"></script>
+<script src="../Guides/toolbar.js?v=2"></script>
 
 <div class="wrap">
   <div class="header">
     <h1>European Train Guide</h1>
   </div>
-</div>
-<div style="max-width:940px;margin:0 auto;padding:0 24px;">
-<input id="train-search" type="search" placeholder="🔍" autocomplete="off" spellcheck="false">
-<div id="train-noresult">No operators match that search.</div>
+  <input id="train-search" type="search" placeholder="🔍" autocomplete="off" spellcheck="false">
+  <div id="train-noresult">No operators match that search.</div>
 </div>
 
 <!-- AGGREGATORS / BOOKING SITES -->
@@ -1699,7 +1705,7 @@
           <div class="booking-section">
             <span class="booking-label">Buy Tickets</span>
             <div class="booking-links">
-              <a href="https://www.pkpintercity.pl" target="_blank" class="book-link primary">🌐 pkpintercity.pl</a>
+              <a href="https://www.intercity.pl/en/" target="_blank" class="book-link primary">🌐 intercity.pl</a>
               <a href="https://www.omio.com" target="_blank" class="book-link secondary">Omio</a>
             </div>
           </div>
@@ -2156,7 +2162,8 @@
   var activeType = 'all';
 
   function applyFilters() {
-    var q = (document.getElementById('train-search').value || '').toLowerCase().trim();
+    var s = document.getElementById('train-search');
+    var q = s ? s.value.toLowerCase().trim() : '';
     var cards = document.querySelectorAll('.train-card');
     var anyVisible = false;
 
@@ -2178,22 +2185,23 @@
       section.style.display = visible.length === 0 ? 'none' : '';
     });
 
-    // Hide everything except no-result message when nothing matches
-    var noRes = document.getElementById('train-noresult');
-    var agg   = document.querySelector('.aggregators-section');
-    var ctrl  = document.querySelector('.controls');
-    var mn    = document.querySelector('main');
-    if (!anyVisible) {
-      noRes.style.display = 'block';
-      if (agg)  agg.style.display  = 'none';
-      if (ctrl) ctrl.style.display = 'none';
-      if (mn)   mn.style.display   = 'none';
-    } else {
-      noRes.style.display = 'none';
-      if (agg)  agg.style.display  = '';
-      if (ctrl) ctrl.style.display = '';
-      if (mn)   mn.style.display   = '';
-    }
+    var noRes  = document.getElementById('train-noresult');
+    var agg    = document.querySelector('.aggregators-section');
+    var ctrl   = document.querySelector('.controls');
+    var legend = document.querySelector('.legend');
+    var foot   = document.querySelector('.tb-footnote');
+    // Hide chrome when searching; show no-results only when nothing matches
+    if (agg)    agg.style.display    = q ? 'none' : '';
+    if (ctrl)   ctrl.style.display   = q ? 'none' : '';
+    if (legend) legend.style.display = q ? 'none' : '';
+    if (foot)   foot.style.display   = q ? 'none' : '';
+    noRes.style.display = (!anyVisible && q) ? 'block' : 'none';
+  }
+
+  var trainSearchEl = document.getElementById('train-search');
+  if (trainSearchEl) {
+    trainSearchEl.addEventListener('input', applyFilters);
+    trainSearchEl.addEventListener('search', applyFilters);
   }
 
   function filterCards(type, btn) {
@@ -2203,11 +2211,6 @@
     applyFilters();
   }
 
-  document.addEventListener('DOMContentLoaded', function() {
-    var s = document.getElementById('train-search');
-    s.addEventListener('input', applyFilters);
-    s.addEventListener('search', applyFilters);  /* fires when browser ✕ button clears a type="search" input */
-  });
 </script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 {
   "_meta": {
     "guide": "edinburgh_v1.html",
-    "updated": "2026-06-02"
+    "updated": "2026-06-11"
   },
   "entries": {
     "https://www.viator.com/tours/Edinburgh/Edinburgh-Castle-Walking-Tour-Complete-With-Skip-The-Line-Entry/d739-69714P3": {
@@ -61,7 +61,7 @@
     "https://en.wikipedia.org/wiki/Camera_Obscura,_Edinburgh": {
       "platform": "wikipedia",
       "method": "live_fetch",
-      "verified_on": "2026-06-02",
+      "verified_on": "2026-06-11",
       "verified_by": "claude",
       "expected_attraction": "Camera Obscura",
       "result": "PASS",
@@ -70,7 +70,7 @@
     "https://en.wikipedia.org/wiki/Grassmarket": {
       "platform": "wikipedia",
       "method": "live_fetch",
-      "verified_on": "2026-06-02",
+      "verified_on": "2026-06-11",
       "verified_by": "claude",
       "expected_attraction": "Victoria Street &amp; Grassmarket",
       "result": "PASS",
@@ -79,7 +79,7 @@
     "https://en.wikipedia.org/wiki/Palace_of_Holyroodhouse": {
       "platform": "wikipedia",
       "method": "live_fetch",
-      "verified_on": "2026-06-02",
+      "verified_on": "2026-06-11",
       "verified_by": "claude",
       "expected_attraction": "Palace of Holyroodhouse",
       "result": "PASS",
@@ -88,7 +88,7 @@
     "https://en.wikipedia.org/wiki/Edinburgh_Castle": {
       "platform": "wikipedia",
       "method": "live_fetch",
-      "verified_on": "2026-06-02",
+      "verified_on": "2026-06-11",
       "verified_by": "claude",
       "expected_attraction": "Edinburgh Castle",
       "result": "PASS",
@@ -97,7 +97,7 @@
     "https://en.wikipedia.org/wiki/Arthur%27s_Seat": {
       "platform": "wikipedia",
       "method": "live_fetch",
-      "verified_on": "2026-06-02",
+      "verified_on": "2026-06-11",
       "verified_by": "claude",
       "expected_attraction": "Arthur's Seat",
       "result": "PASS",
@@ -106,7 +106,7 @@
     "https://en.wikipedia.org/wiki/Dean_Village": {
       "platform": "wikipedia",
       "method": "live_fetch",
-      "verified_on": "2026-06-02",
+      "verified_on": "2026-06-11",
       "verified_by": "claude",
       "expected_attraction": "Dean Village",
       "result": "PASS",
@@ -115,7 +115,7 @@
     "https://en.wikipedia.org/wiki/Royal_Botanic_Garden_Edinburgh": {
       "platform": "wikipedia",
       "method": "live_fetch",
-      "verified_on": "2026-06-02",
+      "verified_on": "2026-06-11",
       "verified_by": "claude",
       "expected_attraction": "Royal Botanic Garden Edinburgh",
       "result": "PASS",
@@ -124,7 +124,7 @@
     "https://en.wikipedia.org/wiki/Scottish_Parliament_Building": {
       "platform": "wikipedia",
       "method": "live_fetch",
-      "verified_on": "2026-06-02",
+      "verified_on": "2026-06-11",
       "verified_by": "claude",
       "expected_attraction": "Scottish Parliament",
       "result": "PASS",
@@ -133,7 +133,7 @@
     "https://en.wikipedia.org/wiki/Calton_Hill": {
       "platform": "wikipedia",
       "method": "live_fetch",
-      "verified_on": "2026-06-02",
+      "verified_on": "2026-06-11",
       "verified_by": "claude",
       "expected_attraction": "Calton Hill",
       "result": "PASS",
@@ -142,7 +142,7 @@
     "https://en.wikipedia.org/wiki/National_Wallace_Monument": {
       "platform": "wikipedia",
       "method": "live_fetch",
-      "verified_on": "2026-06-02",
+      "verified_on": "2026-06-11",
       "verified_by": "claude",
       "expected_attraction": "Wallace Monument",
       "result": "PASS",
@@ -151,7 +151,7 @@
     "https://en.wikipedia.org/wiki/HMY_Britannia": {
       "platform": "wikipedia",
       "method": "live_fetch",
-      "verified_on": "2026-06-02",
+      "verified_on": "2026-06-11",
       "verified_by": "claude",
       "expected_attraction": "Royal Yacht Britannia",
       "result": "PASS",
@@ -160,7 +160,7 @@
     "https://en.wikipedia.org/wiki/Stirling_Castle": {
       "platform": "wikipedia",
       "method": "live_fetch",
-      "verified_on": "2026-06-02",
+      "verified_on": "2026-06-11",
       "verified_by": "claude",
       "expected_attraction": "Stirling Castle",
       "result": "PASS",

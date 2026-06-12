@@ -5,7 +5,7 @@
    ║    • Travel/CLAUDE.md — operational spine (mobile-first, 500px            ║
    ║      viewport, 21px body / 24px stop names / 25px section titles)        ║
    ║    • Brain/CORE RULES/*.html — locked content rules (Stop Types, Tour    ║
-   ║      Rules, Hotel Banner, Trip at a Glance, Day, Restaurants, etc.)      ║
+   ║      Rules, Hotel Banner, Trip Overview, Day, Restaurants, etc.)      ║
    ║    • Brain/scripts/validate_itinerary.py — runtime enforcer of every     ║
    ║      class name and structural shape this file styles                    ║
    ║                                                                          ║
@@ -31,9 +31,9 @@
    Single source of truth for colors. Change a token here, the whole guide
    re-skins consistently. Tokens grouped by intent, not by RGB. */
 :root {
-  /* Primary brand color — section titles, day headers, glance card accents */
+  /* Primary brand color — section titles, day headers, overview card accents */
   --c-purple:        #7030A0;
-  --c-purple-pale:   #f7f5fb;        /* glance-day bg only */
+  --c-purple-pale:   #f7f5fb;        /* overview-day bg only */
 
   /* ── Extras-section box palettes — each section has its own tokens so any
      one can be recolored independently. Change bg + border here; the
@@ -202,33 +202,33 @@ a, a:visited { color: var(--c-link); text-decoration: none; }
 .title-address { font-size: 13px; color: var(--c-title-address); }
 
 
-/* ─── TRIP AT A GLANCE ─────────────────────────────────────────────────────── */
-/* Per core rules/Trip at a Glance.html and core rules/Guide Structure.html.
-   Expected children of .glance-section, in order:
-     1× .glance-title           — literal title `📋 Trip at a Glance` (📋 glyph
+/* ─── TRIP OVERVIEW ─────────────────────────────────────────────────────── */
+/* Per core rules/Trip Overview.html and core rules/Guide Structure.html.
+   Expected children of .overview-section, in order:
+     1× .overview-title           — literal title `📋 Trip Overview` (📋 glyph
                                    + exact phrase, no variation)
-     1+× <a class="glance-day"> — exactly one per real touring day
+     1+× <a class="overview-day"> — exactly one per real touring day
                                    (arrival/departure days excluded — see
                                    core rules/Guide Structure.html
                                    "Day 1 = first full touring day")
-   .glance-day is an <a>, rendered as a block-level card.
+   .overview-day is an <a>, rendered as a block-level card.
      href="#day{N}" — symmetric with the day-block's id="day{N}". Broken
                        anchors fail the ship-gate (validator: section-anchor
                        verification check).
      Expected children (exactly two divs, in order):
-       1. .glance-day-title — `Day N · {type icon} {type label}` matching one
-                              of the four locked day-glance labels:
+       1. .overview-day-title — `Day N · {type icon} {type label}` matching one
+                              of the four locked day-overview labels:
                               🎒 Self · 🚩 Guided · 🎒 + 🚩 Self + Guided ·
                               🚆 Train Day
-       2. .glance-day-stops — stop names joined by ` · ` (middle dot, spaces) */
-.glance-section {
+       2. .overview-day-stops — stop names joined by ` · ` (middle dot, spaces) */
+.overview-section {
   background: var(--c-card-bg);
   box-shadow: var(--c-card-shadow);
   border-radius: 12px;
   padding: 28px;
   margin-bottom: 24px;
 }
-.glance-title {
+.overview-title {
   color: var(--c-purple);
   font-size: 20px;
   font-weight: bold;
@@ -236,7 +236,7 @@ a, a:visited { color: var(--c-link); text-decoration: none; }
   padding-bottom: 6px;
   margin-bottom: 14px;
 }
-.glance-day {
+.overview-day {
   display: block;
   background: var(--c-purple-pale);
   border-left: 3px solid var(--c-purple);
@@ -246,12 +246,12 @@ a, a:visited { color: var(--c-link); text-decoration: none; }
   text-decoration: none;
   color: inherit;
 }
-.glance-day:last-child { margin-bottom: 0; }
-.glance-day:hover      { background: var(--c-purple-hover); }
-.glance-day-title      { color: var(--c-purple); font-weight: bold; font-size: 14px; margin-bottom: 3px; }
-.glance-day-stops      { color: var(--c-text-body); font-size: 13px; line-height: 1.5; }
-/* § 6 extras navigation pills — Trip at a Glance.html § 6 */
-.glance-extras {
+.overview-day:last-child { margin-bottom: 0; }
+.overview-day:hover      { background: var(--c-purple-hover); }
+.overview-day-title      { color: var(--c-purple); font-weight: bold; font-size: 14px; margin-bottom: 3px; }
+.overview-day-stops      { color: var(--c-text-body); font-size: 13px; line-height: 1.5; }
+/* § 6 extras navigation pills — Trip Overview.html § 6 */
+.overview-extras {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
@@ -259,7 +259,7 @@ a, a:visited { color: var(--c-link); text-decoration: none; }
   padding-top: 12px;
   border-top: 1px solid rgba(93, 63, 211, 0.15);
 }
-.glance-extra-link {
+.overview-extra-link {
   display: inline-block;
   color: var(--c-purple);
   border: 1px solid var(--c-purple);
@@ -270,17 +270,17 @@ a, a:visited { color: var(--c-link); text-decoration: none; }
   text-decoration: none;
   white-space: nowrap;
 }
-.glance-extra-link:visited { color: var(--c-purple); border-color: var(--c-purple); }
-.glance-extra-link:active  { color: var(--c-purple); border-color: var(--c-purple); }
-.glance-extra-link:focus   { outline: none; border-color: var(--c-purple); }
-.glance-extra-link:hover   { background: var(--c-purple-pale); }
+.overview-extra-link:visited { color: var(--c-purple); border-color: var(--c-purple); }
+.overview-extra-link:active  { color: var(--c-purple); border-color: var(--c-purple); }
+.overview-extra-link:focus   { outline: none; border-color: var(--c-purple); }
+.overview-extra-link:hover   { background: var(--c-purple-pale); }
 
 
 
 
 /* ─── DAY BLOCK ────────────────────────────────────────────────────────────── */
 /* Per Brain/CORE RULES/Day Structure.html. id="day{N}" — symmetric with
-   .glance-day's href="#day{N}". scroll-margin-top reserves room for the
+   .overview-day's href="#day{N}". scroll-margin-top reserves room for the
    in-page jump so the day header doesn't land flush against the viewport edge. */
 .day-block {
   background: var(--c-card-bg);
@@ -302,12 +302,12 @@ a, a:visited { color: var(--c-link); text-decoration: none; }
 
 /* ─── DAY OPENER + INTER-STOP BANNERS ──────────────────────────────────────── */
 /* Per Brain/CORE RULES/Day Structure.html § Transit banners (standardized 2026-04-25).
-     .hotel-first  → 🏨 FROM HOTEL day opener (regular day or train-day variant)
+     .hotel-first  → 🏨 From Hotel day opener (regular day or train-day variant)
      .arrive-first → 🚉 ARRIVE {station} train-day arrival banner
      .next         → between-stops banner + end-of-day return banner
      .next-tram    → optional tram sub-line under any of the above
-   `DEPART HOTEL` wording retired 2026-04-25 — use `🏨 FROM HOTEL:` everywhere.
-   Validator's FROM HOTEL banner check hard-fails any retired `DEPART HOTEL`.
+   `DEPART HOTEL` wording retired 2026-04-25 — use `🏨 From Hotel:` everywhere.
+   Validator's From Hotel banner check hard-fails any retired `DEPART HOTEL`.
    Lineage: legacy `.depart` class retired 2026-04-26 in the v2 rebuild — was
    the yellow "departure day" banner from when arrival/departure days had
    their own blocks. With "Day 1 = first full touring day" (Guide Structure.html)
@@ -621,7 +621,7 @@ a, a:visited { color: var(--c-link); text-decoration: none; }
 .day-block,
 .extras-section,
 .claude-inspiration,
-.glance-section,
+.overview-section,
 .stop-block,
 .stop-photos {
   break-inside: avoid;
@@ -763,7 +763,7 @@ div.train .train-time .arr { color: var(--c-blue-deeper); }
    are Unicode emoji. The 1em sizing kept icons proportional to section
    heading text; vertical-align: middle aligned to the capital-letter baseline. */
 .extras-title .section-icon,
-.glance-extra-link .section-icon {
+.overview-extra-link .section-icon {
   height: 1em;
   width: 1em;
   vertical-align: middle;
@@ -863,7 +863,7 @@ div.train .train-time .arr { color: var(--c-blue-deeper); }
 #food-delivery       .extras-sub { color: var(--c-delivery-border); }
 
 /* ❗ Heads Up — override transit-box to use amber warn palette
-   (transit-box defaults to blue; gotchas must match the amber section theme) */
+   (transit-box defaults to blue; notes must match the amber section theme) */
 #heads-up .transit-box {
   background: var(--c-warn-bg);
   border-left-color: var(--c-warn-border);
@@ -899,7 +899,7 @@ div.train .train-time .arr { color: var(--c-blue-deeper); }
 #heads-up      .extras-empty { background: var(--c-warn-bg);           border-left: 3px solid var(--c-warn-border); }
 
 /* Lavender extras-box — Michelin and Shows both use this palette (matches
-   .glance-day / Trip at a Glance). One box per entry; sits directly below
+   .overview-day / Trip Overview). One box per entry; sits directly below
    each .extras-sub title; holds logistical rows only.
    Per core rules/Michelin Restaurants.html: restaurant name is plain text
    (NOT linked) — kept as inherits-purple via .extras-sub. Validator's
@@ -1389,12 +1389,12 @@ div.train .train-time .arr { color: var(--c-blue-deeper); }
   .title-hotel   { font-size: 15px; }
   .title-address { font-size: 14px; }
 
-  .glance-section,
+  .overview-section,
   .day-block,
   .extras-section,
   .claude-inspiration { padding: 20px 18px; margin-bottom: 16px; }
 
-  .glance-title   { font-size: 22px; }
+  .overview-title   { font-size: 22px; }
   .day-header     { font-size: 22px; }
   .extras-title   { font-size: 21px; }
   /* All Extras-section subtitles share the same size on mobile — uniform
@@ -1403,10 +1403,10 @@ div.train .train-time .arr { color: var(--c-blue-deeper); }
      Food Delivery / Weekly Closures. (Locked 2026-05-19 per request.) */
   .extras-sub          { font-size: 18px; }
 
-  .glance-day        { padding: 10px 14px; }
-  .glance-day-title  { font-size: 16px; }
-  .glance-day-stops  { font-size: 15px; }
-  .glance-extra-link { font-size: 15px; }
+  .overview-day        { padding: 10px 14px; }
+  .overview-day-title  { font-size: 16px; }
+  .overview-day-stops  { font-size: 15px; }
+  .overview-extra-link { font-size: 15px; }
 
   .stop-num,
   .stop-name { font-size: 19px; }
@@ -1447,7 +1447,7 @@ div.train .train-time .arr { color: var(--c-blue-deeper); }
   .container      { max-width: 100%; padding: 0; }
   .title-page     { background: #fff; color: #000; border: 1px solid #ccc; }
   .title-address  { color: #444; }
-  .glance-section,
+  .overview-section,
   .day-block,
   .extras-section,
   .claude-inspiration { box-shadow: none; border: 1px solid #ddd; }

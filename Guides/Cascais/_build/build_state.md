@@ -1,6 +1,6 @@
 # Build state — Cascais
 Started: 2026-05-18
-Last updated: 2026-05-24 (v2 — Tours section rebuilt: removed 13 non-qualifying tours; replaced with 3 Cascais-based group walking tours, 1 per platform; low-count comment added; verification_log updated; validator 636✅ 0❌ 4⚠️)
+Last updated: 2026-06-10 (Phase 5 closed — guide_tools.py ship: 680✅ 0❌ 5⚠️ · verify_urls clean · verify_booking_links clean · ship gate exit 0)
 
 Source: split from multi-city `sintra_porto_cascais_v1.html` (archived 2026-05-18).
 
@@ -13,7 +13,7 @@ Source: split from multi-city `sintra_porto_cascais_v1.html` (archived 2026-05-1
 - [x] Guide Structure.html
 - [x] Stops Structure.html
 - [x] Hotel Banner.html
-- [x] Trip at a Glance.html
+- [x] Trip Overview.html
 - [x] Toolbar.html
 - [x] Navigation.html
 
@@ -44,6 +44,6 @@ Source: split from multi-city `sintra_porto_cascais_v1.html` (archived 2026-05-1
 - [x] Claude Inspiration - Extra Section.html
 
 ## Phase 5 — Ship gate
-- [ ] Pre-Ship Checklist.html
-- [ ] validate_itinerary.py passes
-- [ ] every extra populated or carries negative-finding line
+- [x] Pre-Ship Checklist.html
+- [x] validate_itinerary.py passes
+- [x] every extra populated or carries negative-finding line

@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../_travel_style.css">
 <title>Delta Full Network · All Hubs</title>
 <style>
   :root {
@@ -15,90 +16,105 @@
     --warn: #a06010;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; font-size: 15px; font-weight: 400; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif; font-size: 14px; font-weight: 400; padding: 0; }
   
   .nav { background: var(--surface2); border-bottom: 1px solid var(--border); padding: 0; }
-  .nav-inner { max-width: 940px; margin: 0 auto; padding: 8px 24px 10px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: center; }
-  .nav-logo { font-size: 14px; font-weight: 700; color: var(--accent); letter-spacing: 0.06em; margin-right: 6px; white-space: nowrap; text-transform: uppercase; }
+  .nav-inner { max-width: 940px; margin: 0 auto; padding: 10px 24px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: flex-start; }
+  .nav-logo { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: 0.06em; margin-right: 6px; white-space: nowrap; text-transform: uppercase; }
   .nav-links { display: flex; flex-wrap: wrap; gap: 5px; }
-  .nav-link { font-size: 11.5px; color: #3d3a32; text-decoration: none; padding: 4px 9px; border: 1px solid #b8b3a8; border-radius: 4px; background: #f0ece4; white-space: nowrap; transition: color .15s, border-color .15s, background .15s; cursor: pointer; }
+  .nav-link { font-size: 12px; color: #3d3a32; text-decoration: none; padding: 4px 9px; border: 1px solid #b8b3a8; border-radius: 4px; background: #f0ece4; white-space: nowrap; transition: color .15s, border-color .15s, background .15s; cursor: pointer; }
   .nav-link:hover { color: var(--accent); border-color: var(--accent); background: rgba(138,108,26,0.07); }
   .wrap { max-width: 940px; margin: 0 auto; padding: 0 24px; }
   .header { padding: 20px 0 20px; border-bottom: 1px solid var(--border); margin-bottom: 0; }
-  .header-label { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; font-size: 10px; letter-spacing: 0.22em; color: var(--muted); text-transform: uppercase; margin-bottom: 8px; }
-  .header h1 { font-size: clamp(20px, 3vw, 28px); font-weight: 600; letter-spacing: -0.01em; color: var(--gold); line-height: 1.2; margin-bottom: 10px; }
-  .header p { font-size: 13px; color: var(--muted); line-height: 1.7; max-width: 600px; margin-top: 0; }
-  .tier-legend { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; margin-bottom: 16px; justify-content: center; }
-  .tier-pill { padding: 5px 12px; border-radius: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; font-size: 11px; font-weight: 500; }
+  .header-label { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif; font-size: 12px; letter-spacing: 0.22em; color: var(--muted); text-transform: uppercase; margin-bottom: 8px; }
+  .header h1 { font-size: 14px; font-weight: 600; letter-spacing: -0.01em; color: var(--gold); line-height: 1.2; margin-bottom: 10px; }
+  .header p { font-size: 12px; color: var(--muted); line-height: 1.7; max-width: 600px; margin-top: 0; }
+  .tier-legend { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; margin-bottom: 10px; }
+  .tier-pill { padding: 5px 12px; border-radius: 4px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif; font-size: 12px; font-weight: 500; }
   .tier-pill.t0 { background: var(--c0bg); color: var(--c0); border: 1px solid var(--c0bd); }
   .tier-pill.t1 { background: var(--c1bg); color: var(--c1); border: 1px solid var(--c1bd); }
   .tier-pill.t2 { background: var(--c2bg); color: var(--c2); border: 1px solid var(--c2bd); }
   .hub-section { margin-bottom: 40px; scroll-margin-top: 100px; }
   .hub-header { display: flex; align-items: center; gap: 14px; margin-bottom: 4px; padding-bottom: 10px; border-bottom: 1px solid var(--delta); }
-  .hub-code { font-size: 24px; font-weight: 700; color: var(--accent); line-height: 1; }
+  .hub-code { font-size: 16px; font-weight: 700; color: var(--accent); line-height: 1; }
   .hub-info { flex: 1; }
-  .hub-city { font-size: 15px; font-weight: 400; }
-  .hub-name { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; font-size: 10px; color: var(--muted); margin-top: 2px; }
-  .hub-stats { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; font-size: 10px; color: var(--muted); text-align: right; line-height: 1.6; }
-  .hub-strength { font-size: 12px; color: var(--muted); margin-bottom: 18px; padding: 8px 14px; background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--gold); border-radius: 3px; line-height: 1.6; }
+  .hub-city { font-size: 14px; font-weight: 400; }
+  .hub-name { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif; font-size: 14px; color: var(--muted); margin-top: 2px; }
+  .hub-stats { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif; font-size: 14px; color: var(--muted); text-align: right; line-height: 1.6; }
+  .hub-strength { font-size: 14px; color: var(--muted); margin-bottom: 8px; padding: 8px 14px; background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--gold); border-radius: 3px; line-height: 1.6; }
   .region-block { margin-bottom: 20px; }
   .region-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
-  .region-title { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+  .region-title { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif; font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
   .region-line { flex: 1; height: 1px; background: #e8e5de; }
-  .dest-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(195px, 1fr)); gap: 7px; }
+  .dest-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(195px, 1fr)); gap: 6px; }
   .dest-card { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid; border-radius: 4px; padding: 9px 11px; }
   .dest-card.t0 { border-left-color: var(--c0); }
   .dest-card.t1 { border-left-color: var(--c1); }
   .dest-card.t2 { border-left-color: var(--c2); }
-  .dest-city { font-size: 13px; font-weight: 500; }
-  .dest-code { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; font-size: 10px; color: var(--muted); margin: 2px 0; }
-  .dest-meta { font-size: 11px; color: var(--muted); }
+  .dest-city { font-size: 14px; font-weight: 500; }
+  .dest-code { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif; font-size: 14px; color: var(--muted); margin: 2px 0; }
+  .dest-meta { font-size: 14px; color: var(--muted); }
   .tags { display: flex; flex-wrap: wrap; gap: 3px; margin-top: 4px; }
-  .tag { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; font-size: 9px; padding: 1px 6px; border-radius: 2px; }
+  .tag { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif; font-size: 12px; padding: 1px 6px; border-radius: 2px; }
   .tag.new { background: var(--c0bg); color: var(--c0); }
   .tag.seasonal { background: #fff8e8; color: var(--warn); }
   .tag.d1 { background: #f8e8e8; color: #7a1010; }
   .tag.partner { background: var(--c1bg); color: var(--c1); }
   .tag.yr { background: #f0f0ee; color: var(--muted); }
-  .tier-badge { display: inline-block; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; font-size: 9px; font-weight: 500; letter-spacing: 0.1em; padding: 2px 10px; border-radius: 2px; margin-bottom: 8px; }
+  .tier-badge { display: inline-block; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.1em; padding: 2px 10px; border-radius: 2px; margin-bottom: 8px; }
   .tier-badge.t0 { background: var(--c0bg); color: var(--c0); border: 1px solid var(--c0bd); }
   .tier-badge.t1 { background: var(--c1bg); color: var(--c1); border: 1px solid var(--c1bd); }
   .tier-badge.t2 { background: var(--c2bg); color: var(--c2); border: 1px solid var(--c2bd); }
-  .note { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--gold); border-radius: 3px; padding: 9px 13px; margin: 0 0 14px; font-size: 12px; color: var(--muted); line-height: 1.6; }
-  .cross-hub { margin: 36px 0 52px; }
-  .cross-hub h2 { font-size: 16px; font-weight: 400; color: var(--accent); margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
-  .cross-table { width: 100%; border-collapse: collapse; font-size: 12px; background: var(--surface); border: 1px solid var(--border); }
-  .cross-table th { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); padding: 7px 11px; text-align: left; background: var(--surface2); border-bottom: 1px solid var(--border); font-weight: 400; }
+  .note { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--gold); border-radius: 3px; padding: 9px 13px; margin: 0 0 8px; font-size: 14px; color: var(--muted); line-height: 1.6; }
+  .cross-hub { margin: 16px 0 24px; }
+  .cross-hub h2 { font-size: 15px; font-weight: 400; color: var(--accent); margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+  .cross-table { width: 100%; border-collapse: collapse; font-size: 14px; background: var(--surface); border: 1px solid var(--border); }
+  .cross-table th { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); padding: 7px 11px; text-align: left; background: var(--surface2); border-bottom: 1px solid var(--border); font-weight: 400; }
   .cross-table td { padding: 8px 11px; border-bottom: 1px solid #e8e5de; vertical-align: top; }
   .cross-table tr:last-child td { border-bottom: none; }
-  .hub-pill { display: inline-block; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; font-size: 10px; font-weight: 500; color: var(--accent); background: #f8ece8; border: 1px solid #e8c0b0; border-radius: 3px; padding: 1px 7px; margin-right: 3px; }
-  .filter-bar { margin-bottom: 24px; }
+  .hub-pill { display: inline-block; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif; font-size: 12px; font-weight: 500; color: var(--accent); background: #f8ece8; border: 1px solid #e8c0b0; border-radius: 3px; padding: 1px 7px; margin-right: 3px; }
+  .filter-bar { margin-bottom: 10px; }
 
 /* ===== Unified essentials header (injected for consistency) ===== */
-.header, .page-header, .site-header { padding: 18px 0 14px !important; border-bottom: 1px solid #d8d4cc !important; margin: 0 0 14px !important; }
+.header, .page-header, .site-header { background: linear-gradient(135deg, #7a3b1e 0%, #b85c2a 55%, #d4874a 100%) !important; padding: 14px 18px !important; border-radius: 10px !important; border-bottom: 1px solid var(--border) !important; margin: 36px 0 14px !important; }
 .header-label, .header-eyebrow { display: none !important; }
-.header h1, .page-header h1, .site-header h1, .site-title { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif !important; font-size: 27px !important; font-weight: 600 !important; letter-spacing: -0.01em !important; line-height: 1.2 !important; color: #8a6c1a !important; margin: 0 !important; }
-.header-desc { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif !important; font-size: 14px !important; font-weight: 400 !important; line-height: 1.6 !important; color: #6b6860 !important; max-width: 640px !important; margin: 0 0 26px !important; }
+.header h1, .page-header h1, .site-header h1, .site-title { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif !important; font-size: 16px !important; font-weight: bold !important; color: #ffffff !important; text-transform: uppercase !important; letter-spacing: 0.04em !important; line-height: 1.2 !important; margin: 0 !important; }
+.header-desc { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif !important; font-size: 12px !important; font-weight: 400 !important; color: rgba(255,255,255,0.72) !important; line-height: 1.5 !important; margin: 4px 0 0 !important; }
 /* ===== end unified header ===== */
 
 /* unified filter search */
-.filter-bar{display:flex;gap:10px;align-items:center;margin-bottom:24px;flex-wrap:wrap;}
-.filter-input{flex:1;min-width:240px;box-sizing:border-box;padding:12px 16px;font-size:15px;border:1.5px solid #E0D4B8;border-radius:8px;background:#FFFDF8;color:#3D1F00;outline:none;transition:border-color .15s,box-shadow .15s;}
+.filter-bar{display:flex;gap:10px;align-items:center;margin-bottom: 10px;flex-wrap:wrap;}
+.filter-input{width:auto;min-width:180px;max-width:260px;flex:none;box-sizing:border-box;padding:6px 12px;font-size:13px;border:1.5px solid #E0D4B8;border-radius:6px;background:#FFFDF8;color:#3D1F00;outline:none;transition:border-color .15s,box-shadow .15s;}
 .filter-input:focus{border-color:#B8860B;box-shadow:0 0 0 3px rgba(184,134,11,.12);}
 .filter-input::placeholder{color:#A8895A;}
-.filter-clear{padding:10px 14px;font-size:13px;border:1.5px solid #E0D4B8;border-radius:8px;background:#fff;color:#7A5C2E;cursor:pointer;white-space:nowrap;}
+.filter-clear{padding: 7px 10px;font-size:14px;border:1.5px solid #E0D4B8;border-radius:8px;background:#fff;color:#7A5C2E;cursor:pointer;white-space:nowrap;}
 .filter-clear:hover{border-color:#B8860B;color:#8a6c1a;}
-.filter-count{font-size:12px;color:#7A5C2E;white-space:nowrap;}
+.filter-count{font-size: 12px;color:#7A5C2E;white-space:nowrap;}
 
 
 /* uniform comfortable page gutter */
-body{padding-left:20px!important;padding-right:20px!important;}
+
 /* hide no-results until an empty search */
 .no-results{display:none;padding:14px 4px;font-size:14px;color:#7A5C2E;}
+/* hide chrome when search is active */
+body.is-searching #route-nav,
+body.is-searching .tier-legend,
+body.is-searching .hub-strength,
+body.is-searching .hub-header,
+body.is-searching .region-header { display:none !important; }
 /* footnote: drop final block margin so gap is uniform */
 .hub-section:last-child, .hub-section:last-child *:last-child{margin-bottom:0 !important}
 /* clickable tier pills */
 .tier-pill{cursor:pointer;transition:box-shadow .12s,transform .12s;}
+@media (max-width:600px){
+  .wrap{padding:0 14px;}
+  .tier-legend{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin-top:10px;}
+  .tier-legend::-webkit-scrollbar{display:none;}
+  .tier-pill{flex-shrink:0;}
+  .nav-inner{padding:8px 14px;}
+  .nav-links{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .nav-link{flex-shrink:0;}
+}
 .tier-pill:hover{transform:translateY(-1px);}
 .tier-pill.active{font-weight:700;box-shadow:0 0 0 2px rgba(0,0,0,.30);}
 /* secondary nav: solid page-bg so content doesn't bleed through on scroll */
@@ -107,7 +123,7 @@ body{padding-left:20px!important;padding-right:20px!important;}
 </head>
 <body>
 <div id="toolbar-mount" data-depth="1" data-maxwidth="940" data-no-footnote="1"></div>
-<script src="../toolbar.js?v=2"></script>
+<script src="../Guides/toolbar.js?v=2"></script>
 <div class="wrap">
   <div class="header">
     <h1>Delta Full Network</h1>
@@ -121,8 +137,7 @@ body{padding-left:20px!important;padding-right:20px!important;}
     <span class="filter-count" id="filterCount"></span>
   </div>
 </div>
-
-<nav class="nav">
+<nav class="nav" id="route-nav">
 <div class="nav-inner">
   <div class="nav-links">
     <a class="nav-link" onclick="document.getElementById('atl').scrollIntoView({behavior:'smooth'})">ATL</a>
@@ -571,29 +586,28 @@ body{padding-left:20px!important;padding-right:20px!important;}
 </div>
 <script>
 (function(){
-  var filterInput=document.getElementById('destFilter'); if(!filterInput)return;
-  var filterClear=document.getElementById('filterClear');
+  var filterInput=document.getElementById('destFilter');
   var filterCount=document.getElementById('filterCount');
   var noResults=document.getElementById('noResults');
   var pills=[].slice.call(document.querySelectorAll('.tier-pill'));
-  var pagenav=document.querySelector('nav.nav');
+  var pagenav=document.getElementById('route-nav');
   var tierLegend=document.querySelector('.tier-legend');
   var activeTier='';
   function norm(s){return (s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();}
   function runFilter(){
-    var q=norm(filterInput.value.trim()),shown=0,active=q||activeTier;
+    var q=filterInput?filterInput.value.trim():'',shown=0,active=q||activeTier;
     document.querySelectorAll('.dest-card').forEach(function(c){
       var match=(!q||norm(c.textContent).indexOf(q)>-1)&&(!activeTier||c.classList.contains(activeTier));
       c.style.display=match?'':'none';
       if(match)shown++;
     });
-    if(filterClear)filterClear.style.display=(q||activeTier)?'inline':'none';
-    if(filterCount)filterCount.textContent=active?shown+' shown':'';
     var noHits=(active&&shown===0);
     if(noResults)noResults.style.display=noHits?'block':'none';
-    if(pagenav)pagenav.style.display=noHits?'none':'';
-    if(tierLegend)tierLegend.style.display=noHits?'none':'';
-    var foot=document.querySelector('.tb-footnote');if(foot)foot.style.display=noHits?'none':'';
+    var ss=document.getElementById('_search_hide');
+    if(!ss){ss=document.createElement('style');ss.id='_search_hide';document.head.appendChild(ss);}
+    ss.textContent=q?'#route-nav,#route-nav *,.tier-legend,.hub-strength,.hub-header,.region-header{display:none!important;visibility:hidden!important}':'';
+    document.body.classList.toggle('is-searching',!!q);
+    var foot=document.querySelector('.tb-footnote');if(foot)foot.style.display=q?'none':'';
     document.querySelectorAll('.dest-grid').forEach(function(g){
       var anyVis=[].slice.call(g.querySelectorAll('.dest-card')).some(function(c){return c.style.display!=='none';});
       g.style.display=(!active||anyVis)?'':'none';
@@ -614,8 +628,8 @@ body{padding-left:20px!important;padding-right:20px!important;}
       runFilter();
     });
   });
-  if(filterClear)filterClear.addEventListener('click',function(){filterInput.value='';activeTier='';pills.forEach(function(x){x.classList.remove('active');});runFilter();filterInput.focus();});
-  filterInput.addEventListener('input',runFilter);
+  if(filterInput)filterInput.addEventListener('input',runFilter);
+  if(filterCount)filterCount.textContent='';
 })();
 </script>
 

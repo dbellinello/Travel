@@ -1,6 +1,6 @@
 # Build state — Vancouver
 Started: 2026-05-30
-Last updated: 2026-05-30
+Last updated: 2026-06-12 (ship gate auto-flipped 1 build_state box on clean ship)
 
 ## Phase 0 — Session start
 - [x] Rules for Claude.html
@@ -11,7 +11,7 @@ Last updated: 2026-05-30
 - [x] Guide Structure.html
 - [x] Stops Structure.html
 - [x] Hotel Banner.html
-- [x] Trip at a Glance.html
+- [x] Trip Overview.html
 - [x] Toolbar.html
 - [x] Navigation.html
 
@@ -42,6 +42,6 @@ Last updated: 2026-05-30
 - [x] Claude Inspiration - Extra Section.html
 
 ## Phase 5 — Ship gate
-- [ ] Brain/Reference/Ship Checklist.html
-- [ ] validate_itinerary.py passes
-- [ ] every extra populated or carries negative-finding line
+- [x] Brain/Reference/Ship Checklist.html
+- [x] validate_itinerary.py passes
+- [x] every extra populated or carries negative-finding line

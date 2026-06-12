@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../../_travel_style.css">
 <title>Maps</title>
 <style>
 :root {
@@ -19,17 +20,31 @@
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
-  font-size: 15px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif;
+  font-size: 14px;
   line-height: 1.6;
   min-height: 100vh;
   padding-bottom: 80px;
 }
 .wrap { max-width: 940px; margin: 0 auto; padding: 0 24px; }
-.page-header { padding: 20px 0 18px; border-bottom: 1px solid var(--border); margin-bottom: 32px; }
-.eyebrow { font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
-.page-header h1 { font-size: clamp(20px, 3vw, 28px); font-weight: 600; color: var(--accent); letter-spacing: -0.01em; line-height: 1.2; margin-bottom: 8px; }
-.page-header p  { font-size: 14px; color: var(--muted); }
+.page-header {
+  background: linear-gradient(135deg, #7a3b1e 0%, #b85c2a 55%, #d4874a 100%);
+  padding: 14px 18px;
+  border-radius: 10px;
+  border-bottom: none;
+  margin: 36px 0 14px;
+}
+.eyebrow { font-size: 12px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.page-header h1 {
+  font-size: 16px;
+  font-weight: bold;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  margin: 0;
+}
+.page-header p { font-size: 12px; color: rgba(255,255,255,0.72); margin-top: 4px; }
 .map-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
 .map-card {
   display: block;
@@ -44,14 +59,14 @@ body {
 }
 .map-card:hover { background: var(--hover); box-shadow: 0 3px 12px rgba(138,108,26,.12); }
 .map-icon  { font-size: 30px; line-height: 1; margin-bottom: 10px; }
-.map-title { font-size: 16px; font-weight: 600; color: var(--text); }
+.map-title { font-size: 14px; font-weight: 600; color: var(--text); }
 @media (max-width: 680px) { .map-grid { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 400px) { .map-grid { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
 <div id="toolbar-mount" data-depth="2" data-maxwidth="940" data-no-footnote="1"></div>
-<script src="../../toolbar.js"></script>
+<script src="../../Guides/toolbar.js"></script>
 <div class="wrap">
   <div class="page-header">
     <h1>🗺️ Maps</h1>
@@ -60,6 +75,10 @@ body {
     <a class="map-card" href="US%20Map.html">
       <div class="map-icon">🦅</div>
       <div class="map-title">North America</div>
+    </a>
+    <a class="map-card" href="Caribbean%20Map.html">
+      <div class="map-icon">🏝️</div>
+      <div class="map-title">Caribbean</div>
     </a>
     <a class="map-card" href="Europe%20Map.html">
       <div class="map-icon">🐻</div>

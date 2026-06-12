@@ -1,7 +1,8 @@
 {
   "_meta": {
     "guide": "vancouver_v1.html",
-    "last_updated": "2026-05-31"
+    "last_updated": "2026-05-31",
+    "updated": "2026-06-12"
   },
   "entries": {
     "https://www.viator.com/tours/Vancouver/Post-Cruise-Vancouver-City-Sightseeing-Tour-with-Capilano-Suspension-Bridge/d616-3914P36": {
@@ -68,6 +69,123 @@
       "result": "PASS",
       "verified_on": "2026-05-31",
       "method": "GetYourGuide listing confirmed active — Indian Arm Zodiac Boat Tour 4.9⭐ · 155+ reviews"
+    },
+    "https://en.wikipedia.org/wiki/Capilano_Suspension_Bridge_Park": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-12",
+      "verified_by": "claude",
+      "expected_attraction": "Capilano Suspension Bridge Park",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/Stanley_Park": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-12",
+      "verified_by": "claude",
+      "expected_attraction": "Stanley Park",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/Gastown": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-12",
+      "verified_by": "claude",
+      "expected_attraction": "Gastown",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/Grouse_Mountain": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-12",
+      "verified_by": "claude",
+      "expected_attraction": "Grouse Mountain",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/Sea_to_Sky_Gondola": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-12",
+      "verified_by": "claude",
+      "expected_attraction": "Sea to Sky Gondola",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/Shannon_Falls_Provincial_Park": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-12",
+      "verified_by": "claude",
+      "expected_attraction": "Shannon Falls Provincial Park",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/VanDusen_Botanical_Garden": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-12",
+      "verified_by": "claude",
+      "expected_attraction": "VanDusen Botanical Garden",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/Bloedel_Conservatory": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-12",
+      "verified_by": "claude",
+      "expected_attraction": "Bloedel Conservatory",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/Dr._Sun_Yat-Sen_Classical_Chinese_Garden": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-12",
+      "verified_by": "claude",
+      "expected_attraction": "Dr. Sun Yat-Sen Classical Chinese Garden",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/Granville_Island": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-12",
+      "verified_by": "claude",
+      "expected_attraction": "Granville Island Public Market",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/Museum_of_Anthropology_at_UBC": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-12",
+      "verified_by": "claude",
+      "expected_attraction": "Museum of Anthropology at UBC",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/Nitobe_Memorial_Garden": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-12",
+      "verified_by": "claude",
+      "expected_attraction": "Nitobe Memorial Garden",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "https://en.wikipedia.org/wiki/Harbour_Centre": {
+      "platform": "wikipedia",
+      "method": "live_fetch",
+      "verified_on": "2026-06-12",
+      "verified_by": "claude",
+      "expected_attraction": "Vancouver Lookout or Harbour Centre",
+      "result": "PASS",
+      "notes": "h1 matched stop name via verify_booking_links.py"
     }
   }
 }

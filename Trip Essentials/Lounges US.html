@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>US Lounge Guide</title>
+<link rel="stylesheet" href="../_travel_style.css">
+<title>US Lounges</title>
 <style>
 :root {
  --bg: #f5f4f0;
@@ -23,8 +24,8 @@
 body {
  background: var(--bg);
  color: var(--text);
- font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
-  font-size: 15px;
+ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif;
+  font-size: 14px;
   line-height: 1.6;
  min-height: 100vh;
  padding-bottom: 80px;
@@ -39,10 +40,10 @@ body {
  flex-wrap: wrap;
 }
 .nav-inner { max-width: 940px; margin: 0 auto; padding: 10px 24px 16px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: center; }
-.nav-logo { font-size: 14px; font-weight: 700; color: var(--accent); letter-spacing: 0.06em; margin-right: 6px; white-space: nowrap; text-transform: uppercase; }
+.nav-logo { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: 0.06em; margin-right: 6px; white-space: nowrap; text-transform: uppercase; }
 .nav-links { display: flex; flex-wrap: wrap; gap: 5px; }
 .nav-link {
- font-size: 11.5px; color: #3d3a32; text-decoration: none;
+ font-size: 12px; color: #3d3a32; text-decoration: none;
  padding: 4px 9px; border: 1px solid #b8b3a8; border-radius: 4px;
  background: #f0ece4; white-space: nowrap;
  transition: color .15s, border-color .15s, background .15s;
@@ -51,50 +52,50 @@ body {
 .wrap { max-width: 940px; margin: 0 auto; padding: 0 24px; }
 .back-link {
  display: inline-flex; align-items: center; gap: 6px;
- font-size: 14px; color: var(--muted); text-decoration: none; margin-top: 24px;
+ font-size: 12px; color: var(--muted); text-decoration: none; margin-top: 24px;
 }
 .back-link:hover { color: var(--accent); }
 .page-header { padding: 20px 0 20px; border-bottom: 1px solid var(--border); margin-bottom: 0; }
-.page-header-eyebrow { font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
-.page-header h1 { font-size: clamp(20px, 3vw, 28px); font-weight: 600; color: #8a6c1a; letter-spacing: -0.01em; line-height: 1.2; margin-bottom: 10px; }
-.page-header p { font-size: 13px; color: var(--muted); max-width: 560px; line-height: 1.7; margin-top: 0; }
+.page-header-eyebrow { font-size: 12px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.page-header h1 { font-size: 14px; font-weight: 600; color: #8a6c1a; letter-spacing: -0.01em; line-height: 1.2; margin-bottom: 10px; }
+.page-header p { font-size: 12px; color: var(--muted); max-width: 560px; line-height: 1.7; margin-top: 0; }
 .legend {
- display: flex; flex-wrap: wrap; gap: 20px; margin-bottom: 32px;
+ display: flex; flex-wrap: wrap; gap: 20px; margin-bottom: 14px;
  padding: 14px 18px; background: var(--surface); border: 1px solid var(--border); border-radius: 6px;
 }
 .legend-group { display: flex; flex-direction: column; gap: 7px; }
-.legend-group-label { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+.legend-group-label { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
 .legend-items { display: flex; flex-wrap: wrap; gap: 10px; }
-.legend-item { display: flex; align-items: center; gap: 7px; font-size: 15px; color: var(--muted); }
+.legend-item { display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--muted); }
 .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; border: 2px solid var(--bg); }
 .dot-navy { background: var(--navy); box-shadow: 0 0 0 1px var(--navy); }
 .dot-green { background: var(--green); box-shadow: 0 0 0 1px var(--green); }
 .dot-gold { background: var(--gold); box-shadow: 0 0 0 1px var(--gold); }
 .group-header {
  display: flex; align-items: center; gap: 12px;
- margin: 36px 0 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border);
+ margin: 14px 0 8px; padding-bottom: 8px; border-bottom: 1px solid var(--border);
 }
-.group-title { font-size: 16px; font-weight: 600; color: #8a6c1a; letter-spacing: 0.02em; }
-.group-sub { font-size: 12px; color: var(--muted); letter-spacing: 0.06em; margin-left: auto; }
-.airport-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; margin-bottom: 12px; }
+.group-title { font-size: 14px; font-weight: 600; color: #8a6c1a; letter-spacing: 0.02em; }
+.group-sub { font-size: 12px; color: var(--muted); letter-spacing: 0.04em; }
+.airport-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; margin-bottom: 8px; }
 .airport-card-header {
  display: flex; align-items: baseline; gap: 14px;
  padding: 14px 20px 12px; background: var(--surface2); border-bottom: 1px solid var(--border);
 }
-.airport-code { font-size: 20px; font-weight: 700; color: var(--accent); line-height: 1; letter-spacing: 0.02em; }
+.airport-code { font-size: 14px; font-weight: 700; color: var(--accent); line-height: 1; letter-spacing: 0.02em; }
 .airport-city { font-size: 14px; color: var(--text); }
-.airport-full { font-size: 14px; color: var(--muted); margin-left: auto; }
+.airport-full { font-size: 14px; color: var(--muted); }
 .airport-note {
- font-size: 14px; color: var(--muted); font-style: italic;
+ font-size: 12px; color: var(--muted); font-style: italic;
  padding: 7px 20px 9px; background: var(--surface2); border-bottom: 1px solid var(--border); line-height: 1.5;
 }
-.section-label { font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; padding: 7px 20px; border-bottom: 1px solid var(--border2); }
+.section-label { font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; padding: 7px 20px; border-bottom: 1px solid var(--border2); }
 .section-label.skyteam { color: var(--navy); background: #eef0f7; }
 .section-label.pp { color: var(--green); background: #eef5ee; }
 .lounge-item { padding: 13px 20px; border-bottom: 1px solid var(--border2); }
 .lounge-item:last-child { border-bottom: none; }
 .lounge-header { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; flex-wrap: wrap; }
-.lounge-name { font-size: 15px; font-weight: 600; color: var(--text); }
+.lounge-name { font-size: 14px; font-weight: 600; color: var(--text); }
 .tag { font-size: 12px; letter-spacing: 0.1em; padding: 2px 7px; border-radius: 2px; background: #e8e4dc; color: var(--muted); text-transform: uppercase; }
 .tag.d1 { background: #f8e8e8; color: var(--d1); }
 .tag.new { background: #e8f4e8; color: #1a4a1a; }
@@ -102,17 +103,19 @@ body {
 .tag.flagship { background: #e8eaf8; color: #2a3a9a; }
 .meta { display: flex; flex-direction: column; gap: 4px; }
 .meta-row { display: flex; gap: 10px; align-items: baseline; }
-.meta-label { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); flex-shrink: 0; min-width: 72px; }
-.meta-value { font-size: 15px; color: var(--text); line-height: 1.4; }
-.no-access { font-size: 15px; color: var(--muted); font-style: italic; padding: 9px 20px; }
+.meta-label { font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); flex-shrink: 0; min-width: 72px; }
+.meta-value { font-size: 14px; color: var(--text); line-height: 1.4; }
+.no-access { font-size: 14px; color: var(--muted); font-style: italic; padding: 9px 20px; }
 @media (max-width: 600px) {
  .nav { padding: 10px 14px; }
  .wrap { padding: 0 14px; }
  .meta { flex-direction: column; }
- .airport-code { font-size: 21px; }
+ .airport-code { font-size: 14px; }
  .airport-full { display: none; }
- .nav-links { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; }
- .nav-link { text-align: center; padding: 6px 2px; font-size: 10.5px; }
+ .nav-inner { padding: 8px 14px; overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+ .nav-inner::-webkit-scrollbar { display: none; }
+ .nav-links { flex-wrap: nowrap; gap: 5px; }
+ .nav-link { flex-shrink: 0; padding: 5px 8px; font-size: 12px; }
 }
   .essentials {
   background: var(--surface2);
@@ -159,23 +162,22 @@ html { scroll-behavior: smooth; }
 .lounge-item:hover { background: #fafaf8; }
 /* ── Collapsible airports ── */
 .airport-card-header { cursor:pointer; user-select:none; }
-.airport-card-header::after { content:'▾'; margin-left:auto; font-size:12px; color:var(--muted); transition:transform .2s; }
+.airport-card-header::after { content:'▾'; margin-left:auto; font-size: 12px; color:var(--muted); transition:transform .2s; }
 .airport-card.collapsed .airport-card-header::after { transform:rotate(-90deg); }
 .airport-card-body { transition:max-height .25s ease, opacity .25s ease; overflow:hidden; }
 .airport-card.collapsed .airport-card-body { max-height:0!important; opacity:0; }
 .airport-card{scroll-margin-top:100px;}
 
 /* ===== Unified essentials header (injected for consistency) ===== */
-.header, .page-header, .site-header { padding: 18px 0 14px !important; border-bottom: 1px solid #d8d4cc !important; margin: 0 0 14px !important; }
+.header, .page-header, .site-header { background: linear-gradient(135deg, #7a3b1e 0%, #b85c2a 55%, #d4874a 100%) !important; padding: 14px 18px !important; border-radius: 10px !important; border-bottom: none !important; margin: 36px 0 14px !important; }
 .header-label, .header-eyebrow { display: none !important; }
-.header h1, .page-header h1, .site-header h1, .site-title { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif !important; font-size: 27px !important; font-weight: 600 !important; letter-spacing: -0.01em !important; line-height: 1.2 !important; color: #8a6c1a !important; margin: 0 !important; }
-.header-desc { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif !important; font-size: 14px !important; font-weight: 400 !important; line-height: 1.6 !important; color: #6b6860 !important; max-width: 640px !important; margin: 0 0 18px !important; }
+.header h1, .page-header h1, .site-header h1, .site-title { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif !important; font-size: 16px !important; font-weight: bold !important; color: #ffffff !important; text-transform: uppercase !important; letter-spacing: 0.04em !important; line-height: 1.2 !important; margin: 0 !important; }
+.header-desc { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif !important; font-size: 12px !important; font-weight: 400 !important; color: rgba(255,255,255,0.72) !important; line-height: 1.5 !important; margin: 4px 0 0 !important; }
 /* ===== end unified header ===== */
-/* lounge search */
-#lounge-search{width:100%;box-sizing:border-box;padding:12px 16px;margin:0 0 18px;font-size:15px;border:1.5px solid #E0D4B8;border-radius:8px;background:#FFFDF8;color:#3D1F00;outline:none;transition:border-color .15s,box-shadow .15s;}
+#lounge-search{width:auto;min-width:180px;max-width:260px;box-sizing:border-box;padding:6px 12px;margin:0 0 10px;font-size:13px;border:1.5px solid #E0D4B8;border-radius:6px;background:#FFFDF8;color:#3D1F00;outline:none;transition:border-color .15s,box-shadow .15s;}
 #lounge-search:focus{border-color:#B8860B;box-shadow:0 0 0 3px rgba(184,134,11,.12);}
 #lounge-search::placeholder{color:#A8895A;}
-#lounge-noresult{display:none;padding:12px 4px;font-size:13px;color:#7A5C2E;}
+#lounge-noresult{display:none;padding:8px 4px;font-size:13px;color:#7A5C2E;}
 
 
 /* uniform comfortable page gutter */
@@ -198,16 +200,13 @@ document.addEventListener('DOMContentLoaded',()=>{
 </head>
 <body>
 <div id="toolbar-mount" data-depth="1" data-maxwidth="940" data-no-footnote="1"></div>
-<script src="../toolbar.js?v=2"></script>
+<script src="../Guides/toolbar.js?v=2"></script>
 <div class="wrap">
   <div class="page-header">
- <h1>US Lounge Guide</h1>
- 
+ <h1>US Lounges</h1>
 </div>
-</div>
-<div style="max-width:940px;margin:0 auto;padding:0 24px;">
-<input id="lounge-search" type="search" placeholder="🔍" autocomplete="off" spellcheck="false">
-<div id="lounge-noresult">No lounges match that search.</div>
+  <input id="lounge-search" type="search" placeholder="🔍" autocomplete="off" spellcheck="false">
+  <div id="lounge-noresult">No lounges match that search.</div>
 </div>
 <nav class="nav">
 <div class="nav-inner">
@@ -231,9 +230,8 @@ document.addEventListener('DOMContentLoaded',()=>{
 </div>
 </nav>
 
-
 <div class="wrap">
- 
+
  <div class="legend">
  <div class="legend-group">
  <div class="legend-group-label">SkyTeam</div>
@@ -871,9 +869,9 @@ document.querySelectorAll('.airport-card').forEach(card=>{
       g.style.display=(q===''||any)?'':'none';});
     var noHits=(shown===0&&q!=='');
     if(noRes)noRes.style.display=noHits?'block':'none';
-    if(legend)legend.style.display=noHits?'none':'';
-    if(pagenav)pagenav.style.display=noHits?'none':'';
-    var foot=document.querySelector('.tb-footnote');if(foot)foot.style.display=noHits?'none':'';
+    if(legend)legend.style.display=q?'none':'';
+    if(pagenav)pagenav.style.display=q?'none':'';
+    var foot=document.querySelector('.tb-footnote');if(foot)foot.style.display=q?'none':'';
   });
 })();
 </script>

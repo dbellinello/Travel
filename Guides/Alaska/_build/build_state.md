@@ -15,7 +15,7 @@ Last updated: 2026-05-31
 - [x] Guide Structure.html
 - [x] Stops Structure.html
 - [x] Hotel Banner.html
-- [x] Trip at a Glance.html
+- [x] Trip Overview.html
 - [x] Toolbar.html
 - [x] Navigation.html
 
@@ -44,7 +44,7 @@ Last updated: 2026-05-31
 - [x] Michelin Restaurants - Extra Section.html
 - [x] Heads Up - Extra Section.html
 - [x] Claude Inspiration - Extra Section.html
-- [x] Skip List.html
+- [x] Skip List - Extra Section.html
 
 ## Phase 6 — Ship gate
 - [x] Brain/Reference/Ship Checklist.html (read 2026-05-31)

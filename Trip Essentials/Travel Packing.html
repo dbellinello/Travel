@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../_travel_style.css">
 <title>Travel Packing</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -11,8 +12,8 @@
 body {
  background: #f5f4f0;
  color: #1a1917;
- font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
- font-size: 15px;
+ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif;
+ font-size: 14px;
  line-height: 1.5;
  padding-bottom: 80px;
 }
@@ -22,14 +23,14 @@ body {
 
 .back-link {
  display: inline-flex; align-items: center; gap: 6px;
- font-size: 14px; color: #6a6660; text-decoration: none; margin-top: 24px;
+ font-size: 12px; color: #6a6660; text-decoration: none; margin-top: 24px;
 }
 .back-link:hover { color: #7a5c0e; }
 
 .header { margin-top: 0; margin-bottom: 0; padding: 20px 0 20px; border-bottom: 1px solid #d8d4cc; }
-.header-label { font-size: 11px; letter-spacing: 0.25em; color: #6a6660; text-transform: uppercase; margin-bottom: 10px; }
-.header h1 { font-size: clamp(20px, 3vw, 28px); font-weight: 600; letter-spacing: -0.01em; line-height: 1.2; color: var(--accent); margin-bottom: 10px; }
-.header p { font-size: 16px; color: #6a6660; max-width: 520px; line-height: 1.7; }
+.header-label { font-size: 12px; letter-spacing: 0.25em; color: #6a6660; text-transform: uppercase; margin-bottom: 10px; }
+.header h1 { font-size: 14px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.2; color: var(--accent); margin-bottom: 10px; }
+.header p { font-size: 12px; color: #6a6660; max-width: 520px; line-height: 1.7; }
 
 .progress-wrap { margin-top: 22px; }
 .progress-meta { font-size: 12px; letter-spacing: 0.1em; color: #6a6660; text-transform: uppercase; display: flex; justify-content: space-between; margin-bottom: 7px; }
@@ -75,7 +76,7 @@ body {
 }
 .card-pill.all-done { background: #e8f4e8; color: #2a6a2a; border-color: #a0c8a0; }
 .card-body { padding: 0 18px; }
-.card-lead { font-size: 15px; color: #6a6660; line-height: 1.7; padding: 14px 0 4px; }
+.card-lead { font-size: 14px; color: #6a6660; line-height: 1.7; padding: 14px 0 4px; }
 
 .critical-card {
  border: 1px solid #d8d4cc;
@@ -100,7 +101,7 @@ body {
 }
 
 .sub-label {
- font-size: 11px;
+ font-size: 12px;
  letter-spacing: 0.16em;
  color: #a09a90;
  text-transform: uppercase;
@@ -143,9 +144,9 @@ body {
  transform: rotate(45deg);
 }
 
-.item label { font-size: 16px; color: #1a1917; cursor: pointer; line-height: 1.45; transition: color 0.15s; }
+.item label { font-size: 14px; color: #1a1917; cursor: pointer; line-height: 1.45; transition: color 0.15s; }
 .item.checked label { color: #b0aaa2; text-decoration: line-through; text-decoration-color: #c0bab2; }
-.sub-note { font-size: 13px; color: #a09a90; }
+.sub-note { font-size: 12px; color: #a09a90; }
 
 .callout {
  margin: 12px 0;
@@ -219,10 +220,10 @@ html { scroll-behavior: smooth; }
 .essentials-link:hover { background: rgba(138,108,26,0.06); }
 
 /* ===== Unified essentials header (injected for consistency) ===== */
-.header, .page-header, .site-header { padding: 18px 0 14px !important; border-bottom: 1px solid #d8d4cc !important; margin: 0 0 14px !important; }
+.header, .page-header, .site-header { background: linear-gradient(135deg, #7a3b1e 0%, #b85c2a 55%, #d4874a 100%) !important; padding: 14px 18px !important; border-radius: 10px !important; border-bottom: none !important; margin: 36px 0 14px !important; }
 .header-label, .header-eyebrow { display: none !important; }
-.header h1, .page-header h1, .site-header h1, .site-title { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif !important; font-size: 27px !important; font-weight: 600 !important; letter-spacing: -0.01em !important; line-height: 1.2 !important; color: #8a6c1a !important; margin: 0 !important; }
-.header-desc { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif !important; font-size: 14px !important; font-weight: 400 !important; line-height: 1.6 !important; color: #6b6860 !important; max-width: 640px !important; margin: 0 0 26px !important; }
+.header h1, .page-header h1, .site-header h1, .site-title { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif !important; font-size: 16px !important; font-weight: bold !important; color: #ffffff !important; text-transform: uppercase !important; letter-spacing: 0.04em !important; line-height: 1.2 !important; margin: 0 !important; }
+.header-desc { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif !important; font-size: 12px !important; font-weight: 400 !important; color: rgba(255,255,255,0.72) !important; line-height: 1.5 !important; margin: 4px 0 0 !important; }
 /* ===== end unified header ===== */
 
 /* uniform comfortable page gutter */
@@ -244,7 +245,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 <body>
 
 <div id="toolbar-mount" data-depth="1" data-maxwidth="940" data-no-footnote="1"></div>
-<script src="../toolbar.js?v=2"></script>
+<script src="../Guides/toolbar.js?v=2"></script>
 
 <div class="page">
 
@@ -252,6 +253,8 @@ document.addEventListener('DOMContentLoaded',()=>{
 
  <div class="header">
  <h1>Travel Packing</h1>
+ </div>
+
 <div class="progress-wrap">
  <div class="progress-meta">
  <span>Overall progress</span>
@@ -260,7 +263,6 @@ document.addEventListener('DOMContentLoaded',()=>{
  <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
  </div>
  <button class="reset-btn" onclick="resetAll()">↺ &nbsp;Reset all</button>
- </div>
 
  <div class="section-card">
  <div class="card-header">

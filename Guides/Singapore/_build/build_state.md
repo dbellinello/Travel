@@ -8,7 +8,7 @@ Last updated: 2026-05-24 (GYG tour #3 replaced — cycling content removed)
 - [x] Guide Structure.html
 - [x] Stops Structure.html
 - [x] Hotel Banner.html
-- [x] Trip at a Glance.html
+- [x] Trip Overview.html
 - [x] Toolbar.html
 - [x] Navigation.html
 

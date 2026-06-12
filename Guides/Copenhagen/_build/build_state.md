@@ -15,7 +15,7 @@ Last updated: 2026-06-02
 - [x] Guide Structure.html
 - [x] Stops Structure.html
 - [x] Hotel Banner.html
-- [x] Trip at a Glance.html
+- [x] Trip Overview.html
 - [x] Toolbar.html
 - [x] Navigation.html
 
@@ -44,6 +44,7 @@ Last updated: 2026-06-02
 - [x] Claude Inspiration - Extra Section.html
 
 ## Phase 6 — Ship gate
-- [ ] Brain/Reference/Ship Checklist.html
-- [ ] validate_itinerary.py passes
-- [ ] every extra populated or carries negative-finding line
+- [x] Brain/Reference/Ship Checklist.html
+- [x] validate_itinerary.py passes — 745 passed / 0 failed (2026-06-05 rebuild)
+- [x] every extra populated or carries negative-finding line
+- [x] ship gate clean — verify_urls 0 fail · verify_booking_links 0 fail · index entry + Europe Map pin found

@@ -1,6 +1,6 @@
 # Build state — Pasadena
 Started: 2026-05-21
-Last updated: 2026-05-21
+Last updated: 2026-06-10 (Phase 5 closed — guide_tools.py ship: 726✅ 0❌ 5⚠️ · verify_urls clean · ship gate exit 0)
 
 Rebuild → pasadena_v5.html (was v4). US travel rules applied: NO trains, Uber/rental car only, day trips ≤~1.5hr drive. In-stop tours retired → Tours Extra Section added (5 Viator / 5 GetYourGuide / 5 TripAdvisor, non-private, small-group favoured). Days 6–7 (San Diego / Santa Barbara train days) redesigned as drive days: Getty Center + Getty Villa; Mission San Juan Capistrano + Heisler Park + Laguna Village.
 
@@ -13,7 +13,7 @@ Rebuild → pasadena_v5.html (was v4). US travel rules applied: NO trains, Uber/
 - [x] Guide Structure.html
 - [x] Stops Structure.html
 - [x] Hotel Banner.html
-- [x] Trip at a Glance.html
+- [x] Trip Overview.html
 - [x] Toolbar.html
 - [x] Navigation.html
 
@@ -44,12 +44,12 @@ Rebuild → pasadena_v5.html (was v4). US travel rules applied: NO trains, Uber/
 - [x] Heads Up - Extra Section.html
 
 ## Phase 5 — Ship gate
-- [ ] Pre-Ship Checklist.html
-- [ ] validate_itinerary.py passes
-- [ ] every extra populated or carries negative-finding line
+- [x] Pre-Ship Checklist.html
+- [x] validate_itinerary.py passes
+- [x] every extra populated or carries negative-finding line
 
 ## Notes / flags (parked in To_Do_List.md ❓ Questions for Dani)
 - Day Structure §7 Train-Day quota conflicts with US no-trains rule — shipped zero train days per explicit instruction.
 - Tour start times = operator-standard windows; meeting points = real central landmarks (ride + short final walk); exact times/points confirmed at booking.
 - From-hotel 🚕 drive times are Maps-style estimates (no Maps connector in-session) — spot-check before travel.
-- Getty Villa open Wed–Mon (reopened post-2025 Palisades fire); PCH-only access — Cities Gotcha added.
+- Getty Villa open Wed–Mon (reopened post-2025 Palisades fire); PCH-only access — Cities Note added.

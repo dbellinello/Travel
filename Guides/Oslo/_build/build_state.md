@@ -11,7 +11,7 @@ Last updated: 2026-05-29
 - [x] Guide Structure.html
 - [x] Stops Structure.html
 - [x] Hotel Banner.html
-- [x] Trip at a Glance.html
+- [x] Trip Overview.html
 - [x] Toolbar.html
 - [x] Navigation.html
 
@@ -40,7 +40,7 @@ Last updated: 2026-05-29
 - [x] Michelin Restaurants - Extra Section.html
 - [x] Heads Up - Extra Section.html — no Oslo entries; section omitted
 - [x] Claude Inspiration - Extra Section.html
-- [x] Skip List.html — no Oslo entries; section omitted
+- [x] Skip List - Extra Section.html — no Oslo entries; section omitted
 
 ## Phase 5 — Ship gate
 - [x] Brain/Reference/Ship Checklist.html

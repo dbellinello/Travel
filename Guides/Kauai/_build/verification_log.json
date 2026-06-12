@@ -1,0 +1,34 @@
+{
+  "_meta": {
+    "guide": "kauai_v1.html",
+    "verified_on": "2026-06-11",
+    "updated": "2026-06-11"
+  },
+  "entries": {
+    "https://www.viator.com/tours/Kauai/Deluxe-Power-Catamaran/d670-382914P6?pid=P00280233&medium=mcp&client=anthropic": {
+      "result": "PASS",
+      "verified_on": "2026-06-11",
+      "method": "Viator MCP — tour ID d670-382914P6 confirmed active via MCP product data"
+    },
+    "https://www.viator.com/tours/Kauai/NA-PALI-COAST-sea-caves-raft-snorkel-EXPEDITION/d670-445157P1?pid=P00280233&medium=mcp&client=anthropic": {
+      "result": "PASS",
+      "verified_on": "2026-06-11",
+      "method": "Viator MCP — tour ID d670-445157P1 confirmed active via MCP product data"
+    },
+    "https://www.viator.com/tours/Kauai/Waterfall-Rappel/d670-386202P1?pid=P00280233&medium=mcp&client=anthropic": {
+      "result": "PASS",
+      "verified_on": "2026-06-11",
+      "method": "Viator MCP — tour ID d670-386202P1 confirmed active via MCP product data"
+    },
+    "https://www.viator.com/tours/Kauai/Deluxe-Waterfall-Safari/d670-248255P1?pid=P00280233&medium=mcp&client=anthropic": {
+      "result": "PASS",
+      "verified_on": "2026-06-11",
+      "method": "Viator MCP — tour ID d670-248255P1 confirmed active via MCP product data"
+    },
+    "https://www.viator.com/tours/Kauai/Entire-Kauai-Island-Air-Tour/d670-3264BIG?pid=P00280233&medium=mcp&client=anthropic": {
+      "result": "PASS",
+      "verified_on": "2026-06-11",
+      "method": "Viator MCP — tour ID d670-3264BIG confirmed active via MCP product data"
+    }
+  }
+}

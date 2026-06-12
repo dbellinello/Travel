@@ -39,23 +39,23 @@
 
 ── HOTELS & RENTALS ──
 
-── TRIP AT A GLANCE ──
+── TRIP OVERVIEW ──
 
-── GLANCE EXTRAS LINKS — icon must match section title icon ──
+── OVERVIEW EXTRAS LINKS — icon must match section title icon ──
 
-── GLANCE EXTRAS ↔ EXTRAS SECTIONS SYNC ──
+── OVERVIEW EXTRAS ↔ EXTRAS SECTIONS SYNC ──
 
-── GLANCE EXTRAS — no · dot separators ──
+── OVERVIEW EXTRAS — no · dot separators ──
 
-── GLANCE EXTRAS — canonical order + label text ──
+── OVERVIEW EXTRAS — canonical order + label text ──
 
-── TRIP AT A GLANCE STRICT FORMAT ──
+── TRIP OVERVIEW STRICT FORMAT ──
 
-── TRIP AT A GLANCE — STRICT FORMAT ──
+── TRIP OVERVIEW — STRICT FORMAT ──
 
-── GLANCE CARD ICON ↔ STOP MODIFIERS SYNC ──
+── OVERVIEW CARD ICON ↔ STOP MODIFIERS SYNC ──
 
-── TRIP AT A GLANCE — STOP COUNT & NAME SYNC ──
+── TRIP OVERVIEW — STOP COUNT & NAME SYNC ──
 
 ── STOP DESCRIPTION LENGTH — 📒 rows ≤320 chars (4 lines) ──
 
@@ -641,32 +641,32 @@
 ✅ Title card scope — hotel is name + address only (§Hotel Naming → Out of scope)
 ✅ Title-page hotel name + address contain no placeholder tokens ({...} / [...] / TBD / TODO / FIXME / ???) — per Rules for Claude.html DriftyCat (no fabrication) (adjacent to On Demand - Don't Ship in Guide/Hotels & Rentals - On Demand.html Hotels — title-page hotel name + address)
 ✅ Hotel naming protocol — only .title-hotel carries the full name; banners use generic 'hotel'
-✅ Trip at a Glance — .glance-section wrapper present
-✅ Trip at a Glance — at least one .glance-day card present
-✅ Trip at a Glance — each .glance-day links to a day anchor (href="#…")
-✅ Trip at a Glance — each card has a .glance-day-title
-✅ Trip at a Glance — no stale .glance-day-stops div (retired 2026-05-26; stops are now inline in the title after " — ")
-✅ Trip at a Glance — no .glance-day-count div (forbidden extra line)
+✅ Trip Overview — .overview-section wrapper present
+✅ Trip Overview — at least one .overview-day card present
+✅ Trip Overview — each .overview-day links to a day anchor (href="#…")
+✅ Trip Overview — each card has a .overview-day-title
+✅ Trip Overview — no stale .overview-day-stops div (retired 2026-05-26; stops are now inline in the title after " — ")
+✅ Trip Overview — no .overview-day-count div (forbidden extra line)
 ✅ Banner body format — no parentheticals, no ~, no prose tails
-✅ Glance extra links — every icon in the .glance-extra-link jump list matches the corresponding extras-section title icon (emoji ↔ emoji or <img src> filename ↔ <img src> filename)
-✅ Glance extras bar — every extras-section has a matching glance-extra-link (missing link = section is unreachable from the glance jump bar; skip-list footnote exempt)
-✅ Glance extras bar — every glance-extra-link points to an existing extras-section (orphan link = dead jump button)
-✅ Glance extras bar — no · dot separators as HTML text nodes between pills (spacing comes from CSS flex gap; literal · is drift from the day-card stop-list format — creates orphaned trailing dots on line wrap) (Trip at a Glance.html § 3)
-✅ Glance extras pills appear in canonical section order (Guide Structure.html / Trip at a Glance.html § 3)
-✅ Glance extras pill label text matches canonical name for every pill (owner-defined labels — locked 2026-05-25)
-✅ Trip at a Glance section title is `📌 Trip at a Glance` (exact phrase + glyph)
-✅ Every .glance-day-title matches new format: "Day N · 🎒 — Stop1 · Stop2" or "Day N · 🚆 Train Day — City" (Trip at a Glance.html §1–§2, 2026-05-26 — 'Self-Guided' label retired)
-✅ Trip at a Glance position — .glance-section sits between .title-page and the first .day-block (Trip at a Glance.html Section title)
-✅ Trip at a Glance day order — all non-🚆 Train Day cards come BEFORE all 🚆 Train Day cards (Trip at a Glance.html §2)
-✅ Trip at a Glance card count = .day-block count (1:1 symmetry — every touring day has exactly one card)
-✅ Trip at a Glance day numbers — sequential from Day 1, no gaps, no duplicates
-✅ Glance card icon reflects actual stop types in the day-block — 🎒 Self-Guided (only .self stops) · 🚆 Train Day (day-header says "Train Day") (Trip at a Glance.html §1)
-✅ 🚆 Train Day cards carry the right suffix — `— {City}` (Trip at a Glance.html — Each day card and day order)
-✅ In-city day cards must be bare — no city suffix (Trip at a Glance.html — Each day card and day order)
-✅ Trip at a Glance card href matches `#day{N}` (Trip at a Glance.html Cross-links)
-✅ Trip at a Glance cards exclude arrival/departure/Day 0 (Trip at a Glance.html Arrival / departure days excluded)
-✅ Trip at a Glance — stop count matches day-block stop count for each day (1 glance entry per stop — mismatch means a stop was added/removed without updating the glance card)
-✅ Trip at a Glance — each glance stop entry matches its day-block stop name (substring match in either direction; glance may simplify — mismatch means a stop was renamed without updating the glance card)
+✅ Overview extra links — every icon in the .overview-extra-link jump list matches the corresponding extras-section title icon (emoji ↔ emoji or <img src> filename ↔ <img src> filename)
+✅ Overview extras bar — every extras-section has a matching overview-extra-link (missing link = section is unreachable from the overview jump bar; skip-list footnote exempt)
+✅ Overview extras bar — every overview-extra-link points to an existing extras-section (orphan link = dead jump button)
+✅ Overview extras bar — no · dot separators as HTML text nodes between pills (spacing comes from CSS flex gap; literal · is drift from the day-card stop-list format — creates orphaned trailing dots on line wrap) (Trip Overview.html § 3)
+✅ Overview extras pills appear in canonical section order (Guide Structure.html / Trip Overview.html § 3)
+✅ Overview extras pill label text matches canonical name for every pill (owner-defined labels — locked 2026-05-25)
+✅ Trip Overview section title is `📌 Trip Overview` (exact phrase + glyph)
+✅ Every .overview-day-title matches new format: "Day N · 🎒 — Stop1 · Stop2" or "Day N · 🚆 Train Day — City" (Trip Overview.html §1–§2, 2026-05-26 — 'Self-Guided' label retired)
+✅ Trip Overview position — .overview-section sits between .title-page and the first .day-block (Trip Overview.html Section title)
+✅ Trip Overview day order — all non-🚆 Train Day cards come BEFORE all 🚆 Train Day cards (Trip Overview.html §2)
+✅ Trip Overview card count = .day-block count (1:1 symmetry — every touring day has exactly one card)
+✅ Trip Overview day numbers — sequential from Day 1, no gaps, no duplicates
+✅ Overview card icon reflects actual stop types in the day-block — 🎒 Self-Guided (only .self stops) · 🚆 Train Day (day-header says "Train Day") (Trip Overview.html §1)
+✅ 🚆 Train Day cards carry the right suffix — `— {City}` (Trip Overview.html — Each day card and day order)
+✅ In-city day cards must be bare — no city suffix (Trip Overview.html — Each day card and day order)
+✅ Trip Overview card href matches `#day{N}` (Trip Overview.html Cross-links)
+✅ Trip Overview cards exclude arrival/departure/Day 0 (Trip Overview.html Arrival / departure days excluded)
+✅ Trip Overview — stop count matches day-block stop count for each day (1 overview entry per stop — mismatch means a stop was added/removed without updating the overview card)
+✅ Trip Overview — each overview stop entry matches its day-block stop name (substring match in either direction; overview may simplify — mismatch means a stop was renamed without updating the overview card)
 ✅ Stop description rows (📒) must be ≤320 chars / 4 lines (per Icon Order and Format.html — 📒 Stop description row)
 ✅ 📒 description must be plain text — no embedded <a> links (per Icon Order and Format.html Pos 1 (outside the blue box) — description is text only)
 ✅ 📒 description must not contain build annotations — [UPDATE]/[CHECK]/🔴/[TBD] etc. must be stripped before shipping (per Icon Order and Format.html § 2 Pos 1 — description is shipped narrative, same rule as stop-name annotation leakage)
@@ -1145,7 +1145,7 @@
 ✅ Nothing between .extras-sub heading and its box — no plain <div>, <p>, or any other content may sit between a heading and its entry-body / shows-box / transit-box / station-box. Day Trips: 🗞️ description goes inside the transit-box, not between heading and box. (All Extra Section CORE RULES — unified rule 2026-05-15)
 ✅ GLOBAL — no bold links anywhere in the guide (no <strong> wrapping <a>, no <a> wrapping <strong>, no font-weight overrides on anchors; booking-link bold is handled centrally by .tour-box a / .ticket-box a / .entry-body a / .shows-box a CSS classes; locked 2026-05-19)
 ✅ GLOBAL — no stray `>` immediately after a tag close (e.g., `id="foo">>` renders the second `>` as visible text; per Dani 2026-05-19)
-✅ GUIDES INDEX — top blue banner present + every entry is title-only (no `.glance-day-stops` tagline, no description, no trailing text; per Dani 2026-05-19 — kills tagline drift and banner-removal drift)
+✅ GUIDES INDEX — top blue banner present + every entry is title-only (no `.overview-day-stops` tagline, no description, no trailing text; per Dani 2026-05-19 — kills tagline drift and banner-removal drift)
 ✅ GLOBAL — bare-domain link text must be all-lowercase in source (any anchor whose visible text is just a domain must read as `uber.com`, not `Uber.com`; multi-word link text, addresses, and review-link rows are exempt; per Dani 2026-05-19)
 ✅ Style A canonical block in shipped CSS — anchors present (per Dani 2026-05-19 lock: padding/margin/radius/border-left rules must live in the canonical block so per-section drift cannot reappear)
 ✅ DRIFT SENTINELS — retired classes / IDs / CSS rules must never reappear in HTML or CSS (per Dani 2026-05-19: lock every Style-A decision so the next build cannot quietly undo it). Covers: .local-tastes wrappers, .restaurant-box, .ride-apps, .extras-maps, .show-card/.show-book, .m-Nstar, .title-links, .depart, ticket/mixed/train stop-name modifiers, intermediate description div between .extras-sub and body box in Day Trips/Getting Around, #michelin .entry-body > div:first-child bold+amber rule, .michelin-count 12px font, legacy day-trips-by-train/more-train ids, Style A spacing (extras-sub padding-bottom=0, body-box padding-top=0).
@@ -1238,7 +1238,7 @@
 ✅ Link-color overrides match allowlist (card-title black, warn amber, title light-blue)
 ✅ No inline text-decoration:underline override — links are underline-free globally via guide_v2.css (Icon Order and Format.html § 6 — 2026-05-16)
 ✅ No parentheses in guide visible text — the guide format uses · separators only; ( ) is never used anywhere (Tickets.html § 2 · Cappuccino / Restaurants Near Hotel / Downtown rules — locked 2026-05-17)
-✅ No commas in titles or row data — heading elements (.extras-sub / .extras-title / .stop-name / .glance-day-title / .title-*) and 📍 address rows use the middle dot · , never a comma. Commas inside description prose are allowed (Universal Formatting Rules § 6, locked 2026-05-20).
+✅ No commas in titles or row data — heading elements (.extras-sub / .extras-title / .stop-name / .overview-day-title / .title-*) and 📍 address rows use the middle dot · , never a comma. Commas inside description prose are allowed (Universal Formatting Rules § 6, locked 2026-05-20).
 ✅ No question marks in guide visible text — the guide format is declarative; ? is never used anywhere (locked 2026-05-17)
 ✅ All .extras-section divs appear before </body> (no extras outside the page wrapper)
 ✅ File is versioned (detected v1)

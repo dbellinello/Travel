@@ -13,7 +13,7 @@ Source: rebuild of porto_v1.html (archived to Travel/archive/porto_v1.html).
 - [x] Guide Structure.html
 - [x] Stops Structure.html
 - [x] Hotel Banner.html
-- [x] Trip at a Glance.html
+- [x] Trip Overview.html
 - [x] Toolbar.html
 - [x] Navigation.html
 - [x] Tours - Extra Section.html

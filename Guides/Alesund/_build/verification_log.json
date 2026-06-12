@@ -2,7 +2,7 @@
   "_meta": {
     "created": "2026-05-28",
     "guide": "alesund_v1.html",
-    "updated": "2026-06-01"
+    "updated": "2026-06-12"
   },
   "entries": {
     "https://billett.atlanterhavsparken.no/en/atlanterhavsparken": {
@@ -74,7 +74,7 @@
     "https://en.wikipedia.org/wiki/Jugendstilsenteret": {
       "platform": "wikipedia",
       "method": "live_fetch",
-      "verified_on": "2026-06-01",
+      "verified_on": "2026-06-12",
       "verified_by": "claude",
       "expected_attraction": "Jugendstilsenteret",
       "result": "PASS",
@@ -83,7 +83,7 @@
     "https://en.wikipedia.org/wiki/Runde": {
       "platform": "wikipedia",
       "method": "live_fetch",
-      "verified_on": "2026-06-01",
+      "verified_on": "2026-06-12",
       "verified_by": "claude",
       "expected_attraction": "Runde Island",
       "result": "PASS",
@@ -92,7 +92,7 @@
     "https://en.wikipedia.org/wiki/Geirangerfjord": {
       "platform": "wikipedia",
       "method": "live_fetch",
-      "verified_on": "2026-06-01",
+      "verified_on": "2026-06-12",
       "verified_by": "claude",
       "expected_attraction": "Geirangerfjord",
       "result": "PASS",
@@ -101,7 +101,7 @@
     "https://en.wikipedia.org/wiki/Alnes_Lighthouse": {
       "platform": "wikipedia",
       "method": "live_fetch",
-      "verified_on": "2026-06-01",
+      "verified_on": "2026-06-12",
       "verified_by": "claude",
       "expected_attraction": "Alnes Lighthouse",
       "result": "PASS",
@@ -110,7 +110,7 @@
     "https://en.wikipedia.org/wiki/Trollstigen": {
       "platform": "wikipedia",
       "method": "live_fetch",
-      "verified_on": "2026-06-01",
+      "verified_on": "2026-06-12",
       "verified_by": "claude",
       "expected_attraction": "Trollstigen",
       "result": "PASS",

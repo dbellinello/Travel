@@ -11,7 +11,7 @@ Last updated: 2026-05-28
 - [x] Guide Structure.html
 - [x] Stops Structure.html
 - [x] Hotel Banner.html
-- [x] Trip at a Glance.html
+- [x] Trip Overview.html
 - [x] Toolbar.html
 - [x] Navigation.html
 
@@ -40,7 +40,7 @@ Last updated: 2026-05-28
 - [x] Michelin Restaurants - Extra Section.html
 - [x] Heads Up - Extra Section.html (does NOT ship — not in Heads Up.md)
 - [x] Claude Inspiration - Extra Section.html
-- [x] Skip List.html (does NOT ship — not in Cities Skip List.md)
+- [x] Skip List - Extra Section.html (does NOT ship — not in Cities Skip List.md)
 
 ## Notes
 - All 9 stop photos resolved — hotlink only (CDN blocked in Cowork sandbox)

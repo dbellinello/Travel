@@ -1,6 +1,6 @@
 # Build state — Palo Alto (v6 rebuild)
 Started: 2026-05-21
-Last updated: 2026-05-21
+Last updated: 2026-06-10 (Phase 5 closed — guide_tools.py ship: 684✅ 0❌ 2⚠️ · verify_urls clean · ship gate exit 0)
 
 ## Phase 0 — Session start
 - [x] Rules for Claude.html
@@ -11,7 +11,7 @@ Last updated: 2026-05-21
 - [x] Guide Structure.html
 - [x] Stops Structure.html
 - [x] Hotel Banner.html
-- [x] Trip at a Glance.html
+- [x] Trip Overview.html
 - [x] Toolbar.html
 - [x] Navigation.html
 
@@ -42,9 +42,9 @@ Last updated: 2026-05-21
 - [x] Heads Up - Extra Section.html
 
 ## Phase 5 — Ship gate
-- [ ] Pre-Ship Checklist.html
-- [ ] validate_itinerary.py passes
-- [ ] every extra populated or carries negative-finding line
+- [x] Pre-Ship Checklist.html
+- [x] validate_itinerary.py passes
+- [x] every extra populated or carries negative-finding line
 
 ## v6 rebuild notes
 - In-stop tour boxes RETIRED (2026-05-20) — all stops Type 2 self-guided; tours ship only in Tours Extra Section.

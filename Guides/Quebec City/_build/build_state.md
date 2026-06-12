@@ -11,7 +11,7 @@ Last updated: 2026-05-28
 - [x] Guide Structure.html
 - [x] Stops Structure.html
 - [x] Hotel Banner.html
-- [x] Trip at a Glance.html
+- [x] Trip Overview.html
 - [x] Toolbar.html
 - [x] Navigation.html
 
@@ -46,6 +46,6 @@ Last updated: 2026-05-28
 - [x] every extra populated or carries negative-finding line
 
 ## Notes
-- Hotel: TBD (no hotel confirmed in Trips.html yet) — FROM HOTEL times estimated from central Old Quebec location (Place d'Armes area) as proxy. Parked in ❓ Open Questions.
+- Hotel: TBD (no hotel confirmed in Trips.html yet) — From Hotel times estimated from central Old Quebec location (Place d'Armes area) as proxy. Parked in ❓ Open Questions.
 - No Train Day (4-day guide, ≤4 days = no train day per Day Structure.html)
 - No Quebec City entry in Cities Skip List

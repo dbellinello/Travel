@@ -11,7 +11,7 @@ Last updated: 2026-05-26
 - [x] Guide Structure.html
 - [x] Stops Structure.html
 - [x] Hotel Banner.html
-- [x] Trip at a Glance.html
+- [x] Trip Overview.html
 - [x] Toolbar.html
 - [x] Navigation.html
 
@@ -40,7 +40,7 @@ Last updated: 2026-05-26
 - [x] Michelin Restaurants - Extra Section.html
 - [x] Heads Up - Extra Section.html
 - [x] Claude Inspiration - Extra Section.html
-- [x] Skip List.html
+- [x] Skip List - Extra Section.html
 
 ## Phase 5 — Ship gate
 - [x] Brain/Claude to keep updated/Pre-Ship Checklist.html
@@ -51,7 +51,7 @@ Last updated: 2026-05-26
 ## Hotel confirmed
 - [x] Sofitel Montreal Golden Mile · 1155 rue Sherbrooke Ouest · Golden Square Mile
 - [x] Title page updated
-- [x] All FROM HOTEL banners + motion times updated from 1155 Sherbrooke Ouest
+- [x] All From Hotel banners + motion times updated from 1155 Sherbrooke Ouest
 - [x] Cappuccino section populated (Bar Caffettiera + Café Myriade)
 - [x] Restaurants Near Hotel populated (Ferreira Café)
 - [x] Gare Centrale times updated
