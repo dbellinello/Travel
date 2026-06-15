@@ -1,0 +1,49 @@
+{
+  "_meta": {
+    "guide": "guide_v1.html",
+    "created": "2026-06-14",
+    "updated": "2026-06-14"
+  },
+  "entries": {
+    "https://www.getyourguide.com/dubrovnik-l288/dominican-monastery-dubrovnik-t648060/": {
+      "platform": "getyourguide",
+      "method": "site_search",
+      "query": "site:getyourguide.com dominican monastery dubrovnik t648060",
+      "verified_on": "2026-06-14",
+      "verified_by": "claude",
+      "expected_attraction": "Dominican Monastery",
+      "result": "PASS",
+      "notes": "GYG product t648060 confirmed as Dominican Monastery Dubrovnik entry ticket via site-search snippet showing 'Dominican Monastery Dubrovnik' as product title with 4.6 star rating"
+    },
+    "https://www.viator.com/tours/Dubrovnik/Dubrovnik-Old-Town-Walking-Tour/d947-5438DUBWALKOLD": {
+      "platform": "viator",
+      "method": "site_search",
+      "query": "site:viator.com dubrovnik old town walking tour d947-5438DUBWALKOLD",
+      "verified_on": "2026-06-14",
+      "verified_by": "claude",
+      "expected_attraction": "Dubrovnik Old Town Small-Group Walking Tour",
+      "result": "PASS",
+      "notes": "Viator product 5438DUBWALKOLD confirmed as Dubrovnik Old Town Small-Group Walking Tour via site-search snippet"
+    },
+    "https://www.viator.com/tours/Dubrovnik/Game-of-Thrones-and-City-Walls-Filming-Locations-Tour/d947-23876P1": {
+      "platform": "viator",
+      "method": "site_search",
+      "query": "site:viator.com dubrovnik game of thrones city walls filming locations d947-23876P1",
+      "verified_on": "2026-06-14",
+      "verified_by": "claude",
+      "expected_attraction": "Game of Thrones & City Walls Filming Locations Tour",
+      "result": "PASS",
+      "notes": "Viator product 23876P1 confirmed as Game of Thrones & City Walls Filming Locations Tour Dubrovnik via site-search snippet"
+    },
+    "https://www.getyourguide.com/dubrovnik-l288/dubrovnik-old-town-city-walls-walking-tour-t68497/": {
+      "platform": "getyourguide",
+      "method": "site_search",
+      "query": "site:getyourguide.com dubrovnik old town city walls walking tour t68497",
+      "verified_on": "2026-06-14",
+      "verified_by": "claude",
+      "expected_attraction": "Dubrovnik Old Town & City Walls Walking Tour",
+      "result": "PASS",
+      "notes": "GYG product t68497 confirmed as Dubrovnik Old Town & City Walls Walking Tour via site-search snippet"
+    }
+  }
+}
