@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../assets/_travel_style.css">
+<title>Planning Resources</title>
+<style>
+:root {
+  --bg:      #f5f4f0;
+  --warm:    #fdf8f0;
+  --surface: #ffffff;
+  --border:  #d8d4cc;
+  --border2: #e6e2da;
+  --text:    #1a1917;
+  --muted:   #6a6660;
+  --accent:  #8a6c1a;
+  --hover:   #faefd8;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  min-height: 100vh;
+  padding-bottom: 80px;
+}
+.wrap { max-width: 940px; margin: 0 auto; padding: 0 24px; }
+
+/* ── Page header ── */
+.page-header {
+  background: linear-gradient(135deg, #7a3b1e 0%, #b85c2a 55%, #d4874a 100%);
+  padding: 14px 18px;
+  border-radius: 10px;
+  border-bottom: none;
+  margin: 8px 0 14px;
+}
+.eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.page-header h1 {
+  font-size: 14px;
+  font-weight: bold;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  margin: 0;
+}
+.page-header p { font-size: 12px; color: rgba(255,255,255,0.72); margin-top: 4px; }
+
+/* ── Category pills ── */
+.cat-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  margin-top: 16px;
+  margin-bottom: 18px;
+  padding-left: 8px;
+}
+.cat-pill {
+  display: inline-block;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  font-size: 12px;
+  color: #3d3a32;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background .15s, color .15s;
+  white-space: nowrap;
+  user-select: none;
+  font-family: var(--font);
+}
+.cat-pill:hover {
+  background: rgba(138,108,26,.06);
+  color: #8a6c1a;
+}
+.cat-pill.active {
+  background: rgba(138,108,26,.10);
+  color: #8a6c1a;
+  font-weight: 500;
+}
+
+/* ── Tab panels ── */
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ── Section divider inside a panel ── */
+.panel-section { margin-bottom: 28px; }
+.section-label {
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 12px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border2);
+}
+
+/* ── Site cards ── */
+.site-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px;
+}
+.site-card {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 6px;
+  padding: 14px 16px;
+  transition: border-color .15s, box-shadow .15s;
+}
+.site-card:hover {
+  box-shadow: 0 2px 8px rgba(138,108,26,.1);
+  border-color: var(--accent);
+}
+.site-top { display: flex; align-items: center; gap: 8px; }
+.site-icon { font-size: 18px; line-height: 1; flex-shrink: 0; }
+.site-dot { width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; margin-top: 1px; }
+.site-name { font-size: 14px; font-weight: 600; color: var(--text); }
+.site-desc { font-size: 14px; color: var(--muted); line-height: 1.5; flex: 1; }
+.site-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  margin-top: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  text-decoration: none;
+}
+.site-link::after { content: ' →'; }
+.site-link:hover { opacity: .7; }
+
+/* ── Mobile ── */
+@media (max-width: 600px) {
+  .site-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .cat-pill  { font-size: 12px; padding: 5px 11px; }
+  /* Category tabs: one swipeable row instead of 3 stacked rows — saves ~115px
+     of vertical space so the resource cards start much higher on the page. */
+  .cat-pills {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 6px;
+    margin: 8px 0 10px;
+    padding: 0 0 2px;
+  }
+  .cat-pills::-webkit-scrollbar { display: none; }
+  .cat-pill { flex-shrink: 0; }
+}
+@media (max-width: 380px) {
+  .site-grid { grid-template-columns: 1fr; }
+}
+
+/* ── Visa Check panel ── */
+.visa-src { display: flex; justify-content: flex-end; margin: 0 0 12px; }
+.visa-src a { font-size: 12px; font-weight: 600; color: var(--accent); text-decoration: none; }
+.legend { display: flex; flex-wrap: wrap; gap: 7px; margin: 0 0 18px; }
+.legend .pill { display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px;
+  background: var(--warm); border: 1px solid var(--border2); border-radius: 16px; font-size: 11px; color: var(--muted); line-height: 1; }
+.dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+.d-vf{background:#2a6a2a} .d-card{background:#1a5f8b} .d-eta{background:#b5731a}
+.d-evisa{background:#6b3fa0} .d-voa{background:#0f7d7d} .d-visa{background:#b3402a}
+.etype { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--ec,#999);
+  border-radius: 8px; padding: 16px 20px 18px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(92,61,17,0.06); }
+.etype.vf{--ec:#2a6a2a} .etype.card{--ec:#1a5f8b} .etype.eta{--ec:#b5731a}
+.etype.evisa{--ec:#6b3fa0} .etype.voa{--ec:#0f7d7d} .etype.visa{--ec:#b3402a}
+.etype-head { display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px; margin-bottom: 4px; }
+.etype-title { font-size: 14px; font-weight: 700; color: var(--ec); }
+.etype-count { font-size: 11px; color: var(--muted); margin-left: auto; font-variant-numeric: tabular-nums; }
+.etype-desc { font-size: 12px; color: var(--muted); margin-bottom: 12px; line-height: 1.5; }
+.enote { font-size: 12px; color: #5C3D11; background: #fbf3e2; border: 1px solid #ecdcbb;
+  border-radius: 6px; padding: 9px 12px; margin: 0 0 12px; line-height: 1.5; }
+.enote b { color: #7a3b1e; }
+.chips { display: flex; flex-wrap: wrap; gap: 7px; }
+.chip { display: inline-flex; align-items: baseline; gap: 7px; padding: 6px 11px; background: var(--warm);
+  border: 1px solid var(--border2); border-radius: 7px; font-size: 14px; white-space: nowrap; }
+.chip .lim { font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.rows { display: flex; flex-direction: column; gap: 9px; }
+.row { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; padding: 10px 12px;
+  background: var(--warm); border: 1px solid var(--border2); border-radius: 7px; }
+.row .cty { font-size: 14px; font-weight: 600; min-width: 150px; }
+.row .lim { font-size: 11px; color: #2a6a2a; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
+.row .rnote { flex: 1 1 100%; font-size: 12px; color: var(--muted); line-height: 1.5; }
+.visa-foot { font-size: 11px; color: var(--muted); margin: 16px 0 0; padding-top: 12px; border-top: 1px solid var(--border); }
+.visa-foot b { color: var(--text); }
+@media (max-width: 600px) { .row .cty { min-width: 0; } .etype { padding: 14px 14px 16px; } }
+</style>
+<link rel="stylesheet" href="../assets/mobile.css">
+</head>
+<body>
+<div id="toolbar-mount" data-depth="1" data-maxwidth="940" data-no-footnote="1"></div>
+<script src="../assets/toolbar.js"></script>
+
+<div class="wrap">
+
+  <div class="page-header">
+    <h1>Resources</h1>
+  </div>
+
+  <!-- ── Category pills ── -->
+  <div class="cat-pills" id="cat-pills">
+    <span class="cat-pill active" data-panel="flights">✈️ Flights</span>
+    <span class="cat-pill" data-panel="hotels">🏨 Hotels</span>
+    <span class="cat-pill" data-panel="tours">📅 Tours</span>
+    <span class="cat-pill" data-panel="trains">🚆 Trains</span>
+    <span class="cat-pill" data-panel="dining">🍴 Dining</span>
+    <span class="cat-pill" data-panel="shows">🎭 Shows</span>
+    <span class="cat-pill" data-panel="maps">🧭 Directions</span>
+    <span class="cat-pill" data-panel="discover">📖 Travel Guides</span>
+    <span class="cat-pill" data-panel="weather">🌤 Weather</span>
+    <span class="cat-pill" data-panel="visa">🛂 Visa Check</span>
+    <span class="cat-pill" data-panel="cars">🚙 Rental Cars</span>
+  </div>
+
+  <!-- ── FLIGHTS ── -->
+  <div class="tab-panel active" id="panel-flights">
+    <div class="panel-section">
+      <div class="site-grid">
+        <div class="site-card" onclick="window.location.href='Delta%20Routes%20SEA.html'">
+          <div class="site-top"><span class="site-icon">✈️</span><span class="site-name">Seattle Delta Hub</span></div>
+          <p class="site-desc">Delta nonstop routes from Seattle — your home-hub departure map.</p>
+        </div>
+        <div class="site-card" onclick="window.location.href='Delta%20Routes%20Full.html'">
+          <div class="site-top"><span class="site-icon">✈️</span><span class="site-name">Delta Routes</span></div>
+          <p class="site-desc">Full Delta + partner route network for planning connections worldwide.</p>
+        </div>
+      </div>
+    </div>
+    <div class="panel-section">
+      <div class="site-grid">
+        <div class="site-card" onclick="window.open('https://www.google.com/flights','_blank')">
+          <div class="site-top"><span class="site-icon">🌍</span><span class="site-name">Google Flights</span></div>
+          <p class="site-desc">Best place to start — flexible date grid, price alerts, explore mode.</p>
+        </div>
+        <div class="site-card" onclick="window.open('https://www.delta.com','_blank')">
+          <div class="site-top"><span class="site-icon">🛫</span><span class="site-name">Delta</span></div>
+          <p class="site-desc">Direct booking — upgrades, SkyMiles awards, and seat selection.</p>
+        </div>
+        <div class="site-card" onclick="window.open('https://www.skyscanner.com','_blank')">
+          <div class="site-top"><span class="site-icon">🛩</span><span class="site-name">Skyscanner</span></div>
+          <p class="site-desc">Cross-airline price comparison — month view and everywhere search.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── HOTELS & STAYS ── -->
+  <div class="tab-panel" id="panel-hotels">
+    <div class="panel-section">
+      <div class="section-label">Search &amp; Aggregators</div>
+      <div class="site-grid">
+        <div class="site-card" onclick="window.open('https://www.booking.com','_blank')">
+          <div class="site-top"><span class="site-dot" style="background:#4a90d9"></span><span class="site-name">Booking.com</span></div>
+          <p class="site-desc">Primary search — widest inventory, free-cancellation filters, Genius discounts.</p>
+        </div>
+        <div class="site-card" onclick="window.open('https://www.expedia.com/Hotels','_blank')">
+          <div class="site-top"><span class="site-dot" style="background:#4a90d9"></span><span class="site-name">Expedia</span></div>
+          <p class="site-desc">Secondary search — bundles with flights, One Key cash rewards.</p>
+        </div>
+        <div class="site-card" onclick="window.open('https://www.tripadvisor.com/Hotels','_blank')">
+          <div class="site-top"><span class="site-dot" style="background:#4a90d9"></span><span class="site-name">TripAdvisor Hotels</span></div>
+          <p class="site-desc">Tertiary search — reviews-first ranking, price comparison across channels.</p>
+        </div>
+      </div>
+    </div>
+    <div class="panel-section">
+      <div class="section-label">Direct — Global Brands (US &amp; International)</div>
+      <div class="site-grid">
+        <div class="site-card" onclick="window.open('https://www.marriott.com','_blank')">
+          <div class="site-top"><span class="site-dot" style="background:#22a843"></span><span class="site-name">Marriott</span></div>
+          <p class="site-desc">US first choice — Residence Inn for space. Full family: JW, Ritz, Sheraton, Westin, AC, Aloft.</p>
+        </div>
+        <div class="site-card" onclick="window.open('https://www.hilton.com','_blank')">
+          <div class="site-top"><span class="site-dot" style="background:#22a843"></span><span class="site-name">Hilton</span></div>
+          <p class="site-desc">Full family: DoubleTree, Hampton, Embassy Suites, Conrad, Waldorf, Curio.</p>
+        </div>
+        <div class="site-card" onclick="window.open('https://www.hyatt.com','_blank')">
+          <div class="site-top"><span class="site-dot" style="background:#22a843"></span><span class="site-name">Hyatt</span></div>
+          <p class="site-desc">Full family: Hyatt Place, Hyatt Regency, Andaz, Grand Hyatt, Park Hyatt, Thompson.</p>
+        </div>
+      </div>
+    </div>
+    <div class="panel-section">
+      <div class="section-label">Direct — International Chains (First Tier)</div>
+      <div class="site-grid">
+        <div class="site-card" onclick="window.open('https://www.nh-hotels.com','_blank')">
+          <div class="site-top"><span class="site-dot" style="background:#c8940a"></span><span class="site-name">NH Collection</span></div>
+          <p class="site-desc">Premium urban hotels across Europe and Latin America.</p>
+        </div>
+        <div class="site-card" onclick="window.open('https://www.melia.com','_blank')">
+          <div class="site-top"><span class="site-dot" style="background:#c8940a"></span><span class="site-name">Meliá</span></div>
+          <p class="site-desc">Spanish chain — strong in Europe, Caribbean, and Latin America.</p>
+        </div>
+        <div class="site-card" onclick="window.open('https://www.novotel.com','_blank')">
+          <div class="site-top"><span class="site-dot" style="background:#c8940a"></span><span class="site-name">Novotel</span></div>
+          <p class="site-desc">Accor mid-upper tier — consistent quality across Europe and Asia.</p>
+        </div>
+        <div class="site-card" onclick="window.open('https://www.sofitel.com','_blank')">
+          <div class="site-top"><span class="site-dot" style="background:#c8940a"></span><span class="site-name">Sofitel</span></div>
+          <p class="site-desc">Accor luxury — French art de vivre, strong European city-center locations.</p>
+        </div>
+        <div class="site-card" onclick="window.open('https://www.pullmanhotels.com','_blank')">
+          <div class="site-top"><span class="site-dot" style="background:#c8940a"></span><span class="site-name">Pullman</span></div>
+          <p class="site-desc">Accor upper-upscale — design-forward, often near transit hubs.</p>
+        </div>
+        <div class="site-card" onclick="window.open('https://www.ihg.com/intercontinental','_blank')">
+          <div class="site-top"><span class="site-dot" style="background:#c8940a"></span><span class="site-name">InterContinental</span></div>
+          <p class="site-desc">IHG flagship — landmark properties in major international cities.</p>
+        </div>
+      </div>
+    </div>
+    <div class="panel-section">
+      <div class="section-label">Direct — International Chains (Second Tier)</div>
+      <div class="site-grid">
+        <div class="site-card" onclick="window.open('https://www.radissonhotels.com/en-us/brands/radisson-blu','_blank')">
+          <div class="site-top"><span class="site-dot" style="background:#e88020"></span><span class="site-name">Radisson Blu</span></div>
+          <p class="site-desc">Consider only when no first-tier brand qualifies — strong in Northern Europe.</p>
+        </div>
+      </div>
+    </div>
+    <div class="panel-section">
+      <div class="section-label">Rentals &amp; Apartments</div>
+      <div class="site-grid">
+        <div class="site-card" onclick="window.open('https://www.airbnb.com','_blank')">
+          <div class="site-top"><span class="site-dot" style="background:#9050b0"></span><span class="site-name">Airbnb</span></div>
+          <p class="site-desc">Apartments, homes, and unique stays — best for longer trips.</p>
+        </div>
+        <div class="site-card" onclick="window.open('https://www.vrbo.com','_blank')">
+          <div class="site-top"><span class="site-dot" style="background:#9050b0"></span><span class="site-name">VRBO</span></div>
+          <p class="site-desc">Whole-home rentals — no shared spaces, good for groups.</p>
+        </div>
+        <div class="site-card" onclick="window.open('https://www.hometogo.com','_blank')">
+          <div class="site-top"><span class="site-dot" style="background:#9050b0"></span><span class="site-name">HomeToGo</span></div>
+          <p class="site-desc">Aggregates Airbnb, VRBO, and 50+ rental sites — good for comparison.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TOURS ── -->
+  <div class="tab-panel" id="panel-tours">
+    <div class="panel-section">
+      <div class="section-label">Aggregators</div>
+      <div class="site-grid">
+        <div class="site-card" onclick="window.open('https://www.viator.com','_blank')">
+          <div class="site-top"><span class="site-icon">⛩️</span><span class="site-name">Viator</span></div>
+          <p class="site-desc">Largest tour inventory worldwide — skip-the-line, private, day tours.</p>
+        </div>
+        <div class="site-card" onclick="window.open('https://www.getyourguide.com','_blank')">
+          <div class="site-top"><span class="site-icon">🗼</span><span class="site-name">GetYourGuide</span></div>
+          <p class="site-desc">Strong in Europe — exclusive access and free-cancellation options.</p>
+        </div>
+        <div class="site-card" onclick="window.open('https://www.klook.com','_blank')">
+          <div class="site-top"><span class="site-icon">🏰</span><span class="site-name">Klook</span></div>
+          <p class="site-desc">Best for Asia — city passes, transport cards, attraction tickets.</p>
+        </div>
+        <div class="site-card" onclick="window.open('https://www.tripadvisor.com/Attractions','_blank')">
+          <div class="site-top"><span class="site-icon">🏯</span><span class="site-name">TripAdvisor Experiences</span></div>
+          <p class="site-desc">Reviews-backed tour listings — good cross-reference for ratings.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TRAINS ── -->
+  <div class="tab-panel" id="panel-trains">
+    <div class="panel-section">
+      <div class="section-label">Planning</div>
+      <div class="site-grid">
+        <div class="site-card" onclick="window.location.href='European%20Train%20Guide.html'">
+          <div class="site-top"><span class="site-icon">🚆</span><span class="site-name">European Train Guide</span></div>
+          <p class="site-desc">Our own guide — high-speed networks, passes, and booking windows across Europe.</p>
+        </div>
+      </div>
+    </div>
+    <div class="panel-section">
+      <div class="section-label">Aggregators</div>
+      <div class="site-grid">
+        <div class="site-card" onclick="window.open('https://www.omio.com','_blank')">
+          <div class="site-top"><span class="site-icon">🚌</span><span class="site-name">Omio</span></div>
+          <p class="site-desc">Pan-European trains, buses, flights, ferries — one search.</p>
+        </div>
+        <div class="site-card" onclick="window.open('https://www.thetrainline.com','_blank')">
+          <div class="site-top"><span class="site-icon">🚄</span><span class="site-name">The Trainline</span></div>
+          <p class="site-desc">Strong UK and European coverage — advance booking discounts.</p>
+        </div>
+        <div class="site-card" onclick="window.open('https://www.rome2rio.com','_blank')">
+          <div class="site-top"><span class="site-icon">👣</span><span class="site-name">Rome2Rio</span></div>
+          <p class="site-desc">Any origin to any destination — compares train, bus, fly, ferry options.</p>
+        </div>
+      </div>
+    </div>
+    <div class="panel-section">
+      <div class="section-label">Direct Operators</div>
+      <div class="site-grid">
+        <div class="site-card" onclick="window.open('https://int.bahn.de','_blank')">
+          <div class="site-top"><span class="site-icon">🇩🇪</span><span class="site-name">Deutsche Bahn</span></div>
+          <p class="site-desc">German rail and international routes from Germany.</p>
+        </div>
+        <div class="site-card" onclick="window.open('https://www.sncf-connect.com','_blank')">
+          <div class="site-top"><span class="site-icon">🇫🇷</span><span class="site-name">SNCF Connect</span></div>
+          <p class="site-desc">French TGV and intercity trains — TGV inOui, Intercités.</p>
+        </div>
+        <div class="site-card" onclick="window.open('https://www.trenitalia.com','_blank')">
+          <div class="site-top"><span class="site-icon">🇮🇹</span><span class="site-name">Trenitalia</span></div>
+          <p class="site-desc">Italian Frecciarossa, Frecciargento, and regional trains.</p>
+        </div>
+        <div class="site-card" onclick="window.open('https://www.eurostar.com','_blank')">
+          <div class="site-top"><span class="site-icon">🚅</span><span class="site-name">Eurostar</span></div>
+          <p class="site-desc">London ↔ Paris / Brussels / Amsterdam under the Channel.</p>
+        </div>
+        <div class="site-card" onclick="window.open('https://www.renfe.com','_blank')">
+          <div class="site-top"><span class="site-icon">🇪🇸</span><span class="site-name">Renfe</span></div>
+          <p class="site-desc">Spanish AVE high-speed and regional rail network.</p>
+        </div>
+        <div class="site-card" onclick="window.open('https://www.nationalrail.co.uk','_blank')">
+          <div class="site-top"><span class="site-icon">🇬🇧</span><span class="site-name">National Rail</span></div>
+          <p class="site-desc">UK trains — timetables, journey planning, rail passes.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── DINING ── -->
+  <div class="tab-panel" id="panel-dining">
+    <div class="site-grid">
+      <div class="site-card" onclick="window.open('https://resy.com','_blank')">
+        <div class="site-top"><span class="site-icon">🍷</span><span class="site-name">Resy</span></div>
+        <p class="site-desc">Top restaurants US and internationally — hot-table reservations.</p>
+      </div>
+      <div class="site-card" onclick="window.open('https://www.opentable.com','_blank')">
+        <div class="site-top"><span class="site-icon">🍴</span><span class="site-name">OpenTable</span></div>
+        <p class="site-desc">Broad global inventory — good fallback when Resy doesn't cover a city.</p>
+      </div>
+      <div class="site-card" onclick="window.open('https://guide.michelin.com','_blank')">
+        <div class="site-top"><span class="site-icon">⭐</span><span class="site-name">Michelin Guide</span></div>
+        <p class="site-desc">Starred and Bib Gourmand restaurants — the definitive fine dining reference.</p>
+      </div>
+      <div class="site-card" onclick="window.open('https://www.thefork.com','_blank')">
+        <div class="site-top"><span class="site-icon">🍽️</span><span class="site-name">TheFork</span></div>
+        <p class="site-desc">Restaurant reservations across Europe — strong in France, Spain, Italy.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SHOWS ── -->
+  <div class="tab-panel" id="panel-shows">
+    <div class="site-grid">
+      <div class="site-card" onclick="window.open('https://www.todaytix.com','_blank')">
+        <div class="site-top"><span class="site-icon">🎭</span><span class="site-name">TodayTix</span></div>
+        <p class="site-desc">Broadway, West End, off-Broadway — lottery tickets and last-minute deals.</p>
+      </div>
+      <div class="site-card" onclick="window.open('https://www.stubhub.com','_blank')">
+        <div class="site-top"><span class="site-icon">🎵</span><span class="site-name">StubHub</span></div>
+        <p class="site-desc">Resale tickets for concerts, sports, and events worldwide.</p>
+      </div>
+      <div class="site-card" onclick="window.open('https://www.ticketmaster.com','_blank')">
+        <div class="site-top"><span class="site-icon">🎟️</span><span class="site-name">Ticketmaster</span></div>
+        <p class="site-desc">Primary tickets for concerts and major events — US and international.</p>
+      </div>
+      <div class="site-card" onclick="window.open('https://www.operadeparis.fr','_blank')">
+        <div class="site-top"><span class="site-icon">🎼</span><span class="site-name">Opéra de Paris</span></div>
+        <p class="site-desc">Paris Opéra and Ballet — Bastille and Garnier seasons.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── RENTAL CARS ── -->
+  <div class="tab-panel" id="panel-cars">
+    <div class="panel-section">
+<div class="site-grid">
+        <div class="site-card" onclick="window.open('https://www.hertz.com','_blank')">
+          <div class="site-top"><span class="site-icon">🟡</span><span class="site-name">Hertz</span></div>
+          <p class="site-desc">Default first choice — always check before moving down the list.</p>
+        </div>
+        <div class="site-card" onclick="window.open('https://www.enterprise.com','_blank')">
+          <div class="site-top"><span class="site-icon">🟢</span><span class="site-name">Enterprise</span></div>
+          <p class="site-desc">First fallback when Hertz is unavailable at the pickup location.</p>
+        </div>
+        <div class="site-card" onclick="window.open('https://www.avis.com','_blank')">
+          <div class="site-top"><span class="site-icon">🔴</span><span class="site-name">Avis</span></div>
+          <p class="site-desc">Second fallback.</p>
+        </div>
+        <div class="site-card" onclick="window.open('https://www.budget.com','_blank')">
+          <div class="site-top"><span class="site-icon">🔵</span><span class="site-name">Budget</span></div>
+          <p class="site-desc">Third fallback.</p>
+        </div>
+        <div class="site-card" onclick="window.open('https://www.europcar.com','_blank')">
+          <div class="site-top"><span class="site-icon">🟤</span><span class="site-name">Europcar</span></div>
+          <p class="site-desc">Fourth fallback — strong European coverage.</p>
+        </div>
+        <div class="site-card" onclick="window.open('https://www.sixt.com','_blank')">
+          <div class="site-top"><span class="site-icon">🟠</span><span class="site-name">Sixt</span></div>
+          <p class="site-desc">Last resort — premium fleet, good in Germany and Europe.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── MAPS ── -->
+  <div class="tab-panel" id="panel-maps">
+    <div class="site-grid">
+      <div class="site-card" onclick="window.open('https://maps.google.com','_blank')">
+        <div class="site-top"><span class="site-icon">🗺️</span><span class="site-name">Google Maps</span></div>
+        <p class="site-desc">Walk times, transit, saved places, restaurant searches with hours.</p>
+      </div>
+      <div class="site-card" onclick="window.open('https://maps.apple.com','_blank')">
+        <div class="site-top"><span class="site-icon">📍</span><span class="site-name">Apple Maps</span></div>
+        <p class="site-desc">Turn-by-turn navigation, Look Around street view, guides for major cities.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── DISCOVER ── -->
+  <div class="tab-panel" id="panel-discover">
+    <div class="panel-section">
+      <div class="site-grid">
+        <div class="site-card" onclick="window.open('https://www.fodors.com','_blank')">
+          <div class="site-top"><span class="site-icon">🧳</span><span class="site-name">Fodor's Travel</span></div>
+          <p class="site-desc">Curated city guides, hotel and restaurant picks — editorial standard source.</p>
+        </div>
+        <div class="site-card" onclick="window.open('https://theculturetrip.com','_blank')">
+          <div class="site-top"><span class="site-icon">🎨</span><span class="site-name">Culture Trip</span></div>
+          <p class="site-desc">Culturally-driven destination guides — arts, food, and local perspective.</p>
+        </div>
+        <div class="site-card" onclick="window.open('https://www.roughguides.com','_blank')">
+          <div class="site-top"><span class="site-icon">📕</span><span class="site-name">Rough Guides</span></div>
+          <p class="site-desc">In-depth destination coverage — history, culture, practical travel detail.</p>
+        </div>
+        <div class="site-card" onclick="window.open('https://www.atlasobscura.com','_blank')">
+          <div class="site-top"><span class="site-icon">🔮</span><span class="site-name">Atlas Obscura</span></div>
+          <p class="site-desc">Hidden and unusual places — the stops no mainstream guidebook covers.</p>
+        </div>
+        <div class="site-card" onclick="window.open('https://www.ricksteves.com','_blank')">
+          <div class="site-top"><span class="site-icon">📜</span><span class="site-name">Rick Steves</span></div>
+          <p class="site-desc">Practical Europe travel — neighborhood breakdowns, free audio guides.</p>
+        </div>
+        <div class="site-card" onclick="window.open('https://www.nationalgeographic.com/travel','_blank')">
+          <div class="site-top"><span class="site-icon">📸</span><span class="site-name">National Geographic</span></div>
+          <p class="site-desc">Destination inspiration, best-of lists, photography-driven guides.</p>
+        </div>
+        <div class="site-card" onclick="window.open('https://en.wikipedia.org','_blank')">
+          <div class="site-top"><span class="site-icon">📚</span><span class="site-name">Wikipedia</span></div>
+          <p class="site-desc">Primary reference for stop history, context, and factual detail on every build.</p>
+        </div>
+        <div class="site-card" onclick="window.open('https://www.tripadvisor.com','_blank')">
+          <div class="site-top"><span class="site-icon">⭐</span><span class="site-name">TripAdvisor</span></div>
+          <p class="site-desc">Attraction rankings, traveler reviews, things to do by category.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="panel-weather">
+    <div class="panel-section">
+      <div class="site-grid">
+        <div class="site-card" onclick="window.open('https://forecast.weather.gov','_blank')">
+          <div class="site-top"><span class="site-icon">🌡️</span><span class="site-name">Weather.gov</span></div>
+          <p class="site-desc">Official NOAA forecasts — hourly, extended, and severe weather alerts for US destinations.</p>
+        </div>
+        <div class="site-card" onclick="window.open('https://www.accuweather.com','_blank')">
+          <div class="site-top"><span class="site-icon">⛄️</span><span class="site-name">AccuWeather</span></div>
+          <p class="site-desc">MinuteCast precipitation, hourly and 90-day extended outlooks worldwide.</p>
+        </div>
+        <div class="site-card" onclick="window.open('https://www.timeanddate.com/weather','_blank')">
+          <div class="site-top"><span class="site-icon">🌈</span><span class="site-name">Time and Date</span></div>
+          <p class="site-desc">City-level forecasts + historical climate data — great for trip planning months out.</p>
+        </div>
+        <div class="site-card" onclick="window.open('https://www.windy.com','_blank')">
+          <div class="site-top"><span class="site-icon">💨</span><span class="site-name">Windy</span></div>
+          <p class="site-desc">Interactive wind, rain, and storm maps — best for coastal and mountain destinations.</p>
+        </div>
+        <div class="site-card" onclick="window.open('https://weather.com','_blank')">
+          <div class="site-top"><span class="site-icon">⛅️</span><span class="site-name">Weather Channel</span></div>
+          <p class="site-desc">10-day forecasts, radar, and travel impact outlooks for destinations worldwide.</p>
+        </div>
+        <div class="site-card" onclick="window.open('https://www.weather25.com','_blank')">
+          <div class="site-top"><span class="site-icon">☀️</span><span class="site-name">Weather25</span></div>
+          <p class="site-desc">25-day forecasts by city — useful for upcoming trips when standard 10-day windows fall short.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── VISA CHECK ── -->
+  <div class="tab-panel" id="panel-visa">
+    <div class="visa-src"><a href="https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages.html" target="_blank" rel="noopener">travel.state.gov ↗</a></div>
+
+    <div class="legend">
+      <span class="pill"><span class="dot d-vf"></span>Visa-free</span>
+      <span class="pill"><span class="dot d-card"></span>Free arrival card</span>
+      <span class="pill"><span class="dot d-eta"></span>Travel authorization (ETA)</span>
+      <span class="pill"><span class="dot d-evisa"></span>eVisa</span>
+      <span class="pill"><span class="dot d-voa"></span>Visa on arrival</span>
+      <span class="pill"><span class="dot d-visa"></span>Visa required</span>
+    </div>
+
+    <div class="etype vf">
+      <div class="etype-head">
+        <span class="etype-title">🟢 Europe — Schengen Area · visa-free</span>
+        <span class="etype-count">21 countries</span>
+      </div>
+      <div class="etype-desc">No visa. Stay up to <b>90 days within any 180-day</b> period — and that 90 days is a <b>shared pool across all Schengen countries combined</b>, not per country.</div>
+      <div class="enote"><b>Heads-up — ETIAS, late 2026:</b> the EU's ETIAS travel authorization (a quick paid online form, ~€7, like the US ESTA) is expected to launch in the <b>last quarter of 2026</b>. It is <b>not required yet</b> — for now you travel passport-only. Once live, you'll file it before each trip.</div>
+      <div class="chips">
+        <span class="chip">🇦🇹 Austria <span class="lim">90d</span></span>
+        <span class="chip">🇧🇪 Belgium <span class="lim">90d</span></span>
+        <span class="chip">🇭🇷 Croatia <span class="lim">90d</span></span>
+        <span class="chip">🇨🇿 Czechia <span class="lim">90d</span></span>
+        <span class="chip">🇩🇰 Denmark <span class="lim">90d</span></span>
+        <span class="chip">🇪🇪 Estonia <span class="lim">90d</span></span>
+        <span class="chip">🇫🇮 Finland <span class="lim">90d</span></span>
+        <span class="chip">🇫🇷 France <span class="lim">90d</span></span>
+        <span class="chip">🇩🇪 Germany <span class="lim">90d</span></span>
+        <span class="chip">🇬🇷 Greece <span class="lim">90d</span></span>
+        <span class="chip">🇮🇸 Iceland <span class="lim">90d</span></span>
+        <span class="chip">🇮🇹 Italy <span class="lim">90d</span></span>
+        <span class="chip">🇱🇺 Luxembourg <span class="lim">90d</span></span>
+        <span class="chip">🇲🇨 Monaco <span class="lim">90d</span></span>
+        <span class="chip">🇳🇱 Netherlands <span class="lim">90d</span></span>
+        <span class="chip">🇳🇴 Norway <span class="lim">90d</span></span>
+        <span class="chip">🇵🇹 Portugal <span class="lim">90d</span></span>
+        <span class="chip">🇸🇮 Slovenia <span class="lim">90d</span></span>
+        <span class="chip">🇪🇸 Spain <span class="lim">90d</span></span>
+        <span class="chip">🇸🇪 Sweden <span class="lim">90d</span></span>
+        <span class="chip">🇨🇭 Switzerland <span class="lim">90d</span></span>
+      </div>
+    </div>
+
+    <div class="etype vf">
+      <div class="etype-head">
+        <span class="etype-title">🟢 Visa-free — just your passport</span>
+        <span class="etype-count">9 destinations</span>
+      </div>
+      <div class="etype-desc">No visa and nothing to file in advance. Just show up with your passport.</div>
+      <div class="chips">
+        <span class="chip">🇮🇪 Ireland <span class="lim">90d · no ETA</span></span>
+        <span class="chip">🇨🇦 Canada <span class="lim">no eTA for US</span></span>
+        <span class="chip">🇯🇵 Japan <span class="lim">90d</span></span>
+        <span class="chip">🇹🇼 Taiwan <span class="lim">90d</span></span>
+        <span class="chip">🇲🇦 Morocco <span class="lim">90d</span></span>
+        <span class="chip">🇦🇷 Argentina <span class="lim">90d</span></span>
+        <span class="chip">🇨🇱 Chile <span class="lim">90d</span></span>
+        <span class="chip">🇵🇪 Peru <span class="lim">183d</span></span>
+        <span class="chip">🏝️ Caribbean <span class="lim">~90d</span></span>
+      </div>
+      <div class="enote" style="margin:12px 0 0"><b>Caribbean:</b> visa-free for US citizens on the islands with guides (Aruba, Bahamas, etc.), typically up to 90 days — but limits and any arrival form vary by island, so confirm the specific one before you go.</div>
+    </div>
+
+    <div class="etype card">
+      <div class="etype-head">
+        <span class="etype-title">🔵 Visa-free — but file a free arrival card first</span>
+        <span class="etype-count">3 destinations</span>
+      </div>
+      <div class="etype-desc">No visa, but you must submit a <b>free</b> online form shortly before arrival.</div>
+      <div class="rows">
+        <div class="row">
+          <span class="cty">🇹🇭 Thailand</span><span class="lim">60 days</span>
+          <span class="rnote">File the free <b>Thailand Digital Arrival Card (TDAC)</b> online within 72 hours before arrival. <i>(A cut to 30 days was voted in May 2026 but is not yet in force — 60 days still stands.)</i></span>
+        </div>
+        <div class="row">
+          <span class="cty">🇸🇬 Singapore</span><span class="lim">90 days</span>
+          <span class="rnote">File the free <b>SG Arrival Card</b> online within 3 days before arrival.</span>
+        </div>
+        <div class="row">
+          <span class="cty">🇰🇷 South Korea</span><span class="lim">90 days</span>
+          <span class="rnote"><b>K-ETA is waived for US citizens through Dec 31, 2026</b> — file the free <b>e-Arrival Card</b> instead. From <b>Jan 1, 2027</b> the paid K-ETA becomes mandatory.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="etype eta">
+      <div class="etype-head">
+        <span class="etype-title">🟠 Travel authorization required before you fly</span>
+        <span class="etype-count">3 destinations</span>
+      </div>
+      <div class="etype-desc">A paid electronic permit (ETA) you must get approved <b>before boarding</b>. Not a visa — usually approved fast online or via an app.</div>
+      <div class="rows">
+        <div class="row">
+          <span class="cty">🇬🇧 United Kingdom</span><span class="lim" style="color:#b5731a">UK ETA</span>
+          <span class="rnote">Required since <b>Feb 25, 2026</b>. £20, approved in minutes via the UK ETA app, valid <b>2 years</b>, stays up to 6 months. <i>Also covers Northern Ireland.</i></span>
+        </div>
+        <div class="row">
+          <span class="cty">🇦🇺 Australia</span><span class="lim" style="color:#b5731a">ETA (601)</span>
+          <span class="rnote">ETA subclass 601 via the Australian ETA app. AUD 20, multiple entries for 1 year, up to <b>90 days</b> per visit.</span>
+        </div>
+        <div class="row">
+          <span class="cty">🇳🇿 New Zealand</span><span class="lim" style="color:#b5731a">NZeTA</span>
+          <span class="rnote">NZeTA (NZD 17 app / 23 web) <b>plus</b> the mandatory IVL tourism levy (NZD 35), paid together. Valid 2 years, up to <b>90 days</b> per visit.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="etype evisa">
+      <div class="etype-head">
+        <span class="etype-title">🟣 eVisa required — apply online before travel</span>
+        <span class="etype-count">1 destination</span>
+      </div>
+      <div class="rows">
+        <div class="row">
+          <span class="cty">🇧🇷 Brazil</span><span class="lim" style="color:#6b3fa0">eVisa</span>
+          <span class="rnote"><b>Required since Jan 1, 2026</b> (visa-waiver ended). Apply at <b>brazil.vfsevisa.com</b> — about US$80.90, usually issued within 72 hours, multiple-entry valid up to 10 years, <b>90 days</b> per visit. Airlines check it at boarding.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="etype voa">
+      <div class="etype-head">
+        <span class="etype-title">🛬 Visa on arrival — free, at the airport</span>
+        <span class="etype-count">1 destination</span>
+      </div>
+      <div class="rows">
+        <div class="row">
+          <span class="cty">🇦🇪 United Arab Emirates</span><span class="lim" style="color:#0f7d7d">Free on arrival</span>
+          <span class="rnote">No advance visa. US citizens get a <b>free visa on arrival</b> (30 days, extendable). Passport valid 6+ months, return/onward ticket.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="etype visa">
+      <div class="etype-head">
+        <span class="etype-title">🔴 Visa required — arrange before travel</span>
+        <span class="etype-count">1 destination</span>
+      </div>
+      <div class="rows">
+        <div class="row">
+          <span class="cty">🇨🇳 China</span><span class="lim" style="color:#b3402a">Visa needed</span>
+          <span class="rnote">US citizens need a <b>tourist visa arranged in advance</b>. (A <b>240-hour / 10-day visa-free transit</b> exists only if you're continuing to a third country and entering/exiting via eligible ports — not for a round-trip China visit.)</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="visa-foot"><b>Last checked: June 2026.</b></p>
+  </div>
+
+</div><!-- /wrap -->
+
+<script>
+(function () {
+  var pills = document.getElementById('cat-pills');
+  pills.addEventListener('click', function (e) {
+    var pill = e.target.closest('.cat-pill');
+    if (!pill) return;
+    var panelId = pill.dataset.panel;
+    pills.querySelectorAll('.cat-pill').forEach(function (p) { p.classList.remove('active'); });
+    document.querySelectorAll('.tab-panel').forEach(function (p) { p.classList.remove('active'); });
+    pill.classList.add('active');
+    var panel = document.getElementById('panel-' + panelId);
+    if (panel) panel.classList.add('active');
+  });
+}());
+</script>
+</body>
+</html>
