@@ -3,7 +3,7 @@
     "guide": "bordeaux_v1.html",
     "date": "2026-06-10",
     "note": "Bot-blocked URLs verified via Claude in Chrome",
-    "updated": "2026-06-13"
+    "updated": "2026-06-15"
   },
   "entries": {
     "https://www.viator.com/tours/Bordeaux/Bordeaux-Best-Boulangeries-and-History-Tour/d468-379461P1": {
@@ -30,7 +30,7 @@
     "https://en.wikipedia.org/wiki/Place_de_la_Bourse,_Bordeaux": {
       "platform": "wikipedia",
       "method": "live_fetch",
-      "verified_on": "2026-06-13",
+      "verified_on": "2026-06-15",
       "verified_by": "claude",
       "expected_attraction": "Place de la Bourse",
       "result": "PASS",
@@ -39,7 +39,7 @@
     "https://en.wikipedia.org/wiki/Porte_Cailhau": {
       "platform": "wikipedia",
       "method": "live_fetch",
-      "verified_on": "2026-06-13",
+      "verified_on": "2026-06-15",
       "verified_by": "claude",
       "expected_attraction": "Porte Cailhau",
       "result": "PASS",
@@ -48,7 +48,7 @@
     "https://en.wikipedia.org/wiki/Tour_Pey-Berland": {
       "platform": "wikipedia",
       "method": "live_fetch",
-      "verified_on": "2026-06-13",
+      "verified_on": "2026-06-15",
       "verified_by": "claude",
       "expected_attraction": "Pey-Berland Tower",
       "result": "PASS",
@@ -57,7 +57,7 @@
     "https://en.wikipedia.org/wiki/Cit%C3%A9_du_Vin": {
       "platform": "wikipedia",
       "method": "live_fetch",
-      "verified_on": "2026-06-13",
+      "verified_on": "2026-06-15",
       "verified_by": "claude",
       "expected_attraction": "Cité du Vin",
       "result": "PASS",

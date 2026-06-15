@@ -1,6 +1,6 @@
 # Build state — Dubrovnik
 Started: 2026-06-14
-Last updated: 2026-06-14
+Last updated: 2026-06-15 (ship gate auto-flipped 3 build_state boxes on clean ship)
 
 ## Phase 0 — Session start
 - [x] Rules for Claude.html
@@ -45,6 +45,6 @@ Last updated: 2026-06-14
 - [x] Claude Inspiration - Extra Section.html
 
 ## Phase 6 — Ship gate
-- [ ] Brain/Reference/Ship Checklist.html
-- [ ] validate_itinerary.py passes
-- [ ] every extra populated or carries negative-finding line
+- [x] Brain/Reference/Ship Checklist.html
+- [x] validate_itinerary.py passes
+- [x] every extra populated or carries negative-finding line

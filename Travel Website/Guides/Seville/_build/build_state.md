@@ -41,7 +41,7 @@ Last updated: 2026-06-13
 - [x] Train Stations Near Hotel - Extra Section.html
 - [x] Day Trips by Train - Extra Section.html
 - [x] Michelin Restaurants - Extra Section.html
-- [ ] Heads Up - Extra Section.html
+- [x] Heads Up - Extra Section.html (negative finding — no Brain.md Part 3 entry for Seville; section correctly omitted)
 - [x] Claude Inspiration - Extra Section.html
 
 ## Phase 6 — Ship gate
