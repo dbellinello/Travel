@@ -95,7 +95,7 @@
 </head>
 <body>
 <div id="toolbar-mount" data-depth="2" data-maxwidth="1400" data-no-footnote="1"></div>
-<script src="../../assets/toolbar.js?v=12"></script>
+<script src="../../assets/toolbar.js?v=14"></script>
 
 
 
@@ -238,7 +238,11 @@ function _renderMap(){
   const borders  = topojson.mesh(usData, usData.objects.states, (a, b) => a !== b);
   const nation   = topojson.mesh(usData, usData.objects.states, (a, b) => a === b);
 
-  const proj = d3.geoAlbersUsa().fitExtent([[10, 8], [W - 10, H - 8]], states);
+  const leftStack = document.getElementById('map-left-stack');
+  const wrapRect = wrap.getBoundingClientRect();
+  const stackRect = leftStack ? leftStack.getBoundingClientRect() : null;
+  const leftPad = stackRect ? (stackRect.right - wrapRect.left + 14) : 16;
+  const proj = d3.geoAlbersUsa().fitExtent([[leftPad, 8], [W - 10, H - 8]], states);
   const pathGen = d3.geoPath().projection(proj);
 
   const svgSel=d3.select('#svg'); svgSel.selectAll('*').remove();

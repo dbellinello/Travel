@@ -22,6 +22,24 @@
  * To update the toolbar for every page: edit ONLY this file.
  */
 
+/* ── Pre-hide body immediately — prevents the page-background flash that occurs
+   while the browser waits for this script to finish downloading. Injecting a
+   <style> rule into <head> takes effect before the next paint; the inline
+   body.style.opacity below is a belt-and-suspenders fallback.
+   A safety setTimeout removes the rule after 2 s if something goes wrong. */
+(function () {
+  try {
+    var _s = document.createElement('style');
+    _s.id = '_tbhide';
+    _s.textContent = 'body{opacity:0!important;transition:none!important}';
+    (document.head || document.documentElement).appendChild(_s);
+    setTimeout(function () {
+      var el = document.getElementById('_tbhide');
+      if (el) { el.parentNode.removeChild(el); document.body.style.opacity = '1'; }
+    }, 2000);
+  } catch (e) {}
+})();
+
 /* ── PWA wiring — inject the web-app manifest + Apple home-screen tags and
    register the offline service worker. One edit wires the whole site; paths use
    the page's data-depth (same base the nav uses). No-ops on file:// and never
@@ -346,6 +364,8 @@
 
   /* ── Reveal page — toolbar is now in the DOM, no layout shift visible ───── */
   requestAnimationFrame(function () {
+    var hide = document.getElementById('_tbhide');
+    if (hide) hide.parentNode.removeChild(hide);
     document.body.style.transition = 'opacity .12s';
     document.body.style.opacity    = '1';
   });

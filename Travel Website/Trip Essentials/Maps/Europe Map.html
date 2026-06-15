@@ -34,24 +34,24 @@
   .rn:hover { background:#faefd8; border-color:#8a6c1a; }
   .rn.rn-on { background:linear-gradient(135deg,#7a3b1e 0%,#b85c2a 55%,#d4874a 100%); color:#fdf8f0; border-color:#b85c2a; }
 
-  #map-left-stack { position:absolute; left:14px; top:50%; transform:translateY(-50%); display:flex; flex-direction:column; gap:12px; align-items:flex-start; z-index:10; }
-  #left-panel { display:flex; flex-direction:column; background:rgba(247,244,238,0.97); border-radius:12px; padding:10px 8px; box-shadow:0 2px 12px rgba(0,0,0,0.13); backdrop-filter:blur(4px); gap:4px; }
-  #guide-legend { background:rgba(247,244,238,0.97); border-radius:8px; padding:6px 12px; font-size: 12px; color:#6b4422; display:flex; align-items:center; gap:7px; font-weight:600; box-shadow:0 1px 6px rgba(0,0,0,0.10); }
-  #region-nav { position:static !important; left:auto; top:auto; transform:none; display:flex; flex-direction:column; gap:7px; z-index:auto; }
+  #map-left-stack { position:absolute; left:10px; top:50%; transform:translateY(-50%); display:flex; flex-direction:column; gap:7px; align-items:flex-start; z-index:10; }
+  #left-panel { display:flex; flex-direction:column; background:rgba(247,244,238,0.97); border-radius:10px; padding:7px 6px; box-shadow:0 2px 12px rgba(0,0,0,0.13); backdrop-filter:blur(4px); gap:3px; }
+  #guide-legend { background:rgba(247,244,238,0.97); border-radius:7px; padding:4px 9px; font-size: 11px; color:#6b4422; display:flex; align-items:center; gap:5px; font-weight:600; box-shadow:0 1px 6px rgba(0,0,0,0.10); }
+  #region-nav { position:static !important; left:auto; top:auto; transform:none; display:flex; flex-direction:column; gap:4px; z-index:auto; }
 
   /* ── Zoom subregion buttons ── */
-  #zoom-nav { display:flex; flex-direction:column; gap:4px; }
-  .zoom-section-label { font-size: 12px; font-weight:700; color:#9a8870; letter-spacing:0.06em; text-transform:uppercase; padding:2px 4px 0; }
-  .zn { padding:4px 12px; border-radius:16px; border:1.5px solid #d8d4cc; background:#f5f4f0; color:#6b4422; font-size: 12px; font-weight:600; text-decoration:none; white-space:nowrap; transition:background .12s,border-color .12s; display:block; }
+  #zoom-nav { display:flex; flex-direction:column; gap:3px; }
+  .zoom-section-label { font-size: 10px; font-weight:700; color:#9a8870; letter-spacing:0.06em; text-transform:uppercase; padding:1px 3px 0; }
+  .zn { padding:3px 9px; border-radius:13px; border:1.5px solid #d8d4cc; background:#f5f4f0; color:#6b4422; font-size: 11px; font-weight:600; text-decoration:none; white-space:nowrap; transition:background .12s,border-color .12s; display:block; }
   .zn:hover { background:#faefd8; border-color:#8a6c1a; }
   .zn.zn-on { background:linear-gradient(135deg,#7a3b1e 0%,#b85c2a 55%,#d4874a 100%); color:#fdf8f0; border-color:#b85c2a; }
 
   /* ── Panel divider ── */
-  .panel-divider { height:1px; background:#ddd9d0; margin:4px 0; }
+  .panel-divider { height:1px; background:#ddd9d0; margin:3px 0; }
 
   /* ── Region-coloured nav pills ── */
-  .rn { display:flex; align-items:center; gap:7px; }
-  .rn::before { content:''; width:9px; height:9px; border-radius:50%; flex-shrink:0; }
+  .rn { display:flex; align-items:center; gap:5px; }
+  .rn::before { content:''; width:7px; height:7px; border-radius:50%; flex-shrink:0; }
   .rn-eu  { background:#fde8e8 !important; border-color:#f0a0a0 !important; color:#a02020 !important; }
   .rn-eu::before  { background:#dc4444; }
   .rn-na  { background:#fdf0e4 !important; border-color:#f0b878 !important; color:#8a3a08 !important; }
@@ -97,7 +97,7 @@
 </head>
 <body>
 <div id="toolbar-mount" data-depth="2" data-maxwidth="1400" data-no-footnote="1"></div>
-<script src="../../assets/toolbar.js?v=12"></script>
+<script src="../../assets/toolbar.js?v=14"></script>
 
 <div id="wrap">
   <svg id="svg"></svg>
@@ -259,7 +259,7 @@ const PINS = [
 const SUBREGIONS = {
   all:   [[-24, 35.5], [30, 67]],   // tight on the cluster — fills the frame
   west:  [[-12, 36], [20, 63]],   // UK · Ireland · France · Iberia · Benelux · DACH · Italy N
-  north: [[ -5, 54], [32, 72]],   // Scandinavia · Finland · Baltics
+  north: [[-26, 54], [32, 72]],   // Scandinavia · Finland · Baltics · Iceland
   east:  [[ 11, 35], [42, 57]],   // Central · Eastern · Balkans · Greece · Ukraine
 };
 let activeBounds = SUBREGIONS.all;
@@ -311,8 +311,14 @@ function _renderMap(){
   const borders   = topojson.mesh(worldData, worldData.objects.countries, (a, b) => a !== b);
   const eu = countries.features.filter(f => EU[+f.id]);
 
+  // Push map content right of the left toolbar panel so no country hides behind it
+  const leftStack = document.getElementById('map-left-stack');
+  const wrapRect = wrap.getBoundingClientRect();
+  const stackRect = leftStack ? leftStack.getBoundingClientRect() : null;
+  const leftPad = stackRect ? (stackRect.right - wrapRect.left + 14) : 16;
+
   const proj = d3.geoMercator()
-    .fitExtent([[10, 8], [W - 10, H - 8]], {
+    .fitExtent([[leftPad, 8], [W - 10, H - 8]], {
       type: 'Feature',
       geometry: { type: 'LineString', coordinates: [activeBounds[0], activeBounds[1]] }
     });
