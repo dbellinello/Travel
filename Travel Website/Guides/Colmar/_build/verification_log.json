@@ -46,6 +46,14 @@
       "expected_attraction": "Unterlinden Museum",
       "result": "PASS",
       "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "no-wikipedia:La Krutenau": {
+      "platform": "wikipedia-omit",
+      "result": "OMIT",
+      "expected_attraction": "La Krutenau",
+      "verified_on": "2026-06-17",
+      "verified_by": "claude-agent",
+      "notes": "No standalone Wikipedia article exists in any language for Colmar's La Krutenau tanners' quarter; the slug Quartier de la Krutenau is a red link on fr.wikipedia (the only Krutenau article describes the Strasbourg district, a different subject), and the quarter is only mentioned within the broader Petite Venise de Colmar and Colmar articles."
     }
   }
 }

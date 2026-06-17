@@ -5,6 +5,14 @@
     "updated": "2026-06-15"
   },
   "entries": {
+    "no-wikipedia:Sigöldugljúfur": {
+      "platform": "wikipedia-omit",
+      "result": "OMIT",
+      "expected_attraction": "Sigöldugljúfur",
+      "verified_on": "2026-06-17",
+      "verified_by": "claude-agent",
+      "notes": "Sigöldugljúfur (the canyon of waterfalls near the Sigalda power station) has no standalone Wikipedia article in any language edition. WebSearch (en.wikipedia.org) returned only unrelated Icelandic canyons (Fjaðrárgljúfur, Stuðlagil) and the Sigöldulón reservoir; no dedicated page covers this canyon."
+    },
     "https://www.viator.com/tours/Reykjavik/Your-Golden-Circle-Full-Day-Tour-by-minibus/d905-36855P1": {
       "platform": "viator",
       "method": "viator MCP",

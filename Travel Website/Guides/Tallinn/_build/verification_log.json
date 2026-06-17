@@ -80,6 +80,14 @@
       "expected_attraction": "Kadriorg Palace",
       "result": "PASS",
       "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "no-wikipedia:Kohtuotsa Viewing Platform": {
+      "platform": "wikipedia-omit",
+      "result": "OMIT",
+      "expected_attraction": "Kohtuotsa Viewing Platform",
+      "verified_on": "2026-06-17",
+      "verified_by": "claude-agent",
+      "notes": "The Kohtuotsa viewing platform on Toompea hill has no standalone English Wikipedia article. WebSearch (en.wikipedia.org) returned only the broader Toompea and Tallinn articles, where the lookout is mentioned as one of several viewpoints — there is no dedicated page for this specific platform."
     }
   }
 }

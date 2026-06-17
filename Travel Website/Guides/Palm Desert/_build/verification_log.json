@@ -121,6 +121,14 @@
       "expected_attraction": "Indian Canyons",
       "result": "PASS",
       "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "no-wikipedia:Bump & Grind Trail": {
+      "platform": "wikipedia-omit",
+      "result": "OMIT",
+      "expected_attraction": "Bump & Grind Trail",
+      "verified_on": "2026-06-17",
+      "verified_by": "claude",
+      "notes": "No standalone English Wikipedia article for the Bump & Grind Trail — a local hiking trail not covered as a dedicated Wikipedia topic."
     }
   }
 }

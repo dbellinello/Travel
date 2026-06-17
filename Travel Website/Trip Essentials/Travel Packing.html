@@ -219,12 +219,6 @@ html { scroll-behavior: smooth; }
 .essentials-link { transition: color .15s, border-color .15s, background .15s; }
 .essentials-link:hover { background: rgba(138,108,26,0.06); }
 
-/* ===== Unified essentials header (injected for consistency) ===== */
-.header, .page-header, .site-header { background: linear-gradient(135deg, #7a3b1e 0%, #b85c2a 55%, #d4874a 100%) !important; padding: 14px 18px !important; border-radius: 10px !important; border-bottom: none !important; margin: 8px 0 14px !important; }
-.header-label, .header-eyebrow { display: none !important; }
-.header h1, .page-header h1, .site-header h1, .site-title { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif !important; font-size: 14px !important; font-weight: bold !important; color: #ffffff !important; text-transform: uppercase !important; letter-spacing: 0.04em !important; line-height: 1.2 !important; margin: 0 !important; }
-.header-desc { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif !important; font-size: 12px !important; font-weight: 400 !important; color: rgba(255,255,255,0.72) !important; line-height: 1.5 !important; margin: 4px 0 0 !important; }
-/* ===== end unified header ===== */
 
 /* uniform comfortable page gutter */
 body{padding-left:20px!important;padding-right:20px!important;}
@@ -265,7 +259,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 <body>
 
 <div id="toolbar-mount" data-depth="1" data-maxwidth="940" data-no-footnote="1"></div>
-<script src="../assets/toolbar.js?v=14"></script>
+<script src="../assets/toolbar.js?v=27"></script>
 
 <div class="page">
 
@@ -454,18 +448,19 @@ document.addEventListener('DOMContentLoaded',()=>{
  </div>
 
 
-
 </div>
 
 
 <script>
+ const STORAGE_KEY = 'packing_v1';
+
  const sections = {
  critical:    ['cb-passport','cb-passport-br','cb-wallet'],
  home:        ['cb-h1','cb-h2','cb-h3'],
  downloads:   ['cb-d1','cb-d2','cb-d3'],
  electronics: ['cb-e4','cb-e5','cb-e6','cb-e7','cb-e8','cb-e9','cb-e12'],
  travelpower: ['cb-e11'],
- essentials:  ['cb-es1','cb-es2','cb-es3','cb-es6','cb-es7','cb-es8','cb-es9'],
+ essentials:  ['cb-es1','cb-es2','cb-es3','cb-es6','cb-es7','cb-es8','cb-es9','cb-es10'],
  meds:        ['cb-m1','cb-m2','cb-m3'],
  shoes:       ['cb-sh1','cb-sh2'],
  clothes:     ['cb-c1','cb-c2','cb-c3','cb-c4','cb-c5','cb-c5b','cb-c7','cb-c8','cb-c10','cb-c14','cb-c15','cb-c16'],
@@ -473,9 +468,28 @@ document.addEventListener('DOMContentLoaded',()=>{
  pickleball:  ['cb-p1','cb-p2','cb-p3','cb-p4','cb-p5','cb-p6','cb-p7','cb-p8','cb-p9'],
  };
 
+ function saveState() {
+ const state = {};
+ document.querySelectorAll('input[type="checkbox"]').forEach(cb => { state[cb.id] = cb.checked; });
+ try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e) {}
+ }
+
+ function loadState() {
+ try {
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if (!raw) return;
+  const state = JSON.parse(raw);
+  Object.entries(state).forEach(([id, checked]) => {
+  const cb = document.getElementById(id);
+  if (cb) { cb.checked = checked; cb.closest('.item')?.classList.toggle('checked', checked); }
+  });
+ } catch(e) {}
+ }
+
  function toggle(cb) {
  cb.closest('.item').classList.toggle('checked', cb.checked);
  updateProgress();
+ saveState();
  }
 
  function updateProgress() {
@@ -500,8 +514,10 @@ document.addEventListener('DOMContentLoaded',()=>{
   cb.closest('.item')?.classList.remove('checked');
  });
  updateProgress();
+ try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
  }
 
+ loadState();
  updateProgress();
 </script>
 </body>

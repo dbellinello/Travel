@@ -25,7 +25,7 @@ body {
  background: var(--bg);
  color: var(--text);
  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif;
-  font-size: 14px;
+  font-size: var(--fs-body,14px);
   line-height: 1.6;
  min-height: 100vh;
  padding-bottom: 80px;
@@ -40,10 +40,10 @@ body {
  flex-wrap: wrap;
 }
 .nav-inner { max-width: 940px; margin: 0 auto; padding: 10px 24px 16px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: center; }
-.nav-logo { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: 0.06em; margin-right: 6px; white-space: nowrap; text-transform: uppercase; }
+.nav-logo { font-size: var(--fs-sub,12px); font-weight: 700; color: var(--accent); letter-spacing: 0.06em; margin-right: 6px; white-space: nowrap; text-transform: uppercase; }
 .nav-links { display: flex; flex-wrap: wrap; gap: 5px; }
 .nav-link {
- font-size: 12px; color: #3d3a32; text-decoration: none;
+ font-size: var(--fs-sub,12px); color: #3d3a32; text-decoration: none;
  padding: 4px 9px; border: 1px solid #b8b3a8; border-radius: 4px;
  background: #f0ece4; white-space: nowrap;
  transition: color .15s, border-color .15s, background .15s;
@@ -52,75 +52,75 @@ body {
 .wrap { max-width: 940px; margin: 0 auto; padding: 0 24px; }
 .back-link {
  display: inline-flex; align-items: center; gap: 6px;
- font-size: 12px; color: var(--muted); text-decoration: none; margin-top: 24px;
+ font-size: var(--fs-sub,12px); color: var(--muted); text-decoration: none; margin-top: 24px;
 }
 .back-link:hover { color: var(--accent); }
 .page-header { padding: 20px 0 20px; border-bottom: 1px solid var(--border); margin-bottom: 0; }
-.page-header-eyebrow { font-size: 12px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
-.page-header h1 { font-size: 14px; font-weight: 600; color: #8a6c1a; letter-spacing: -0.01em; line-height: 1.2; margin-bottom: 10px; }
-.page-header p { font-size: 12px; color: var(--muted); max-width: 560px; line-height: 1.7; margin-top: 0; }
+.page-header-eyebrow { font-size: var(--fs-sub,12px); letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.page-header h1 { font-size: var(--fs-title,14px); font-weight: 600; color: #8a6c1a; letter-spacing: -0.01em; line-height: 1.2; margin-bottom: 10px; }
+.page-header p { font-size: var(--fs-sub,12px); color: var(--muted); max-width: 560px; line-height: 1.7; margin-top: 0; }
 .legend {
  display: flex; flex-wrap: wrap; gap: 20px; margin-bottom: 14px;
  padding: 14px 18px; background: var(--surface); border: 1px solid var(--border); border-radius: 6px;
 }
 .legend-group { display: flex; flex-direction: column; gap: 7px; }
-.legend-group-label { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+.legend-group-label { font-size: var(--fs-sub,12px); letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
 .legend-items { display: flex; flex-wrap: wrap; gap: 10px; }
-.legend-item { display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--muted); }
+.legend-item { display: flex; align-items: center; gap: 7px; font-size: var(--fs-sub,12px); color: var(--muted); }
 .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; border: 2px solid var(--bg); }
 .dot-navy { background: var(--navy); box-shadow: 0 0 0 1px var(--navy); }
 .dot-green { background: var(--green); box-shadow: 0 0 0 1px var(--green); }
 .dot-gold { background: var(--gold); box-shadow: 0 0 0 1px var(--gold); }
 .group-header {
  display: flex; align-items: center; gap: 12px;
- margin: 14px 0 8px; padding-bottom: 8px; border-bottom: 1px solid var(--border);
+ margin: 14px 0 8px;
 }
-.group-title { font-size: 14px; font-weight: 600; color: #8a6c1a; letter-spacing: 0.02em; }
-.group-sub { font-size: 12px; color: var(--muted); letter-spacing: 0.04em; }
+.group-title { font-size: var(--fs-body,14px); font-weight: 600; color: #8a6c1a; letter-spacing: 0.02em; }
+.group-sub { font-size: var(--fs-sub,12px); color: var(--muted); letter-spacing: 0.04em; }
 .airport-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; margin-bottom: 8px; }
 .airport-card-header {
  display: flex; align-items: baseline; gap: 14px;
  padding: 14px 20px 12px; background: var(--surface2); border-bottom: 1px solid var(--border);
 }
-.airport-code { font-size: 14px; font-weight: 700; color: var(--accent); line-height: 1; letter-spacing: 0.02em; }
-.airport-city { font-size: 14px; color: var(--text); }
-.airport-full { font-size: 14px; color: var(--muted); }
+.airport-code { font-size: var(--fs-body,14px); font-weight: 700; color: var(--accent); line-height: 1; letter-spacing: 0.02em; }
+.airport-city { font-size: var(--fs-body,14px); color: var(--text); }
+.airport-full { font-size: var(--fs-body,14px); color: var(--muted); }
 .airport-note {
- font-size: 12px; color: var(--muted); font-style: italic;
+ font-size: var(--fs-sub,12px); color: var(--muted); font-style: italic;
  padding: 7px 20px 9px; background: var(--surface2); border-bottom: 1px solid var(--border); line-height: 1.5;
 }
-.section-label { font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; padding: 7px 20px; border-bottom: 1px solid var(--border2); }
+.section-label { font-size: var(--fs-sub,12px); letter-spacing: 0.18em; text-transform: uppercase; padding: 7px 20px; border-bottom: 1px solid var(--border2); }
 .section-label.skyteam { color: var(--navy); background: #eef0f7; }
 .section-label.pp { color: var(--green); background: #eef5ee; }
 .lounge-item { padding: 13px 20px; border-bottom: 1px solid var(--border2); }
 .lounge-item:last-child { border-bottom: none; }
 .lounge-header { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; flex-wrap: wrap; }
-.lounge-name { font-size: 14px; font-weight: 600; color: var(--text); }
-.tag { font-size: 12px; letter-spacing: 0.1em; padding: 2px 7px; border-radius: 2px; background: #e8e4dc; color: var(--muted); text-transform: uppercase; }
+.lounge-name { font-size: var(--fs-body,14px); font-weight: 600; color: var(--text); }
+.tag { font-size: var(--fs-sub,12px); letter-spacing: 0.1em; padding: 2px 7px; border-radius: 2px; background: #e8e4dc; color: var(--muted); text-transform: uppercase; }
 .tag.d1 { background: #f8e8e8; color: var(--d1); }
 .tag.new { background: #e8f4e8; color: #1a4a1a; }
 .tag.temp { background: #e8eaf8; color: #2a3a9a; }
 .tag.flagship { background: #e8eaf8; color: #2a3a9a; }
 .meta { display: flex; flex-direction: column; gap: 4px; }
 .meta-row { display: flex; gap: 10px; align-items: baseline; }
-.meta-label { font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); flex-shrink: 0; min-width: 72px; }
-.meta-value { font-size: 14px; color: var(--text); line-height: 1.4; }
-.no-access { font-size: 14px; color: var(--muted); font-style: italic; padding: 9px 20px; }
+.meta-label { font-size: var(--fs-body,14px); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); flex-shrink: 0; min-width: 72px; }
+.meta-value { font-size: var(--fs-body,14px); color: var(--text); line-height: 1.4; }
+.no-access { font-size: var(--fs-body,14px); color: var(--muted); font-style: italic; padding: 9px 20px; }
 @media (max-width: 600px) {
   #lounge-search { max-width:100%; }
  .nav { padding: 10px 14px; }
  .wrap { padding: 0 14px; }
  .meta { flex-direction: column; }
- .airport-code { font-size: 14px; }
+ .airport-code { font-size: var(--fs-body,14px); }
  .airport-full { display: none; }
- .nav-inner { padding: 8px 14px; overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+ .nav-inner { padding: 8px 14px; overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; scrollbar-width: none; -webkit-mask-image: linear-gradient(to right, black calc(100% - 36px), transparent 100%); mask-image: linear-gradient(to right, black calc(100% - 36px), transparent 100%); }
  .nav-inner::-webkit-scrollbar { display: none; }
  .nav-links { flex-wrap: nowrap; gap: 5px; }
- .nav-link { flex-shrink: 0; padding: 5px 8px; font-size: 12px; }
+ .nav-link { flex-shrink: 0; padding: 5px 8px; font-size: var(--fs-sub,12px); }
 }
 .hub-jump{display:none;}
 .hub-jump-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;font-size:13px;color:#3d3a32;background:var(--surface);border:1px solid #b8b3a8;border-radius:6px;padding:10px 14px;cursor:pointer;font-family:inherit;}
-.hub-jump-toggle .chev{transition:transform .2s;font-size:11px;color:var(--muted);}
+.hub-jump-toggle .chev{transition:transform .2s;font-size: var(--fs-label,11px);color:var(--muted);}
 .hub-jump.open .hub-jump-toggle .chev{transform:rotate(180deg);}
 .hub-jump-list{display:none;margin-top:8px;background:var(--surface);border:1px solid var(--border);border-radius:6px;overflow:hidden;}
 .hub-jump.open .hub-jump-list{display:block;}
@@ -146,7 +146,7 @@ body {
   align-items: center;
 }
 .essentials-link {
-  font-size: 12px;
+  font-size: var(--fs-sub,12px);
   color: var(--muted);
   text-decoration: none;
   padding: 3px 9px;
@@ -176,22 +176,22 @@ html { scroll-behavior: smooth; }
 .lounge-item:hover { background: #fafaf8; }
 /* ── Collapsible airports ── */
 .airport-card-header { cursor:pointer; user-select:none; }
-.airport-card-header::after { content:'▾'; margin-left:auto; font-size: 12px; color:var(--muted); transition:transform .2s; }
+.airport-card-header::after { content:'▾'; margin-left:auto; font-size: var(--fs-sub,12px); color:var(--muted); transition:transform .2s; }
 .airport-card.collapsed .airport-card-header::after { transform:rotate(-90deg); }
 .airport-card-body { transition:max-height .25s ease, opacity .25s ease; overflow:hidden; }
 .airport-card.collapsed .airport-card-body { max-height:0!important; opacity:0; }
 .airport-card{scroll-margin-top:100px;}
 
-/* ===== Unified essentials header (injected for consistency) ===== */
-.header, .page-header, .site-header { background: linear-gradient(135deg, #7a3b1e 0%, #b85c2a 55%, #d4874a 100%) !important; padding: 14px 18px !important; border-radius: 10px !important; border-bottom: none !important; margin: 8px 0 14px !important; }
-.header-label, .header-eyebrow { display: none !important; }
-.header h1, .page-header h1, .site-header h1, .site-title { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif !important; font-size: 14px !important; font-weight: bold !important; color: #ffffff !important; text-transform: uppercase !important; letter-spacing: 0.04em !important; line-height: 1.2 !important; margin: 0 !important; }
-.header-desc { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif !important; font-size: 12px !important; font-weight: 400 !important; color: rgba(255,255,255,0.72) !important; line-height: 1.5 !important; margin: 4px 0 0 !important; }
-/* ===== end unified header ===== */
 #lounge-search{width:200px;box-sizing:border-box;padding:6px 12px;margin:0 0 10px;font-size:13px;border:1.5px solid var(--border2);border-radius:6px;background:var(--surface);color:var(--text);outline:none;transition:border-color .15s,box-shadow .15s;}
 #lounge-search:focus{border-color:#B8860B;box-shadow:0 0 0 3px rgba(184,134,11,.12);}
 #lounge-search::placeholder{color:#A8895A;}
 #lounge-noresult{display:none;padding:8px 4px;font-size:13px;color:#7A5C2E;}
+.lounge-count{font-size:13px;color:#7A5C2E;margin-left:8px;white-space:nowrap;}
+.toggle-all{margin-left:8px;padding:6px 11px;font-size:12px;border:1.5px solid var(--border2);border-radius:6px;background:#fff;color:#7A5C2E;cursor:pointer;white-space:nowrap;transition:border-color .15s,color .15s,background .15s;}
+.toggle-all:hover{border-color:#B8860B;color:#8a6c1a;background:rgba(184,134,11,.06);}
+.toggle-all:focus-visible{outline:2px solid #B8860B;outline-offset:1px;}
+.airport-card-header:focus-visible{outline:2px solid #B8860B;outline-offset:-2px;}
+.nav .nav-link.active{color:var(--accent);border-color:var(--accent);background:rgba(138,108,26,.12);font-weight:600;}
 
 
 /* uniform comfortable page gutter */
@@ -215,12 +215,15 @@ document.addEventListener('DOMContentLoaded',()=>{
 </head>
 <body>
 <div id="toolbar-mount" data-depth="1" data-maxwidth="940" data-no-footnote="1"></div>
-<script src="../assets/toolbar.js?v=14"></script>
+<script src="../assets/toolbar.js?v=27"></script>
 <div class="wrap">
   <div class="page-header">
  <h1>US Lounges</h1>
 </div>
-  <input id="lounge-search" type="search" placeholder="🔍" autocomplete="off" spellcheck="false">
+  <span class="updated-stamp">Updated June 2026</span>
+  <input id="lounge-search" type="search" placeholder="🔍" aria-label="Search lounges by airport, city, or lounge name" autocomplete="off" spellcheck="false">
+  <button type="button" id="toggle-all" class="toggle-all" aria-pressed="false">Collapse all</button>
+  <span id="lounge-count" class="lounge-count" aria-live="polite"></span>
   <div id="lounge-noresult">No lounges match that search.</div>
 </div>
 <nav class="nav">
@@ -626,6 +629,7 @@ document.addEventListener('DOMContentLoaded',()=>{
  <div class="meta-row"><span class="meta-label">Location</span><span class="meta-value">Terminal 1 (Harvey Milk), Level 2, near Gate C3</span></div>
  <div class="meta-row"><span class="meta-label">Hours</span><span class="meta-value">Daily 4:30 AM – 11:15 PM</span></div>
  </div>
+ </div>
  <div class="lounge-item">
  <div class="lounge-header"><div class="dot dot-navy"></div><span class="lounge-name">Air France Lounge</span></div>
  <div class="meta">
@@ -678,7 +682,7 @@ document.addEventListener('DOMContentLoaded',()=>{
  <div class="no-access">No dedicated PP lounge at SLC. Use Delta Sky Club if eligible.</div>
  </div>
  <div class="group-header" id="other">
- <span class="group-title">🌐 Other Key International Airports</span>
+ <span class="group-title">🌐 Other Major Airports</span>
  <span class="group-sub">IAD · IAH · LGA · MIA · ORD</span>
  </div>
  <div class="airport-card" id="iad">
@@ -852,22 +856,38 @@ document.addEventListener('DOMContentLoaded',()=>{
 
 </div>
 <script>
-document.querySelectorAll('.airport-card').forEach(card=>{
-  const header=card.querySelector('.airport-card-header');
-  if(!header)return;
-  // Wrap everything after the header in a body div
-  const body=document.createElement('div');
-  body.className='airport-card-body';
-  const ch=[...card.children].slice(1);
-  ch.forEach(c=>body.appendChild(c));
-  card.appendChild(body);
-  // Set natural height for transition
-  body.style.maxHeight=body.scrollHeight+'px';
-  header.addEventListener('click',()=>{
-    const collapsed=card.classList.toggle('collapsed');
-    if(!collapsed) body.style.maxHeight=body.scrollHeight+'px';
+/* Collapsible airport cards — keyboard-accessible, with a shared controller (window.LoungeUI). */
+(function(){
+  var api={cards:[]};
+  [].slice.call(document.querySelectorAll('.airport-card')).forEach(function(card){
+    var header=card.querySelector('.airport-card-header');
+    if(!header)return;
+    var body=document.createElement('div');
+    body.className='airport-card-body';
+    [].slice.call(card.children).slice(1).forEach(function(c){body.appendChild(c);});
+    card.appendChild(body);
+    body.style.maxHeight=body.scrollHeight+'px';
+    header.setAttribute('role','button');
+    header.setAttribute('tabindex','0');
+    header.setAttribute('aria-expanded','true');
+    function setCollapsed(collapsed){
+      card.classList.toggle('collapsed',collapsed);
+      header.setAttribute('aria-expanded',collapsed?'false':'true');
+      if(!collapsed) body.style.maxHeight=body.scrollHeight+'px';
+    }
+    function toggle(){ setCollapsed(!card.classList.contains('collapsed')); }
+    header.addEventListener('click',toggle);
+    header.addEventListener('keydown',function(e){
+      if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle();}
+    });
+    card._setCollapsed=setCollapsed;
+    api.cards.push(card);
   });
-});
+  api.expandAll=function(){api.cards.forEach(function(c){c._setCollapsed(false);});};
+  api.collapseAll=function(){api.cards.forEach(function(c){c._setCollapsed(true);});};
+  api.expand=function(c){if(c&&c._setCollapsed)c._setCollapsed(false);};
+  window.LoungeUI=api;
+})();
 </script>
 
 <script>
@@ -877,6 +897,7 @@ document.querySelectorAll('.airport-card').forEach(card=>{
   function norm(s){return (s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();}
   var legend=document.querySelector('.legend');
   var pagenav=document.querySelector('nav.nav');
+  var count=document.getElementById('lounge-count');
   var cards=[].slice.call(document.querySelectorAll('.airport-card'));
   var groups=[].slice.call(document.querySelectorAll('.group-header'));
   input.addEventListener('input',function(){
@@ -884,13 +905,14 @@ document.querySelectorAll('.airport-card').forEach(card=>{
     cards.forEach(function(card){
       var match=q===''||norm(card.textContent).indexOf(q)>-1;
       card.style.display=match?'':'none';
-      if(match)shown++;
+      if(match){shown++; if(q&&window.LoungeUI)window.LoungeUI.expand(card);}
     });
     groups.forEach(function(g){var any=false,el=g.nextElementSibling;
       while(el&&!el.classList.contains('group-header')){if(el.classList.contains('airport-card')&&el.style.display!=='none'){any=true;break;}el=el.nextElementSibling;}
       g.style.display=(q===''||any)?'':'none';});
     var noHits=(shown===0&&q!=='');
     if(noRes)noRes.style.display=noHits?'block':'none';
+    if(count)count.textContent=q?(shown+(shown===1?' airport':' airports')):'';
     if(legend)legend.style.display=q?'none':'';
     if(pagenav)pagenav.style.display=q?'none':'';
     var foot=document.querySelector('.tb-footnote');if(foot)foot.style.display=q?'none':'';
@@ -920,6 +942,37 @@ document.querySelectorAll('.airport-card').forEach(card=>{
   function close(){jump.classList.remove('open');toggle.setAttribute('aria-expanded','false');}
   toggle.addEventListener('click',function(){jump.classList.contains('open')?close():open();});
   document.addEventListener('click',function(e){if(!jump.contains(e.target))close();},true);
+})();
+</script>
+
+<script>
+/* Expand / collapse all */
+(function(){
+  var btn=document.getElementById('toggle-all');
+  if(!btn||!window.LoungeUI)return;
+  var collapsed=false;
+  btn.addEventListener('click',function(){
+    collapsed=!collapsed;
+    if(collapsed)window.LoungeUI.collapseAll(); else window.LoungeUI.expandAll();
+    btn.textContent=collapsed?'Expand all':'Collapse all';
+    btn.setAttribute('aria-pressed',collapsed?'true':'false');
+  });
+})();
+</script>
+
+<script>
+/* Scroll-spy — highlight the nav link for the airport currently in view. */
+(function(){
+  var links=[].slice.call(document.querySelectorAll('nav.nav .nav-link'));
+  if(!links.length||!('IntersectionObserver' in window))return;
+  var map={};
+  links.forEach(function(a){var id=(a.getAttribute('href')||'').replace('#','');if(id)map[id]=a;});
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){links.forEach(function(a){a.classList.toggle('active',a===map[en.target.id]);});}
+    });
+  },{rootMargin:'-25% 0px -65% 0px',threshold:0});
+  Object.keys(map).forEach(function(id){var s=document.getElementById(id);if(s)obs.observe(s);});
 })();
 </script>
 </body>

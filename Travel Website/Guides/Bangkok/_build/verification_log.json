@@ -167,6 +167,14 @@
       "expected_attraction": "King Power MahaNakhon SkyWalk",
       "result": "PASS",
       "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "no-wikipedia:Bangkok Reflection": {
+      "platform": "wikipedia-omit",
+      "result": "OMIT",
+      "expected_attraction": "Bangkok Reflection",
+      "verified_on": "2026-06-17",
+      "verified_by": "claude-agent",
+      "notes": "Searched English Wikipedia; no standalone substantive article for this specific subject. Bangkok Reflection (the Akara Sky Hanuman rooftop attraction on the 58th-61st floors of One City Centre) is a newly opened venue with no Wikipedia coverage; only the Chao Phraya River and general Bangkok articles appear, neither covering this attraction."
     }
   }
 }

@@ -5,6 +5,14 @@
     "updated": "2026-06-14"
   },
   "entries": {
+    "no-wikipedia:Narodni Trg": {
+      "platform": "wikipedia-omit",
+      "result": "OMIT",
+      "expected_attraction": "Narodni Trg",
+      "verified_on": "2026-06-17",
+      "verified_by": "claude-agent",
+      "notes": "No standalone English Wikipedia article for Narodni trg (People's Square / Pjaca) in Split; it is described only inside the broader Split, Croatia article. WebSearch (en.wikipedia.org) returned only Split, Croatia and unrelated squares in Zagreb, Belgrade and Ljubljana — none is a dedicated page for this square."
+    },
     "https://www.viator.com/tours/Split/Split-Walking-Tour-with-Professor-of-History/d4185-419685P1": {
       "result": "PASS",
       "verified_on": "2026-06-14",

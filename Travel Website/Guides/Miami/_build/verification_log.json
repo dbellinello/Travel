@@ -64,6 +64,14 @@
       "expected_attraction": "Art Deco District",
       "result": "PASS",
       "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "no-wikipedia:Española Way": {
+      "platform": "wikipedia-omit",
+      "result": "OMIT",
+      "expected_attraction": "Española Way",
+      "verified_on": "2026-06-17",
+      "verified_by": "claude-agent",
+      "notes": "Searched English Wikipedia; no standalone substantive article for this specific subject. The title 'Española Way' is only a redirect into the broader South Beach article (confirmed via redirect=no result), not its own standalone page, so a reading-row link would resolve to the wrong subject."
     }
   }
 }

@@ -74,6 +74,14 @@
       "expected_attraction": "Cabo de São Vicente",
       "result": "PASS",
       "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "no-wikipedia:Praia do Camilo": {
+      "platform": "wikipedia-omit",
+      "result": "OMIT",
+      "expected_attraction": "Praia do Camilo",
+      "verified_on": "2026-06-17",
+      "verified_by": "claude-agent",
+      "notes": "No dedicated standalone English Wikipedia article exists for Praia do Camilo; the beach is only mentioned within the broader Lagos, Portugal article and is not covered as a standalone topic, so there is no qualifying same-subject article to link for this stop."
     }
   }
 }

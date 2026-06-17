@@ -137,6 +137,14 @@
       "expected_attraction": "Fenway Park",
       "result": "PASS",
       "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "no-wikipedia:View Boston": {
+      "platform": "wikipedia-omit",
+      "result": "OMIT",
+      "expected_attraction": "View Boston",
+      "verified_on": "2026-06-17",
+      "verified_by": "claude-agent",
+      "notes": "No standalone Wikipedia article exists for the View Boston observation deck in any language. The attraction is documented only within the Prudential Tower article, and the former Skywalk Observatory name redirects into that broader building article rather than to a same-subject standalone page (en.wikipedia REST summary returns 404 for View_Boston)."
     }
   }
 }

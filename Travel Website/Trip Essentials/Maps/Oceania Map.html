@@ -88,7 +88,7 @@
 </head>
 <body>
 <div id="toolbar-mount" data-depth="2" data-maxwidth="1400" data-no-footnote="1"></div>
-<script src="../../assets/toolbar.js?v=14"></script>
+<script src="../../assets/toolbar.js?v=27"></script>
 
 <div id="wrap">
   <svg id="svg"></svg>
@@ -185,15 +185,18 @@ function _renderMap(){
   const _FS=11.5;
   _vis.forEach(v=>{
     const g=pinG.append('g').attr('class','pin-group').attr('transform','translate('+v.px+','+v.py+')')
-      .on('click',()=>window.open(v.href,'_blank'))
+      .on('click',()=>{window.location.href=v.href;})
       .on('mousemove',e=>{showTip(e,v.name,'📖 Open Guide');})
-      .on('mouseleave',()=>{tip.style.opacity='0';});
+      .on('mouseleave',()=>{tip.style.opacity='0';})
+      .on('touchstart',function(e){e.preventDefault();showTip(e.touches[0],v.name,'📖 Open Guide');})
+      .on('touchend',function(e){e.preventDefault();tip.style.opacity='0';window.location.href=v.href;});
     const w=v.name.length*_FS*0.62+4,h=_FS+4;
     const up=-(h/2+8),dn=(h/2+8),rt=(w/2+11),lf=-(w/2+11);
     const cands=[[0,up],[0,dn],[rt,0],[lf,0],[rt,up],[lf,up],[rt,dn],[lf,dn],[0,up-h],[0,dn+h],[0,up-2*h],[0,dn+2*h]];
     const s=_best(v.px,v.py,w,h,cands)||[0,up];
     const dist=Math.sqrt(s[0]*s[0]+s[1]*s[1]);
     if(dist>15){const ux=s[0]/dist,uy=s[1]/dist;g.append('line').attr('class','pin-leader').attr('x1',ux*5.5).attr('y1',uy*5.5).attr('x2',s[0]-ux*6).attr('y2',s[1]-uy*6);}
+    g.append('circle').attr('fill','transparent').attr('stroke','none').attr('r',22);
     g.append('circle').attr('class','pin-circle').attr('r',5.5);
     g.append('text').attr('class','pin-label').attr('x',s[0]).attr('y',s[1]).text(v.name);
   });

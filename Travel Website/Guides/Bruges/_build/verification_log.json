@@ -6,6 +6,14 @@
     "updated": "2026-06-15"
   },
   "entries": {
+    "no-wikipedia:Rozenhoedkaai": {
+      "platform": "wikipedia-omit",
+      "result": "OMIT",
+      "expected_attraction": "Rozenhoedkaai",
+      "verified_on": "2026-06-17",
+      "verified_by": "claude-agent",
+      "notes": "Rozenhoedkaai (Quai of the Rosary) has no standalone English Wikipedia article. WebSearch (en.wikipedia.org) returned only File: image pages and the broader Bruges article; the quay is mentioned within the Bruges page but has no dedicated article of its own."
+    },
     "https://www.viator.com/tours/Bruges/The-most-beautiful-places-and-the-captivating-history-of-Bruges/d4836-471149P2": {
       "result": "PASS",
       "verified_on": "2026-06-05",

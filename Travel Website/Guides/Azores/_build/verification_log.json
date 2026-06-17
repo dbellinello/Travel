@@ -140,6 +140,14 @@
       "expected_attraction": "Caldeiras das Furnas",
       "result": "PASS",
       "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "no-wikipedia:Lagoa das Furnas": {
+      "platform": "wikipedia-omit",
+      "result": "OMIT",
+      "expected_attraction": "Lagoa das Furnas",
+      "verified_on": "2026-06-17",
+      "verified_by": "claude-agent",
+      "notes": "No standalone English Wikipedia article exists for Lagoa das Furnas; the crater lake is described only within the broader Furnas civil-parish article, so there is no qualifying same-subject standalone article to link."
     }
   }
 }

@@ -107,6 +107,14 @@
       "expected_attraction": "Lokrum Island",
       "result": "PASS",
       "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "no-wikipedia:War Photo Limited": {
+      "platform": "wikipedia-omit",
+      "result": "OMIT",
+      "expected_attraction": "War Photo Limited",
+      "verified_on": "2026-06-17",
+      "verified_by": "claude-agent",
+      "notes": "Searched en.wikipedia.org and hr.wikipedia.org: no standalone article exists for the War Photo Limited gallery. It appears only as a brief mention inside the broader 'Tourism in Croatia' article, with no dedicated page on the institution itself, so it does not qualify."
     }
   }
 }

@@ -221,6 +221,14 @@
       "expected_attraction": "El Call",
       "result": "PASS",
       "notes": "replaced 404 /wiki/El_Call_(Girona) — Call's heritage museum/synagogue site"
+    },
+    "no-wikipedia:Muralles de Girona": {
+      "platform": "wikipedia-omit",
+      "result": "OMIT",
+      "expected_attraction": "Muralles de Girona",
+      "verified_on": "2026-06-17",
+      "verified_by": "claude-agent",
+      "notes": "No dedicated standalone English Wikipedia article exists for the Muralles de Girona (Girona city walls); the walls are described only within a section of the broader Girona town article, so there is no qualifying same-subject standalone article to link for this stop."
     }
   }
 }

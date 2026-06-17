@@ -51,6 +51,14 @@
       "expected_attraction": "Prince's Palace of Monaco",
       "result": "PASS",
       "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "no-wikipedia:Belle Époque Monte-Carlo": {
+      "platform": "wikipedia-omit",
+      "result": "OMIT",
+      "expected_attraction": "Belle Époque Monte-Carlo",
+      "verified_on": "2026-06-17",
+      "verified_by": "claude-agent",
+      "notes": "Belle Époque Monte-Carlo is an architectural ensemble (casino, opera, Hotel de Paris, Cafe de Paris) with no single standalone English Wikipedia article; the closest match is the broader 'Architecture of Monaco' article, and the individual component buildings are covered in separate articles, so no qualifying standalone article exists for this stop."
     }
   }
 }

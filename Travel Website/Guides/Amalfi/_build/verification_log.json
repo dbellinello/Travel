@@ -5,6 +5,14 @@
     "updated": "2026-06-15"
   },
   "entries": {
+    "no-wikipedia:Valle delle Ferriere": {
+      "platform": "wikipedia-omit",
+      "result": "OMIT",
+      "expected_attraction": "Valle delle Ferriere",
+      "verified_on": "2026-06-17",
+      "verified_by": "claude-agent",
+      "notes": "No standalone English Wikipedia article for the Valle delle Ferriere nature reserve; WebSearch (en.wikipedia.org) for both English and Italian title forms returned only the Amalfi Coast, Amalfi, and unrelated Italian park/reserve articles — none covers this specific Riserva naturale near Amalfi."
+    },
     "https://www.viator.com/tours/Amalfi/Amalfi-Coast-Highlights-Boat-and-Snorkeling-Tour-Small-group/d33601-257027P2": {
       "url": "https://www.viator.com/tours/Amalfi/Amalfi-Coast-Highlights-Boat-and-Snorkeling-Tour-Small-group/d33601-257027P2",
       "result": "PASS",

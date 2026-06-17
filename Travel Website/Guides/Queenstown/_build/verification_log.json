@@ -1,5 +1,13 @@
 {
   "entries": {
+    "no-wikipedia:Shotover Jet": {
+      "platform": "wikipedia-omit",
+      "result": "OMIT",
+      "expected_attraction": "Shotover Jet",
+      "verified_on": "2026-06-17",
+      "verified_by": "claude-agent",
+      "notes": "Shotover Jet, the jet-boat operator, has no standalone English Wikipedia article. WebSearch (en.wikipedia.org) returned only the Shotover River article (the river, not the attraction) and the Ngāi Tahu Holdings corporate article that mentions the company's ownership — no dedicated page for the attraction itself."
+    },
     "https://www.viator.com/tours/Queenstown/TSS-Earnslaw-Steamship-Cruise/d407-2264P26": {
       "result": "PASS",
       "verified_on": "2026-06-12",

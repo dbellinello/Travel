@@ -205,6 +205,14 @@
       "expected_attraction": "The Getty Villa",
       "result": "PASS",
       "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "no-wikipedia:Heisler Park": {
+      "platform": "wikipedia-omit",
+      "result": "OMIT",
+      "expected_attraction": "Heisler Park",
+      "verified_on": "2026-06-17",
+      "verified_by": "claude-agent",
+      "notes": "No standalone Wikipedia article exists for Heisler Park in any language (en.wikipedia REST summary returns 404 for Heisler_Park). The clifftop park is mentioned only within the broader Laguna Beach, California article, which does not qualify as a same-subject standalone article for this stop."
     }
   }
 }

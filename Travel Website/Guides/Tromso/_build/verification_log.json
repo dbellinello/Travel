@@ -38,6 +38,14 @@
       "result": "PASS",
       "verified_on": "2026-05-28",
       "method": "site: search snippet inspection"
+    },
+    "no-wikipedia:Harbour Promenade": {
+      "platform": "wikipedia-omit",
+      "result": "OMIT",
+      "expected_attraction": "Harbour Promenade",
+      "verified_on": "2026-06-17",
+      "verified_by": "claude-agent",
+      "notes": "No standalone Wikipedia article exists for Tromsø's Harbour Promenade in English or Norwegian; the waterfront quay is only mentioned within the broader Tromsø city article, so no same-subject link is available."
     }
   }
 }

@@ -45,6 +45,14 @@
       "expected_attraction": "Chapel Bridge &amp; Water Tower or Kapellbrücke",
       "result": "PASS",
       "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "no-wikipedia:Musegg Wall &amp; Towers": {
+      "platform": "wikipedia-omit",
+      "result": "OMIT",
+      "expected_attraction": "Musegg Wall &amp; Towers",
+      "verified_on": "2026-06-17",
+      "verified_by": "claude-agent",
+      "notes": "The Musegg Wall (Museggmauer) and its towers have no standalone English Wikipedia article. WebSearch (en.wikipedia.org) returned only the broader Lucerne article and the cultural-property list, where the medieval town wall and watchtowers are described as part of the old town — there is no dedicated page for the wall itself."
     }
   }
 }

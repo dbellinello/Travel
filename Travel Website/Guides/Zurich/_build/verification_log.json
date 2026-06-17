@@ -29,6 +29,14 @@
       "result": "PASS",
       "verified_on": "2026-05-31",
       "method": "site: search snippet inspection + theabroadguide.com third-party review page"
+    },
+    "no-wikipedia:Rose Garden": {
+      "platform": "wikipedia-omit",
+      "result": "OMIT",
+      "expected_attraction": "Rose Garden",
+      "verified_on": "2026-06-17",
+      "verified_by": "claude-agent",
+      "notes": "No standalone English Wikipedia article exists for Bern's Rosengarten (Rose Garden) park. 'Rosengarten' is a disambiguation page and the Bern rose garden is described only within the broader Bern city article, so there is no qualifying same-subject standalone article to link."
     }
   }
 }

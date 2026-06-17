@@ -136,6 +136,14 @@
       "expected_attraction": "High Desert Museum",
       "result": "PASS",
       "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "no-wikipedia:Big Obsidian Flow": {
+      "platform": "wikipedia-omit",
+      "result": "OMIT",
+      "expected_attraction": "Big Obsidian Flow",
+      "verified_on": "2026-06-17",
+      "verified_by": "claude-agent",
+      "notes": "No standalone English Wikipedia article exists for the Big Obsidian Flow; the feature is described only within the broader Newberry Volcano and Newberry National Volcanic Monument articles, so no qualifying same-subject article is available to link."
     }
   }
 }

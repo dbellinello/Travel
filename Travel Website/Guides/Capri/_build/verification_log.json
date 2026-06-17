@@ -107,6 +107,14 @@
       "expected_attraction": "Giardini di Augusto or Gardens of Augustus",
       "result": "PASS",
       "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "no-wikipedia:Via Tragara": {
+      "platform": "wikipedia-omit",
+      "result": "OMIT",
+      "expected_attraction": "Via Tragara",
+      "verified_on": "2026-06-17",
+      "verified_by": "claude-agent",
+      "notes": "Via Tragara is a scenic pedestrian promenade in Capri ending at the Belvedere di Tragara; no standalone English Wikipedia article exists. WebSearch (en.wikipedia.org) returned only the broader Capri and Via Camerelle articles, where the belvedere is mentioned in passing — no dedicated page for this street or viewpoint."
     }
   }
 }

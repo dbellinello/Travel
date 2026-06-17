@@ -75,6 +75,14 @@
       "expected_attraction": "Cathédrale Saint-Nicolas or Russian Orthodox Cathedral",
       "result": "PASS",
       "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "no-wikipedia:Vieux Nice": {
+      "platform": "wikipedia-omit",
+      "result": "OMIT",
+      "expected_attraction": "Vieux Nice",
+      "verified_on": "2026-06-17",
+      "verified_by": "claude-agent",
+      "notes": "No dedicated standalone English Wikipedia article exists for the Vieux Nice / Old Town district; it is described only within sections of the broader Nice town article, so there is no qualifying same-subject standalone article to link for this stop."
     }
   }
 }

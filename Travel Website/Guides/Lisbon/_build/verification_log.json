@@ -2,6 +2,14 @@
   "city": "Lisbon",
   "verified_on_session": "2026-05-08",
   "entries": {
+    "no-wikipedia:Mouraria": {
+      "platform": "wikipedia-omit",
+      "result": "OMIT",
+      "expected_attraction": "Mouraria",
+      "verified_on": "2026-06-17",
+      "verified_by": "claude-agent",
+      "notes": "No standalone English Wikipedia article for the Mouraria neighbourhood; it is described only inside the broader Lisbon and History of Lisbon articles. Multiple WebSearch (en.wikipedia.org) queries returned only Lisbon, Walls of Lisbon, Alfama and Fado articles — none is a dedicated Mouraria page."
+    },
     "https://www.viator.com/tours/Lisbon/Alfama-Tour-Lisbon-Old-Town/d538-268183P3": {
       "result": "PASS",
       "verified_on": "2026-04-26",

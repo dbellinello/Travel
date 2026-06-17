@@ -54,6 +54,14 @@
       "expected_attraction": "Untersberg",
       "result": "PASS",
       "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "no-wikipedia:DomQuartier Salzburg": {
+      "platform": "wikipedia-omit",
+      "result": "OMIT",
+      "expected_attraction": "DomQuartier Salzburg",
+      "verified_on": "2026-06-17",
+      "verified_by": "claude-agent",
+      "notes": "Searched English Wikipedia; no standalone substantive English-language article for this specific subject. Only a German-language article exists (de.wikipedia.org/wiki/DomQuartier_Salzburg); on English Wikipedia the museum circuit is covered only within the separate Salzburg Residenz and Salzburg Cathedral articles, which are different subjects."
     }
   }
 }

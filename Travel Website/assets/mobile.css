@@ -71,7 +71,7 @@ pre { white-space: pre-wrap; }
   a, button, input, select, textarea, .btn, [role="button"] {
     min-height: 40px;
   }
-  button, input, select, textarea { font-size: 16px; } /* 16px stops iOS auto-zoom on focus */
+  button, input, select, textarea { font-size: 16px !important; } /* 16px stops iOS auto-zoom on focus; !important beats per-page class selectors (.filter-input etc.) */
 
   /* 8. Multi-column flex/grid rows stack vertically. Only applies to elements
         explicitly opted-in with .stack-mobile, so it never surprises a layout. */
@@ -107,4 +107,5 @@ pre { white-space: pre-wrap; }
         while page content lives inside .wrap (16px gutter), so its rounded box
         touched both screen edges and looked misaligned. Inset it to match. */
   .hub-jump { padding-left: 16px !important; padding-right: 16px !important; }
+
 }

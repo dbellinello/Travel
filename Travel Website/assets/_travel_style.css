@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
 /* ══════════════════════════════════════════════════════════════
  * TRAVEL SITE — shared stylesheet
  * All Trip Essentials pages link to this file.
@@ -28,7 +30,7 @@
   --banner-sub:      rgba(255, 255, 255, 0.72);
 
   /* ── Typography ── */
-  --font:     -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif;
+  --font:     'Roboto', Arial, sans-serif;
   --fs-body:  14px;   /* matches guides */
   --fs-title: 14px;   /* bold + uppercase provides hierarchy */
   --fs-sub:   12px;   /* sub-lines, descriptions */
@@ -50,7 +52,7 @@ body {
 }
 
 /* ── Layout ── */
-.wrap { max-width: 940px; margin: 0 auto; padding: 20px 24px 0; }
+.wrap { max-width: 940px; margin: 0 auto; padding: 0 24px; }
 
 /* ── Page banner (all pages) — !important locks override any inline style ── */
 .page-header,
@@ -62,6 +64,7 @@ body {
   display: flex !important;
   flex-direction: column !important;
   justify-content: center !important;
+  align-items: center !important;
   border-radius: 10px !important;
   border-bottom: none !important;
   margin: 8px 0 14px !important;
@@ -76,6 +79,7 @@ body {
   letter-spacing: 0.04em !important;
   line-height: 1.2 !important;
   margin: 0 !important;
+  text-align: center !important;
 }
 .page-header p,
 .header p,
@@ -85,10 +89,21 @@ body {
   margin-top: 4px !important;
   line-height: 1.5 !important;
 }
-/* Hide eyebrow labels inside banner */
+/* Updated stamp — sits just below the banner, discrete right-aligned timestamp */
+.updated-stamp {
+  display: block;
+  font-size: 11px;
+  color: var(--muted, #6a6660);
+  text-align: right;
+  margin: -8px 0 14px;
+  letter-spacing: 0.01em;
+}
+
+/* Hide eyebrow labels + subtitles inside banner — banner must contain only h1 */
 .page-header-eyebrow,
 .header-label,
 .header-eyebrow,
+.header-desc,
 .eyebrow { display: none !important; }
 
 /* ── Links ── */

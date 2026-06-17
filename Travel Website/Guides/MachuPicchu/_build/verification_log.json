@@ -72,6 +72,14 @@
       "expected_attraction": "Huayna Picchu",
       "result": "PASS",
       "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "no-wikipedia:Baños Termales de Aguas Calientes": {
+      "platform": "wikipedia-omit",
+      "result": "OMIT",
+      "expected_attraction": "Baños Termales de Aguas Calientes",
+      "verified_on": "2026-06-17",
+      "verified_by": "claude-agent",
+      "notes": "No standalone English Wikipedia article exists for the hot baths at Aguas Calientes, Peru; they are described only within the broader Aguas Calientes, Peru town article (the 'Aguas Calientes Hot Springs' article is a different subject in Chile), so there is no qualifying same-subject standalone article to link."
     }
   }
 }

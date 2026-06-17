@@ -6,6 +6,14 @@
     "updated": "2026-06-15"
   },
   "entries": {
+    "no-wikipedia:Parque Marechal Carmona": {
+      "platform": "wikipedia-omit",
+      "result": "OMIT",
+      "expected_attraction": "Parque Marechal Carmona",
+      "verified_on": "2026-06-17",
+      "verified_by": "claude-agent",
+      "notes": "No standalone English Wikipedia article for Parque Marechal Carmona; the Cascais municipal park is only mentioned within the broader Portuguese Riviera article. WebSearch (en.wikipedia.org) returned only Cascais, Portuguese Riviera, and unrelated Marechal Carmona Dam / Parque do Carmo articles — none matches this specific garden."
+    },
     "https://en.wikipedia.org/wiki/Cascais": {
       "platform": "wikipedia",
       "method": "live_fetch",

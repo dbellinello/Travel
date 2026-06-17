@@ -33,6 +33,14 @@
       "result": "PASS",
       "verified_on": "2026-06-12",
       "method": "Viator MCP search_experiences — live product data"
+    },
+    "no-wikipedia:The View at The Palm": {
+      "platform": "wikipedia-omit",
+      "result": "OMIT",
+      "expected_attraction": "The View at The Palm",
+      "verified_on": "2026-06-17",
+      "verified_by": "claude",
+      "notes": "No standalone English Wikipedia article for The View at The Palm observation deck — covered only within the Palm Jumeirah article."
     }
   }
 }

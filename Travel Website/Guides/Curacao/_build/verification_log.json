@@ -94,6 +94,14 @@
       "expected_attraction": "Hato Caves",
       "result": "PASS",
       "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "no-wikipedia:Shete Boka National Park": {
+      "platform": "wikipedia-omit",
+      "result": "OMIT",
+      "expected_attraction": "Shete Boka National Park",
+      "verified_on": "2026-06-17",
+      "verified_by": "claude-agent",
+      "notes": "Searched English Wikipedia; no standalone substantive article for this specific subject. The park is covered only within the broader 'List of national parks of Curaçao' and the 'North-east Curaçao parks and coast Important Bird Area' articles, neither of which is a dedicated page for Shete Boka."
     }
   }
 }

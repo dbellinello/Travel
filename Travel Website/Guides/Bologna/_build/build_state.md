@@ -1,6 +1,6 @@
 # Build state — Bologna
 Started: 2026-06-12
-Last updated: 2026-06-12 (ship gate auto-flipped 3 build_state boxes on clean ship)
+Last updated: 2026-06-17 (crib recovery — prior 2026-06-12 "ship" logged 0 checks and left Tours with 1 entry + fabricated Michelin stars; rebuilt Tours/Cappuccino/Restaurants/Downtown/Michelin, fixed Day Trips Omio casing, logged Viator URLs; validator 0 fail, ship gate exit 0)
 
 ## Phase 0 — Session start
 - [x] Rules for Claude.html

@@ -99,6 +99,14 @@
       "expected_attraction": "Arikok National Park",
       "result": "PASS",
       "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "no-wikipedia:Baby Natural Bridge": {
+      "platform": "wikipedia-omit",
+      "result": "OMIT",
+      "expected_attraction": "Baby Natural Bridge",
+      "verified_on": "2026-06-17",
+      "verified_by": "claude-agent",
+      "notes": "Searched English Wikipedia; no standalone substantive article for this specific subject. The only related article, 'Aruba Natural Bridge', is about the larger original arch that collapsed in 2005 (a different subject); the Baby Bridge appears only as a Commons file image, not as its own article."
     }
   }
 }

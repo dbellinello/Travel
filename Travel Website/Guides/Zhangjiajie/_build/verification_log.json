@@ -54,6 +54,14 @@
       "expected_attraction": "Bailong Elevator &amp; Yuanjiajie",
       "result": "PASS",
       "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "no-wikipedia:Huangshizhai": {
+      "platform": "wikipedia-omit",
+      "result": "OMIT",
+      "expected_attraction": "Huangshizhai",
+      "verified_on": "2026-06-17",
+      "verified_by": "claude-agent",
+      "notes": "Huangshizhai (Huang Shi Zhai / Yellow Stone Stockade), the highest plateau in the park, has no standalone English Wikipedia article; it is covered only within the Zhangjiajie National Forest Park and Wulingyuan articles. Searched en.wikipedia.org under multiple spellings with no qualifying standalone result."
     }
   }
 }

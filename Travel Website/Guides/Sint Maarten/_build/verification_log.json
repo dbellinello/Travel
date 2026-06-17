@@ -121,6 +121,14 @@
       "expected_attraction": "Grand Case",
       "result": "PASS",
       "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "no-wikipedia:Concordia Monument": {
+      "platform": "wikipedia-omit",
+      "result": "OMIT",
+      "expected_attraction": "Concordia Monument",
+      "verified_on": "2026-06-17",
+      "verified_by": "claude-agent",
+      "notes": "No dedicated standalone English Wikipedia article exists for the Concordia Monument itself; the closest articles are 'Saint Martin-Sint Maarten border' and 'Treaty of Concordia', neither of which is a same-subject standalone article for this border monument, so there is no qualifying article to link."
     }
   }
 }

@@ -344,6 +344,14 @@
       "expected_attraction": "Chez Ali Fantasia folklore dinner show, Circuit de la Palmeraie, Marrakech",
       "result": "PASS",
       "notes": "Viator product 450108P1 confirmed via MCP search_experiences — 'Chez Ali Fantasia Folklore Show Ticket with Moroccan Dinner', 3.16⭐ 89 reviews. REPLACES dead product 139060P18 (get_experience_details returned no valid record on 2026-06-05). Shows-section ticket; Shows §3 format carries no rating field."
+    },
+    "no-wikipedia:Souks of Marrakesh": {
+      "platform": "wikipedia-omit",
+      "result": "OMIT",
+      "expected_attraction": "Souks of Marrakesh",
+      "verified_on": "2026-06-17",
+      "verified_by": "claude-agent",
+      "notes": "Searched English Wikipedia; no standalone substantive article for this specific subject. The souks are covered only within the broader 'Marrakesh' and 'Landmarks of Marrakesh' articles, so a reading-row link would resolve to a city/region article rather than a dedicated page for the souks."
     }
   }
 }

@@ -16,21 +16,21 @@
     --warn: #a06010;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif; font-size: 14px; font-weight: 400; padding: 0 0 72px; }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif; font-size: var(--fs-body,14px); font-weight: 400; padding: 0 0 72px; }
   
   .nav { background: var(--surface2); border-bottom: 1px solid var(--border); padding: 0; }
   .nav-inner { max-width: 940px; margin: 0 auto; padding: 10px 24px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: flex-start; }
-  .nav-logo { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: 0.06em; margin-right: 6px; white-space: nowrap; text-transform: uppercase; }
+  .nav-logo { font-size: var(--fs-sub,12px); font-weight: 700; color: var(--accent); letter-spacing: 0.06em; margin-right: 6px; white-space: nowrap; text-transform: uppercase; }
   .nav-links { display: flex; flex-wrap: wrap; gap: 5px; }
-  .nav-link { font-size: 12px; color: #3d3a32; text-decoration: none; padding: 4px 9px; border: 1px solid #b8b3a8; border-radius: 4px; background: #f0ece4; white-space: nowrap; transition: color .15s, border-color .15s, background .15s; cursor: pointer; }
+  .nav-link { font-size: var(--fs-sub,12px); color: #3d3a32; text-decoration: none; padding: 4px 9px; border: 1px solid #b8b3a8; border-radius: 4px; background: #f0ece4; white-space: nowrap; transition: color .15s, border-color .15s, background .15s; cursor: pointer; }
   .nav-link:hover { color: var(--accent); border-color: var(--accent); background: rgba(138,108,26,0.07); }
   .wrap { max-width: 940px; margin: 0 auto; padding: 0 24px; }
   .header { padding: 20px 0 20px; border-bottom: 1px solid var(--border); margin-bottom: 0; }
-  .header-label { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif; font-size: 12px; letter-spacing: 0.22em; color: var(--muted); text-transform: uppercase; margin-bottom: 10px; }
-  .header h1 { font-size: 14px; font-weight: 600; letter-spacing: -0.01em; color: var(--gold); line-height: 1.2; margin-bottom: 10px; }
-  .header p { font-size: 12px; color: var(--muted); line-height: 1.7; max-width: 640px; }
+  .header-label { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif; font-size: var(--fs-sub,12px); letter-spacing: 0.22em; color: var(--muted); text-transform: uppercase; margin-bottom: 10px; }
+  .header h1 { font-size: var(--fs-title,14px); font-weight: 600; letter-spacing: -0.01em; color: var(--gold); line-height: 1.2; margin-bottom: 10px; }
+  .header p { font-size: var(--fs-sub,12px); color: var(--muted); line-height: 1.7; max-width: 640px; }
   .tier-legend { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; margin-bottom: 10px; }
-  .tier-pill { padding: 5px 12px; border-radius: 4px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif; font-size: 12px; font-weight: 500; }
+  .tier-pill { padding: 5px 12px; border-radius: 4px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif; font-size: var(--fs-sub,12px); font-weight: 500; }
   .tier-pill.t0 { background: var(--c0bg); color: var(--c0); border: 1px solid #a0d8a0; }
   .tier-pill.t1 { background: var(--c1bg); color: var(--c1); border: 1px solid #a0b8e8; }
   .tier-pill.t2 { background: var(--c2bg); color: var(--c2); border: 1px solid #e8c870; }
@@ -38,57 +38,51 @@
   .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 4px; padding-bottom: 10px; border-bottom: 2px solid var(--border); }
   .section-title { font-size: 15px; font-weight: 400; }
   .tier-block { margin-bottom: 24px; }
-  .tier-badge { display: inline-block; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.1em; padding: 2px 10px; border-radius: 2px; margin-bottom: 10px; }
+  .tier-badge { display: inline-block; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif; font-size: var(--fs-sub,12px); font-weight: 500; letter-spacing: 0.1em; padding: 2px 10px; border-radius: 2px; margin-bottom: 10px; }
   .tier-badge.t0 { background: var(--c0bg); color: var(--c0); border: 1px solid #a0d8a0; }
   .tier-badge.t1 { background: var(--c1bg); color: var(--c1); border: 1px solid #a0b8e8; }
   .tier-badge.t2 { background: var(--c2bg); color: var(--c2); border: 1px solid #e8c870; }
-  .dest-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 6px; }
+  .dest-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 10px; }
   .dest-card { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid; border-radius: 4px; padding: 10px 12px; }
   .dest-card.t0 { border-left-color: var(--c0); }
   .dest-card.t1 { border-left-color: var(--c1); }
   .dest-card.t2 { border-left-color: var(--c2); }
-  .dest-city { font-size: 14px; font-weight: 500; }
-  .dest-code { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif; font-size: 14px; color: var(--muted); margin: 2px 0; }
-  .dest-meta { font-size: 14px; color: var(--muted); }
+  .dest-city { font-size: var(--fs-body,14px); font-weight: 500; }
+  .dest-code { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif; font-size: var(--fs-body,14px); color: var(--muted); margin: 2px 0; }
+  .dest-meta { font-size: var(--fs-body,14px); color: var(--muted); }
   .tags { display: flex; flex-wrap: wrap; gap: 3px; margin-top: 4px; }
-  .tag { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif; font-size: 12px; padding: 1px 6px; border-radius: 2px; }
+  .tag { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif; font-size: var(--fs-sub,12px); padding: 1px 6px; border-radius: 2px; }
   .tag.new { background: var(--c0bg); color: var(--c0); }
   .tag.seasonal { background: #fff8e8; color: var(--warn); }
   .tag.d1 { background: #f8e8e8; color: #7a1010; }
   .tag.partner { background: var(--c1bg); color: var(--c1); }
-  .us-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px,1fr)); gap: 6px; background: #e8e4dc; }
+  .us-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px,1fr)); gap: 10px; }
   .us-card { background: var(--surface); border: 1px solid var(--border); border-left: 2px solid var(--delta); border-radius: 3px; padding: 7px 10px; }
-  .us-city { font-size: 12px; font-weight: 500; }
-  .us-code { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif; font-size: 12px; color: var(--muted); }
-  .note-box { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--gold); border-radius: 3px; padding: 10px 14px; margin-bottom: 16px; font-size: 14px; color: var(--muted); line-height: 1.6; }
+  .us-city { font-size: var(--fs-sub,12px); font-weight: 500; }
+  .us-code { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif; font-size: var(--fs-sub,12px); color: var(--muted); }
+  .note-box { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--gold); border-radius: 3px; padding: 10px 14px; margin-bottom: 16px; font-size: var(--fs-body,14px); color: var(--muted); line-height: 1.6; }
   .connect-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px,1fr)); gap: 12px; }
   .connect-card { background: var(--surface); border: 1px solid var(--border); border-radius: 3px; padding: 12px 14px; }
-  .connect-hub { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif; font-size: 12px; font-weight: 500; color: var(--accent); margin-bottom: 5px; }
-  .connect-body { font-size: 14px; color: var(--muted); line-height: 1.6; }
+  .connect-hub { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif; font-size: var(--fs-sub,12px); font-weight: 500; color: var(--accent); margin-bottom: 5px; }
+  .connect-body { font-size: var(--fs-body,14px); color: var(--muted); line-height: 1.6; }
   .filter-bar { margin-bottom: 10px; }
 .section{scroll-margin-top:100px;}
 
-/* ===== Unified essentials header (injected for consistency) ===== */
-.header, .page-header, .site-header { background: linear-gradient(135deg, #7a3b1e 0%, #b85c2a 55%, #d4874a 100%) !important; padding: 14px 18px !important; border-radius: 10px !important; border-bottom: 1px solid var(--border) !important; margin: 8px 0 14px !important; }
-.header-label, .header-eyebrow { display: none !important; }
-.header h1, .page-header h1, .site-header h1, .site-title { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif !important; font-size: 14px !important; font-weight: bold !important; color: #ffffff !important; text-transform: uppercase !important; letter-spacing: 0.04em !important; line-height: 1.2 !important; margin: 0 !important; }
-.header-desc { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', Arial, sans-serif !important; font-size: 12px !important; font-weight: 400 !important; color: rgba(255,255,255,0.72) !important; line-height: 1.5 !important; margin: 4px 0 0 !important; }
-/* ===== end unified header ===== */
 
 /* unified filter search */
 .filter-bar{display:flex;gap:10px;align-items:center;margin-bottom: 10px;flex-wrap:wrap;}
 .filter-input{width:200px;box-sizing:border-box;padding:6px 12px;font-size:13px;border:1.5px solid var(--border2);border-radius:6px;background:var(--surface);color:var(--text);outline:none;transition:border-color .15s,box-shadow .15s;}
 .filter-input:focus{border-color:#B8860B;box-shadow:0 0 0 3px rgba(184,134,11,.12);}
 .filter-input::placeholder{color:#A8895A;}
-.filter-clear{padding: 7px 10px;font-size:14px;border:1.5px solid var(--border2);border-radius:8px;background:#fff;color:#7A5C2E;cursor:pointer;white-space:nowrap;}
+.filter-clear{padding: 7px 10px;font-size: var(--fs-body,14px);border:1.5px solid var(--border2);border-radius:8px;background:#fff;color:#7A5C2E;cursor:pointer;white-space:nowrap;}
 .filter-clear:hover{border-color:#B8860B;color:#8a6c1a;}
-.filter-count{font-size: 12px;color:#7A5C2E;white-space:nowrap;}
+.filter-count{font-size: var(--fs-sub,12px);color:#7A5C2E;white-space:nowrap;}
 
 
 /* uniform comfortable page gutter */
 
 /* hide no-results until an empty search */
-.no-results{display:none;padding:14px 4px;font-size:14px;color:#7A5C2E;}
+.no-results{display:none;padding:14px 4px;font-size: var(--fs-body,14px);color:#7A5C2E;}
 /* hide chrome when search is active */
 body.is-searching #route-nav,
 body.is-searching .tier-legend,
@@ -104,11 +98,11 @@ body.is-searching .section-header { display:none !important; }
 @media (max-width:600px){
   .filter-input { max-width:100%; }
   .wrap{padding:0 14px;}
-  .tier-legend{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin-top:10px;}
+  .tier-legend{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin-top:10px;-webkit-mask-image:linear-gradient(to right,black calc(100% - 36px),transparent 100%);mask-image:linear-gradient(to right,black calc(100% - 36px),transparent 100%);}
   .tier-legend::-webkit-scrollbar{display:none;}
   .tier-pill{flex-shrink:0;}
   .nav-inner{padding:8px 14px;}
-  .nav-links{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .nav-links{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;-webkit-mask-image:linear-gradient(to right,black calc(100% - 36px),transparent 100%);mask-image:linear-gradient(to right,black calc(100% - 36px),transparent 100%);}
   .nav-link{flex-shrink:0;}
 }
 .tier-pill:hover{transform:translateY(-1px);}
@@ -119,7 +113,7 @@ body.is-searching .section-header { display:none !important; }
   background:#f0ece4;border:1px solid #b8b3a8;border-radius:10px;padding:13px 15px;
   font-size:15px;font-weight:600;color:#3d3a32;cursor:pointer;
   font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Apple Color Emoji','Segoe UI Emoji',Arial,sans-serif;}
-.hub-jump-toggle .chev{transition:transform .2s;font-size:11px;color:var(--muted);}
+.hub-jump-toggle .chev{transition:transform .2s;font-size: var(--fs-label,11px);color:var(--muted);}
 .hub-jump.open .hub-jump-toggle .chev{transform:rotate(180deg);}
 .hub-jump-list{display:none;margin-top:8px;background:var(--surface);
   border:1px solid var(--border);border-radius:10px;overflow-y:auto;max-height:62vh;
@@ -141,36 +135,48 @@ body.is-searching .section-header { display:none !important; }
     cursor:pointer;z-index:70;font-size:20px;line-height:1;box-shadow:0 6px 18px rgba(60,50,30,.20);}
 }
 body.is-searching .hub-jump,body.is-searching .hub-top{display:none!important;}
+/* ===== Guide cross-links — cards with a matching city guide ===== */
+.dest-card.has-guide,.us-card.has-guide{cursor:pointer;transition:box-shadow .12s,transform .12s;}
+.dest-card.has-guide:hover,.us-card.has-guide:hover{box-shadow:0 2px 12px rgba(60,50,30,.14);transform:translateY(-1px);}
+.dest-card.has-guide:focus-within{box-shadow:0 0 0 2px rgba(138,108,26,.45);}
+.guide-link{display:inline-block;margin-top:6px;font-size:var(--fs-sub,12px);font-weight:500;color:var(--accent);text-decoration:none;border:1px solid var(--border2);border-radius:3px;padding:1px 8px;background:var(--surface2);white-space:nowrap;}
+.guide-link:hover{border-color:var(--accent);background:rgba(138,108,26,.08);}
+.guide-link:focus-visible{outline:2px solid var(--accent);outline-offset:1px;}
+/* nonstop flight time from SEA */
+.flt{font-size:var(--fs-sub,12px);font-weight:600;color:var(--c0);margin-top:3px;letter-spacing:.01em;}
+/* scroll-spy active region in the route nav */
+.nav-link.active{color:var(--accent);border-color:var(--accent);background:rgba(138,108,26,.12);font-weight:600;}
 </style>
 <link rel="stylesheet" href="../assets/mobile.css">
 </head>
 <body>
 <div id="toolbar-mount" data-depth="1" data-maxwidth="940" data-no-footnote="1"></div>
-<script src="../assets/toolbar.js?v=14"></script>
+<script src="../assets/toolbar.js?v=27"></script>
 <div class="wrap">
   <div class="header">
     <h1>Delta from Seattle</h1>
-  
+
 
 </div>
+  <span class="updated-stamp">Updated June 2026</span>
 </div>
 <div style="max-width:940px;margin:0 auto;padding:0 24px;">
   <div class="filter-bar">
-    <input class="filter-input" id="destFilter" type="search" placeholder="🔍" autocomplete="off">
+    <input class="filter-input" id="destFilter" type="search" placeholder="🔍" aria-label="Filter destinations by city or airport code" autocomplete="off">
     <span class="filter-count" id="filterCount"></span>
   </div>
 </div>
 <nav class="nav" id="route-nav">
 <div class="nav-inner">
   <div class="nav-links">
-    <a class="nav-link" onclick="document.getElementById('europe').scrollIntoView({behavior:'smooth'})">Europe</a>
-    <a class="nav-link" onclick="document.getElementById('asia').scrollIntoView({behavior:'smooth'})">Asia–Pacific</a>
-    <a class="nav-link" onclick="document.getElementById('latam').scrollIntoView({behavior:'smooth'})">Latin America</a>
-    <a class="nav-link" onclick="document.getElementById('canada').scrollIntoView({behavior:'smooth'})">Canada</a>
-    <a class="nav-link" onclick="document.getElementById('mexico').scrollIntoView({behavior:'smooth'})">Mexico</a>
-    <a class="nav-link" onclick="document.getElementById('africa').scrollIntoView({behavior:'smooth'})">Africa & ME</a>
-    <a class="nav-link" onclick="document.getElementById('us').scrollIntoView({behavior:'smooth'})">US Domestic</a>
-    <a class="nav-link" onclick="document.getElementById('connections').scrollIntoView({behavior:'smooth'})">Connection Guide</a>
+    <a class="nav-link" href="#europe" onclick="document.getElementById('europe').scrollIntoView({behavior:'smooth'});return false;">Europe</a>
+    <a class="nav-link" href="#asia" onclick="document.getElementById('asia').scrollIntoView({behavior:'smooth'});return false;">Asia–Pacific</a>
+    <a class="nav-link" href="#latam" onclick="document.getElementById('latam').scrollIntoView({behavior:'smooth'});return false;">Latin America</a>
+    <a class="nav-link" href="#canada" onclick="document.getElementById('canada').scrollIntoView({behavior:'smooth'});return false;">Canada</a>
+    <a class="nav-link" href="#mexico" onclick="document.getElementById('mexico').scrollIntoView({behavior:'smooth'});return false;">Mexico</a>
+    <a class="nav-link" href="#africa" onclick="document.getElementById('africa').scrollIntoView({behavior:'smooth'});return false;">Africa & ME</a>
+    <a class="nav-link" href="#us" onclick="document.getElementById('us').scrollIntoView({behavior:'smooth'});return false;">US Domestic</a>
+    <a class="nav-link" href="#connections" onclick="document.getElementById('connections').scrollIntoView({behavior:'smooth'});return false;">Connection Guide</a>
   </div>
 </div>
 </nav>
@@ -364,15 +370,15 @@ body.is-searching .hub-jump,body.is-searching .hub-top{display:none!important;}
     <div class="section-header"><span>🇺🇸</span><span class="section-title">US Domestic — Nonstop from SEA</span></div>
     <div class="note-box"><strong>Delta hubs below.</strong> Connect through any hub for further domestic or international service.</div>
     <div class="dest-grid" style="margin-bottom:20px;">
-      <div class="dest-card t0" style="border-left-color:#7a1010;background:#fff8f8;"><div class="dest-city">Atlanta</div><div class="dest-code">ATL · Hub</div><div class="dest-meta">Multiple daily · Primary intl gateway</div></div>
-      <div class="dest-card t0" style="border-left-color:#7a1010;background:#fff8f8;"><div class="dest-city">Boston</div><div class="dest-code">BOS · Hub</div><div class="dest-meta">Multiple daily · Europe focus</div></div>
-      <div class="dest-card t0" style="border-left-color:#7a1010;background:#fff8f8;"><div class="dest-city">Detroit</div><div class="dest-code">DTW · Hub</div><div class="dest-meta">Multiple daily · Asia + Europe</div></div>
-      <div class="dest-card t0" style="border-left-color:#7a1010;background:#fff8f8;"><div class="dest-city">Los Angeles</div><div class="dest-code">LAX · Hub</div><div class="dest-meta">Multiple daily · Pacific gateway</div></div>
-      <div class="dest-card t0" style="border-left-color:#7a1010;background:#fff8f8;"><div class="dest-city">Minneapolis</div><div class="dest-code">MSP · Hub</div><div class="dest-meta">Multiple daily</div></div>
-      <div class="dest-card t0" style="border-left-color:#7a1010;background:#fff8f8;"><div class="dest-city">New York JFK</div><div class="dest-code">JFK · Hub</div><div class="dest-meta">Multiple daily · Transatlantic hub</div></div>
-      <div class="dest-card t0" style="border-left-color:#7a1010;background:#fff8f8;"><div class="dest-city">Salt Lake City</div><div class="dest-code">SLC · Hub</div><div class="dest-meta">Multiple daily · Mountain West</div></div>
+      <div class="dest-card t0" style="border-left-color:#7a1010;"><div class="dest-city">Atlanta</div><div class="dest-code">ATL · Hub</div><div class="dest-meta">Multiple daily · Primary intl gateway</div></div>
+      <div class="dest-card t0" style="border-left-color:#7a1010;"><div class="dest-city">Boston</div><div class="dest-code">BOS · Hub</div><div class="dest-meta">Multiple daily · Europe focus</div></div>
+      <div class="dest-card t0" style="border-left-color:#7a1010;"><div class="dest-city">Detroit</div><div class="dest-code">DTW · Hub</div><div class="dest-meta">Multiple daily · Asia + Europe</div></div>
+      <div class="dest-card t0" style="border-left-color:#7a1010;"><div class="dest-city">Los Angeles</div><div class="dest-code">LAX · Hub</div><div class="dest-meta">Multiple daily · Pacific gateway</div></div>
+      <div class="dest-card t0" style="border-left-color:#7a1010;"><div class="dest-city">Minneapolis</div><div class="dest-code">MSP · Hub</div><div class="dest-meta">Multiple daily</div></div>
+      <div class="dest-card t0" style="border-left-color:#7a1010;"><div class="dest-city">New York JFK</div><div class="dest-code">JFK · Hub</div><div class="dest-meta">Multiple daily · Transatlantic hub</div></div>
+      <div class="dest-card t0" style="border-left-color:#7a1010;"><div class="dest-city">Salt Lake City</div><div class="dest-code">SLC · Hub</div><div class="dest-meta">Multiple daily · Mountain West</div></div>
     </div>
-    <div style="font-family:monospace;font-size: 12px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">Other nonstop from SEA</div>
+    <div style="font-family:monospace;font-size: var(--fs-sub,12px);color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">Other nonstop from SEA</div>
     <div class="us-grid">
       <div class="us-card"><div class="us-city">Albuquerque</div><div class="us-code">ABQ</div></div>
       <div class="us-card"><div class="us-city">Anchorage</div><div class="us-code">ANC</div></div>
@@ -449,6 +455,7 @@ body.is-searching .hub-jump,body.is-searching .hub-top{display:none!important;}
     });
     var noHits=(active&&shown===0);
     if(noResults)noResults.style.display=noHits?'block':'none';
+    if(filterCount)filterCount.textContent=active?(shown+(shown===1?' destination':' destinations')):'';
     var ss=document.getElementById('_search_hide');
     if(!ss){ss=document.createElement('style');ss.id='_search_hide';document.head.appendChild(ss);}
     ss.textContent=q?'#route-nav,#route-nav *,.tier-legend,.hub-strength,.hub-header,.section-header{display:none!important;visibility:hidden!important}':'';
@@ -467,11 +474,22 @@ body.is-searching .hub-jump,body.is-searching .hub-top{display:none!important;}
   }
   pills.forEach(function(p){
     p.style.cursor='pointer';
-    p.addEventListener('click',function(){
+    p.setAttribute('role','button');
+    p.setAttribute('tabindex','0');
+    p.setAttribute('aria-pressed','false');
+    function toggle(){
       var t=(p.className.match(/\bt[0-2]\b/)||[''])[0];
       activeTier=(activeTier===t)?'':t;
-      pills.forEach(function(x){x.classList.toggle('active',x===p&&activeTier!=='');});
+      pills.forEach(function(x){
+        var on=(x===p&&activeTier!=='');
+        x.classList.toggle('active',on);
+        x.setAttribute('aria-pressed',on?'true':'false');
+      });
       runFilter();
+    }
+    p.addEventListener('click',toggle);
+    p.addEventListener('keydown',function(e){
+      if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle();}
     });
   });
   if(filterInput)filterInput.addEventListener('input',runFilter);
@@ -507,6 +525,70 @@ body.is-searching .hub-jump,body.is-searching .hub-top{display:none!important;}
   document.body.appendChild(topBtn);
   topBtn.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
   window.addEventListener('scroll',function(){topBtn.classList.toggle('show',window.scrollY>400);},{passive:true});
+})();
+</script>
+
+<script>
+/* Guide cross-links — turn any destination card with a matching city guide into a link.
+   GUIDES map is generated from the Guides/ folder; keys are accent-stripped lowercase
+   city names, values are paths relative to Trip Essentials/ (depth-1). */
+(function(){
+  var GUIDES={"abu dhabi":"../Guides/Abu%20Dhabi/abu_dhabi_v1.html","aix-en-provence":"../Guides/Aix-en-Provence/aix-en-provence_v1.html","alaska":"../Guides/Alaska/alaska_v1.html","alesund":"../Guides/Alesund/alesund_v1.html","amalfi":"../Guides/Amalfi/amalfi_v1.html","amsterdam":"../Guides/Amsterdam/amsterdam_v1.html","annecy":"../Guides/Annecy/annecy_v1.html","aruba":"../Guides/Aruba/aruba_v1.html","athens":"../Guides/Athens/athens_v1.html","atlanta":"../Guides/Atlanta/atlanta_v1.html","austin":"../Guides/Austin/austin_v1.html","azores":"../Guides/Azores/guide_v1.html","bahamas":"../Guides/Bahamas/bahamas_v1.html","bali":"../Guides/Bali/bali_v1.html","bangkok":"../Guides/Bangkok/bangkok_v1.html","barbados":"../Guides/Barbados/barbados_v1.html","barcelona":"../Guides/Barcelona/barcelona_v1.html","beijing":"../Guides/Beijing/beijing_v1.html","bend":"../Guides/Bend/bend_v2.html","bergen":"../Guides/Bergen/bergen_v1.html","berlin":"../Guides/Berlin/berlin_v1.html","big island":"../Guides/Big%20Island/big_island_v1.html","bologna":"../Guides/Bologna/bologna_v1.html","bordeaux":"../Guides/Bordeaux/bordeaux_v1.html","boston":"../Guides/Boston/boston_v1.html","bruges":"../Guides/Bruges/bruges_v1.html","brussels":"../Guides/Brussels/brussels_v1.html","budapest":"../Guides/Budapest/budapest_v1.html","buenos aires":"../Guides/Buenos%20Aires/buenos_aires_v1.html","cambridge":"../Guides/Cambridge/cambridge_v1.html","cannes":"../Guides/Cannes/cannes_v1.html","capri":"../Guides/Capri/capri_v1.html","cascais":"../Guides/Cascais/cascais_v2.html","cayman islands":"../Guides/Cayman%20Islands/cayman_islands_v1.html","chicago":"../Guides/Chicago/chicago_v1.html","chongqing":"../Guides/Chongqing/chongqing_v1.html","cinque terre":"../Guides/Cinque%20Terre/cinque_terre_v1.html","colmar":"../Guides/Colmar/colmar_v1.html","copenhagen":"../Guides/Copenhagen/copenhagen_v1.html","corfu":"../Guides/Corfu/corfu_v1.html","curacao":"../Guides/Curacao/curacao_v1.html","cusco":"../Guides/Cusco/cusco_v1.html","dubai":"../Guides/Dubai/dubai_v1.html","dublin":"../Guides/Dublin/dublin_v1.html","dubrovnik":"../Guides/Dubrovnik/guide_v1.html","edinburgh":"../Guides/Edinburgh/edinburgh_v1.html","florence":"../Guides/Florence/florence_v1.html","geneva":"../Guides/Geneva/geneva_v1.html","glasgow":"../Guides/Glasgow/glasgow_v1.html","gothenburg":"../Guides/Gothenburg/gothenburg_v1.html","helsinki":"../Guides/Helsinki/helsinki_v1.html","hong kong":"../Guides/Hong%20Kong/hong_kong_v1.html","iceland":"../Guides/Iceland/reykjavik_v2.html","istanbul":"../Guides/Istanbul/istanbul_v1.html","kauai":"../Guides/Kauai/kauai_v1.html","kyoto":"../Guides/Kyoto/kyoto_v1.html","lagos":"../Guides/Lagos/lagos_v1.html","lake como":"../Guides/Lake%20Como/lake_como_v1.html","lille":"../Guides/Lille/lille_v1.html","lima":"../Guides/Lima/lima_v1.html","lisbon":"../Guides/Lisbon/lisbon_v4.html","ljubljana":"../Guides/Ljubljana/ljubljana_v1.html","london":"../Guides/London/london_v5.html","los angeles":"../Guides/Los%20Angeles/los_angeles_v1.html","lucerne":"../Guides/Lucerne/lucerne_v1.html","luxembourg":"../Guides/Luxembourg/luxembourg_v1.html","lyon":"../Guides/Lyon/lyon_v1.html","machupicchu":"../Guides/MachuPicchu/machupicchu_v1.html","madeira":"../Guides/Madeira/madeira_v1.html","madrid":"../Guides/Madrid/madrid_v1.html","marktoberdorf":"../Guides/Marktoberdorf/marktoberdorf_v1.html","marrakech":"../Guides/Marrakech/marrakech_v1.html","marseille":"../Guides/Marseille/marseille_v1.html","maui":"../Guides/Maui/maui_v1.html","melbourne":"../Guides/Melbourne/melbourne_v1.html","miami":"../Guides/Miami/miami_v1.html","milan":"../Guides/Milan/milan_v1.html","monaco":"../Guides/Monaco/monaco_v1.html","montevideo":"../Guides/Montevideo/montevideo_v1.html","montreal":"../Guides/Montreal/montreal_v1.html","munich":"../Guides/Munich/munich_v2.html","naples":"../Guides/Naples/naples_v1.html","new york":"../Guides/New%20York/new_york_v1.html","nice":"../Guides/Nice/nice_v1.html","oahu":"../Guides/Oahu/oahu_v1.html","orlando":"../Guides/Orlando/orlando_v1.html","oslo":"../Guides/Oslo/oslo_v1.html","oxford":"../Guides/Oxford/oxford_v1.html","palm desert":"../Guides/Palm%20Desert/palm_desert_v1.html","palo alto":"../Guides/Palo%20Alto/palo_alto_v6.html","paris":"../Guides/Paris/paris_v7.html","pasadena":"../Guides/Pasadena/pasadena_v5.html","phuket":"../Guides/Phuket/phuket_v1.html","pisa":"../Guides/Pisa/pisa_v1.html","porto":"../Guides/Porto/porto_v2.html","prague":"../Guides/Prague/prague_v1.html","puerto rico":"../Guides/Puerto%20Rico/puerto_rico_v1.html","quebec city":"../Guides/Quebec%20City/quebec_city_v1.html","queenstown":"../Guides/Queenstown/queenstown_v1.html","rio de janeiro":"../Guides/Rio%20de%20Janeiro/rio_de_janeiro_v1.html","rome":"../Guides/Rome/rome_v1.html","salzburg":"../Guides/Salzburg/salzburg_v1.html","san diego":"../Guides/San%20Diego/san_diego_v1.html","san francisco":"../Guides/San%20Francisco/sf_v3.html","san sebastian":"../Guides/San%20Sebastian/san_sebastian_v1.html","santiago":"../Guides/Santiago/santiago_v1.html","scottsdale":"../Guides/Scottsdale/scottsdale_v1.html","seattle":"../Guides/Seattle/seattle_v1.html","seoul":"../Guides/Seoul/seoul_v1.html","seville":"../Guides/Seville/seville_v1.html","shanghai":"../Guides/Shanghai/shanghai_v1.html","siena":"../Guides/Siena/siena_v1.html","singapore":"../Guides/Singapore/singapore_v3.html","sint maarten":"../Guides/Sint%20Maarten/sint_maarten_v1.html","sintra":"../Guides/Sintra/sintra_v2.html","sorrento":"../Guides/Sorrento/sorrento_v1.html","split":"../Guides/Split/split_v1.html","stockholm":"../Guides/Stockholm/stockholm_v1.html","strasbourg":"../Guides/Strasbourg/strasbourg_v1.html","stuttgart":"../Guides/Stuttgart/stuttgart_v1.html","sydney":"../Guides/Sydney/sydney_v2.html","taipei":"../Guides/Taipei/taipei_v1.html","tallinn":"../Guides/Tallinn/tallinn_v1.html","tokyo":"../Guides/Tokyo/tokyo_v1.html","toledo":"../Guides/Toledo/toledo_v1.html","toronto":"../Guides/Toronto/toronto_v1.html","tromso":"../Guides/Tromso/tromso_v1.html","turin":"../Guides/Turin/turin_v14.html","united arab emirates":"../Guides/United%20Arab%20Emirates/united_arab_emirates_v1.html","vancouver":"../Guides/Vancouver/vancouver_v1.html","venice":"../Guides/Venice/venice_v1.html","verona":"../Guides/Verona/verona_v1.html","vienna":"../Guides/Vienna/vienna_v1.html","virgin islands":"../Guides/Virgin%20Islands/virgin_islands_v1.html","wellington":"../Guides/Wellington/wellington_v1.html","zhangjiajie":"../Guides/Zhangjiajie/zhangjiajie_v1.html","zurich":"../Guides/Zurich/zurich_v1.html"};
+  function norm(s){return (s||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().trim();}
+  var keys=Object.keys(GUIDES).sort(function(a,b){return b.length-a.length;});
+  function findGuide(city){
+    var c=norm(city);
+    if(GUIDES[c])return GUIDES[c];
+    for(var i=0;i<keys.length;i++){var k=keys[i];if(c===k||c.indexOf(k+' ')===0)return GUIDES[k];}
+    return null;
+  }
+  document.querySelectorAll('.dest-card,.us-card').forEach(function(card){
+    var el=card.querySelector('.dest-city,.us-city');if(!el)return;
+    var href=findGuide(el.textContent);if(!href)return;
+    card.classList.add('has-guide');
+    var a=document.createElement('a');
+    a.className='guide-link';a.href=href;a.textContent='📖 Guide';
+    a.setAttribute('aria-label','Open the '+el.textContent.trim()+' guide');
+    card.appendChild(a);
+    card.addEventListener('click',function(e){if(e.target.closest('a'))return;window.location.href=href;});
+  });
+})();
+</script>
+
+<script>
+/* Nonstop flight time from SEA — applied only to tier-0 (nonstop) cards by IATA code.
+   Approximate scheduled block times; westbound/eastbound vary ~30–60 min. */
+(function(){
+  var FT={AMS:'~10h',BCN:'~10½h',LHR:'~9½h',CDG:'~10h',FCO:'~11h',
+          ICN:'~11h',PVG:'~12h',TPE:'~12½h',HND:'~10½h',YVR:'~45m'};
+  document.querySelectorAll('.dest-card.t0').forEach(function(card){
+    var codeEl=card.querySelector('.dest-code');if(!codeEl)return;
+    var code=(codeEl.textContent.trim().split(/[^A-Za-z]/)[0]||'').toUpperCase();
+    if(!FT[code])return;
+    var d=document.createElement('div');
+    d.className='flt';d.textContent='⏱ '+FT[code]+' nonstop';
+    var meta=card.querySelector('.dest-meta');
+    if(meta&&meta.nextSibling)meta.parentNode.insertBefore(d,meta.nextSibling);
+    else card.appendChild(d);
+  });
+})();
+</script>
+
+<script>
+/* Scroll-spy — highlight the route-nav link for the region currently in view. */
+(function(){
+  var links=[].slice.call(document.querySelectorAll('#route-nav .nav-link'));
+  if(!links.length||!('IntersectionObserver' in window))return;
+  var map={};
+  links.forEach(function(a){var id=(a.getAttribute('href')||'').slice(1);if(id)map[id]=a;});
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){
+        links.forEach(function(a){a.classList.toggle('active',a===map[en.target.id]);});
+      }
+    });
+  },{rootMargin:'-30% 0px -60% 0px',threshold:0});
+  Object.keys(map).forEach(function(id){var s=document.getElementById(id);if(s)obs.observe(s);});
 })();
 </script>
 

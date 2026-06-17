@@ -62,6 +62,14 @@
       "expected_attraction": "Cité du Vin",
       "result": "PASS",
       "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "no-wikipedia:Grosse Cloche": {
+      "platform": "wikipedia-omit",
+      "result": "OMIT",
+      "expected_attraction": "Grosse Cloche",
+      "verified_on": "2026-06-17",
+      "verified_by": "claude-agent",
+      "notes": "Searched en.wikipedia.org: no standalone English article exists for the Grosse Cloche; English coverage is only a File page plus a section of the broader 'Bordeaux' article. A dedicated standalone article exists only on the French Wikipedia, which the validator does not accept in the reader-facing 📖 slot, so it is omitted as this guide's single allowed omission."
     }
   }
 }

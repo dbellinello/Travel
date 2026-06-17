@@ -94,6 +94,14 @@
       "expected_attraction": "Al Fahidi Historical Neighbourhood",
       "result": "PASS",
       "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "no-wikipedia:The View at The Palm": {
+      "platform": "wikipedia-omit",
+      "result": "OMIT",
+      "expected_attraction": "The View at The Palm",
+      "verified_on": "2026-06-17",
+      "verified_by": "claude-agent",
+      "notes": "The View at The Palm observation deck has no standalone English Wikipedia article; it is covered only within the Palm Jumeirah and Tourist attractions in Dubai articles. Searched en.wikipedia.org for the deck and Palm Tower with no qualifying standalone result."
     }
   }
 }

@@ -148,6 +148,14 @@
       "expected_attraction": "La Citadelle",
       "result": "PASS",
       "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "no-wikipedia:Observatoire de la Capitale": {
+      "platform": "wikipedia-omit",
+      "result": "OMIT",
+      "expected_attraction": "Observatoire de la Capitale",
+      "verified_on": "2026-06-17",
+      "verified_by": "claude-agent",
+      "notes": "Searched en.wikipedia.org: no standalone English article exists for the Observatoire de la Capitale observation deck; the only related page is Edifice Marie-Guyart (the office tower housing it, a different subject), and the French 'Observatoire de la capitale' page is merely a redirect into that building article, so it does not qualify."
     }
   }
 }

@@ -85,6 +85,14 @@
       "expected_attraction": "Le Suquet",
       "result": "PASS",
       "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "no-wikipedia:Musée de la Castre": {
+      "platform": "wikipedia-omit",
+      "result": "OMIT",
+      "expected_attraction": "Musée de la Castre",
+      "verified_on": "2026-06-17",
+      "verified_by": "claude-agent",
+      "notes": "Searched en.wikipedia.org: no standalone English article exists for the Musée de la Castre (now Musée des Explorations du monde). The museum is only listed within 'List of museums in France' and the 'Cannes' article; the standalone article is French-only, which is not accepted in the reader-facing 📖 slot, so it is omitted."
     }
   }
 }

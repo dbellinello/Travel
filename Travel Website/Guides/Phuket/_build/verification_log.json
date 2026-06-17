@@ -140,6 +140,14 @@
       "expected_attraction": "Phang Nga Bay &amp; James Bond Island",
       "result": "PASS",
       "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "no-wikipedia:Promthep Cape": {
+      "platform": "wikipedia-omit",
+      "result": "OMIT",
+      "expected_attraction": "Promthep Cape",
+      "verified_on": "2026-06-17",
+      "verified_by": "claude-agent",
+      "notes": "No standalone English Wikipedia article exists for Promthep Cape (Laem Phromthep); it is mentioned only within the broader Phuket province article and no suitable same-subject redirect target exists, so there is no qualifying article to link."
     }
   }
 }

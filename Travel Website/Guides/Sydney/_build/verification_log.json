@@ -352,6 +352,14 @@
       "expected_attraction": "Katoomba Town Centre",
       "result": "PASS",
       "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "no-wikipedia:Sydney Harbour Cruise": {
+      "platform": "wikipedia-omit",
+      "result": "OMIT",
+      "expected_attraction": "Sydney Harbour Cruise",
+      "verified_on": "2026-06-17",
+      "verified_by": "claude",
+      "notes": "No standalone English Wikipedia article; a Sydney Harbour cruise is a tour-operator activity, not a dedicated Wikipedia subject."
     }
   },
   "_meta": {

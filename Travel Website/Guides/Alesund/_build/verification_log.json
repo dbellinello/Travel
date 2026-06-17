@@ -115,6 +115,14 @@
       "expected_attraction": "Trollstigen",
       "result": "PASS",
       "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "no-wikipedia:Aksla": {
+      "platform": "wikipedia-omit",
+      "result": "OMIT",
+      "expected_attraction": "Aksla",
+      "verified_on": "2026-06-17",
+      "verified_by": "claude-agent",
+      "notes": "No standalone English Wikipedia article exists for the Aksla viewpoint/hill in Ålesund; it is mentioned only within the broader Ålesund town article, so there is no qualifying same-subject standalone article to link."
     }
   }
 }

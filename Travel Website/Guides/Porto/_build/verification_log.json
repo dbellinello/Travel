@@ -183,6 +183,14 @@
       "expected_attraction": "Sé do Porto",
       "result": "PASS",
       "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "no-wikipedia:Mercado do Bolhão": {
+      "platform": "wikipedia-omit",
+      "result": "OMIT",
+      "expected_attraction": "Mercado do Bolhão",
+      "verified_on": "2026-06-17",
+      "verified_by": "claude-agent",
+      "notes": "Searched en.wikipedia.org: no standalone English article exists for Mercado do Bolhão. English coverage is limited to a File page and the broader 'Porto' city article; a dedicated standalone article exists only on the French/Portuguese Wikipedias, which the validator does not accept in the reader-facing 📖 slot, so it is omitted."
     }
   }
 }

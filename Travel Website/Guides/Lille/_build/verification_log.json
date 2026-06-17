@@ -111,6 +111,14 @@
       "expected_attraction": "La Piscine or La Piscine Museum",
       "result": "PASS",
       "notes": "h1 matched stop name via verify_booking_links.py"
+    },
+    "no-wikipedia:Halles de Wazemmes": {
+      "platform": "wikipedia-omit",
+      "result": "OMIT",
+      "expected_attraction": "Halles de Wazemmes",
+      "verified_on": "2026-06-17",
+      "verified_by": "claude",
+      "notes": "No standalone English Wikipedia article for Halles de Wazemmes; only a French-language article exists, which does not qualify for the English reading slot."
     }
   }
 }
