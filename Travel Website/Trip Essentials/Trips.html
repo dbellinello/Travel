@@ -3,6 +3,55 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- ── PIN gate (client-side; casual privacy only) ── -->
+<style id="__pin_gate_style">body{visibility:hidden}</style>
+<script>
+(function(){
+  var KEY='trips_auth_v1', PIN='8008';
+  function unlock(){
+    var s=document.getElementById('__pin_gate_style'); if(s) s.parentNode.removeChild(s);
+    var g=document.getElementById('__pin_gate'); if(g) g.parentNode.removeChild(g);
+  }
+  if(sessionStorage.getItem(KEY)==='ok'){
+    if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',unlock);} else {unlock();}
+    return;
+  }
+  function buildGate(){
+    var ov=document.createElement('div');
+    ov.id='__pin_gate';
+    ov.setAttribute('style','visibility:visible;position:fixed;inset:0;z-index:2147483647;background:#f5f4f0;display:flex;align-items:center;justify-content:center;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;');
+    ov.innerHTML=''
+      +'<div style="background:#fff;border:1px solid #d8d5ce;border-radius:10px;padding:28px 26px;max-width:300px;width:90%;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.08);">'
+      +'<div style="font-size:30px;margin-bottom:6px;">🔒</div>'
+      +'<div style="font-size:16px;font-weight:600;color:#1a1917;margin-bottom:4px;">Trips</div>'
+      +'<div style="font-size:13px;color:#6b6860;margin-bottom:16px;">Enter the 4-digit code</div>'
+      +'<input id="__pin_input" inputmode="numeric" pattern="[0-9]*" maxlength="4" autocomplete="off" '
+      +'style="width:100%;text-align:center;letter-spacing:10px;font-size:24px;padding:10px 8px;border:1px solid #d8d5ce;border-radius:7px;outline:none;color:#1a1917;background:#f0eeea;" />'
+      +'<div id="__pin_err" style="height:16px;font-size:12px;color:#a00020;margin-top:8px;"></div>'
+      +'<button id="__pin_btn" style="margin-top:6px;width:100%;padding:10px;border:none;border-radius:7px;background:#8a6c1a;color:#fff;font-size:14px;font-weight:600;cursor:pointer;">Unlock</button>'
+      +'</div>';
+    document.body.appendChild(ov);
+    var input=document.getElementById('__pin_input');
+    var err=document.getElementById('__pin_err');
+    var btn=document.getElementById('__pin_btn');
+    function tryUnlock(){
+      if(input.value===PIN){
+        sessionStorage.setItem(KEY,'ok');
+        unlock();
+      } else {
+        err.textContent='Incorrect code';
+        input.value='';
+        input.focus();
+      }
+    }
+    input.addEventListener('keydown',function(e){ if(e.key==='Enter') tryUnlock(); });
+    input.addEventListener('input',function(){ err.textContent=''; if(input.value.length===4) tryUnlock(); });
+    btn.addEventListener('click',tryUnlock);
+    input.focus();
+  }
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',buildGate);} else {buildGate();}
+})();
+</script>
 <link rel="stylesheet" href="../assets/_travel_style.css">
 <title>Trips</title>
 <style>
